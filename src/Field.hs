@@ -5,7 +5,7 @@ module Field (F(..), setF) where
 import Protolude
 
 -- | Field
-newtype F = F { getF :: Integer } deriving (Show, Generic, NFData)
+newtype F = F { getF :: Integer } deriving (Eq, Show, Generic, NFData)
 
 -- | Characteristic of field
 _q :: Integer
