@@ -4,14 +4,12 @@ module Point (PointA(..), affineAdd, affineDouble, affineNegate) where
 
 import Protolude
 
-import Field (F(..))
+import Pairing.Fq (Fq)
 
--- | Coefficient d in -x^2+y^2=1+dx^2y^2
-_d :: F
-_d = -(10240 / 10241)
+import Params (_d)
 
 -- | Point in affine coordinates
-data PointA = PointA F F deriving (Eq, Show, Generic)
+data PointA = PointA Fq Fq deriving (Eq, Show, Generic)
 
 -- | Affine addition formula
 affineAdd :: PointA -> PointA -> PointA
