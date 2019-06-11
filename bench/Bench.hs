@@ -4,15 +4,29 @@ import Protolude
 
 import Criterion.Main
 
-import Naive
+import Params
 import Point
 
-test1 :: PointA
-test1 = PointA 0 1
+-- | Naive doubling
+affineDoubleNaive :: Point -> Point
+affineDoubleNaive (Point x y) = Point x' y'
+  where
+    x' = (x * y + x * y) / (1 + _d * x * x * y * y)
+    y' = (y * y + x * x) / (1 - _d * x * x * y * y)
 
-test2 :: PointA
-test2 = PointA 0 (-1)
+-- | Naive multiplication
+affineMultiplyNaive :: Int -> Point -> Point
+affineMultiplyNaive = (.) (foldr affineAdd (Point 0 1)) . replicate
 
+-- | Point of order one
+test1 :: Point
+test1 = Point 0 1
+
+-- | Point of order two
+test2 :: Point
+test2 = Point 0 (-1)
+
+-- | Benchmarks
 benchmarks :: [Benchmark]
 benchmarks =
   [ bgroup "doubling"
@@ -29,10 +43,10 @@ benchmarks =
     [ bench "naive_one"
       $ whnf (affineMultiplyNaive 10) test1
     , bench "fast_one"
-      $ whnf (affineMultiply 10) test1
+      $ whnf (flip affineMultiply 10) test1
     , bench "naive_two"
       $ whnf (affineMultiplyNaive 10) test2
     , bench "fast_two"
-      $ whnf (affineMultiply 10) test2
+      $ whnf (flip affineMultiply 10) test2
     ]
   ]

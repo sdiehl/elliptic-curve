@@ -1,8 +1,13 @@
-module Params (_q, _r, _h, _d) where
+module Params
+  ( _q
+  , _r
+  , _h
+  , _d
+  ) where
 
 import Protolude
 
-import Pairing.Fq (Fq)
+import Field (F)
 
 -- | Characteristic of field
 _q :: Integer
@@ -19,5 +24,5 @@ _h :: Integer
 _h = 8
 
 -- | Coefficient of curve
-_d :: Fq
+_d :: F
 _d = -(10240 / 10241)

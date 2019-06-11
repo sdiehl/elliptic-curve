@@ -32,7 +32,6 @@ dependencies:
   - memory
   - wl-pprint-text
   - QuickCheck
-  - pairing
   - criterion
 
 library:
@@ -73,7 +72,6 @@ library:
 
   exposed-modules:
     - JubJub
-    - Naive
     - Params
     - Point
 
@@ -93,5 +91,4 @@ benchmarks:
       - wl-pprint-text
       - QuickCheck
       - jubjub
-      - pairing
       - criterion

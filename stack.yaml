@@ -2,6 +2,4 @@ flags: {}
 packages:
 - .
 extra-deps:
-- arithmoi-0.8.0.0
-- pairing-0.3.1
 resolver: lts-12.20

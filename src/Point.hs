@@ -1,7 +1,7 @@
 {-# LANGUAGE DeriveAnyClass, DeriveGeneric #-}
 
 module Point
-  ( PointA(..)
+  ( Point(..)
   , affineAdd
   , affineDouble
   , affineNegate
@@ -10,19 +10,24 @@ module Point
 
 import Protolude
 
-import Pairing.Fq (Fq)
-
-import Params (_d)
+import Params (_d, _r)
+import Field (F)
 
 -- | Point in affine coordinates
-data PointA = PointA Fq Fq deriving (Eq, Show, Generic, NFData)
+data Point = Point F F deriving (Eq, Show, Generic, NFData)
+
+-- | Generator of curve
+_g :: Point
+_g = Point
+  3465144826073652318776269530687742778270252468765361963008
+  0
 
 {-# INLINE affineAdd #-}
 -- | Affine addition formula
-affineAdd :: PointA -> PointA -> PointA
-affineAdd p@(PointA x1 y1) q@(PointA x2 y2)
+affineAdd :: Point -> Point -> Point
+affineAdd p@(Point x1 y1) q@(Point x2 y2)
   | p == q    = affineDouble p
-  | otherwise = PointA x3 y3
+  | otherwise = Point x3 y3
   where
     x1x2 = x1 * x2
     y1y2 = y1 * y2
@@ -34,8 +39,8 @@ affineAdd p@(PointA x1 y1) q@(PointA x2 y2)
 
 {-# INLINE affineDouble #-}
 -- | Affine doubling formula
-affineDouble :: PointA -> PointA
-affineDouble (PointA x y) = PointA x' y'
+affineDouble :: Point -> Point
+affineDouble (Point x y) = Point x' y'
   where
     xx   = x * x
     xy   = x * y
@@ -45,16 +50,16 @@ affineDouble (PointA x y) = PointA x' y'
     y'   = (yy + xx) / (1 - dxy)
 
 -- | Affine negation formula
-affineNegate :: PointA -> PointA
-affineNegate (PointA x y) = PointA (-x) y
+affineNegate :: Point -> Point
+affineNegate (Point x y) = Point (-x) y
 
 {-# INLINE affineMultiply #-}
 -- | Affine multiplication algorithm
-affineMultiply :: Int -> PointA -> PointA
-affineMultiply n p@(PointA x y)
-  | n == 0    = PointA 0 1
-  | n < 0     = affineNegate $ affineMultiply (-n) p
+affineMultiply :: Point -> Integer -> Point
+affineMultiply p@(Point x y) n
+  | n < 0     = affineNegate $ affineMultiply p (-n)
+  | n == 0    = Point 0 1
   | even n    = p'
   | otherwise = affineAdd p p'
   where
-    p' = affineMultiply (div n 2) (affineDouble p)
+    p' = affineMultiply (affineDouble p) (div n 2)
