@@ -33,6 +33,7 @@ dependencies:
   - wl-pprint-text
   - QuickCheck
   - pairing
+  - criterion
 
 library:
   source-dirs: src
@@ -72,3 +73,25 @@ library:
 
   exposed-modules:
     - JubJub
+    - Naive
+    - Params
+    - Point
+
+benchmarks:
+  benchmarks:
+    main: Main.hs
+    source-dirs: bench
+    other-modules:
+      - Bench
+    dependencies:
+      - base >= 4.7 && < 5
+      - protolude  >= 0.2
+      - cryptonite
+      - bytestring
+      - random
+      - memory
+      - wl-pprint-text
+      - QuickCheck
+      - jubjub
+      - pairing
+      - criterion
