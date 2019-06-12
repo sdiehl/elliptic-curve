@@ -1,13 +1,21 @@
+{-# LANGUAGE DataKinds #-}
+
 module Params
-  ( _q
-  , _r
-  , _h
+  ( Fq
   , _d
+  , _h
+  , _q
+  , _r
   ) where
 
 import Protolude
 
-import Field (F)
+import GaloisField (GaloisField(..))
+import PrimeField (PrimeField(..))
+
+-- | Field type synonym
+type Fq = PrimeField 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
+-- type F = PrimeField _q
 
 -- | Characteristic of field
 _q :: Integer
@@ -24,5 +32,5 @@ _h :: Integer
 _h = 8
 
 -- | Coefficient of curve
-_d :: F
+_d :: Fq
 _d = -(10240 / 10241)

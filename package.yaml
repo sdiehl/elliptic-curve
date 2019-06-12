@@ -25,13 +25,14 @@ flags:
 dependencies:
   # Prelude
   - base >= 4.7 && < 5
-  - protolude  >= 0.2
+  - protolude >= 0.2
   - cryptonite
   - bytestring
   - random
   - memory
   - wl-pprint-text
   - QuickCheck
+  - galois-field
   - criterion
 
 library:
@@ -69,6 +70,9 @@ library:
     - OverloadedStrings
     - NoImplicitPrelude
     - FlexibleInstances
+    - FlexibleContexts
+    - ScopedTypeVariables
+    - RankNTypes
 
   exposed-modules:
     - JubJub
@@ -83,7 +87,7 @@ benchmarks:
       - Bench
     dependencies:
       - base >= 4.7 && < 5
-      - protolude  >= 0.2
+      - protolude >= 0.2
       - cryptonite
       - bytestring
       - random
