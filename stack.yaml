@@ -1,7 +1,4 @@
-flags: {}
-packages:
-- .
 extra-deps:
 - git: git@github.com:adjoint-io/galois-field.git
-  commit: 14e1500999c4dae9d0bf9564d619ba7679ff07c8
+  commit: 93ec669192403963a832d4266fd0a9eb34e615bf
 resolver: lts-13.19

@@ -1,5 +1,3 @@
-{-# LANGUAGE DataKinds #-}
-
 module Params
   ( Fq
   , _d
@@ -10,12 +8,11 @@ module Params
 
 import Protolude
 
-import GaloisField (GaloisField(..))
-import PrimeField (PrimeField(..))
+import PrimeField (PrimeField)
 
 -- | Field type synonym
 type Fq = PrimeField 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
--- type F = PrimeField _q
+-- type Fq = PrimeField _q
 
 -- | Characteristic of field
 _q :: Integer

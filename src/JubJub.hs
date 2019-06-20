@@ -1,1 +1,4 @@
-module JubJub () where
+module JubJub
+  () where
+
+import Protolude
