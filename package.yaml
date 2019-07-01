@@ -1,101 +1,52 @@
-name: jubjub
-version: 0.1.0
-synopsis: JubJub Curve
+name:        jubjub
+version:     0.1.0
+synopsis:    JubJub Curve
 description: JubJub Curve
-maintainer: Adjoint Inc (info@adjoint.io)
-license: MIT
-github: adjoint-io/jubjub
-category: Cryptography
+maintainer:  Adjoint Inc (info@adjoint.io)
+license:     MIT
+github:      adjoint-io/jubjub
+category:    Cryptography
 
-extra-source-files:
-- README.md
-- ChangeLog.md
-
-flags:
-  static:
-    description: Emit statically-linked binary
-    manual: False
-    default: False
-
-  optimized:
-    description: Perform compiler optimizations
-    manual: False
-    default: False
+default-extensions:
+  - LambdaCase
+  - RecordWildCards
+  - OverloadedStrings
+  - NoImplicitPrelude
+  - FlexibleInstances
+  - FlexibleContexts
+  - ScopedTypeVariables
+  - RankNTypes
+  - DataKinds
+  - DeriveAnyClass
+  - DeriveGeneric
 
 dependencies:
   - base >= 4.7 && < 5
   - protolude >= 0.2
   - galois-field
 
+extra-source-files:
+  - README.md
+  - ChangeLog.md
+
 library:
-  source-dirs:
-    - src
-  ghc-options:
-    -fwarn-tabs
-    -fwarn-incomplete-patterns
-    -fwarn-incomplete-record-updates
-    -fwarn-redundant-constraints
-    -fwarn-implicit-prelude
-    -fwarn-overflowed-literals
-    -fwarn-orphans
-    -fwarn-identities
-    -fwarn-dodgy-exports
-    -fwarn-dodgy-imports
-    -fwarn-duplicate-exports
-    -fwarn-overlapping-patterns
-    -fwarn-missing-fields
-    -fwarn-missing-methods
-    -fwarn-missing-signatures
-    -fwarn-noncanonical-monad-instances
-    -fwarn-unused-pattern-binds
-    -fwarn-unused-type-patterns
-    -fwarn-unrecognised-pragmas
-    -fwarn-wrong-do-bind
-    -fno-warn-name-shadowing
-    -fno-warn-unused-binds
-    -fno-warn-unused-matches
-    -fno-warn-unused-do-bind
-  default-extensions:
-    - LambdaCase
-    - RecordWildCards
-    - OverloadedStrings
-    - NoImplicitPrelude
-    - FlexibleInstances
-    - FlexibleContexts
-    - ScopedTypeVariables
-    - RankNTypes
-    - DataKinds
-    - DeriveAnyClass
-    - DeriveGeneric
   exposed-modules:
     - JubJub
+  ghc-options:
+    - -Wall
+  other-modules:
     - Params
     - Point
+  source-dirs:
+    - src
 
 benchmarks:
-  benchmarks:
-    main: Main.hs
-    source-dirs:
-      - src
-      - benchmarks
+  jubjub-benchmarks:
+    main: Main
     dependencies:
       - base >= 4.7 && < 5
       - protolude >= 0.2
       - criterion
-    default-extensions:
-      - LambdaCase
-      - RecordWildCards
-      - OverloadedStrings
-      - NoImplicitPrelude
-      - FlexibleInstances
-      - FlexibleContexts
-      - ScopedTypeVariables
-      - RankNTypes
-      - DataKinds
-      - DeriveAnyClass
-      - DeriveGeneric
-    other-modules:
-      - JubJub
-      - Params
-      - Point
-      - Benchmarks
+    source-dirs:
+      - benchmarks
+      - src

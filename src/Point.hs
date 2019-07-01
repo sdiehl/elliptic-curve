@@ -43,7 +43,7 @@ affineNegate (Point x y) = Point (-x) y
 
 -- | Affine multiplication algorithm
 affineMultiply :: Point -> Integer -> Point
-affineMultiply p@(Point x y) n
+affineMultiply p n
   | n < 0     = affineNegate (affineMultiply p (-n))
   | n == 0    = Point 0 1
   | even n    = p'
