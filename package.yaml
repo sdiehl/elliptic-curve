@@ -23,19 +23,13 @@ flags:
     default: False
 
 dependencies:
-  # Prelude
   - base >= 4.7 && < 5
-  - protolude  >= 0.2
-  - cryptonite
-  - bytestring
-  - random
-  - memory
-  - wl-pprint-text
-  - QuickCheck
+  - protolude >= 0.2
+  - galois-field
 
 library:
-  source-dirs: src
-
+  source-dirs:
+    - src
   ghc-options:
     -fwarn-tabs
     -fwarn-incomplete-patterns
@@ -61,13 +55,47 @@ library:
     -fno-warn-unused-binds
     -fno-warn-unused-matches
     -fno-warn-unused-do-bind
-
   default-extensions:
     - LambdaCase
     - RecordWildCards
     - OverloadedStrings
     - NoImplicitPrelude
     - FlexibleInstances
-
+    - FlexibleContexts
+    - ScopedTypeVariables
+    - RankNTypes
+    - DataKinds
+    - DeriveAnyClass
+    - DeriveGeneric
   exposed-modules:
     - JubJub
+    - Params
+    - Point
+
+benchmarks:
+  benchmarks:
+    main: Main.hs
+    source-dirs:
+      - src
+      - benchmarks
+    dependencies:
+      - base >= 4.7 && < 5
+      - protolude >= 0.2
+      - criterion
+    default-extensions:
+      - LambdaCase
+      - RecordWildCards
+      - OverloadedStrings
+      - NoImplicitPrelude
+      - FlexibleInstances
+      - FlexibleContexts
+      - ScopedTypeVariables
+      - RankNTypes
+      - DataKinds
+      - DeriveAnyClass
+      - DeriveGeneric
+    other-modules:
+      - JubJub
+      - Params
+      - Point
+      - Benchmarks
