@@ -19,6 +19,8 @@ default-extensions:
   - DataKinds
   - DeriveAnyClass
   - DeriveGeneric
+  - MultiParamTypeClasses
+  - TypeFamilies
 
 dependencies:
   - base >= 4.7 && < 5
@@ -31,12 +33,10 @@ extra-source-files:
 
 library:
   exposed-modules:
+    - Curve
     - JubJub
   ghc-options:
     - -Wall
-  other-modules:
-    - Params
-    - Point
   source-dirs:
     - src
 
