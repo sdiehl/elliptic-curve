@@ -40,6 +40,19 @@ library:
   source-dirs:
     - src
 
+tests:
+  jubjub-tests:
+    main: Main
+    dependencies:
+      - base >= 4.7 && < 5
+      - protolude >= 0.2
+      - tasty
+      - tasty-discover
+      - tasty-quickcheck
+    source-dirs:
+      - tests
+      - src
+
 benchmarks:
   jubjub-benchmarks:
     main: Main
