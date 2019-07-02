@@ -1,6 +1,7 @@
 module JubJub
   ( Fq
   , Point
+  , P(A)
   , _d
   , _h
   , _r
