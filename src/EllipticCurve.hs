@@ -1,5 +1,5 @@
-module Curve
-  ( Curve(..)
+module EllipticCurve
+  ( EC(..)
   ) where
 
 import Protolude
@@ -7,7 +7,7 @@ import Protolude
 import GaloisField (GaloisField)
 
 -- | Elliptic curves
-class GaloisField f => Curve c f where
+class GaloisField f => EC c f where
   {-# MINIMAL id, inv, add, def #-}
 
   data family P c f :: *                     -- ^ Elliptic curve point
@@ -36,9 +36,9 @@ class GaloisField f => Curve c f where
   def :: P c f -> Bool                       -- ^ Point is well-defined
 
 -- | Elliptic curves are semigroups
-instance Curve c f => Semigroup (P c f) where
+instance EC c f => Semigroup (P c f) where
   (<>) = add
 
 -- | Elliptic curves are monoids
-instance Curve c f => Monoid (P c f) where
+instance EC c f => Monoid (P c f) where
   mempty = id

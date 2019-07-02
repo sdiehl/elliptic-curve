@@ -33,8 +33,9 @@ extra-source-files:
 
 library:
   exposed-modules:
-    - Curve
-    - JubJub
+    - EllipticCurve
+    - EllipticCurve.JubJub
+    - EllipticCurve.BLS12_381
   ghc-options:
     - -Wall
   source-dirs:
