@@ -20,7 +20,8 @@ default-extensions:
   - DeriveAnyClass
   - DeriveGeneric
   - MultiParamTypeClasses
-  - TypeFamilies
+  - TypeFamilyDependencies
+  - UndecidableInstances
 
 dependencies:
   - base >= 4.7 && < 5
@@ -33,11 +34,16 @@ extra-source-files:
 
 library:
   exposed-modules:
-    - EllipticCurve
-    - EllipticCurve.JubJub
-    - EllipticCurve.BLS12_381
+    - Curve
+    - Curve.ShortWeierstrass
+    - Curve.ShortWeierstrass.BLS12_381
+    - Curve.ShortWeierstrass.BLS12_381.G1
+    - Curve.ShortWeierstrass.BLS12_381.G2
+    - Curve.TwistedEdwards
+    - Curve.TwistedEdwards.JubJub
   ghc-options:
     - -Wall
+    - -fno-warn-orphans
   source-dirs:
     - src
 

@@ -1,8 +1,8 @@
-module EllipticCurveTests where
+module CurveTests where
 
 import Protolude
 
-import EllipticCurve
+import Curve
 import GaloisField
 import Test.Tasty
 import Test.Tasty.QuickCheck
@@ -20,7 +20,7 @@ associativity :: Eq a => (a -> a -> a) -> a -> a -> a -> Bool
 associativity op x y z = op x (op y z) == op (op x y) z
 
 groupAxioms :: forall c f .
-  (Arbitrary (P c f), EC c f, Eq (P c f), GaloisField f, Show (P c f))
+  (Arbitrary (P c f), Curve c f, Eq (P c f), GaloisField f, Show (P c f))
   => Proxy c -> Proxy f -> TestName -> TestTree
 groupAxioms _ _ str = testGroup ("Test group axioms of " <> str)
   [ testProperty "identity"
