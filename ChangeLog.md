@@ -1,4 +1,4 @@
-# Changelog for jubjub
+# ChangeLog for elliptic-curve
 
 ## 0.1.0
 

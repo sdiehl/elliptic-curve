@@ -1,10 +1,10 @@
-name:        jubjub
+name:        elliptic-curve
 version:     0.1.0
-synopsis:    JubJub Curve
-description: JubJub Curve
+synopsis:    Elliptic curve library
+description: Elliptic curve library
 maintainer:  Adjoint Inc (info@adjoint.io)
 license:     MIT
-github:      adjoint-io/jubjub
+github:      adjoint-io/elliptic-curve
 category:    Cryptography
 
 default-extensions:
@@ -48,7 +48,7 @@ library:
     - src
 
 tests:
-  jubjub-tests:
+  elliptic-curve-tests:
     main: Main
     dependencies:
       - base >= 4.7 && < 5
@@ -61,7 +61,7 @@ tests:
       - src
 
 benchmarks:
-  jubjub-benchmarks:
+  elliptic-curve-benchmarks:
     main: Main
     dependencies:
       - base >= 4.7 && < 5
