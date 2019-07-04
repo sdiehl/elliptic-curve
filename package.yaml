@@ -36,9 +36,23 @@ library:
   exposed-modules:
     - Curve
     - Curve.ShortWeierstrass
-    - Curve.ShortWeierstrass.BLS12_381
     - Curve.ShortWeierstrass.BLS12_381.G1
     - Curve.ShortWeierstrass.BLS12_381.G2
+    - Curve.ShortWeierstrass.SECP112R1
+    - Curve.ShortWeierstrass.SECP112R2
+    - Curve.ShortWeierstrass.SECP128R1
+    - Curve.ShortWeierstrass.SECP128R2
+    - Curve.ShortWeierstrass.SECP160K1
+    - Curve.ShortWeierstrass.SECP160R1
+    - Curve.ShortWeierstrass.SECP160R2
+    - Curve.ShortWeierstrass.SECP192K1
+    - Curve.ShortWeierstrass.SECP192R1
+    - Curve.ShortWeierstrass.SECP224K1
+    - Curve.ShortWeierstrass.SECP224R1
+    - Curve.ShortWeierstrass.SECP256K1
+    - Curve.ShortWeierstrass.SECP256R1
+    - Curve.ShortWeierstrass.SECP384R1
+    - Curve.ShortWeierstrass.SECP512R1
     - Curve.TwistedEdwards
     - Curve.TwistedEdwards.JubJub
   ghc-options:
