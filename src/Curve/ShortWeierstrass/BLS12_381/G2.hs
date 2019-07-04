@@ -1,11 +1,11 @@
 module Curve.ShortWeierstrass.BLS12_381.G2
   -- | Imports
-  ( Curve(..)
-  , P(..)
+  ( Point(..)
   , SWCurve(..)
+  , SWPoint
   -- | Types
   , Fq2
-  , Point
+  , P
   -- | Parameters
   , _b
   , _h
@@ -15,8 +15,7 @@ import Protolude
 
 import ExtensionField (ExtensionField, IrreducibleMonic(..), fromList, x)
 
-import Curve (Curve(..))
-import Curve.ShortWeierstrass (P(..), SWCurve(..))
+import Curve.ShortWeierstrass (Point(..), SWCurve(..), SWPoint)
 import Curve.ShortWeierstrass.BLS12_381.G1 (Fq)
 
 -------------------------------------------------------------------------------
@@ -38,7 +37,7 @@ instance SWCurve G2 Fq2 where
   b _ = _b
 
 -- | Point of BLS12-381 curve G2
-type Point = P G2 Fq2
+type P = SWPoint G2 Fq2
 
 -------------------------------------------------------------------------------
 -- Parameters

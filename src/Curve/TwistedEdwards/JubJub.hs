@@ -1,11 +1,11 @@
 module Curve.TwistedEdwards.JubJub
   -- | Imports
-  ( Curve(..)
-  , P(..)
+  ( Point(..)
   , TECurve(..)
+  , TEPoint
   -- | Types
   , Fq
-  , Point
+  , P
   -- | Parameters
   , _d
   , _h
@@ -17,8 +17,7 @@ import Protolude
 
 import PrimeField (PrimeField)
 
-import Curve (Curve(..))
-import Curve.TwistedEdwards (P(..), TECurve(..))
+import Curve.TwistedEdwards (Point(..), TECurve(..), TEPoint)
 
 -------------------------------------------------------------------------------
 -- Types
@@ -36,7 +35,7 @@ instance TECurve JubJub Fq where
   d _ = _d
 
 -- | Point of JubJub curve
-type Point = P JubJub Fq
+type P = TEPoint JubJub Fq
 
 -------------------------------------------------------------------------------
 -- Parameters

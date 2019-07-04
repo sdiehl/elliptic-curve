@@ -1,11 +1,11 @@
 module Curve.ShortWeierstrass.BLS12_381.G1
   -- | Imports
-  ( Curve(..)
-  , P(..)
+  ( Point(..)
   , SWCurve(..)
+  , SWPoint
   -- | Types
   , Fq
-  , Point
+  , P
   -- | Parameters
   , _b
   , _h
@@ -15,8 +15,7 @@ import Protolude
 
 import PrimeField (PrimeField)
 
-import Curve (Curve(..))
-import Curve.ShortWeierstrass (P(..), SWCurve(..))
+import Curve.ShortWeierstrass (Point(..), SWCurve(..), SWPoint)
 
 -------------------------------------------------------------------------------
 -- Types
@@ -34,7 +33,7 @@ instance SWCurve G1 Fq where
   b _ = _b
 
 -- | Point of BLS12-381 curve G1
-type Point = P G1 Fq
+type P = SWPoint G1 Fq
 
 -------------------------------------------------------------------------------
 -- Parameters

@@ -1,7 +1,8 @@
 module Curve.ShortWeierstrass
   -- | Types
-  ( P(..)
+  ( Point(..)
   , SWCurve(..)
+  , SWPoint
   ) where
 
 import Protolude
@@ -14,21 +15,27 @@ import Curve (Curve(..))
 -- Types
 -------------------------------------------------------------------------------
 
+-- | Short Weierstrass representation
+data SW
+
 -- | Short Weierstrass curves @Y^2 = X^3 + aX^2 + b@
-class Curve c k => SWCurve c k where
+class Curve SW c k => SWCurve c k where
   a :: c -> k -- ^ a
   b :: c -> k -- ^ b
+
+-- | Short Weierstrass points
+type SWPoint = Point SW
 
 -------------------------------------------------------------------------------
 -- Operations
 -------------------------------------------------------------------------------
 
 -- | Short Weierstrass curves are elliptic curves
-instance (GaloisField k, SWCurve c k) => Curve c k where
+instance (GaloisField k, SWCurve c k) => Curve SW c k where
 
-  data instance P c k = A k k -- ^ Affine point
-                      | O     -- ^ Infinite point
-    deriving (Eq, Show)
+  data instance Point SW c k = A k k -- ^ Affine point
+                             | O     -- ^ Infinite point
+    deriving (Eq, Generic, NFData, Show)
 
   id = O
   {-# INLINE id #-}

@@ -1,7 +1,8 @@
 module Curve.TwistedEdwards
   -- | Types
-  ( P(..)
+  ( Point(..)
   , TECurve(..)
+  , TEPoint
   ) where
 
 import Protolude
@@ -14,20 +15,26 @@ import Curve (Curve(..))
 -- Types
 -------------------------------------------------------------------------------
 
+-- | Twisted Edwards representation
+data TE
+
 -- | Twisted Edwards curves @aX^2 + Y^2 = 1 + dX^2Y^2@
-class Curve c k => TECurve c k where
+class Curve TE c k => TECurve c k where
   a :: c -> k -- ^ a
   d :: c -> k -- ^ d
+
+-- | Twisted Edwards points
+type TEPoint = Point TE
 
 -------------------------------------------------------------------------------
 -- Operations
 -------------------------------------------------------------------------------
 
 -- | Twisted Edwards curves are elliptic curves
-instance (GaloisField k, TECurve c k) => Curve c k where
+instance (GaloisField k, TECurve c k) => Curve TE c k where
 
-  data instance P c k = A k k -- ^ Affine point
-    deriving (Eq, Show, Generic, NFData)
+  data instance Point TE c k = A k k -- ^ Affine point
+    deriving (Eq, Generic, NFData, Show)
 
   id = A 0 1
   {-# INLINE id #-}

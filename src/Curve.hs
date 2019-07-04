@@ -11,39 +11,46 @@ import GaloisField (GaloisField)
 -- Types
 -------------------------------------------------------------------------------
 
--- | Elliptic curves
-class GaloisField k => Curve c k where
+-- | Elliptic curves over Galois fields
+class GaloisField k => Curve r c k where
   {-# MINIMAL id, inv, add, def #-}
 
-  data family P c k :: *                     -- ^ Elliptic curve point
+  -- | Elliptic curve point
+  data family Point r c k :: *
 
-  id :: P c k                                -- ^ Point identity
+  -- | Point identity
+  id :: Point r c k
 
-  inv :: P c k -> P c k                      -- ^ Point inversion
+  -- | Point inversion
+  inv :: Point r c k -> Point r c k
 
-  add :: P c k -> P c k -> P c k             -- ^ Point addition
+  -- | Point addition
+  add :: Point r c k -> Point r c k -> Point r c k
 
-  double :: P c k -> P c k                   -- ^ Point doubling
+  -- | Point doubling
+  double :: Point r c k -> Point r c k
   double = join add
   {-# INLINE double #-}
 
-  scale :: Integral n => n -> P c k -> P c k -- ^ Point scalar multiplication
-  scale n p
-    | n < 0     = inv (scale (-n) p)
+  -- | Point multiplication
+  mul :: Integral n => n -> Point r c k -> Point r c k
+  mul n p
+    | n < 0     = inv (mul (-n) p)
     | n == 0    = id
     | n == 1    = p
     | even n    = p'
     | otherwise = add p p'
     where
-      p' = scale (div n 2) (double p)
-  {-# INLINE scale #-}
+      p' = mul (div n 2) (double p)
+  {-# INLINE mul #-}
 
-  def :: P c k -> Bool                       -- ^ Point is well-defined
+  -- | Point is well-defined
+  def :: Point r c k -> Bool
 
 -- | Elliptic curves are semigroups
-instance Curve c k => Semigroup (P c k) where
+instance Curve r c k => Semigroup (Point r c k) where
   (<>) = add
 
 -- | Elliptic curves are monoids
-instance Curve c k => Monoid (P c k) where
+instance Curve r c k => Monoid (Point r c k) where
   mempty = id
