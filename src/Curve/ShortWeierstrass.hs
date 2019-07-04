@@ -18,13 +18,17 @@ import Curve (Curve(..))
 -- | Short Weierstrass representation
 data SW
 
--- | Short Weierstrass curves @Y^2 = X^3 + aX^2 + b@
-class Curve SW c k => SWCurve c k where
-  a :: c -> k -- ^ a
-  b :: c -> k -- ^ b
-
 -- | Short Weierstrass points
 type SWPoint = Point SW
+
+-- | Short Weierstrass curves @Y^2 = X^3 + aX^2 + b@
+class Curve SW c k => SWCurve c k where
+  _a :: c -> k            -- ^ a
+  _b :: c -> k            -- ^ b
+  _g :: SWPoint c k       -- ^ generator
+  _h :: c -> k -> Integer -- ^ cofactor
+  _q :: c -> k -> Integer -- ^ characteristic
+  _r :: c -> k -> Integer -- ^ order
 
 -------------------------------------------------------------------------------
 -- Operations
@@ -59,15 +63,15 @@ instance (GaloisField k, SWCurve c k) => Curve SW c k where
   double O       = O
   double (A x y) = A x' y'
     where
-      a_ = a (witness :: c)
-      l  = (3 * x * x + a_) / (y + y)
+      a  = _a (witness :: c)
+      l  = (3 * x * x + a) / (y + y)
       x' = l * l - x - x
       y' = l * (x - x') - y
   {-# INLINE double #-}
 
   def O       = True
-  def (A x y) = y * y == x * x * x + a_ * x + b_
+  def (A x y) = y * y == x * x * x + a * x + b
     where
-      a_ = a (witness :: c)
-      b_ = b (witness :: c)
+      a = _a (witness :: c)
+      b = _b (witness :: c)
   {-# INLINE def #-}
