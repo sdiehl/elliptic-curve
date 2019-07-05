@@ -26,17 +26,17 @@ type Fq = PrimeField 0xDB7C2ABF62E35E668076BEAD208B
 
 -- | SECP112R1 curve is a short Weierstrass curve
 instance SWCurve SECP112R1 Fq where
-  _a _   = 0xDB7C2ABF62E35E668076BEAD2088
+  _a _ = 0xDB7C2ABF62E35E668076BEAD2088
   {-# INLINE _a #-}
-  _b _   = 0x659EF8BA043916EEDE8911702B22
+  _b _ = 0x659EF8BA043916EEDE8911702B22
   {-# INLINE _b #-}
-  _g     = notImplemented
+  _g   = notImplemented
   {-# INLINE _g #-}
-  _h _ _ = 1
+  _h _ = 1
   {-# INLINE _h #-}
-  _q _ _ = 0xDB7C2ABF62E35E668076BEAD208B
+  _q _ = 0xDB7C2ABF62E35E668076BEAD208B
   {-# INLINE _q #-}
-  _r _ _ = 0xDB7C2ABF62E35E7628DFAC6561C5
+  _r _ = 0xDB7C2ABF62E35E7628DFAC6561C5
   {-# INLINE _r #-}
 
 -- | Point of SECP112R1 curve

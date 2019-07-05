@@ -21,14 +21,14 @@ data SW
 -- | Short Weierstrass points
 type SWPoint = Point SW
 
--- | Short Weierstrass curves @Y^2 = X^3 + aX^2 + b@
+-- | Short Weierstrass curves @Y^2 = X^3 + AX + B@
 class Curve SW c k => SWCurve c k where
-  _a :: c -> k            -- ^ a
-  _b :: c -> k            -- ^ b
+  _a :: (c, k) -> k       -- ^ A
+  _b :: (c, k) -> k       -- ^ B
   _g :: SWPoint c k       -- ^ generator
-  _h :: c -> k -> Integer -- ^ cofactor
-  _q :: c -> k -> Integer -- ^ characteristic
-  _r :: c -> k -> Integer -- ^ order
+  _h :: (c, k) -> Integer -- ^ cofactor
+  _q :: (c, k) -> Integer -- ^ characteristic
+  _r :: (c, k) -> Integer -- ^ order
 
 -------------------------------------------------------------------------------
 -- Operations
@@ -63,15 +63,15 @@ instance (GaloisField k, SWCurve c k) => Curve SW c k where
   double O       = O
   double (A x y) = A x' y'
     where
-      a  = _a (witness :: c)
-      l  = (3 * x * x + a) / (y + y)
-      x' = l * l - x - x
+      a  = _a (witness :: (c, k))
+      l  = (3 * x * x + a) / (2 * y)
+      x' = l * l - 2 * x
       y' = l * (x - x') - y
   {-# INLINE double #-}
 
   def O       = True
-  def (A x y) = y * y == x * x * x + a * x + b
+  def (A x y) = y * y == x * (x * x + a) + b
     where
-      a = _a (witness :: c)
-      b = _b (witness :: c)
+      a = _a (witness :: (c, k))
+      b = _b (witness :: (c, k))
   {-# INLINE def #-}

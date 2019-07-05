@@ -26,17 +26,17 @@ type Fq = PrimeField 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFEE37
 
 -- | SECP192K1 curve is a short Weierstrass curve
 instance SWCurve SECP192K1 Fq where
-  _a _   = 0
+  _a _ = 0
   {-# INLINE _a #-}
-  _b _   = 3
+  _b _ = 3
   {-# INLINE _b #-}
-  _g     = notImplemented
+  _g   = notImplemented
   {-# INLINE _g #-}
-  _h _ _ = 1
+  _h _ = 1
   {-# INLINE _h #-}
-  _q _ _ = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFEE37
+  _q _ = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFEE37
   {-# INLINE _q #-}
-  _r _ _ = 0xFFFFFFFFFFFFFFFFFFFFFFFE26F2FC170F69466A74DEFD8D
+  _r _ = 0xFFFFFFFFFFFFFFFFFFFFFFFE26F2FC170F69466A74DEFD8D
   {-# INLINE _r #-}
 
 -- | Point of SECP192K1 curve

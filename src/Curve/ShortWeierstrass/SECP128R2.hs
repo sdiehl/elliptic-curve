@@ -26,17 +26,17 @@ type Fq = PrimeField 0xFFFFFFFDFFFFFFFFFFFFFFFFFFFFFFFF
 
 -- | SECP128R2 curve is a short Weierstrass curve
 instance SWCurve SECP128R2 Fq where
-  _a _   = 0xD6031998D1B3BBFEBF59CC9BBFF9AEE1
+  _a _ = 0xD6031998D1B3BBFEBF59CC9BBFF9AEE1
   {-# INLINE _a #-}
-  _b _   = 0x5EEEFCA380D02919DC2C6558BB6D8A5D
+  _b _ = 0x5EEEFCA380D02919DC2C6558BB6D8A5D
   {-# INLINE _b #-}
-  _g     = notImplemented
+  _g   = notImplemented
   {-# INLINE _g #-}
-  _h _ _ = 4
+  _h _ = 4
   {-# INLINE _h #-}
-  _q _ _ = 0xFFFFFFFDFFFFFFFFFFFFFFFFFFFFFFFF
+  _q _ = 0xFFFFFFFDFFFFFFFFFFFFFFFFFFFFFFFF
   {-# INLINE _q #-}
-  _r _ _ = 0x3FFFFFFF7FFFFFFFBE0024720613B5A3
+  _r _ = 0x3FFFFFFF7FFFFFFFBE0024720613B5A3
   {-# INLINE _r #-}
 
 -- | Point of SECP128R2 curve

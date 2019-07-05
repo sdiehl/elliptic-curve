@@ -21,14 +21,14 @@ data TE
 -- | Twisted Edwards points
 type TEPoint = Point TE
 
--- | Twisted Edwards curves @aX^2 + Y^2 = 1 + dX^2Y^2@
+-- | Twisted Edwards curves @AX^2 + Y^2 = 1 + DX^2Y^2@
 class Curve TE c k => TECurve c k where
-  _a :: c -> k            -- ^ a
-  _d :: c -> k            -- ^ d
+  _a :: (c, k) -> k       -- ^ A
+  _d :: (c, k) -> k       -- ^ D
   _g :: TEPoint c k       -- ^ generator
-  _h :: c -> k -> Integer -- ^ cofactor
-  _q :: c -> k -> Integer -- ^ characteristic
-  _r :: c -> k -> Integer -- ^ order
+  _h :: (c, k) -> Integer -- ^ cofactor
+  _q :: (c, k) -> Integer -- ^ characteristic
+  _r :: (c, k) -> Integer -- ^ order
 
 -------------------------------------------------------------------------------
 -- Operations
@@ -50,8 +50,8 @@ instance (GaloisField k, TECurve c k) => Curve TE c k where
     | p == q    = double p
     | otherwise = A ((x1y2 + x2y1) / (1 + dxy)) ((y1y2 - a * x1x2) / (1 - dxy))
     where
-      a    = _a (witness :: c)
-      d    = _d (witness :: c)
+      a    = _a (witness :: (c, k))
+      d    = _d (witness :: (c, k))
       x1x2 = x1 * x2
       y1y2 = y1 * y2
       x1y2 = x1 * y2
@@ -61,8 +61,8 @@ instance (GaloisField k, TECurve c k) => Curve TE c k where
 
   double (A x y) = A ((xy + xy) / (1 + dxy)) ((yy - a * xx) / (1 - dxy))
     where
-      a   = _a (witness :: c)
-      d   = _d (witness :: c)
+      a   = _a (witness :: (c, k))
+      d   = _d (witness :: (c, k))
       xx  = x * x
       xy  = x * y
       yy  = y * y
@@ -71,8 +71,8 @@ instance (GaloisField k, TECurve c k) => Curve TE c k where
 
   def (A x y) = a * xx + yy == 1 + d * xx * yy
     where
-      a  = _a (witness :: c)
-      d  = _d (witness :: c)
+      a  = _a (witness :: (c, k))
+      d  = _d (witness :: (c, k))
       xx = x * x
       yy = y * y
   {-# INLINE def #-}
