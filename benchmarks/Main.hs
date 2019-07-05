@@ -17,13 +17,15 @@ import qualified Curve.BinaryWeierstrass.SECT233K1 as SECT233K1
 import qualified Curve.BinaryWeierstrass.SECT233R1 as SECT233R1
 import qualified Curve.BinaryWeierstrass.SECT239K1 as SECT239K1
 import qualified Curve.BinaryWeierstrass.SECT283K1 as SECT283K1
-import qualified Curve.BinaryWeierstrass.SECT283R1 as SECT289R1
+import qualified Curve.BinaryWeierstrass.SECT283R1 as SECT283R1
 import qualified Curve.BinaryWeierstrass.SECT409K1 as SECT409K1
 import qualified Curve.BinaryWeierstrass.SECT409R1 as SECT409R1
 import qualified Curve.BinaryWeierstrass.SECT571K1 as SECT571K1
 import qualified Curve.BinaryWeierstrass.SECT571R1 as SECT571R1
 import qualified Curve.ShortWeierstrass.BLS12_381.G1 as BLS12_381.G1
 import qualified Curve.ShortWeierstrass.BLS12_381.G2 as BLS12_381.G2
+import qualified Curve.ShortWeierstrass.BN128.G1 as BN128.G1
+import qualified Curve.ShortWeierstrass.BN128.G2 as BN128.G2
 import qualified Curve.ShortWeierstrass.SECP112R1 as SECP112R1
 import qualified Curve.ShortWeierstrass.SECP112R2 as SECP112R2
 import qualified Curve.ShortWeierstrass.SECP128R1 as SECP128R1
@@ -69,7 +71,7 @@ main = defaultMain
   , benchmark "SECT233R1" (SECT233R1._g :: SECT233R1.P)
   , benchmark "SECT239K1" (SECT239K1._g :: SECT239K1.P)
   , benchmark "SECT283K1" (SECT283K1._g :: SECT283K1.P)
-  , benchmark "SECT289R1" (SECT289R1._g :: SECT289R1.P)
+  , benchmark "SECT283R1" (SECT283R1._g :: SECT283R1.P)
   , benchmark "SECT409K1" (SECT409K1._g :: SECT409K1.P)
   , benchmark "SECT409R1" (SECT409R1._g :: SECT409R1.P)
   , benchmark "SECT571K1" (SECT571K1._g :: SECT571K1.P)
@@ -77,6 +79,10 @@ main = defaultMain
   , bgroup "BLS12-381"
     [ benchmark "G1" (BLS12_381.G1._g :: BLS12_381.G1.P)
     , benchmark "G2" (BLS12_381.G2._g :: BLS12_381.G2.P)
+    ]
+  , bgroup "BN128"
+    [ benchmark "G1" (BN128.G1._g :: BN128.G1.P)
+    , benchmark "G2" (BN128.G2._g :: BN128.G2.P)
     ]
   , benchmark "SECP112R1" (SECP112R1._g :: SECP112R1.P)
   , benchmark "SECP112R2" (SECP112R2._g :: SECP112R2.P)
