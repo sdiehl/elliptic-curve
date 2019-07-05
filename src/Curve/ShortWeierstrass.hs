@@ -27,8 +27,8 @@ class Curve SW c k => SWCurve c k where
   _b :: (c, k) -> k       -- ^ B
   _g :: SWPoint c k       -- ^ generator
   _h :: (c, k) -> Integer -- ^ cofactor
-  _q :: (c, k) -> Integer -- ^ characteristic
-  _r :: (c, k) -> Integer -- ^ order
+  _n :: (c, k) -> Integer -- ^ order
+  _p :: (c, k) -> Integer -- ^ characteristic
 
 -------------------------------------------------------------------------------
 -- Operations

@@ -4,11 +4,9 @@ module Curve.ShortWeierstrass.SECP256R1
   , SWCurve(..)
   , SWPoint
   -- | Types
-  , Fq
+  , Fp
   , P
   ) where
-
-import Protolude
 
 import PrimeField (PrimeField)
 
@@ -22,22 +20,23 @@ import Curve.ShortWeierstrass (Point(..), SWCurve(..), SWPoint)
 data SECP256R1
 
 -- | Field of SECP256R1 curve
-type Fq = PrimeField 0xFFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF
+type Fp = PrimeField 0xffffffff00000001000000000000000000000000ffffffffffffffffffffffff
 
 -- | SECP256R1 curve is a short Weierstrass curve
-instance SWCurve SECP256R1 Fq where
-  _a _ = 0xFFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFC
+instance SWCurve SECP256R1 Fp where
+  _a _ = 0xffffffff00000001000000000000000000000000fffffffffffffffffffffffc
   {-# INLINE _a #-}
-  _b _ = 0x5AC635D8AA3A93E7B3EBBD55769886BC651D06B0CC53B0F63BCE3C3E27D2604B
+  _b _ = 0x5ac635d8aa3a93e7b3ebbd55769886bc651d06b0cc53b0f63bce3c3e27d2604b
   {-# INLINE _b #-}
-  _g   = notImplemented
+  _g   = A 0x6b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c296
+           0x4fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5
   {-# INLINE _g #-}
   _h _ = 1
   {-# INLINE _h #-}
-  _q _ = 0xFFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF
-  {-# INLINE _q #-}
-  _r _ = 0xFFFFFFFF00000000FFFFFFFFFFFFFFFFBCE6FAADA7179E84F3B9CAC2FC632551
-  {-# INLINE _r #-}
+  _n _ = 0xffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632551
+  {-# INLINE _n #-}
+  _p _ = 0xffffffff00000001000000000000000000000000ffffffffffffffffffffffff
+  {-# INLINE _p #-}
 
 -- | Point of SECP256R1 curve
-type P = SWPoint SECP256R1 Fq
+type P = SWPoint SECP256R1 Fp

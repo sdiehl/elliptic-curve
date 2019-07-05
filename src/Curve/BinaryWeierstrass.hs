@@ -37,7 +37,7 @@ class (IrreducibleMonic F2 im, Curve BW c (Fm im)) => BWCurve c im where
   _f :: (c, im) -> im      -- ^ polynomial
   _g :: BWPoint c (Fm im)  -- ^ generator
   _h :: (c, im) -> Integer -- ^ cofactor
-  _r :: (c, im) -> Integer -- ^ order
+  _n :: (c, im) -> Integer -- ^ order
 
 -------------------------------------------------------------------------------
 -- Operations

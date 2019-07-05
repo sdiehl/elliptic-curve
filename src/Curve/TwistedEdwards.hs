@@ -27,8 +27,8 @@ class Curve TE c k => TECurve c k where
   _d :: (c, k) -> k       -- ^ D
   _g :: TEPoint c k       -- ^ generator
   _h :: (c, k) -> Integer -- ^ cofactor
-  _q :: (c, k) -> Integer -- ^ characteristic
-  _r :: (c, k) -> Integer -- ^ order
+  _n :: (c, k) -> Integer -- ^ order
+  _p :: (c, k) -> Integer -- ^ characteristic
 
 -------------------------------------------------------------------------------
 -- Operations

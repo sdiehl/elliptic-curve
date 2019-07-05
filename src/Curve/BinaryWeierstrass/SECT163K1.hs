@@ -23,12 +23,10 @@ import Curve.BinaryWeierstrass (BWCurve(..), BWPoint, F2, Fm, Point(..))
 -- | SECT163K1 curve
 data SECT163K1
 
--- | Polynomial of SECT163K1 curve
+-- | Field of SECT163K1 curve
 data FX
 instance IrreducibleMonic F2 FX where
   split _ = x ^ (163 :: Int) + x ^ (7 :: Int) + x ^ (6 :: Int) + x ^ (3 :: Int) + 1
-
--- | Field of SECT163K1 curve
 type F2m = Fm FX
 
 -- | SECT163K1 curve is a binary Weierstrass curve
@@ -39,12 +37,13 @@ instance BWCurve SECT163K1 FX where
   {-# INLINE _b #-}
   _f _ = witness :: FX
   {-# INLINE _f #-}
-  _g   = notImplemented
+  _g   = A 0x02fe13c0537bbc11acaa07d793de4e6d5e5c94eee8
+           0x0289070fb05d38ff58321f2e800536d538ccdaa3d9
   {-# INLINE _g #-}
   _h _ = 2
   {-# INLINE _h #-}
-  _r _ = 0x04000000000000000000020108A2E0CC0D99F8A5EF
-  {-# INLINE _r #-}
+  _n _ = 0x04000000000000000000020108a2e0cc0d99f8a5ef
+  {-# INLINE _n #-}
 
 -- | Point of SECT163K1 curve
 type P = BWPoint SECT163K1 F2m

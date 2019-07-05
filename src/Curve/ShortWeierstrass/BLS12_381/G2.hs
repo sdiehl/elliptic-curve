@@ -4,7 +4,7 @@ module Curve.ShortWeierstrass.BLS12_381.G2
   , SWCurve(..)
   , SWPoint
   -- | Types
-  , Fq2
+  , Fp2
   , P
   ) where
 
@@ -13,7 +13,7 @@ import Protolude
 import ExtensionField (ExtensionField, IrreducibleMonic(..), fromList, x)
 
 import Curve.ShortWeierstrass (Point(..), SWCurve(..), SWPoint)
-import Curve.ShortWeierstrass.BLS12_381.G1 (Fq)
+import Curve.ShortWeierstrass.BLS12_381.G1 (Fp)
 
 -------------------------------------------------------------------------------
 -- Types
@@ -22,36 +22,36 @@ import Curve.ShortWeierstrass.BLS12_381.G1 (Fq)
 -- | BLS12-381 curve G2
 data G2
 
--- | Extension field @Fq2 = Fq[u] / <u^2 + 1>@ of BLS12-381 curve G2
+-- | Field of BLS12-381 curve G2
 data PolynomialU
-instance IrreducibleMonic Fq PolynomialU where
+instance IrreducibleMonic Fp PolynomialU where
   split _ = x ^ (2 :: Int) + 1
-type Fq2 = ExtensionField Fq PolynomialU
+type Fp2 = ExtensionField Fp PolynomialU
 
 -- | BLS12-381 curve G2 is a short Weierstrass curve
-instance SWCurve G2 Fq2 where
+instance SWCurve G2 Fp2 where
   _a _ = 0
   {-# INLINE _a #-}
   _b _ = fromList [4, 4]
   {-# INLINE _b #-}
   _g   = A
     ( fromList
-      [ 352701069587466618187139116011060144890029952792775240219908644239793785735715026873347600343865175952761926303160
-      , 3059144344244213709971259814753781636986470325476647558659373206291635324768958432433509563104347017837885763365758
+      [ 0x24aa2b2f08f0a91260805272dc51051c6e47ad4fa403b02b4510b647ae3d1770bac0326a805bbefd48056c8c121bdb8
+      , 0x13e02b6052719f607dacd3a088274f65596bd0d09920b61ab5da61bbdc7f5049334cf11213945d57e5ac7d055d042b7e
       ]
     )
     ( fromList
-      [ 1985150602287291935568054521177171638300868978215655730859378665066344726373823718423869104263333984641494340347905
-      , 927553665492332455747201965776037880757740193453592970025027978793976877002675564980949289727957565575433344219582
+      [ 0xce5d527727d6e118cc9cdc6da2e351aadfd9baa8cbdd3a76d429a695160d12c923ac9cc3baca289e193548608b82801
+      , 0x606c4a02ea734cc32acd2b02bc28b99cb3e287e85a763af267492ab572e99ab3f370d275cec1da1aaa9075ff05f79be
       ]
     )
   {-# INLINE _g #-}
   _h _ = 0x5d543a95414e7f1091d50792876a202cd91de4547085abaa68a205b2e5a7ddfa628f1cb4d9e82ef21537e293a6691ae1616ec6e786f0c70cf1c38e31c7238e5
   {-# INLINE _h #-}
-  _q _ = 0x1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab
-  {-# INLINE _q #-}
-  _r _ = 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
-  {-# INLINE _r #-}
+  _n _ = 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
+  {-# INLINE _n #-}
+  _p _ = 0x1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab
+  {-# INLINE _p #-}
 
 -- | Point of BLS12-381 curve G2
-type P = SWPoint G2 Fq2
+type P = SWPoint G2 Fp2
