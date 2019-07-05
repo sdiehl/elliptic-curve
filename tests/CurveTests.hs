@@ -19,16 +19,16 @@ commutativity op x y = op x y == op y x
 associativity :: Eq a => (a -> a -> a) -> a -> a -> a -> Bool
 associativity op x y z = op x (op y z) == op (op x y) z
 
-groupAxioms :: forall c f .
-  (Arbitrary (P c f), Curve c f, Eq (P c f), GaloisField f, Show (P c f))
-  => Proxy c -> Proxy f -> TestName -> TestTree
-groupAxioms _ _ str = testGroup ("Test group axioms of " <> str)
+groupAxioms :: forall r c k .
+  (Arbitrary (Point r c k), Curve r c k, Eq (Point r c k), GaloisField k, Show (Point r c k))
+  => Proxy r -> Proxy c -> Proxy k -> TestName -> TestTree
+groupAxioms _ _ _ str = testGroup ("Test group axioms of " <> str)
   [ testProperty "identity"
-    $ identities ((<>) :: P c f -> P c f -> P c f) mempty
+    $ identities ((<>) :: Point r c k -> Point r c k -> Point r c k) mempty
   , testProperty "inverses"
-    $ inverses ((<>) :: P c f -> P c f -> P c f) inv mempty
+    $ inverses ((<>) :: Point r c k -> Point r c k -> Point r c k) inv mempty
   , testProperty "commutativity"
-    $ commutativity ((<>) :: P c f -> P c f -> P c f)
+    $ commutativity ((<>) :: Point r c k -> Point r c k -> Point r c k)
   , testProperty "associativity"
-    $ associativity ((<>) :: P c f -> P c f -> P c f)
+    $ associativity ((<>) :: Point r c k -> Point r c k -> Point r c k)
   ]
