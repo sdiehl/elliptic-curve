@@ -35,6 +35,25 @@ extra-source-files:
 library:
   exposed-modules:
     - Curve
+    - Curve.BinaryWeierstrass
+    - Curve.BinaryWeierstrass.SECT113R1
+    - Curve.BinaryWeierstrass.SECT113R2
+    - Curve.BinaryWeierstrass.SECT131R1
+    - Curve.BinaryWeierstrass.SECT131R2
+    - Curve.BinaryWeierstrass.SECT163K1
+    - Curve.BinaryWeierstrass.SECT163R1
+    - Curve.BinaryWeierstrass.SECT163R2
+    - Curve.BinaryWeierstrass.SECT193R1
+    - Curve.BinaryWeierstrass.SECT193R2
+    - Curve.BinaryWeierstrass.SECT233K1
+    - Curve.BinaryWeierstrass.SECT233R1
+    - Curve.BinaryWeierstrass.SECT239K1
+    - Curve.BinaryWeierstrass.SECT283K1
+    - Curve.BinaryWeierstrass.SECT283R1
+    - Curve.BinaryWeierstrass.SECT409K1
+    - Curve.BinaryWeierstrass.SECT409R1
+    - Curve.BinaryWeierstrass.SECT571K1
+    - Curve.BinaryWeierstrass.SECT571R1
     - Curve.ShortWeierstrass
     - Curve.ShortWeierstrass.BLS12_381.G1
     - Curve.ShortWeierstrass.BLS12_381.G2
