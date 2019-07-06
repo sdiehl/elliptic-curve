@@ -9,8 +9,9 @@ module Curve.BinaryWeierstrass
 
 import Protolude
 
-import PrimeField (PrimeField)
 import ExtensionField (ExtensionField, IrreducibleMonic)
+import PrimeField (PrimeField)
+import Test.Tasty.QuickCheck (Arbitrary(..))
 
 import Curve (Curve(..))
 
@@ -38,6 +39,10 @@ class (IrreducibleMonic F2 im, Curve BW c (Fm im)) => BWCurve c im where
   _g :: BWPoint c (Fm im)  -- ^ generator
   _h :: (c, im) -> Integer -- ^ cofactor
   _n :: (c, im) -> Integer -- ^ order
+
+-- | Binary Weierstrass curves are arbitrary
+instance BWCurve c im => Arbitrary (Point BW c (Fm im)) where
+  arbitrary = return _g
 
 -------------------------------------------------------------------------------
 -- Operations
@@ -79,9 +84,8 @@ instance (IrreducibleMonic F2 im, BWCurve c im) => Curve BW c (Fm im) where
   {-# INLINE double #-}
 
   def O       = True
-  def (A x y) = y * (x + y) + xx * (x + a) + b == 0
+  def (A x y) = ((x + a) * x + y) * x + b + y * y == 0
     where
       a  = _a (witness :: (c, im))
       b  = _b (witness :: (c, im))
-      xx = x * x
   {-# INLINE def #-}

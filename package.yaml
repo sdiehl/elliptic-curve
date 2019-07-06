@@ -27,6 +27,8 @@ dependencies:
   - base >= 4.7 && < 5
   - protolude >= 0.2
   - galois-field
+  - tasty-hunit
+  - tasty-quickcheck
 
 extra-source-files:
   - README.md
@@ -84,8 +86,6 @@ tests:
   elliptic-curve-tests:
     main: Main
     dependencies:
-      - base >= 4.7 && < 5
-      - protolude >= 0.2
       - tasty
       - tasty-discover
       - tasty-quickcheck
@@ -97,8 +97,6 @@ benchmarks:
   elliptic-curve-benchmarks:
     main: Main
     dependencies:
-      - base >= 4.7 && < 5
-      - protolude >= 0.2
       - criterion
     source-dirs:
       - benchmarks

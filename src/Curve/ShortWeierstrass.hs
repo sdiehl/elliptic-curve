@@ -8,6 +8,7 @@ module Curve.ShortWeierstrass
 import Protolude
 
 import GaloisField (GaloisField(..))
+import Test.Tasty.QuickCheck (Arbitrary(..))
 
 import Curve (Curve(..))
 
@@ -29,6 +30,10 @@ class Curve SW c k => SWCurve c k where
   _h :: (c, k) -> Integer -- ^ cofactor
   _n :: (c, k) -> Integer -- ^ order
   _p :: (c, k) -> Integer -- ^ characteristic
+
+-- | Short Weierstrass curves are arbitrary
+instance SWCurve c k => Arbitrary (Point SW c k) where
+  arbitrary = return _g
 
 -------------------------------------------------------------------------------
 -- Operations

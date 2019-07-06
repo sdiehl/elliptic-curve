@@ -3,15 +3,54 @@ module CurveTests where
 import Protolude
 
 import Curve
+import qualified Curve.BinaryWeierstrass.SECT113R1 as SECT113R1
+import qualified Curve.BinaryWeierstrass.SECT113R2 as SECT113R2
+import qualified Curve.BinaryWeierstrass.SECT131R1 as SECT131R1
+import qualified Curve.BinaryWeierstrass.SECT131R2 as SECT131R2
+import qualified Curve.BinaryWeierstrass.SECT163K1 as SECT163K1
+import qualified Curve.BinaryWeierstrass.SECT163R1 as SECT163R1
+import qualified Curve.BinaryWeierstrass.SECT163R2 as SECT163R2
+import qualified Curve.BinaryWeierstrass.SECT193R1 as SECT193R1
+import qualified Curve.BinaryWeierstrass.SECT193R2 as SECT193R2
+import qualified Curve.BinaryWeierstrass.SECT233K1 as SECT233K1
+import qualified Curve.BinaryWeierstrass.SECT233R1 as SECT233R1
+import qualified Curve.BinaryWeierstrass.SECT239K1 as SECT239K1
+import qualified Curve.BinaryWeierstrass.SECT283K1 as SECT283K1
+import qualified Curve.BinaryWeierstrass.SECT283R1 as SECT283R1
+import qualified Curve.BinaryWeierstrass.SECT409K1 as SECT409K1
+import qualified Curve.BinaryWeierstrass.SECT409R1 as SECT409R1
+import qualified Curve.BinaryWeierstrass.SECT571K1 as SECT571K1
+import qualified Curve.BinaryWeierstrass.SECT571R1 as SECT571R1
+import qualified Curve.ShortWeierstrass.BLS12_381.G1 as BLS12_381.G1
+import qualified Curve.ShortWeierstrass.BLS12_381.G2 as BLS12_381.G2
+import qualified Curve.ShortWeierstrass.BN128.G1 as BN128.G1
+import qualified Curve.ShortWeierstrass.BN128.G2 as BN128.G2
+import qualified Curve.ShortWeierstrass.SECP112R1 as SECP112R1
+import qualified Curve.ShortWeierstrass.SECP112R2 as SECP112R2
+import qualified Curve.ShortWeierstrass.SECP128R1 as SECP128R1
+import qualified Curve.ShortWeierstrass.SECP128R2 as SECP128R2
+import qualified Curve.ShortWeierstrass.SECP160K1 as SECP160K1
+import qualified Curve.ShortWeierstrass.SECP160R1 as SECP160R1
+import qualified Curve.ShortWeierstrass.SECP160R2 as SECP160R2
+import qualified Curve.ShortWeierstrass.SECP192K1 as SECP192K1
+import qualified Curve.ShortWeierstrass.SECP192R1 as SECP192R1
+import qualified Curve.ShortWeierstrass.SECP224K1 as SECP224K1
+import qualified Curve.ShortWeierstrass.SECP224R1 as SECP224R1
+import qualified Curve.ShortWeierstrass.SECP256K1 as SECP256K1
+import qualified Curve.ShortWeierstrass.SECP256R1 as SECP256R1
+import qualified Curve.ShortWeierstrass.SECP384R1 as SECP384R1
+import qualified Curve.ShortWeierstrass.SECP512R1 as SECP512R1
+import qualified Curve.TwistedEdwards.JubJub as JubJub
 import GaloisField
 import Test.Tasty
+import Test.Tasty.HUnit
 import Test.Tasty.QuickCheck
 
 identities :: Eq a => (a -> a -> a) -> a -> a -> Bool
 identities op e x = op x e == x && op e x == x
 
 inverses :: Eq a => (a -> a -> a) -> (a -> a) -> a -> a -> Bool
-inverses op inv e x = op x (inv x) == e && op (inv x) x == e
+inverses op neg e x = op x (neg x) == e && op (neg x) x == e
 
 commutativity :: Eq a => (a -> a -> a) -> a -> a -> Bool
 commutativity op x y = op x y == op y x
@@ -21,14 +60,140 @@ associativity op x y z = op x (op y z) == op (op x y) z
 
 groupAxioms :: forall r c k .
   (Arbitrary (Point r c k), Curve r c k, Eq (Point r c k), GaloisField k, Show (Point r c k))
-  => Proxy r -> Proxy c -> Proxy k -> TestName -> TestTree
-groupAxioms _ _ _ str = testGroup ("Test group axioms of " <> str)
-  [ testProperty "identity"
-    $ identities ((<>) :: Point r c k -> Point r c k -> Point r c k) mempty
-  , testProperty "inverses"
-    $ inverses ((<>) :: Point r c k -> Point r c k -> Point r c k) inv mempty
-  , testProperty "commutativity"
-    $ commutativity ((<>) :: Point r c k -> Point r c k -> Point r c k)
-  , testProperty "associativity"
-    $ associativity ((<>) :: Point r c k -> Point r c k -> Point r c k)
+  => Point r c k -> TestName -> TestTree
+groupAxioms _ str = testGroup ("Test group axioms of " <> str)
+  [ testCase "identity closure" $
+    def (id :: Point r c k) @?= True
+  , testProperty "point closure" $
+    def . (identity :: Point r c k -> Point r c k)
+  , testProperty "inversion closure" $
+    def . (inv :: Point r c k -> Point r c k)
+  , testProperty "addition closure" $
+    (.) def . (add :: Point r c k -> Point r c k -> Point r c k)
+  , testProperty "doubling closure" $
+    def . (double :: Point r c k -> Point r c k)
+  , testProperty "multiplication closure" $
+    def . (mul 100 :: Point r c k -> Point r c k)
+  , testProperty "identity" $
+    identities (add :: Point r c k -> Point r c k -> Point r c k) mempty
+  , testProperty "inverses" $
+    inverses (add :: Point r c k -> Point r c k -> Point r c k) inv mempty
+  , testProperty "commutativity" $
+    commutativity (add :: Point r c k -> Point r c k -> Point r c k)
+  , testProperty "associativity" $
+    associativity (add :: Point r c k -> Point r c k -> Point r c k)
   ]
+
+test_sect113r1 :: TestTree
+test_sect113r1 = groupAxioms (witness :: SECT113R1.P) "SECT113R1"
+
+test_sect113r2 :: TestTree
+test_sect113r2 = groupAxioms (witness :: SECT113R2.P) "SECT113R2"
+
+test_sect131r1 :: TestTree
+test_sect131r1 = groupAxioms (witness :: SECT131R1.P) "SECT131R1"
+
+test_sect131r2 :: TestTree
+test_sect131r2 = groupAxioms (witness :: SECT131R2.P) "SECT131R2"
+
+test_sect163k1 :: TestTree
+test_sect163k1 = groupAxioms (witness :: SECT163K1.P) "SECT163K1"
+
+test_sect163r1 :: TestTree
+test_sect163r1 = groupAxioms (witness :: SECT163R1.P) "SECT163R1"
+
+test_sect163r2 :: TestTree
+test_sect163r2 = groupAxioms (witness :: SECT163R2.P) "SECT163R2"
+
+test_sect193r1 :: TestTree
+test_sect193r1 = groupAxioms (witness :: SECT193R1.P) "SECT193R1"
+
+test_sect193r2 :: TestTree
+test_sect193r2 = groupAxioms (witness :: SECT193R2.P) "SECT193R2"
+
+test_sect233k1 :: TestTree
+test_sect233k1 = groupAxioms (witness :: SECT233K1.P) "SECT233K1"
+
+test_sect233r1 :: TestTree
+test_sect233r1 = groupAxioms (witness :: SECT233R1.P) "SECT233R1"
+
+test_sect239k1 :: TestTree
+test_sect239k1 = groupAxioms (witness :: SECT239K1.P) "SECT233K1"
+
+test_sect283k1 :: TestTree
+test_sect283k1 = groupAxioms (witness :: SECT283K1.P) "SECT283K1"
+
+test_sect283r1 :: TestTree
+test_sect283r1 = groupAxioms (witness :: SECT283R1.P) "SECT283R1"
+
+test_sect409k1 :: TestTree
+test_sect409k1 = groupAxioms (witness :: SECT409K1.P) "SECT409K1"
+
+test_sect409r1 :: TestTree
+test_sect409r1 = groupAxioms (witness :: SECT409R1.P) "SECT409R1"
+
+test_sect571k1 :: TestTree
+test_sect571k1 = groupAxioms (witness :: SECT571K1.P) "SECT571K1"
+
+test_sect571r1 :: TestTree
+test_sect571r1 = groupAxioms (witness :: SECT571R1.P) "SECT571R1"
+
+test_bls12_381_g1 :: TestTree
+test_bls12_381_g1 = groupAxioms (witness :: BLS12_381.G1.P) "BLS12_381.G1"
+
+test_bls12_381_g2 :: TestTree
+test_bls12_381_g2 = groupAxioms (witness :: BLS12_381.G2.P) "BLS12_381.G2"
+
+test_bn128_g1 :: TestTree
+test_bn128_g1 = groupAxioms (witness :: BN128.G1.P) "BN128.G1"
+
+test_bn128_g2 :: TestTree
+test_bn128_g2 = groupAxioms (witness :: BN128.G2.P) "BN128.G2"
+
+test_secp112r1 :: TestTree
+test_secp112r1 = groupAxioms (witness :: SECP112R1.P) "SECP112R1"
+
+test_secp112r2 :: TestTree
+test_secp112r2 = groupAxioms (witness :: SECP112R2.P) "SECP112R2"
+
+test_secp128r1 :: TestTree
+test_secp128r1 = groupAxioms (witness :: SECP128R1.P) "SECP128R1"
+
+test_secp128r2 :: TestTree
+test_secp128r2 = groupAxioms (witness :: SECP128R2.P) "SECP128R2"
+
+test_secp160k1 :: TestTree
+test_secp160k1 = groupAxioms (witness :: SECP160K1.P) "SECP160K1"
+
+test_secp160r1 :: TestTree
+test_secp160r1 = groupAxioms (witness :: SECP160R1.P) "SECP160R1"
+
+test_secp160r2 :: TestTree
+test_secp160r2 = groupAxioms (witness :: SECP160R2.P) "SECP160R2"
+
+test_secp192k1 :: TestTree
+test_secp192k1 = groupAxioms (witness :: SECP192K1.P) "SECP192K1"
+
+test_secp192r1 :: TestTree
+test_secp192r1 = groupAxioms (witness :: SECP192R1.P) "SECP192R1"
+
+test_secp224k1 :: TestTree
+test_secp224k1 = groupAxioms (witness :: SECP224K1.P) "SECP224K1"
+
+test_secp224r1 :: TestTree
+test_secp224r1 = groupAxioms (witness :: SECP224R1.P) "SECP224R1"
+
+test_secp256k1 :: TestTree
+test_secp256k1 = groupAxioms (witness :: SECP256K1.P) "SECP256K1"
+
+test_secp256r1 :: TestTree
+test_secp256r1 = groupAxioms (witness :: SECP256R1.P) "SECP256R1"
+
+test_secp384r1 :: TestTree
+test_secp384r1 = groupAxioms (witness :: SECP384R1.P) "SECP384R1"
+
+test_secp512r1 :: TestTree
+test_secp512r1 = groupAxioms (witness :: SECP512R1.P) "SECP512R1"
+
+test_jubjub :: TestTree
+test_jubjub = groupAxioms (witness :: JubJub.P) "JubJub"

@@ -8,6 +8,7 @@ module Curve.TwistedEdwards
 import Protolude
 
 import GaloisField (GaloisField(..))
+import Test.Tasty.QuickCheck (Arbitrary(..))
 
 import Curve (Curve(..))
 
@@ -29,6 +30,10 @@ class Curve TE c k => TECurve c k where
   _h :: (c, k) -> Integer -- ^ cofactor
   _n :: (c, k) -> Integer -- ^ order
   _p :: (c, k) -> Integer -- ^ characteristic
+
+-- | Twisted Edwards curves are arbitrary
+instance TECurve c k => Arbitrary (Point TE c k) where
+  arbitrary = return _g
 
 -------------------------------------------------------------------------------
 -- Operations
