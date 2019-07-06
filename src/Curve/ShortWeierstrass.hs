@@ -65,8 +65,7 @@ instance (GaloisField k, SWCurve c k) => Curve SW c k where
   double O       = O
   double (A x y) = A x' y'
     where
-      a  = a_ (witness :: (c, k))
-      l  = (3 * x * x + a) / (2 * y)
+      l  = (3 * x * x + a_ (witness :: (c, k))) / (2 * y)
       x' = l * l - 2 * x
       y' = l * (x - x') - y
   {-# INLINE double #-}

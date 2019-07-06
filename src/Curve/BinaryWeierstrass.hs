@@ -66,18 +66,20 @@ instance (IrreducibleMonic F2 im, BWCurve c im) => Curve BW c (Fm im) where
     | yy + x2 /= 0 = double p
     | otherwise    = O
     where
-      a  = a_ (witness :: (c, im))
       xx = x1 + x2
       yy = y1 + y2
-      x3 = a + xx
-      y3 = a * yy / xx + x3
+      l  = yy / xx
+      x3 = l * (l + 1) + xx + a_ (witness :: (c, im))
+      y3 = l * (x1 + x3) + x3 + y1
   {-# INLINE add #-}
 
   double O       = O
   double (A x y) = A x' y'
     where
-      x' = a_ (witness :: (c, im))
-      y' = x * x + x' * (x + y / x + 1)
+      l  = x + y / x
+      l' = l + 1
+      x' = l * l' + a_ (witness :: (c, im))
+      y' = x * x + l' * x'
   {-# INLINE double #-}
 
   def O       = True
