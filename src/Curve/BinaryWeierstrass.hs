@@ -33,16 +33,13 @@ type BWPoint = Point BW
 
 -- | Binary Weierstrass curves @Y^2 + XY = X^3 + AX^2 + B@
 class (IrreducibleMonic F2 im, Curve BW c (Fm im)) => BWCurve c im where
-  _a :: (c, im) -> Fm im   -- ^ A
-  _b :: (c, im) -> Fm im   -- ^ B
-  _f :: (c, im) -> im      -- ^ polynomial
-  _g :: BWPoint c (Fm im)  -- ^ generator
-  _h :: (c, im) -> Integer -- ^ cofactor
-  _n :: (c, im) -> Integer -- ^ order
+  a_ :: (c, im) -> Fm im  -- ^ A
+  b_ :: (c, im) -> Fm im  -- ^ B
+  g_ :: BWPoint c (Fm im) -- ^ generator
 
 -- | Binary Weierstrass curves are arbitrary
 instance BWCurve c im => Arbitrary (Point BW c (Fm im)) where
-  arbitrary = return _g
+  arbitrary = return g_
 
 -------------------------------------------------------------------------------
 -- Operations
@@ -69,7 +66,7 @@ instance (IrreducibleMonic F2 im, BWCurve c im) => Curve BW c (Fm im) where
     | yy + x2 /= 0 = double p
     | otherwise    = O
     where
-      a  = _a (witness :: (c, im))
+      a  = a_ (witness :: (c, im))
       xx = x1 + x2
       yy = y1 + y2
       x3 = a + xx
@@ -79,13 +76,13 @@ instance (IrreducibleMonic F2 im, BWCurve c im) => Curve BW c (Fm im) where
   double O       = O
   double (A x y) = A x' y'
     where
-      x' = _a (witness :: (c, im))
+      x' = a_ (witness :: (c, im))
       y' = x * x + x' * (x + y / x + 1)
   {-# INLINE double #-}
 
   def O       = True
   def (A x y) = ((x + a) * x + y) * x + b + y * y == 0
     where
-      a  = _a (witness :: (c, im))
-      b  = _b (witness :: (c, im))
+      a = a_ (witness :: (c, im))
+      b = b_ (witness :: (c, im))
   {-# INLINE def #-}

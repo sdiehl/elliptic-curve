@@ -1,12 +1,17 @@
 module Curve.ShortWeierstrass.SECP160K1
-  -- | Imports
-  ( Point(..)
-  , SWCurve(..)
-  , SWPoint
   -- | Types
-  , Fp
+  ( Fp
   , P
+  -- | Parameters
+  , _a
+  , _b
+  , _g
+  , _h
+  , _n
+  , _p
   ) where
+
+import Protolude
 
 import PrimeField (PrimeField)
 
@@ -24,19 +29,47 @@ type Fp = PrimeField 0xfffffffffffffffffffffffffffffffeffffac73
 
 -- | SECP160K1 curve is a short Weierstrass curve
 instance SWCurve SECP160K1 Fp where
-  _a _ = 0
-  {-# INLINE _a #-}
-  _b _ = 7
-  {-# INLINE _b #-}
-  _g   = A 0x003b4c382ce37aa192a4019e763036f4f5dd4d7ebb
-           0x00938cf935318fdced6bc28286531733c3f03c4fee
-  {-# INLINE _g #-}
-  _h _ = 1
-  {-# INLINE _h #-}
-  _n _ = 0x0100000000000000000001b8fa16dfab9aca16b6b3
-  {-# INLINE _n #-}
-  _p _ = 0xfffffffffffffffffffffffffffffffeffffac73
-  {-# INLINE _p #-}
+  a_ = const _a
+  {-# INLINE a_ #-}
+  b_ = const _b
+  {-# INLINE b_ #-}
+  g_ = _g
+  {-# INLINE g_ #-}
 
 -- | Point of SECP160K1 curve
 type P = SWPoint SECP160K1 Fp
+
+-------------------------------------------------------------------------------
+-- Parameters
+-------------------------------------------------------------------------------
+
+-- | Coefficient @A@ of SECP160K1 curve
+_a :: Fp
+_a = 0
+{-# INLINE _a #-}
+
+-- | Coefficient @B@ of SECP160K1 curve
+_b :: Fp
+_b = 7
+{-# INLINE _b #-}
+
+-- | Generator of SECP160K1 curve
+_g :: P
+_g = A 0x003b4c382ce37aa192a4019e763036f4f5dd4d7ebb
+       0x00938cf935318fdced6bc28286531733c3f03c4fee
+{-# INLINE _g #-}
+
+-- | Cofactor of SECP160K1 curve
+_h :: Integer
+_h = 1
+{-# INLINE _h #-}
+
+-- | Order of SECP160K1 curve
+_n :: Integer
+_n = 0x0100000000000000000001b8fa16dfab9aca16b6b3
+{-# INLINE _n #-}
+
+-- | Characteristic of SECP160K1 curve
+_p :: Integer
+_p = 0xfffffffffffffffffffffffffffffffeffffac73
+{-# INLINE _p #-}
