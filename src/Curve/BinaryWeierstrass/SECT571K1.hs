@@ -13,9 +13,9 @@ module Curve.BinaryWeierstrass.SECT571K1
 
 import Protolude
 
-import ExtensionField (IrreducibleMonic(..), x)
+import BinaryField (BinaryField)
 
-import Curve.BinaryWeierstrass (BWCurve(..), BWPoint, F2, Fm, Point(..))
+import Curve.BinaryWeierstrass (BWCurve(..), BWPoint, Point(..))
 
 -------------------------------------------------------------------------------
 -- Types
@@ -25,13 +25,10 @@ import Curve.BinaryWeierstrass (BWCurve(..), BWPoint, F2, Fm, Point(..))
 data SECT571K1
 
 -- | Field of SECT571K1 curve
-data FX
-instance IrreducibleMonic F2 FX where
-  split _ = x ^ (571 :: Int) + x ^ (10 :: Int) + x ^ (5 :: Int) + x ^ (2 :: Int) + 1
-type F2m = Fm FX
+type F2m = BinaryField 0x80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000425
 
 -- | SECT571K1 curve is a binary Weierstrass curve
-instance BWCurve SECT571K1 FX where
+instance BWCurve SECT571K1 0x80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000425 where
   a_ = const _a 
   {-# INLINE a_ #-}
   b_ = const _b
@@ -57,7 +54,8 @@ _b = 1
 {-# INLINE _b #-}
 
 -- | Polynomial of SECT571K1 curve
-_f = split (witness :: F2m)
+_f :: Integer
+_f = 0x80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000425
 {-# INLINE _f #-}
 
 -- | Generator of SECT571K1 curve

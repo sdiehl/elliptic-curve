@@ -118,7 +118,7 @@ test_sect233r1 :: TestTree
 test_sect233r1 = groupAxioms (witness :: SECT233R1.P) "SECT233R1"
 
 test_sect239k1 :: TestTree
-test_sect239k1 = groupAxioms (witness :: SECT239K1.P) "SECT233K1"
+test_sect239k1 = groupAxioms (witness :: SECT239K1.P) "SECT239K1"
 
 test_sect283k1 :: TestTree
 test_sect283k1 = groupAxioms (witness :: SECT283K1.P) "SECT283K1"

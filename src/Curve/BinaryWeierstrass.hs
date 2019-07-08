@@ -2,15 +2,12 @@ module Curve.BinaryWeierstrass
   -- | Types
   ( BWCurve(..)
   , BWPoint
-  , F2
-  , Fm
   , Point(..)
   ) where
 
 import Protolude
 
-import ExtensionField (ExtensionField, IrreducibleMonic)
-import PrimeField (PrimeField)
+import BinaryField (BinaryField)
 import Test.Tasty.QuickCheck (Arbitrary(..))
 
 import Curve (Curve(..))
@@ -19,12 +16,6 @@ import Curve (Curve(..))
 -- Types
 -------------------------------------------------------------------------------
 
--- | Binary field
-type F2 = PrimeField 2
-
--- | Extension field over binary field
-type Fm = ExtensionField F2
-
 -- | Binary Weierstrass representation
 data BW
 
@@ -32,13 +23,13 @@ data BW
 type BWPoint = Point BW
 
 -- | Binary Weierstrass curves @Y^2 + XY = X^3 + AX^2 + B@
-class (IrreducibleMonic F2 im, Curve BW c (Fm im)) => BWCurve c im where
-  a_ :: (c, im) -> Fm im  -- ^ A
-  b_ :: (c, im) -> Fm im  -- ^ B
-  g_ :: BWPoint c (Fm im) -- ^ generator
+class Curve BW c (BinaryField ib) => BWCurve c ib where
+  a_ :: c -> BinaryField ib  -- ^ A
+  b_ :: c -> BinaryField ib  -- ^ B
+  g_ :: BWPoint c (BinaryField ib) -- ^ generator
 
 -- | Binary Weierstrass curves are arbitrary
-instance BWCurve c im => Arbitrary (Point BW c (Fm im)) where
+instance BWCurve c ib => Arbitrary (Point BW c (BinaryField ib)) where
   arbitrary = return g_
 
 -------------------------------------------------------------------------------
@@ -46,10 +37,11 @@ instance BWCurve c im => Arbitrary (Point BW c (Fm im)) where
 -------------------------------------------------------------------------------
 
 -- | Binary Weierstrass curves are elliptic curves
-instance (IrreducibleMonic F2 im, BWCurve c im) => Curve BW c (Fm im) where
+instance (KnownNat ib, BWCurve c ib) => Curve BW c (BinaryField ib) where
 
-  data instance Point BW c (Fm im) = A (Fm im) (Fm im) -- ^ Affine point
-                                   | O                 -- ^ Infinite point
+  data instance Point BW c (BinaryField ib)
+    = A (BinaryField ib) (BinaryField ib) -- ^ Affine point
+    | O                                   -- ^ Infinite point
     deriving (Eq, Generic, NFData, Show)
 
   id = O
@@ -69,7 +61,7 @@ instance (IrreducibleMonic F2 im, BWCurve c im) => Curve BW c (Fm im) where
       xx = x1 + x2
       yy = y1 + y2
       l  = yy / xx
-      x3 = l * (l + 1) + xx + a_ (witness :: (c, im))
+      x3 = l * (l + 1) + xx + a_ (witness :: c)
       y3 = l * (x1 + x3) + x3 + y1
   {-# INLINE add #-}
 
@@ -78,13 +70,13 @@ instance (IrreducibleMonic F2 im, BWCurve c im) => Curve BW c (Fm im) where
     where
       l  = x + y / x
       l' = l + 1
-      x' = l * l' + a_ (witness :: (c, im))
+      x' = l * l' + a_ (witness :: c)
       y' = x * x + l' * x'
   {-# INLINE double #-}
 
   def O       = True
   def (A x y) = ((x + a) * x + y) * x + b + y * y == 0
     where
-      a = a_ (witness :: (c, im))
-      b = b_ (witness :: (c, im))
+      a = a_ (witness :: c)
+      b = b_ (witness :: c)
   {-# INLINE def #-}

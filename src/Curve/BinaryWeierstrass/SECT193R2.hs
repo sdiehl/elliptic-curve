@@ -13,9 +13,9 @@ module Curve.BinaryWeierstrass.SECT193R2
 
 import Protolude
 
-import ExtensionField (IrreducibleMonic(..), x)
+import BinaryField (BinaryField)
 
-import Curve.BinaryWeierstrass (BWCurve(..), BWPoint, F2, Fm, Point(..))
+import Curve.BinaryWeierstrass (BWCurve(..), BWPoint, Point(..))
 
 -------------------------------------------------------------------------------
 -- Types
@@ -25,13 +25,10 @@ import Curve.BinaryWeierstrass (BWCurve(..), BWPoint, F2, Fm, Point(..))
 data SECT193R2
 
 -- | Field of SECT193R2 curve
-data FX
-instance IrreducibleMonic F2 FX where
-  split _ = x ^ (193 :: Int) + x ^ (15 :: Int) + 1
-type F2m = Fm FX
+type F2m = BinaryField 0x2000000000000000000000000000000000000000000008001
 
 -- | SECT193R2 curve is a binary Weierstrass curve
-instance BWCurve SECT193R2 FX where
+instance BWCurve SECT193R2 0x2000000000000000000000000000000000000000000008001 where
   a_ = const _a 
   {-# INLINE a_ #-}
   b_ = const _b
@@ -57,7 +54,8 @@ _b = 0x00c9bb9e8927d4d64c377e2ab2856a5b16e3efb7f61d4316ae
 {-# INLINE _b #-}
 
 -- | Polynomial of SECT193R2 curve
-_f = split (witness :: F2m)
+_f :: Integer
+_f = 0x2000000000000000000000000000000000000000000008001
 {-# INLINE _f #-}
 
 -- | Generator of SECT193R2 curve
