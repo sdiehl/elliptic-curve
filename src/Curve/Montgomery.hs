@@ -1,8 +1,8 @@
-module Curve.ShortWeierstrass
+module Curve.Montgomery
   -- | Types
   ( Point(..)
-  , SWCurve(..)
-  , SWPoint
+  , MCurve(..)
+  , MPoint
   ) where
 
 import Protolude
@@ -16,31 +16,31 @@ import Curve (Curve(..))
 -- Types
 -------------------------------------------------------------------------------
 
--- | Short Weierstrass representation
-data SW
+-- | Montgomery representation
+data M
 
--- | Short Weierstrass points
-type SWPoint = Point SW
+-- | Montgomery points
+type MPoint = Point M
 
--- | Short Weierstrass curves @Y^2 = X^3 + AX + B@
-class Curve SW c k => SWCurve c k where
-  a_ :: c -> k      -- ^ A
-  b_ :: c -> k      -- ^ B
-  g_ :: SWPoint c k -- ^ generator
+-- | Montgomery curves @BY^2 = X^3 + AX^2 + X@
+class Curve M c k => MCurve c k where
+  a_ :: c -> k     -- ^ A
+  b_ :: c -> k     -- ^ B
+  g_ :: MPoint c k -- ^ generator
 
--- | Short Weierstrass curves are arbitrary
-instance SWCurve c k => Arbitrary (Point SW c k) where
+-- | Montgomery curves are arbitrary
+instance MCurve c k => Arbitrary (Point M c k) where
   arbitrary = return g_
 
 -------------------------------------------------------------------------------
 -- Operations
 -------------------------------------------------------------------------------
 
--- | Short Weierstrass curves are elliptic curves
-instance (GaloisField k, SWCurve c k) => Curve SW c k where
+-- | Montgomery curves are elliptic curves
+instance (GaloisField k, MCurve c k) => Curve M c k where
 
-  data instance Point SW c k = A k k -- ^ Affine point
-                             | O     -- ^ Infinite point
+  data instance Point M c k = A k k -- ^ Affine point
+                            | O     -- ^ Infinite point
     deriving (Eq, Generic, NFData, Show)
 
   id = O
@@ -57,21 +57,25 @@ instance (GaloisField k, SWCurve c k) => Curve SW c k where
     | y1 + y2 == 0 = O
     | otherwise    = double p
     where
-      l  = (y1 - y2) / (x1 - x2)
-      x3 = l * l - x1 - x2
+      a  = a_ (witness :: c)
+      b  = b_ (witness :: c)
+      l  = (y2 - y1) / (x2 - x1)
+      x3 = b * l * l - a - x1 - x2
       y3 = l * (x1 - x3) - y1
   {-# INLINE add #-}
 
   double O       = O
   double (A x y) = A x' y'
     where
-      l  = (3 * x * x + a_ (witness :: c)) / (2 * y)
-      x' = l * l - 2 * x
+      a  = a_ (witness :: c)
+      b  = b_ (witness :: c)
+      l  = (x * (3 * x + 2 * a) + 1) / (2 * b * y)
+      x' = b * l * l - a - 2 * x
       y' = l * (x - x') - y
   {-# INLINE double #-}
 
   def O       = True
-  def (A x y) = y * y == x * (x * x + a) + b
+  def (A x y) = b * y * y == (((x + a) * x) + 1) * x
     where
       a = a_ (witness :: c)
       b = b_ (witness :: c)

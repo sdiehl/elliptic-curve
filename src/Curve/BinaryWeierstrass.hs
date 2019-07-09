@@ -24,8 +24,8 @@ type BWPoint = Point BW
 
 -- | Binary Weierstrass curves @Y^2 + XY = X^3 + AX^2 + B@
 class Curve BW c (BinaryField ib) => BWCurve c ib where
-  a_ :: c -> BinaryField ib  -- ^ A
-  b_ :: c -> BinaryField ib  -- ^ B
+  a_ :: c -> BinaryField ib        -- ^ A
+  b_ :: c -> BinaryField ib        -- ^ B
   g_ :: BWPoint c (BinaryField ib) -- ^ generator
 
 -- | Binary Weierstrass curves are arbitrary

@@ -56,6 +56,12 @@ library:
     - Curve.BinaryWeierstrass.SECT409R1
     - Curve.BinaryWeierstrass.SECT571K1
     - Curve.BinaryWeierstrass.SECT571R1
+    - Curve.Montgomery
+    - Curve.Montgomery.Curve25519
+    - Curve.Montgomery.Curve383187
+    - Curve.Montgomery.M221
+    - Curve.Montgomery.M383
+    - Curve.Montgomery.M511
     - Curve.ShortWeierstrass
     - Curve.ShortWeierstrass.BLS12_381.G1
     - Curve.ShortWeierstrass.BLS12_381.G2

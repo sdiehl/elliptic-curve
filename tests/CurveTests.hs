@@ -21,6 +21,11 @@ import qualified Curve.BinaryWeierstrass.SECT409K1 as SECT409K1
 import qualified Curve.BinaryWeierstrass.SECT409R1 as SECT409R1
 import qualified Curve.BinaryWeierstrass.SECT571K1 as SECT571K1
 import qualified Curve.BinaryWeierstrass.SECT571R1 as SECT571R1
+import qualified Curve.Montgomery.Curve25519 as Curve25519
+import qualified Curve.Montgomery.Curve383187 as Curve383187
+import qualified Curve.Montgomery.M221 as M221
+import qualified Curve.Montgomery.M383 as M383
+import qualified Curve.Montgomery.M383 as M511
 import qualified Curve.ShortWeierstrass.BLS12_381.G1 as BLS12_381.G1
 import qualified Curve.ShortWeierstrass.BLS12_381.G2 as BLS12_381.G2
 import qualified Curve.ShortWeierstrass.BN128.G1 as BN128.G1
@@ -137,6 +142,21 @@ test_sect571k1 = groupAxioms (witness :: SECT571K1.P) "SECT571K1"
 
 test_sect571r1 :: TestTree
 test_sect571r1 = groupAxioms (witness :: SECT571R1.P) "SECT571R1"
+
+test_curve25519 :: TestTree
+test_curve25519 = groupAxioms (witness :: Curve25519.P) "Curve25519"
+
+test_curve383187 :: TestTree
+test_curve383187 = groupAxioms (witness :: Curve383187.P) "Curve383187"
+
+test_m221 :: TestTree
+test_m221 = groupAxioms (witness :: M221.P) "M-221"
+
+test_m383 :: TestTree
+test_m383 = groupAxioms (witness :: M383.P) "M-383"
+
+test_m511 :: TestTree
+test_m511 = groupAxioms (witness :: M511.P) "M-511"
 
 test_bls12_381_g1 :: TestTree
 test_bls12_381_g1 = groupAxioms (witness :: BLS12_381.G1.P) "BLS12_381.G1"

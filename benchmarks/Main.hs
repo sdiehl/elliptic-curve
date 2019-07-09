@@ -22,6 +22,11 @@ import qualified Curve.BinaryWeierstrass.SECT409K1 as SECT409K1
 import qualified Curve.BinaryWeierstrass.SECT409R1 as SECT409R1
 import qualified Curve.BinaryWeierstrass.SECT571K1 as SECT571K1
 import qualified Curve.BinaryWeierstrass.SECT571R1 as SECT571R1
+import qualified Curve.Montgomery.Curve25519 as Curve25519
+import qualified Curve.Montgomery.Curve383187 as Curve383187
+import qualified Curve.Montgomery.M221 as M221
+import qualified Curve.Montgomery.M383 as M383
+import qualified Curve.Montgomery.M383 as M511
 import qualified Curve.ShortWeierstrass.BLS12_381.G1 as BLS12_381.G1
 import qualified Curve.ShortWeierstrass.BLS12_381.G2 as BLS12_381.G2
 import qualified Curve.ShortWeierstrass.BN128.G1 as BN128.G1
@@ -58,24 +63,29 @@ benchmark curve point = let point' = double point in bgroup curve
 
 main :: IO ()
 main = defaultMain
-  [ benchmark "SECT113R1" (SECT113R1._g :: SECT113R1.P)
-  , benchmark "SECT113R2" (SECT113R2._g :: SECT113R2.P)
-  , benchmark "SECT131R1" (SECT131R1._g :: SECT131R1.P)
-  , benchmark "SECT131R2" (SECT131R2._g :: SECT131R2.P)
-  , benchmark "SECT163K1" (SECT163K1._g :: SECT163K1.P)
-  , benchmark "SECT163R1" (SECT163R1._g :: SECT163R1.P)
-  , benchmark "SECT163R2" (SECT163R2._g :: SECT163R2.P)
-  , benchmark "SECT193R1" (SECT193R1._g :: SECT193R1.P)
-  , benchmark "SECT193R2" (SECT193R2._g :: SECT193R2.P)
-  , benchmark "SECT233K1" (SECT233K1._g :: SECT233K1.P)
-  , benchmark "SECT233R1" (SECT233R1._g :: SECT233R1.P)
-  , benchmark "SECT239K1" (SECT239K1._g :: SECT239K1.P)
-  , benchmark "SECT283K1" (SECT283K1._g :: SECT283K1.P)
-  , benchmark "SECT283R1" (SECT283R1._g :: SECT283R1.P)
-  , benchmark "SECT409K1" (SECT409K1._g :: SECT409K1.P)
-  , benchmark "SECT409R1" (SECT409R1._g :: SECT409R1.P)
-  , benchmark "SECT571K1" (SECT571K1._g :: SECT571K1.P)
-  , benchmark "SECT571R1" (SECT571R1._g :: SECT571R1.P)
+  [ benchmark "SECT113R1" SECT113R1._g
+  , benchmark "SECT113R2" SECT113R2._g
+  , benchmark "SECT131R1" SECT131R1._g
+  , benchmark "SECT131R2" SECT131R2._g
+  , benchmark "SECT163K1" SECT163K1._g
+  , benchmark "SECT163R1" SECT163R1._g
+  , benchmark "SECT163R2" SECT163R2._g
+  , benchmark "SECT193R1" SECT193R1._g
+  , benchmark "SECT193R2" SECT193R2._g
+  , benchmark "SECT233K1" SECT233K1._g
+  , benchmark "SECT233R1" SECT233R1._g
+  , benchmark "SECT239K1" SECT239K1._g
+  , benchmark "SECT283K1" SECT283K1._g
+  , benchmark "SECT283R1" SECT283R1._g
+  , benchmark "SECT409K1" SECT409K1._g
+  , benchmark "SECT409R1" SECT409R1._g
+  , benchmark "SECT571K1" SECT571K1._g
+  , benchmark "SECT571R1" SECT571R1._g
+  , benchmark "Curve25519" Curve25519._g
+  , benchmark "Curve383187" Curve383187._g
+  , benchmark "M-221" M221._g
+  , benchmark "M-383" M383._g
+  , benchmark "M-511" M511._g
   , bgroup "BLS12-381"
     [ benchmark "G1" (BLS12_381.G1._g :: BLS12_381.G1.P)
     , benchmark "G2" (BLS12_381.G2._g :: BLS12_381.G2.P)
