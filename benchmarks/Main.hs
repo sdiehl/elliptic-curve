@@ -46,7 +46,7 @@ import qualified Curve.ShortWeierstrass.SECP224R1 as SECP224R1
 import qualified Curve.ShortWeierstrass.SECP256K1 as SECP256K1
 import qualified Curve.ShortWeierstrass.SECP256R1 as SECP256R1
 import qualified Curve.ShortWeierstrass.SECP384R1 as SECP384R1
-import qualified Curve.ShortWeierstrass.SECP512R1 as SECP512R1
+import qualified Curve.ShortWeierstrass.SECP521R1 as SECP521R1
 import qualified Curve.TwistedEdwards.Curve1174 as Curve1174
 import qualified Curve.TwistedEdwards.Curve41417 as Curve41417
 import qualified Curve.TwistedEdwards.E222 as E222
@@ -117,7 +117,7 @@ main = defaultMain
   , benchmark "SECP256K1" SECP256K1._g
   , benchmark "SECP256R1" SECP256R1._g
   , benchmark "SECP384R1" SECP384R1._g
-  , benchmark "SECP512R1" SECP512R1._g
+  , benchmark "SECP521R1" SECP521R1._g
   , benchmark "Curve1174" Curve1174._g
   , benchmark "Curve41417" Curve41417._g
   , benchmark "E-222" E222._g

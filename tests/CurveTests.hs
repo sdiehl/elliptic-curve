@@ -45,7 +45,7 @@ import qualified Curve.ShortWeierstrass.SECP224R1 as SECP224R1
 import qualified Curve.ShortWeierstrass.SECP256K1 as SECP256K1
 import qualified Curve.ShortWeierstrass.SECP256R1 as SECP256R1
 import qualified Curve.ShortWeierstrass.SECP384R1 as SECP384R1
-import qualified Curve.ShortWeierstrass.SECP512R1 as SECP512R1
+import qualified Curve.ShortWeierstrass.SECP521R1 as SECP521R1
 import qualified Curve.TwistedEdwards.Curve1174 as Curve1174
 import qualified Curve.TwistedEdwards.Curve41417 as Curve41417
 import qualified Curve.TwistedEdwards.E222 as E222
@@ -223,8 +223,8 @@ test_secp256r1 = groupAxioms (witness :: SECP256R1.P) "SECP256R1"
 test_secp384r1 :: TestTree
 test_secp384r1 = groupAxioms (witness :: SECP384R1.P) "SECP384R1"
 
-test_secp512r1 :: TestTree
-test_secp512r1 = groupAxioms (witness :: SECP512R1.P) "SECP512R1"
+test_secp521r1 :: TestTree
+test_secp521r1 = groupAxioms (witness :: SECP521R1.P) "SECP521R1"
 
 test_curve1174 :: TestTree
 test_curve1174 = groupAxioms (witness :: Curve1174.P) "Curve1174"
