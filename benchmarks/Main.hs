@@ -26,7 +26,7 @@ import qualified Curve.Montgomery.Curve25519 as Curve25519
 import qualified Curve.Montgomery.Curve383187 as Curve383187
 import qualified Curve.Montgomery.M221 as M221
 import qualified Curve.Montgomery.M383 as M383
-import qualified Curve.Montgomery.M383 as M511
+import qualified Curve.Montgomery.M511 as M511
 import qualified Curve.ShortWeierstrass.BLS12_381.G1 as BLS12_381.G1
 import qualified Curve.ShortWeierstrass.BLS12_381.G2 as BLS12_381.G2
 import qualified Curve.ShortWeierstrass.BN128.G1 as BN128.G1
@@ -46,6 +46,12 @@ import qualified Curve.ShortWeierstrass.SECP256K1 as SECP256K1
 import qualified Curve.ShortWeierstrass.SECP256R1 as SECP256R1
 import qualified Curve.ShortWeierstrass.SECP384R1 as SECP384R1
 import qualified Curve.ShortWeierstrass.SECP512R1 as SECP512R1
+import qualified Curve.TwistedEdwards.Curve448 as Curve448
+import qualified Curve.TwistedEdwards.Curve1174 as Curve1174
+import qualified Curve.TwistedEdwards.Curve41417 as Curve41417
+import qualified Curve.TwistedEdwards.E222 as E222
+import qualified Curve.TwistedEdwards.E382 as E382
+import qualified Curve.TwistedEdwards.E521 as E521
 import qualified Curve.TwistedEdwards.JubJub as JubJub
 import GHC.Base
 
@@ -58,7 +64,7 @@ benchmark curve point = let point' = double point in bgroup curve
   , bench "Inversion"
     $ whnf inv point
   , bench "Multiplication"
-    $ whnf (mul 100) point
+    $ whnf (mul 6) point
   ]
 
 main :: IO ()
@@ -87,27 +93,33 @@ main = defaultMain
   , benchmark "M-383" M383._g
   , benchmark "M-511" M511._g
   , bgroup "BLS12-381"
-    [ benchmark "G1" (BLS12_381.G1._g :: BLS12_381.G1.P)
-    , benchmark "G2" (BLS12_381.G2._g :: BLS12_381.G2.P)
+    [ benchmark "G1" BLS12_381.G1._g
+    , benchmark "G2" BLS12_381.G2._g
     ]
   , bgroup "BN128"
-    [ benchmark "G1" (BN128.G1._g :: BN128.G1.P)
-    , benchmark "G2" (BN128.G2._g :: BN128.G2.P)
+    [ benchmark "G1" BN128.G1._g
+    , benchmark "G2" BN128.G2._g
     ]
-  , benchmark "SECP112R1" (SECP112R1._g :: SECP112R1.P)
-  , benchmark "SECP112R2" (SECP112R2._g :: SECP112R2.P)
-  , benchmark "SECP128R1" (SECP128R1._g :: SECP128R1.P)
-  , benchmark "SECP128R2" (SECP128R2._g :: SECP128R2.P)
-  , benchmark "SECP160K1" (SECP160K1._g :: SECP160K1.P)
-  , benchmark "SECP160R1" (SECP160R1._g :: SECP160R1.P)
-  , benchmark "SECP160R2" (SECP160R2._g :: SECP160R2.P)
-  , benchmark "SECP192K1" (SECP192K1._g :: SECP192K1.P)
-  , benchmark "SECP192R1" (SECP192R1._g :: SECP192R1.P)
-  , benchmark "SECP224K1" (SECP224K1._g :: SECP224K1.P)
-  , benchmark "SECP224R1" (SECP224R1._g :: SECP224R1.P)
-  , benchmark "SECP256K1" (SECP256K1._g :: SECP256K1.P)
-  , benchmark "SECP256R1" (SECP256R1._g :: SECP256R1.P)
-  , benchmark "SECP384R1" (SECP384R1._g :: SECP384R1.P)
-  , benchmark "SECP512R1" (SECP512R1._g :: SECP512R1.P)
-  , benchmark "JubJub" (JubJub._g :: JubJub.P)
+  , benchmark "SECP112R1" SECP112R1._g
+  , benchmark "SECP112R2" SECP112R2._g
+  , benchmark "SECP128R1" SECP128R1._g
+  , benchmark "SECP128R2" SECP128R2._g
+  , benchmark "SECP160K1" SECP160K1._g
+  , benchmark "SECP160R1" SECP160R1._g
+  , benchmark "SECP160R2" SECP160R2._g
+  , benchmark "SECP192K1" SECP192K1._g
+  , benchmark "SECP192R1" SECP192R1._g
+  , benchmark "SECP224K1" SECP224K1._g
+  , benchmark "SECP224R1" SECP224R1._g
+  , benchmark "SECP256K1" SECP256K1._g
+  , benchmark "SECP256R1" SECP256R1._g
+  , benchmark "SECP384R1" SECP384R1._g
+  , benchmark "SECP512R1" SECP512R1._g
+  , benchmark "Curve448" Curve448._g
+  , benchmark "Curve1174" Curve1174._g
+  , benchmark "Curve41417" Curve41417._g
+  , benchmark "E-222" E222._g
+  , benchmark "E-382" E382._g
+  , benchmark "E-521" E521._g
+  , benchmark "JubJub" JubJub._g
   ]

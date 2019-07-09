@@ -25,7 +25,7 @@ import qualified Curve.Montgomery.Curve25519 as Curve25519
 import qualified Curve.Montgomery.Curve383187 as Curve383187
 import qualified Curve.Montgomery.M221 as M221
 import qualified Curve.Montgomery.M383 as M383
-import qualified Curve.Montgomery.M383 as M511
+import qualified Curve.Montgomery.M511 as M511
 import qualified Curve.ShortWeierstrass.BLS12_381.G1 as BLS12_381.G1
 import qualified Curve.ShortWeierstrass.BLS12_381.G2 as BLS12_381.G2
 import qualified Curve.ShortWeierstrass.BN128.G1 as BN128.G1
@@ -45,6 +45,12 @@ import qualified Curve.ShortWeierstrass.SECP256K1 as SECP256K1
 import qualified Curve.ShortWeierstrass.SECP256R1 as SECP256R1
 import qualified Curve.ShortWeierstrass.SECP384R1 as SECP384R1
 import qualified Curve.ShortWeierstrass.SECP512R1 as SECP512R1
+import qualified Curve.TwistedEdwards.Curve448 as Curve448
+import qualified Curve.TwistedEdwards.Curve1174 as Curve1174
+import qualified Curve.TwistedEdwards.Curve41417 as Curve41417
+import qualified Curve.TwistedEdwards.E222 as E222
+import qualified Curve.TwistedEdwards.E382 as E382
+import qualified Curve.TwistedEdwards.E521 as E521
 import qualified Curve.TwistedEdwards.JubJub as JubJub
 import GaloisField
 import Test.Tasty
@@ -78,7 +84,7 @@ groupAxioms _ str = testGroup ("Test group axioms of " <> str)
   , testProperty "doubling closure" $
     def . (double :: Point r c k -> Point r c k)
   , testProperty "multiplication closure" $
-    def . (mul 100 :: Point r c k -> Point r c k)
+    def . (mul 6 :: Point r c k -> Point r c k)
   , testProperty "identity" $
     identities (add :: Point r c k -> Point r c k -> Point r c k) mempty
   , testProperty "inverses" $
@@ -214,6 +220,24 @@ test_secp384r1 = groupAxioms (witness :: SECP384R1.P) "SECP384R1"
 
 test_secp512r1 :: TestTree
 test_secp512r1 = groupAxioms (witness :: SECP512R1.P) "SECP512R1"
+
+test_curve448 :: TestTree
+test_curve448 = groupAxioms (witness :: Curve448.P) "Curve448"
+
+test_curve1174 :: TestTree
+test_curve1174 = groupAxioms (witness :: Curve1174.P) "Curve1174"
+
+test_curve41417 :: TestTree
+test_curve41417 = groupAxioms (witness :: Curve41417.P) "Curve41417"
+
+test_e222 :: TestTree
+test_e222 = groupAxioms (witness :: E222.P) "E-222"
+
+test_e382 :: TestTree
+test_e382 = groupAxioms (witness :: E382.P) "E-382"
+
+test_e521 :: TestTree
+test_e521 = groupAxioms (witness :: E521.P) "E-521"
 
 test_jubjub :: TestTree
 test_jubjub = groupAxioms (witness :: JubJub.P) "JubJub"

@@ -1,4 +1,4 @@
-module Curve.TwistedEdwards.JubJub
+module Curve.TwistedEdwards.E222
   -- | Types
   ( Fp
   , P
@@ -21,14 +21,14 @@ import Curve.TwistedEdwards (Point(..), TECurve(..), TEPoint)
 -- Types
 -------------------------------------------------------------------------------
 
--- | JubJub curve
-data JubJub
+-- | E-222 curve
+data E222
 
--- | Field of JubJub curve
-type Fp = PrimeField 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
+-- | Field of E-222 curve
+type Fp = PrimeField 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffff8b
 
--- | JubJub curve is a twisted Edwards curve
-instance TECurve JubJub Fp where
+-- | E-222 curve is a twisted Edwards curve
+instance TECurve E222 Fp where
   a_ = const _a
   {-# INLINE a_ #-}
   d_ = const _d
@@ -36,40 +36,40 @@ instance TECurve JubJub Fp where
   g_ = _g
   {-# INLINE g_ #-}
 
--- | Point of JubJub curve
-type P = TEPoint JubJub Fp
+-- | Point of E-222 curve
+type P = TEPoint E222 Fp
 
 -------------------------------------------------------------------------------
 -- Parameters
 -------------------------------------------------------------------------------
 
--- | Coefficient @A@ of JubJub curve
+-- | Coefficient @A@ of E-222 curve
 _a :: Fp
-_a = -1
+_a = 1
 {-# INLINE _a #-}
 
--- | Coefficient @D@ of JubJub curve
+-- | Coefficient @D@ of E-222 curve
 _d :: Fp
-_d = 0x2a9318e74bfa2b48f5fd9207e6bd7fd4292d7f6d37579d2601065fd6d6343eb1
+_d = 0x27166
 {-# INLINE _d #-}
 
--- | Generator of JubJub curve
+-- | Generator of E-222 curve
 _g :: P
-_g = A 3
-       0x39d39d6e76c20811ee2fb44b2286fd27c0d43e2dfb6f72af672e03db8d560cb5
+_g = A 0x19b12bb156a389e55c9768c303316d07c23adab3736eb2bc3eb54e51
+       0x1c
 {-# INLINE _g #-}
 
--- | Cofactor of JubJub curve
+-- | Cofactor of E-222 curve
 _h :: Integer
-_h = 8
+_h = 4
 {-# INLINE _h #-}
 
--- | Order of JubJub curve
+-- | Order of E-222 curve
 _n :: Integer
-_n = 0x0e7db4ea6533afa906673b0101343b00a6682093ccc81082d0970e5ed6f72cb7
+_n = 0xffffffffffffffffffffffffffff70cbc95e932f802f31423598cbf
 {-# INLINE _n #-}
 
--- | Characteristic of JubJub curve
+-- | Characteristic of E-222 curve
 _p :: Integer
-_p = 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
+_p = 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffff8b
 {-# INLINE _p #-}
