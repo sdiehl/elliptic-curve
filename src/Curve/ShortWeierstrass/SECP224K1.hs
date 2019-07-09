@@ -55,8 +55,9 @@ _b = 5
 
 -- | Generator of SECP224K1 curve
 _g :: P
-_g = A 0x00a1455b334df099df30fc28a169a467e9e47075a90f7e650eb6b7a45c
-       0x007e089fed7fba344282cafbd6f7e319f7c0b0bd59e2ca4bdb556d61a5
+_g = A
+     0x00a1455b334df099df30fc28a169a467e9e47075a90f7e650eb6b7a45c
+     0x007e089fed7fba344282cafbd6f7e319f7c0b0bd59e2ca4bdb556d61a5
 {-# INLINE _g #-}
 
 -- | Cofactor of SECP224K1 curve

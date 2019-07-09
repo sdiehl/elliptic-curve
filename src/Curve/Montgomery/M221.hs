@@ -55,8 +55,9 @@ _b = 1
 
 -- | Generator of M-221 curve
 _g :: P
-_g = A 4
-       0xf7acdd2a4939571d1cef14eca37c228e61dbff10707dc6c08c5056d
+_g = A
+     4
+     0xf7acdd2a4939571d1cef14eca37c228e61dbff10707dc6c08c5056d
 {-# INLINE _g #-}
 
 -- | Cofactor of M-221 curve

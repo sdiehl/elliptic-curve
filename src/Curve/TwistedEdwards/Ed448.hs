@@ -55,8 +55,9 @@ _d = 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffffffffffffff
 
 -- | Generator of Ed448 curve
 _g :: P
-_g = A 0x297ea0ea2692ff1b4faff46098453a6a26adf733245f065c3c59d0709cecfa96147eaaf3932d94c63d96c170033f4ba0c7f0de840aed939f
-       0x13
+_g = A
+     0x297ea0ea2692ff1b4faff46098453a6a26adf733245f065c3c59d0709cecfa96147eaaf3932d94c63d96c170033f4ba0c7f0de840aed939f
+     0x13
 {-# INLINE _g #-}
 
 -- | Cofactor of Ed448 curve

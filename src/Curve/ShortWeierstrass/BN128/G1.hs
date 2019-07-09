@@ -55,7 +55,9 @@ _b = 3
 
 -- | Generator of BN128 curve G1
 _g :: P
-_g = A 1 2
+_g = A
+     1
+     2
 {-# INLINE _g #-}
 
 -- | Cofactor of BN128 curve G1

@@ -55,8 +55,9 @@ _b = 0xee353fca5428a9300d4aba754a44c00fdfec0c9ae4b1a1803075ed967b7bb73f
 
 -- | Generator of ANSSI-FRP256V1 curve
 _g :: P
-_g = A 0xb6b3d4c356c139eb31183d4749d423958c27d2dcaf98b70164c97a2dd98f5cff
-       0x6142e0f7c8b204911f9271f0f3ecef8c2701c307e8e4c9e183115a1554062cfb
+_g = A
+     0xb6b3d4c356c139eb31183d4749d423958c27d2dcaf98b70164c97a2dd98f5cff
+     0x6142e0f7c8b204911f9271f0f3ecef8c2701c307e8e4c9e183115a1554062cfb
 {-# INLINE _g #-}
 
 -- | Cofactor of ANSSI-FRP256V1 curve

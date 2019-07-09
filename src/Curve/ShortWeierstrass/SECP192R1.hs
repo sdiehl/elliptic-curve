@@ -55,8 +55,9 @@ _b = 0x64210519e59c80e70fa7e9ab72243049feb8deecc146b9b1
 
 -- | Generator of SECP192R1 curve
 _g :: P
-_g = A 0x188da80eb03090f67cbf20eb43a18800f4ff0afd82ff1012
-       0x07192b95ffc8da78631011ed6b24cdd573f977a11e794811
+_g = A
+     0x188da80eb03090f67cbf20eb43a18800f4ff0afd82ff1012
+     0x07192b95ffc8da78631011ed6b24cdd573f977a11e794811
 {-# INLINE _g #-}
 
 -- | Cofactor of SECP192R1 curve

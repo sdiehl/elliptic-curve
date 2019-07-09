@@ -55,8 +55,9 @@ _d = 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffb61
 
 -- | Generator of Curve1174 curve
 _g :: P
-_g = A 0x37fbb0cea308c479343aee7c029a190c021d96a492ecd6516123f27bce29eda
-       0x6b72f82d47fb7cc6656841169840e0c4fe2dee2af3f976ba4ccb1bf9b46360e
+_g = A
+     0x37fbb0cea308c479343aee7c029a190c021d96a492ecd6516123f27bce29eda
+     0x6b72f82d47fb7cc6656841169840e0c4fe2dee2af3f976ba4ccb1bf9b46360e
 {-# INLINE _g #-}
 
 -- | Cofactor of Curve1174 curve

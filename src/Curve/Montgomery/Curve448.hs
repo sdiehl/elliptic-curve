@@ -55,8 +55,9 @@ _b = 1
 
 -- | Generator of Curve448 curve
 _g :: P
-_g = A 5
-       0x7d235d1295f5b1f66c98ab6e58326fcecbae5d34f55545d060f75dc28df3f6edb8027e2346430d211312c4b150677af76fd7223d457b5b1a
+_g = A
+     5
+     0x7d235d1295f5b1f66c98ab6e58326fcecbae5d34f55545d060f75dc28df3f6edb8027e2346430d211312c4b150677af76fd7223d457b5b1a
 {-# INLINE _g #-}
 
 -- | Cofactor of Curve448 curve

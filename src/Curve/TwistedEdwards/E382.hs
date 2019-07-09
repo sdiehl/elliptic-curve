@@ -55,8 +55,9 @@ _d = 0x3ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 
 -- | Generator of E-382 curve
 _g :: P
-_g = A 0x196f8dd0eab20391e5f05be96e8d20ae68f840032b0b64352923bab85364841193517dbce8105398ebc0cc9470f79603
-       0x11
+_g = A
+     0x196f8dd0eab20391e5f05be96e8d20ae68f840032b0b64352923bab85364841193517dbce8105398ebc0cc9470f79603
+     0x11
 {-# INLINE _g #-}
 
 -- | Cofactor of E-382 curve

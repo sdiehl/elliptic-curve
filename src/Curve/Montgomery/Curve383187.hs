@@ -55,8 +55,9 @@ _b = 1
 
 -- | Generator of Curve383187 curve
 _g :: P
-_g = A 5
-       0x1eebe07dc1871896732b12d5504a32370471965c7a11f2c89865f855ab3cbd7c224e3620c31af3370788457dd5ce46df
+_g = A
+     5
+     0x1eebe07dc1871896732b12d5504a32370471965c7a11f2c89865f855ab3cbd7c224e3620c31af3370788457dd5ce46df
 {-# INLINE _g #-}
 
 -- | Cofactor of Curve383187 curve

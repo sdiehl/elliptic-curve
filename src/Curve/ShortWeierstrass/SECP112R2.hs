@@ -55,8 +55,9 @@ _b = 0x51def1815db5ed74fcc34c85d709
 
 -- | Generator of SECP112R2 curve
 _g :: P
-_g = A 0x4ba30ab5e892b4e1649dd0928643
-       0xadcd46f5882e3747def36e956e97
+_g = A
+     0x4ba30ab5e892b4e1649dd0928643
+     0xadcd46f5882e3747def36e956e97
 {-# INLINE _g #-}
 
 -- | Cofactor of SECP112R2 curve

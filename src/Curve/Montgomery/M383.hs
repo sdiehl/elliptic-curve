@@ -55,8 +55,9 @@ _b = 1
 
 -- | Generator of M-383 curve
 _g :: P
-_g = A 0xc
-       0x1ec7ed04aaf834af310e304b2da0f328e7c165f0e8988abd3992861290f617aa1f1b2e7d0b6e332e969991b62555e77e
+_g = A
+     0xc
+     0x1ec7ed04aaf834af310e304b2da0f328e7c165f0e8988abd3992861290f617aa1f1b2e7d0b6e332e969991b62555e77e
 {-# INLINE _g #-}
 
 -- | Cofactor of M-383 curve

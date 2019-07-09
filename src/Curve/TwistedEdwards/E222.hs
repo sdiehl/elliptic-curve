@@ -55,8 +55,9 @@ _d = 0x27166
 
 -- | Generator of E-222 curve
 _g :: P
-_g = A 0x19b12bb156a389e55c9768c303316d07c23adab3736eb2bc3eb54e51
-       0x1c
+_g = A
+     0x19b12bb156a389e55c9768c303316d07c23adab3736eb2bc3eb54e51
+     0x1c
 {-# INLINE _g #-}
 
 -- | Cofactor of E-222 curve

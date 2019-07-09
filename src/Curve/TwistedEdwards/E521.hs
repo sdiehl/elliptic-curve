@@ -55,8 +55,9 @@ _d = 0x1ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 
 -- | Generator of E-521 curve
 _g :: P
-_g = A 0x752cb45c48648b189df90cb2296b2878a3bfd9f42fc6c818ec8bf3c9c0c6203913f6ecc5ccc72434b1ae949d568fc99c6059d0fb13364838aa302a940a2f19ba6c
-       0xc
+_g = A
+     0x752cb45c48648b189df90cb2296b2878a3bfd9f42fc6c818ec8bf3c9c0c6203913f6ecc5ccc72434b1ae949d568fc99c6059d0fb13364838aa302a940a2f19ba6c
+     0xc
 {-# INLINE _g #-}
 
 -- | Cofactor of E-521 curve

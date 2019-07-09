@@ -55,8 +55,9 @@ _b = 0x5eeefca380d02919dc2c6558bb6d8a5d
 
 -- | Generator of SECP128R2 curve
 _g :: P
-_g = A 0x7b6aa5d85e572983e6fb32a7cdebc140
-       0x27b6916a894d3aee7106fe805fc34b44
+_g = A
+     0x7b6aa5d85e572983e6fb32a7cdebc140
+     0x27b6916a894d3aee7106fe805fc34b44
 {-# INLINE _g #-}
 
 -- | Cofactor of SECP128R2 curve

@@ -28,7 +28,7 @@ data SECT193R1
 type F2m = BinaryField 0x2000000000000000000000000000000000000000000008001
 
 -- | SECT193R1 curve is a binary Weierstrass curve
-instance BWCurve SECT193R1 0x2000000000000000000000000000000000000000000008001 where
+instance BWCurve SECT193R1 F2m where
   a_ = const _a 
   {-# INLINE a_ #-}
   b_ = const _b
@@ -60,8 +60,9 @@ _f = 0x2000000000000000000000000000000000000000000008001
 
 -- | Generator of SECT193R1 curve
 _g :: P
-_g = A 0x01f481bc5f0ff84a74ad6cdf6fdef4bf6179625372d8c0c5e1
-       0x0025e399f2903712ccf3ea9e3a1ad17fb0b3201b6af7ce1b05
+_g = A
+     0x01f481bc5f0ff84a74ad6cdf6fdef4bf6179625372d8c0c5e1
+     0x0025e399f2903712ccf3ea9e3a1ad17fb0b3201b6af7ce1b05
 {-# INLINE _g #-}
 
 -- | Cofactor of SECT193R1 curve

@@ -55,8 +55,9 @@ _d = 0xe21
 
 -- | Generator of Curve41417 curve
 _g :: P
-_g = A 0x1a334905141443300218c0631c326e5fcd46369f44c03ec7f57ff35498a4ab4d6d6ba111301a73faa8537c64c4fd3812f3cbc595
-       0x22
+_g = A
+     0x1a334905141443300218c0631c326e5fcd46369f44c03ec7f57ff35498a4ab4d6d6ba111301a73faa8537c64c4fd3812f3cbc595
+     0x22
 {-# INLINE _g #-}
 
 -- | Cofactor of Curve41417 curve

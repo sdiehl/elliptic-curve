@@ -55,8 +55,9 @@ _b = 1
 
 -- | Generator of M-511 curve
 _g :: P
-_g = A 5
-       0x2fbdc0ad8530803d28fdbad354bb488d32399ac1cf8f6e01ee3f96389b90c809422b9429e8a43dbf49308ac4455940abe9f1dbca542093a895e30a64af056fa5
+_g = A
+     5
+     0x2fbdc0ad8530803d28fdbad354bb488d32399ac1cf8f6e01ee3f96389b90c809422b9429e8a43dbf49308ac4455940abe9f1dbca542093a895e30a64af056fa5
 {-# INLINE _g #-}
 
 -- | Cofactor of M-511 curve

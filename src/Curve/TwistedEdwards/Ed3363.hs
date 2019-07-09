@@ -55,8 +55,9 @@ _d = 0x2b67
 
 -- | Generator of Ed3363 curve
 _g :: P
-_g = A 0xc
-       0xc0dc616b56502e18e1c161d007853d1b14b46c3811c7ef435b6db5d5650ca0365db12bec68505fe8632
+_g = A
+     0xc
+     0xc0dc616b56502e18e1c161d007853d1b14b46c3811c7ef435b6db5d5650ca0365db12bec68505fe8632
 {-# INLINE _g #-}
 
 -- | Cofactor of Ed3363 curve

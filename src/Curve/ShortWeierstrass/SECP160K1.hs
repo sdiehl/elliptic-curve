@@ -55,8 +55,9 @@ _b = 7
 
 -- | Generator of SECP160K1 curve
 _g :: P
-_g = A 0x003b4c382ce37aa192a4019e763036f4f5dd4d7ebb
-       0x00938cf935318fdced6bc28286531733c3f03c4fee
+_g = A
+     0x003b4c382ce37aa192a4019e763036f4f5dd4d7ebb
+     0x00938cf935318fdced6bc28286531733c3f03c4fee
 {-# INLINE _g #-}
 
 -- | Cofactor of SECP160K1 curve

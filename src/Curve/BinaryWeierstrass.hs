@@ -7,7 +7,7 @@ module Curve.BinaryWeierstrass
 
 import Protolude
 
-import BinaryField (BinaryField)
+import GaloisField (GaloisField)
 import Test.Tasty.QuickCheck (Arbitrary(..))
 
 import Curve (Curve(..))
@@ -23,13 +23,13 @@ data BW
 type BWPoint = Point BW
 
 -- | Binary Weierstrass curves @Y^2 + XY = X^3 + AX^2 + B@
-class Curve BW c (BinaryField ib) => BWCurve c ib where
-  a_ :: c -> BinaryField ib        -- ^ A
-  b_ :: c -> BinaryField ib        -- ^ B
-  g_ :: BWPoint c (BinaryField ib) -- ^ generator
+class Curve BW c k => BWCurve c k where
+  a_ :: c -> k      -- ^ A
+  b_ :: c -> k      -- ^ B
+  g_ :: BWPoint c k -- ^ generator
 
 -- | Binary Weierstrass curves are arbitrary
-instance BWCurve c ib => Arbitrary (Point BW c (BinaryField ib)) where
+instance BWCurve c k => Arbitrary (Point BW c k) where
   arbitrary = return g_
 
 -------------------------------------------------------------------------------
@@ -37,11 +37,10 @@ instance BWCurve c ib => Arbitrary (Point BW c (BinaryField ib)) where
 -------------------------------------------------------------------------------
 
 -- | Binary Weierstrass curves are elliptic curves
-instance (KnownNat ib, BWCurve c ib) => Curve BW c (BinaryField ib) where
+instance (GaloisField k, BWCurve c k) => Curve BW c k where
 
-  data instance Point BW c (BinaryField ib)
-    = A (BinaryField ib) (BinaryField ib) -- ^ Affine point
-    | O                                   -- ^ Infinite point
+  data instance Point BW c k = A k k -- ^ Affine point
+                             | O     -- ^ Infinite point
     deriving (Eq, Generic, NFData, Show)
 
   id = O
