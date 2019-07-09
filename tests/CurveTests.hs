@@ -27,6 +27,7 @@ import qualified Curve.Montgomery.Curve383187 as Curve383187
 import qualified Curve.Montgomery.M221 as M221
 import qualified Curve.Montgomery.M383 as M383
 import qualified Curve.Montgomery.M511 as M511
+import qualified Curve.ShortWeierstrass.ANSSIFRP256V1 as ANSSIFRP256V1
 import qualified Curve.ShortWeierstrass.BLS12_381.G1 as BLS12_381.G1
 import qualified Curve.ShortWeierstrass.BLS12_381.G2 as BLS12_381.G2
 import qualified Curve.ShortWeierstrass.BN128.G1 as BN128.G1
@@ -168,6 +169,9 @@ test_m383 = groupAxioms (witness :: M383.P) "M-383"
 
 test_m511 :: TestTree
 test_m511 = groupAxioms (witness :: M511.P) "M-511"
+
+test_anssi_frp256v1 :: TestTree
+test_anssi_frp256v1 = groupAxioms (witness :: ANSSIFRP256V1.P) "ANSSI-FRP256V1"
 
 test_bls12_381_g1 :: TestTree
 test_bls12_381_g1 = groupAxioms (witness :: BLS12_381.G1.P) "BLS12_381.G1"

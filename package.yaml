@@ -64,6 +64,7 @@ library:
     - Curve.Montgomery.M383
     - Curve.Montgomery.M511
     - Curve.ShortWeierstrass
+    - Curve.ShortWeierstrass.ANSSIFRP256V1
     - Curve.ShortWeierstrass.BLS12_381.G1
     - Curve.ShortWeierstrass.BLS12_381.G2
     - Curve.ShortWeierstrass.SECP112R1
