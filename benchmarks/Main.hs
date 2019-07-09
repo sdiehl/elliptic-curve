@@ -54,6 +54,7 @@ import qualified Curve.TwistedEdwards.E222 as E222
 import qualified Curve.TwistedEdwards.E382 as E382
 import qualified Curve.TwistedEdwards.E521 as E521
 import qualified Curve.TwistedEdwards.Ed448 as Ed448
+import qualified Curve.TwistedEdwards.Ed3363 as Ed3363
 import qualified Curve.TwistedEdwards.Ed25519 as Ed25519
 import qualified Curve.TwistedEdwards.JubJub as JubJub
 import GHC.Base
@@ -126,6 +127,7 @@ main = defaultMain
   , benchmark "E-382" E382._g
   , benchmark "E-521" E521._g
   , benchmark "Ed448" Ed448._g
+  , benchmark "Ed3363" Ed3363._g
   , benchmark "Ed25519" Ed25519._g
   , benchmark "JubJub" JubJub._g
   ]

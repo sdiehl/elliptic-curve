@@ -53,6 +53,7 @@ import qualified Curve.TwistedEdwards.E222 as E222
 import qualified Curve.TwistedEdwards.E382 as E382
 import qualified Curve.TwistedEdwards.E521 as E521
 import qualified Curve.TwistedEdwards.Ed448 as Ed448
+import qualified Curve.TwistedEdwards.Ed3363 as Ed3363
 import qualified Curve.TwistedEdwards.Ed25519 as Ed25519
 import qualified Curve.TwistedEdwards.JubJub as JubJub
 import GaloisField
@@ -247,6 +248,9 @@ test_e521 = groupAxioms (witness :: E521.P) "E-521"
 
 test_ed448 :: TestTree
 test_ed448 = groupAxioms (witness :: Ed448.P) "Ed448"
+
+test_ed3363 :: TestTree
+test_ed3363 = groupAxioms (witness :: Ed3363.P) "Ed3363"
 
 test_ed25519 :: TestTree
 test_ed25519 = groupAxioms (witness :: Ed25519.P) "Ed25519"

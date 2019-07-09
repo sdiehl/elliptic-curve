@@ -89,6 +89,7 @@ library:
     - Curve.TwistedEdwards.E382
     - Curve.TwistedEdwards.E521
     - Curve.TwistedEdwards.Ed448
+    - Curve.TwistedEdwards.Ed3363
     - Curve.TwistedEdwards.Ed25519
     - Curve.TwistedEdwards.JubJub
   ghc-options:
