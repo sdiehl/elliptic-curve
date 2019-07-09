@@ -7,6 +7,7 @@ module Curve.Montgomery.Curve383187
   , _b
   , _g
   , _h
+  , _n
   , _p
   ) where
 
@@ -62,6 +63,11 @@ _g = A 5
 _h :: Integer
 _h = 8
 {-# INLINE _h #-}
+
+-- | Order of Curve383187 curve
+_n :: Integer
+_n = notImplemented
+{-# INLINE _n #-}
 
 -- | Characteristic of Curve383187 curve
 _p :: Integer

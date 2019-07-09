@@ -22,6 +22,7 @@ import qualified Curve.BinaryWeierstrass.SECT409K1 as SECT409K1
 import qualified Curve.BinaryWeierstrass.SECT409R1 as SECT409R1
 import qualified Curve.BinaryWeierstrass.SECT571K1 as SECT571K1
 import qualified Curve.BinaryWeierstrass.SECT571R1 as SECT571R1
+import qualified Curve.Montgomery.Curve448 as Curve448
 import qualified Curve.Montgomery.Curve25519 as Curve25519
 import qualified Curve.Montgomery.Curve383187 as Curve383187
 import qualified Curve.Montgomery.M221 as M221
@@ -46,12 +47,13 @@ import qualified Curve.ShortWeierstrass.SECP256K1 as SECP256K1
 import qualified Curve.ShortWeierstrass.SECP256R1 as SECP256R1
 import qualified Curve.ShortWeierstrass.SECP384R1 as SECP384R1
 import qualified Curve.ShortWeierstrass.SECP512R1 as SECP512R1
-import qualified Curve.TwistedEdwards.Curve448 as Curve448
 import qualified Curve.TwistedEdwards.Curve1174 as Curve1174
 import qualified Curve.TwistedEdwards.Curve41417 as Curve41417
 import qualified Curve.TwistedEdwards.E222 as E222
 import qualified Curve.TwistedEdwards.E382 as E382
 import qualified Curve.TwistedEdwards.E521 as E521
+import qualified Curve.TwistedEdwards.Ed448 as Ed448
+import qualified Curve.TwistedEdwards.Ed25519 as Ed25519
 import qualified Curve.TwistedEdwards.JubJub as JubJub
 import GHC.Base
 
@@ -87,6 +89,7 @@ main = defaultMain
   , benchmark "SECT409R1" SECT409R1._g
   , benchmark "SECT571K1" SECT571K1._g
   , benchmark "SECT571R1" SECT571R1._g
+  , benchmark "Curve448" Curve448._g
   , benchmark "Curve25519" Curve25519._g
   , benchmark "Curve383187" Curve383187._g
   , benchmark "M-221" M221._g
@@ -115,11 +118,12 @@ main = defaultMain
   , benchmark "SECP256R1" SECP256R1._g
   , benchmark "SECP384R1" SECP384R1._g
   , benchmark "SECP512R1" SECP512R1._g
-  , benchmark "Curve448" Curve448._g
   , benchmark "Curve1174" Curve1174._g
   , benchmark "Curve41417" Curve41417._g
   , benchmark "E-222" E222._g
   , benchmark "E-382" E382._g
   , benchmark "E-521" E521._g
+  , benchmark "Ed448" Ed448._g
+  , benchmark "Ed25519" Ed25519._g
   , benchmark "JubJub" JubJub._g
   ]

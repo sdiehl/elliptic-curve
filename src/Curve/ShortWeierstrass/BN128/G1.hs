@@ -60,7 +60,7 @@ _g = A 1 2
 
 -- | Cofactor of BN128 curve G1
 _h :: Integer
-_h = 1
+_h = notImplemented
 {-# INLINE _h #-}
 
 -- | Order of BN128 curve G1

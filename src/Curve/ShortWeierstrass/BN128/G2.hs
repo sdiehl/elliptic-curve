@@ -6,6 +6,8 @@ module Curve.ShortWeierstrass.BN128.G2
   , _a
   , _b
   , _g
+  , _h
+  , _n
   , _p
   ) where
 
@@ -69,6 +71,16 @@ _g = A
     ]
   )
 {-# INLINE _g #-}
+
+-- | Cofactor of BN128 curve G2
+_h :: Integer
+_h = notImplemented
+{-# INLINE _h #-}
+
+-- | Order of BN128 curve G2
+_n :: Integer
+_n = notImplemented
+{-# INLINE _n #-}
 
 -- | Characteristic of BN128 curve G2
 _p :: Integer

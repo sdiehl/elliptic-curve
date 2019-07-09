@@ -57,6 +57,7 @@ library:
     - Curve.BinaryWeierstrass.SECT571K1
     - Curve.BinaryWeierstrass.SECT571R1
     - Curve.Montgomery
+    - Curve.Montgomery.Curve448
     - Curve.Montgomery.Curve25519
     - Curve.Montgomery.Curve383187
     - Curve.Montgomery.M221
@@ -81,12 +82,13 @@ library:
     - Curve.ShortWeierstrass.SECP384R1
     - Curve.ShortWeierstrass.SECP512R1
     - Curve.TwistedEdwards
-    - Curve.TwistedEdwards.Curve448
     - Curve.TwistedEdwards.Curve1174
     - Curve.TwistedEdwards.Curve41417
     - Curve.TwistedEdwards.E222
     - Curve.TwistedEdwards.E382
     - Curve.TwistedEdwards.E521
+    - Curve.TwistedEdwards.Ed448
+    - Curve.TwistedEdwards.Ed25519
     - Curve.TwistedEdwards.JubJub
   ghc-options:
     - -Wall

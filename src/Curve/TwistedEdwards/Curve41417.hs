@@ -7,6 +7,7 @@ module Curve.TwistedEdwards.Curve41417
   , _d
   , _g
   , _h
+  , _n
   , _p
   ) where
 
@@ -62,6 +63,11 @@ _g = A 0x1a334905141443300218c0631c326e5fcd46369f44c03ec7f57ff35498a4ab4d6d6ba11
 _h :: Integer
 _h = 8
 {-# INLINE _h #-}
+
+-- | Order of Curve41417 curve
+_n :: Integer
+_n = notImplemented
+{-# INLINE _n #-}
 
 -- | Characteristic of Curve41417 curve
 _p :: Integer
