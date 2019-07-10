@@ -25,7 +25,7 @@ import Curve.Montgomery (Point(..), MCurve(..), MPoint)
 data Curve383187
 
 -- | Field of Curve383187 curve
-type Fp = PrimeField 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff45  
+type Fp = PrimeField 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff45
 
 -- | Curve383187 curve is a Montgomery curve
 instance MCurve Curve383187 Fp where
@@ -72,5 +72,5 @@ _n = notImplemented
 
 -- | Characteristic of Curve383187 curve
 _p :: Integer
-_p = 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff45 
+_p = 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff45
 {-# INLINE _p #-}

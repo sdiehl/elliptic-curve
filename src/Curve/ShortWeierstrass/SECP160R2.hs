@@ -56,8 +56,8 @@ _b = 0xb4e134d3fb59eb8bab57274904664d5af50388ba
 -- | Generator of SECP160R2 curve
 _g :: P
 _g = A
-     0x0052dcb034293a117e1f4ff11b30f7199d3144ce6d
-     0x00feaffef2e331f296e071fa0df9982cfea7d43f2e
+     0x52dcb034293a117e1f4ff11b30f7199d3144ce6d
+     0xfeaffef2e331f296e071fa0df9982cfea7d43f2e
 {-# INLINE _g #-}
 
 -- | Cofactor of SECP160R2 curve
@@ -67,7 +67,7 @@ _h = 4
 
 -- | Order of SECP160R2 curve
 _n :: Integer
-_n = 0x0100000000000000000000351ee786a818f3a1a16b
+_n = 0x100000000000000000000351ee786a818f3a1a16b
 {-# INLINE _n #-}
 
 -- | Characteristic of SECP160R2 curve

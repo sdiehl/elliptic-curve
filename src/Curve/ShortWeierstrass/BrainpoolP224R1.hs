@@ -56,7 +56,7 @@ _b = 0x2580f63ccfe44138870713b1a92369e33e2135d266dbb372386c400b
 -- | Generator of Brainpool-P224R1 curve
 _g :: P
 _g = A
-     0x0d9029ad2c7e5cf4340823b2a87dc68c9e4ce3174c1e6efdee12c07d
+     0xd9029ad2c7e5cf4340823b2a87dc68c9e4ce3174c1e6efdee12c07d
      0x58aa56f772c0726f24c6b89e4ecdac24354b9e99caa3f6d3761402cd
 {-# INLINE _g #-}
 

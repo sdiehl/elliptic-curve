@@ -29,7 +29,7 @@ type F2m = BinaryField 0x8000000000000000000040000000000000000000000000000000000
 
 -- | SECT239K1 curve is a binary Weierstrass curve
 instance BWCurve SECT239K1 F2m where
-  a_ = const _a 
+  a_ = const _a
   {-# INLINE a_ #-}
   b_ = const _b
   {-# INLINE b_ #-}

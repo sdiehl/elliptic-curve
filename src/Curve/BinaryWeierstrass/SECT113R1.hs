@@ -45,12 +45,12 @@ type P = BWPoint SECT113R1 F2m
 
 -- | Coefficient @A@ of SECT113R1 curve
 _a :: F2m
-_a = 0x003088250ca6e7c7fe649ce85820f7
+_a = 0x3088250ca6e7c7fe649ce85820f7
 {-# INLINE _a #-}
 
 -- | Coefficient @B@ of SECT113R1 curve
 _b :: F2m
-_b = 0x00e8bee4d3e2260744188be0e9c723
+_b = 0xe8bee4d3e2260744188be0e9c723
 {-# INLINE _b #-}
 
 -- | Polynomial of SECT113R1 curve
@@ -61,8 +61,8 @@ _f = 0x20000000000000000000000000201
 -- | Generator of SECT113R1 curve
 _g :: P
 _g = A
-     0x009d73616f35f4ab1407d73562c10f
-     0x00a52830277958ee84d1315ed31886
+     0x9d73616f35f4ab1407d73562c10f
+     0xa52830277958ee84d1315ed31886
 {-# INLINE _g #-}
 
 -- | Cofactor of SECT113R1 curve
@@ -72,5 +72,5 @@ _h = 2
 
 -- | Order of SECT113R1 curve
 _n :: Integer
-_n = 0x0100000000000000d9ccec8a39e56f
+_n = 0x100000000000000d9ccec8a39e56f
 {-# INLINE _n #-}

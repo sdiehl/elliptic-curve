@@ -56,8 +56,8 @@ _b = 7
 -- | Generator of SECP160K1 curve
 _g :: P
 _g = A
-     0x003b4c382ce37aa192a4019e763036f4f5dd4d7ebb
-     0x00938cf935318fdced6bc28286531733c3f03c4fee
+     0x3b4c382ce37aa192a4019e763036f4f5dd4d7ebb
+     0x938cf935318fdced6bc28286531733c3f03c4fee
 {-# INLINE _g #-}
 
 -- | Cofactor of SECP160K1 curve
@@ -67,7 +67,7 @@ _h = 1
 
 -- | Order of SECP160K1 curve
 _n :: Integer
-_n = 0x0100000000000000000001b8fa16dfab9aca16b6b3
+_n = 0x100000000000000000001b8fa16dfab9aca16b6b3
 {-# INLINE _n #-}
 
 -- | Characteristic of SECP160K1 curve

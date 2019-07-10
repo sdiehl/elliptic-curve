@@ -57,7 +57,7 @@ _b = 0x13d56ffaec78681e68f9deb43b35bec2fb68542e27897b79
 _g :: P
 _g = A
      0x3ae9e58c82f63c30282e1fe7bbf43fa72c446af6f4618129
-     0x097e2c5667c2223a902ab5ca449d0084b7e5b3de7ccc01c9
+     0x97e2c5667c2223a902ab5ca449d0084b7e5b3de7ccc01c9
 {-# INLINE _g #-}
 
 -- | Cofactor of Brainpool-P192T1 curve

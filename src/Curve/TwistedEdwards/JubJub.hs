@@ -67,7 +67,7 @@ _h = 8
 
 -- | Order of JubJub curve
 _n :: Integer
-_n = 0x0e7db4ea6533afa906673b0101343b00a6682093ccc81082d0970e5ed6f72cb7
+_n = 0xe7db4ea6533afa906673b0101343b00a6682093ccc81082d0970e5ed6f72cb7
 {-# INLINE _n #-}
 
 -- | Characteristic of JubJub curve

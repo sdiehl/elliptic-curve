@@ -29,7 +29,7 @@ type F2m = BinaryField 0x20000000000000000000000000201
 
 -- | SECT113R2 curve is a binary Weierstrass curve
 instance BWCurve SECT113R2 F2m where
-  a_ = const _a 
+  a_ = const _a
   {-# INLINE a_ #-}
   b_ = const _b
   {-# INLINE b_ #-}
@@ -45,12 +45,12 @@ type P = BWPoint SECT113R2 F2m
 
 -- | Coefficient @A@ of SECT113R2 curve
 _a :: F2m
-_a = 0x00689918dbec7e5a0dd6dfc0aa55c7
+_a = 0x689918dbec7e5a0dd6dfc0aa55c7
 {-# INLINE _a #-}
 
 -- | Coefficient @B@ of SECT113R2 curve
 _b :: F2m
-_b = 0x0095e9a9ec9b297bd4bf36e059184f
+_b = 0x95e9a9ec9b297bd4bf36e059184f
 {-# INLINE _b #-}
 
 -- | Polynomial of SECT113R2 curve
@@ -61,8 +61,8 @@ _f = 0x20000000000000000000000000201
 -- | Generator of SECT113R2 curve
 _g :: P
 _g = A
-     0x01a57a6a7b26ca5ef52fcdb8164797
-     0x00b3adc94ed1fe674c06e695baba1d
+     0x1a57a6a7b26ca5ef52fcdb8164797
+     0xb3adc94ed1fe674c06e695baba1d
 {-# INLINE _g #-}
 
 -- | Cofactor of SECT113R2 curve
@@ -72,5 +72,5 @@ _h = 2
 
 -- | Order of SECT113R2 curve
 _n :: Integer
-_n = 0x010000000000000108789b2496af93
+_n = 0x10000000000000108789b2496af93
 {-# INLINE _n #-}

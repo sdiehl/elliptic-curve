@@ -62,7 +62,7 @@ _g = A
 
 -- | Cofactor of SECP224R1 curve
 _h :: Integer
-_h = 1 
+_h = 1
 {-# INLINE _h #-}
 
 -- | Order of SECP224R1 curve

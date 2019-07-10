@@ -29,7 +29,7 @@ type F2m = BinaryField 0x2000000000000000000000000000000000000000400000000000000
 
 -- | SECT233K1 curve is a binary Weierstrass curve
 instance BWCurve SECT233K1 F2m where
-  a_ = const _a 
+  a_ = const _a
   {-# INLINE a_ #-}
   b_ = const _b
   {-# INLINE b_ #-}
@@ -61,8 +61,8 @@ _f = 0x20000000000000000000000000000000000000004000000000000000001
 -- | Generator of SECT233K1 curve
 _g :: P
 _g = A
-     0x017232ba853a7e731af129f22ff4149563a419c26bf50a4c9d6eefad6126
-     0x01db537dece819b7f70f555a67c427a8cd9bf18aeb9b56e0c11056fae6a3
+     0x17232ba853a7e731af129f22ff4149563a419c26bf50a4c9d6eefad6126
+     0x1db537dece819b7f70f555a67c427a8cd9bf18aeb9b56e0c11056fae6a3
 {-# INLINE _g #-}
 
 -- | Cofactor of SECT233K1 curve

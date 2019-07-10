@@ -67,7 +67,7 @@ _g = A
   )
   ( fromList
    [ 0x17abd366ebbd65333e49c711a80a0cf6d24adf1b9b3990eedcc91731384d2627
-   , 0x0ee97d6de9902a27d00e952232a78700863bc9aa9be960C32f5bf9fd0a32d345
+   , 0xee97d6de9902a27d00e952232a78700863bc9aa9be960C32f5bf9fd0a32d345
    ]
   )
 {-# INLINE _g #-}

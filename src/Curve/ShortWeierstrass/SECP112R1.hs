@@ -56,7 +56,7 @@ _b = 0x659ef8ba043916eede8911702b22
 -- | Generator of SECP112R1 curve
 _g :: P
 _g = A
-     0x09487239995a5ee76b55f9c2f098
+     0x9487239995a5ee76b55f9c2f098
      0xa89ce5af8724c0a23e0e0ff77500
 {-# INLINE _g #-}
 

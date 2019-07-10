@@ -50,7 +50,7 @@ _a = 0x7bc382c63d8c150c3c72080ace05afa0c2bea28e4fb22787139165efba91f90f8aa5814a5
 
 -- | Coefficient @B@ of Brainpool-P384R1 curve
 _b :: Fp
-_b = 0x04a8c7dd22ce28268b39b55416f0447c2fb77de107dcd2a62e880ea53eeb62d57cb4390295dbc9943ab78696fa504c11
+_b = 0x4a8c7dd22ce28268b39b55416f0447c2fb77de107dcd2a62e880ea53eeb62d57cb4390295dbc9943ab78696fa504c11
 {-# INLINE _b #-}
 
 -- | Generator of Brainpool-P384R1 curve
