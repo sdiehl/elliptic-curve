@@ -1,4 +1,4 @@
-module Curve.ShortWeierstrass.BLS12_381.G2
+module Curve.ShortWeierstrass.BLS12_381T
   -- | Types
   ( Fp2
   , P
@@ -16,23 +16,23 @@ import Protolude
 import ExtensionField (ExtensionField, IrreducibleMonic(..), fromList, x)
 
 import Curve.ShortWeierstrass (Point(..), SWCurve(..), SWPoint)
-import Curve.ShortWeierstrass.BLS12_381.G1 (Fp)
+import Curve.ShortWeierstrass.BLS12_381 (Fp)
 
 -------------------------------------------------------------------------------
 -- Types
 -------------------------------------------------------------------------------
 
--- | BLS12-381 curve G2
-data G2
+-- | BLS12-381T curve
+data BLS12_381T
 
--- | Field of BLS12-381 curve G2
+-- | Field of BLS12-381T curve
 data PolynomialU
 instance IrreducibleMonic Fp PolynomialU where
   split _ = x ^ (2 :: Int) + 1
 type Fp2 = ExtensionField Fp PolynomialU
 
--- | BLS12-381 curve G2 is a short Weierstrass curve
-instance SWCurve G2 Fp2 where
+-- | BLS12-381T curve is a short Weierstrass curve
+instance SWCurve BLS12_381T Fp2 where
   a_ = const _a
   {-# INLINE a_ #-}
   b_ = const _b
@@ -40,24 +40,24 @@ instance SWCurve G2 Fp2 where
   g_ = _g
   {-# INLINE g_ #-}
 
--- | Point of BLS12-381 curve G2
-type P = SWPoint G2 Fp2
+-- | Point of BLS12-381T curve
+type P = SWPoint BLS12_381T Fp2
 
 -------------------------------------------------------------------------------
 -- Parameters
 -------------------------------------------------------------------------------
 
--- | Coefficient @A@ of BLS12-381 curve G2
+-- | Coefficient @A@ of BLS12-381T curve
 _a :: Fp2
 _a = 0
 {-# INLINE _a #-}
 
--- | Coefficient @B@ of BLS12-381 curve G2
+-- | Coefficient @B@ of BLS12-381T curve
 _b :: Fp2
 _b = fromList [4, 4]
 {-# INLINE _b #-}
 
--- | Generator of BLS12-381 curve G2
+-- | Generator of BLS12-381T curve
 _g :: P
 _g = A
   ( fromList
@@ -72,17 +72,17 @@ _g = A
   )
 {-# INLINE _g #-}
 
--- | Cofactor of BLS12-381 curve G2
+-- | Cofactor of BLS12-381T curve
 _h :: Integer
 _h = 0x5d543a95414e7f1091d50792876a202cd91de4547085abaa68a205b2e5a7ddfa628f1cb4d9e82ef21537e293a6691ae1616ec6e786f0c70cf1c38e31c7238e5
 {-# INLINE _h #-}
 
--- | Order of BLS12-381 curve G2
+-- | Order of BLS12-381T curve
 _n :: Integer
 _n = 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
 {-# INLINE _n #-}
 
--- | Characteristic of BLS12-381 curve G2
+-- | Characteristic of BLS12-381T curve
 _p :: Integer
 _p = 0x1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab
 {-# INLINE _p #-}

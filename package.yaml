@@ -65,17 +65,21 @@ library:
     - Curve.Montgomery.M511
     - Curve.ShortWeierstrass
     - Curve.ShortWeierstrass.ANSSIFRP256V1
-    - Curve.ShortWeierstrass.BLS12_381.G1
-    - Curve.ShortWeierstrass.BLS12_381.G2
+    - Curve.ShortWeierstrass.BLS12_381
+    - Curve.ShortWeierstrass.BLS12_381T
+    - Curve.ShortWeierstrass.BLS48_581
+    - Curve.ShortWeierstrass.BLS48_581T
     - Curve.ShortWeierstrass.BN224
+    - Curve.ShortWeierstrass.BN254
+    - Curve.ShortWeierstrass.BN254T
     - Curve.ShortWeierstrass.BN254A
-    - Curve.ShortWeierstrass.BN254A2
+    - Curve.ShortWeierstrass.BN254AT
     - Curve.ShortWeierstrass.BN254B
-    - Curve.ShortWeierstrass.BN254B2
-    - Curve.ShortWeierstrass.BN254P
-    - Curve.ShortWeierstrass.BN254P2
+    - Curve.ShortWeierstrass.BN254BT
     - Curve.ShortWeierstrass.BN256
     - Curve.ShortWeierstrass.BN384
+    - Curve.ShortWeierstrass.BN462
+    - Curve.ShortWeierstrass.BN462T
     - Curve.ShortWeierstrass.BN512
     - Curve.ShortWeierstrass.SECP112R1
     - Curve.ShortWeierstrass.SECP112R2

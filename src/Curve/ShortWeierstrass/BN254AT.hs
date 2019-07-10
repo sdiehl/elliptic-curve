@@ -1,4 +1,4 @@
-module Curve.ShortWeierstrass.BN254B2
+module Curve.ShortWeierstrass.BN254AT
   -- | Types
   ( Fp2
   , P
@@ -16,23 +16,23 @@ import Protolude
 import ExtensionField (ExtensionField, IrreducibleMonic(..), fromList, x)
 
 import Curve.ShortWeierstrass (Point(..), SWCurve(..), SWPoint)
-import Curve.ShortWeierstrass.BN254B (Fp)
+import Curve.ShortWeierstrass.BN254A (Fp)
 
 -------------------------------------------------------------------------------
 -- Types
 -------------------------------------------------------------------------------
 
--- | BN254B2 curve
-data BN254B2
+-- | BN254AT curve
+data BN254AT
 
--- | Field of BN254B2 curve
+-- | Field of BN254AT curve
 data PolynomialU
 instance IrreducibleMonic Fp PolynomialU where
-  split _ = x ^ (2 :: Int) + 1
+  split _ = x ^ (2 :: Int) + 5
 type Fp2 = ExtensionField Fp PolynomialU
 
--- | BN254B2 curve is a short Weierstrass curve
-instance SWCurve BN254B2 Fp2 where
+-- | BN254AT curve is a short Weierstrass curve
+instance SWCurve BN254AT Fp2 where
   a_ = const _a
   {-# INLINE a_ #-}
   b_ = const _b
@@ -40,49 +40,49 @@ instance SWCurve BN254B2 Fp2 where
   g_ = _g
   {-# INLINE g_ #-}
 
--- | Point of BN254B2 curve
-type P = SWPoint BN254B2 Fp2
+-- | Point of BN254AT curve
+type P = SWPoint BN254AT Fp2
 
 -------------------------------------------------------------------------------
 -- Parameters
 -------------------------------------------------------------------------------
 
--- | Coefficient @A@ of BN254B2 curve
+-- | Coefficient @A@ of BN254AT curve
 _a :: Fp2
 _a = 0
 {-# INLINE _a #-}
 
--- | Coefficient @B@ of BN254B2 curve
+-- | Coefficient @B@ of BN254AT curve
 _b :: Fp2
-_b = fromList [1, -1]
+_b = fromList [0, -1]
 {-# INLINE _b #-}
 
--- | Generator of BN254B2 curve
+-- | Generator of BN254AT curve
 _g :: P
 _g = A
   ( fromList
-   [ 0x061a10bb519eb62feb8d8c7e8c61edb6a4648bbb4898bf0d91ee4224c803fb2b
-   , 0x0516aaf9ba737833310aa78c5982aa5b1f4d746bae3784b70d8c34c1e7d54cf3
+   [ 0x19b0bea4afe4c330da93cc3533da38a9f430b471c6f8a536e81962ed967909b5
+   , 0xa1cf585585a61c6e9880b1f2a5c539f7d906fff238fa6341e1de1a2e45c3f72
    ]
   )
   ( fromList
-   [ 0x021897a06baf93439a90e096698c822329bd0ae6bdbe09bd19f0e07891cd2b9a
-   , 0x0ebb2b0e7c8b15268f6d4456f5f38d37b09006ffd739c9578a2d1aec6b3ace9b
+   [ 0x17abd366ebbd65333e49c711a80a0cf6d24adf1b9b3990eedcc91731384d2627
+   , 0x0ee97d6de9902a27d00e952232a78700863bc9aa9be960C32f5bf9fd0a32d345
    ]
   )
 {-# INLINE _g #-}
 
--- | Cofactor of BN254B2 curve
+-- | Cofactor of BN254AT curve
 _h :: Integer
-_h = 0x2523648240000001ba344d8000000008c2a2800000000016ad00000000000019
+_h = 0x2370fb049d410fbe4e761a9886e50241dc42cf101e0000017e80600000000001
 {-# INLINE _h #-}
 
--- | Order of BN254B2 curve
+-- | Order of BN254AT curve
 _n :: Integer
-_n = 0x2523648240000001ba344d8000000007ff9f800000000010a10000000000000d
+_n = 0x2370fb049d410fbe4e761a9886e502411dc1af70120000017e80600000000001
 {-# INLINE _n #-}
 
--- | Characteristic of BN254B2 curve
+-- | Characteristic of BN254AT curve
 _p :: Integer
-_p = 0x2523648240000001ba344d80000000086121000000000013a700000000000013
+_p = 0x2370fb049d410fbe4e761a9886e502417d023f40180000017e80600000000001
 {-# INLINE _p #-}

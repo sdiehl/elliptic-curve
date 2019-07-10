@@ -1,4 +1,4 @@
-module Curve.ShortWeierstrass.BN254P
+module Curve.ShortWeierstrass.BN254
   -- | Types
   ( Fp
   , P
@@ -21,14 +21,14 @@ import Curve.ShortWeierstrass (Point(..), SWCurve(..), SWPoint)
 -- Types
 -------------------------------------------------------------------------------
 
--- | BN254P curve
-data BN254P
+-- | BN254 curve
+data BN254
 
--- | Field of BN254P curve
+-- | Field of BN254 curve
 type Fp = PrimeField 0x30644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd47
 
--- | BN254P curve is a short Weierstrass curve
-instance SWCurve BN254P Fp where
+-- | BN254 curve is a short Weierstrass curve
+instance SWCurve BN254 Fp where
   a_ = const _a
   {-# INLINE a_ #-}
   b_ = const _b
@@ -36,41 +36,41 @@ instance SWCurve BN254P Fp where
   g_ = _g
   {-# INLINE g_ #-}
 
--- | Point of BN254P curve
-type P = SWPoint BN254P Fp
+-- | Point of BN254 curve
+type P = SWPoint BN254 Fp
 
 -------------------------------------------------------------------------------
 -- Parameters
 -------------------------------------------------------------------------------
 
--- | Coefficient @A@ of BN254P curve
+-- | Coefficient @A@ of BN254 curve
 _a :: Fp
 _a = 0
 {-# INLINE _a #-}
 
--- | Coefficient @B@ of BN254P curve
+-- | Coefficient @B@ of BN254 curve
 _b :: Fp
 _b = 3
 {-# INLINE _b #-}
 
--- | Generator of BN254P curve
+-- | Generator of BN254 curve
 _g :: P
 _g = A
      1
      2
 {-# INLINE _g #-}
 
--- | Cofactor of BN254P curve
+-- | Cofactor of BN254 curve
 _h :: Integer
 _h = 1
 {-# INLINE _h #-}
 
--- | Order of BN254P curve
+-- | Order of BN254 curve
 _n :: Integer
 _n = 0x30644e72e131a029b85045b68181585d2833e84879b9709143e1f593f0000001
 {-# INLINE _n #-}
 
--- | Characteristic of BN254P curve
+-- | Characteristic of BN254 curve
 _p :: Integer
 _p = 0x30644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd47
 {-# INLINE _p #-}
