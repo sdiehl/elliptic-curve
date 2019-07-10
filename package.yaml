@@ -82,6 +82,20 @@ library:
     - Curve.ShortWeierstrass.SECP256R1
     - Curve.ShortWeierstrass.SECP384R1
     - Curve.ShortWeierstrass.SECP521R1
+    - Curve.ShortWeierstrass.BrainpoolP160R1
+    - Curve.ShortWeierstrass.BrainpoolP160T1
+    - Curve.ShortWeierstrass.BrainpoolP192R1
+    - Curve.ShortWeierstrass.BrainpoolP192T1
+    - Curve.ShortWeierstrass.BrainpoolP224R1
+    - Curve.ShortWeierstrass.BrainpoolP224T1
+    - Curve.ShortWeierstrass.BrainpoolP256R1
+    - Curve.ShortWeierstrass.BrainpoolP256T1
+    - Curve.ShortWeierstrass.BrainpoolP320R1
+    - Curve.ShortWeierstrass.BrainpoolP320T1
+    - Curve.ShortWeierstrass.BrainpoolP384R1
+    - Curve.ShortWeierstrass.BrainpoolP384T1
+    - Curve.ShortWeierstrass.BrainpoolP512R1
+    - Curve.ShortWeierstrass.BrainpoolP512T1
     - Curve.TwistedEdwards
     - Curve.TwistedEdwards.Curve1174
     - Curve.TwistedEdwards.Curve41417

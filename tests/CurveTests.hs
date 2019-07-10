@@ -32,6 +32,20 @@ import qualified Curve.ShortWeierstrass.BLS12_381.G1 as BLS12_381.G1
 import qualified Curve.ShortWeierstrass.BLS12_381.G2 as BLS12_381.G2
 import qualified Curve.ShortWeierstrass.BN128.G1 as BN128.G1
 import qualified Curve.ShortWeierstrass.BN128.G2 as BN128.G2
+import qualified Curve.ShortWeierstrass.BrainpoolP160R1 as BrainpoolP160R1
+import qualified Curve.ShortWeierstrass.BrainpoolP160T1 as BrainpoolP160T1
+import qualified Curve.ShortWeierstrass.BrainpoolP192R1 as BrainpoolP192R1
+import qualified Curve.ShortWeierstrass.BrainpoolP192T1 as BrainpoolP192T1
+import qualified Curve.ShortWeierstrass.BrainpoolP224R1 as BrainpoolP224R1
+import qualified Curve.ShortWeierstrass.BrainpoolP224T1 as BrainpoolP224T1
+import qualified Curve.ShortWeierstrass.BrainpoolP256R1 as BrainpoolP256R1
+import qualified Curve.ShortWeierstrass.BrainpoolP256T1 as BrainpoolP256T1
+import qualified Curve.ShortWeierstrass.BrainpoolP320R1 as BrainpoolP320R1
+import qualified Curve.ShortWeierstrass.BrainpoolP320T1 as BrainpoolP320T1
+import qualified Curve.ShortWeierstrass.BrainpoolP384R1 as BrainpoolP384R1
+import qualified Curve.ShortWeierstrass.BrainpoolP384T1 as BrainpoolP384T1
+import qualified Curve.ShortWeierstrass.BrainpoolP512R1 as BrainpoolP512R1
+import qualified Curve.ShortWeierstrass.BrainpoolP512T1 as BrainpoolP512T1
 import qualified Curve.ShortWeierstrass.SECP112R1 as SECP112R1
 import qualified Curve.ShortWeierstrass.SECP112R2 as SECP112R2
 import qualified Curve.ShortWeierstrass.SECP128R1 as SECP128R1
@@ -185,6 +199,48 @@ test_bn128_g1 = groupAxioms (witness :: BN128.G1.P) "BN128.G1"
 
 test_bn128_g2 :: TestTree
 test_bn128_g2 = groupAxioms (witness :: BN128.G2.P) "BN128.G2"
+
+test_brainpool_p160r1 :: TestTree
+test_brainpool_p160r1 = groupAxioms (witness :: BrainpoolP160R1.P) "Brainpool-P160R1"
+
+test_brainpool_p160t1 :: TestTree
+test_brainpool_p160t1 = groupAxioms (witness :: BrainpoolP160T1.P) "Brainpool-P160T1"
+
+test_brainpool_p192r1 :: TestTree
+test_brainpool_p192r1 = groupAxioms (witness :: BrainpoolP192R1.P) "Brainpool-P192R1"
+
+test_brainpool_p192t1 :: TestTree
+test_brainpool_p192t1 = groupAxioms (witness :: BrainpoolP192T1.P) "Brainpool-P192T1"
+
+test_brainpool_p224r1 :: TestTree
+test_brainpool_p224r1 = groupAxioms (witness :: BrainpoolP224R1.P) "Brainpool-P224R1"
+
+test_brainpool_p224t1 :: TestTree
+test_brainpool_p224t1 = groupAxioms (witness :: BrainpoolP224T1.P) "Brainpool-P224T1"
+
+test_brainpool_p256r1 :: TestTree
+test_brainpool_p256r1 = groupAxioms (witness :: BrainpoolP256R1.P) "Brainpool-P256R1"
+
+test_brainpool_p256t1 :: TestTree
+test_brainpool_p256t1 = groupAxioms (witness :: BrainpoolP256T1.P) "Brainpool-P256T1"
+
+test_brainpool_p320r1 :: TestTree
+test_brainpool_p320r1 = groupAxioms (witness :: BrainpoolP320R1.P) "Brainpool-P320R1"
+
+test_brainpool_p320t1 :: TestTree
+test_brainpool_p320t1 = groupAxioms (witness :: BrainpoolP320T1.P) "Brainpool-P320T1"
+
+test_brainpool_p384r1 :: TestTree
+test_brainpool_p384r1 = groupAxioms (witness :: BrainpoolP384R1.P) "Brainpool-P384R1"
+
+test_brainpool_p384t1 :: TestTree
+test_brainpool_p384t1 = groupAxioms (witness :: BrainpoolP384T1.P) "Brainpool-P384T1"
+
+test_brainpool_p512r1 :: TestTree
+test_brainpool_p512r1 = groupAxioms (witness :: BrainpoolP512R1.P) "Brainpool-P512R1"
+
+test_brainpool_p512t1 :: TestTree
+test_brainpool_p512t1 = groupAxioms (witness :: BrainpoolP512T1.P) "Brainpool-P512T1"
 
 test_secp112r1 :: TestTree
 test_secp112r1 = groupAxioms (witness :: SECP112R1.P) "SECP112R1"

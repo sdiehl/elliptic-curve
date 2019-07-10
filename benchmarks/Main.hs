@@ -33,6 +33,20 @@ import qualified Curve.ShortWeierstrass.BLS12_381.G1 as BLS12_381.G1
 import qualified Curve.ShortWeierstrass.BLS12_381.G2 as BLS12_381.G2
 import qualified Curve.ShortWeierstrass.BN128.G1 as BN128.G1
 import qualified Curve.ShortWeierstrass.BN128.G2 as BN128.G2
+import qualified Curve.ShortWeierstrass.BrainpoolP160R1 as BrainpoolP160R1
+import qualified Curve.ShortWeierstrass.BrainpoolP160T1 as BrainpoolP160T1
+import qualified Curve.ShortWeierstrass.BrainpoolP192R1 as BrainpoolP192R1
+import qualified Curve.ShortWeierstrass.BrainpoolP192T1 as BrainpoolP192T1
+import qualified Curve.ShortWeierstrass.BrainpoolP224R1 as BrainpoolP224R1
+import qualified Curve.ShortWeierstrass.BrainpoolP224T1 as BrainpoolP224T1
+import qualified Curve.ShortWeierstrass.BrainpoolP256R1 as BrainpoolP256R1
+import qualified Curve.ShortWeierstrass.BrainpoolP256T1 as BrainpoolP256T1
+import qualified Curve.ShortWeierstrass.BrainpoolP320R1 as BrainpoolP320R1
+import qualified Curve.ShortWeierstrass.BrainpoolP320T1 as BrainpoolP320T1
+import qualified Curve.ShortWeierstrass.BrainpoolP384R1 as BrainpoolP384R1
+import qualified Curve.ShortWeierstrass.BrainpoolP384T1 as BrainpoolP384T1
+import qualified Curve.ShortWeierstrass.BrainpoolP512R1 as BrainpoolP512R1
+import qualified Curve.ShortWeierstrass.BrainpoolP512T1 as BrainpoolP512T1
 import qualified Curve.ShortWeierstrass.SECP112R1 as SECP112R1
 import qualified Curve.ShortWeierstrass.SECP112R2 as SECP112R2
 import qualified Curve.ShortWeierstrass.SECP128R1 as SECP128R1
@@ -106,6 +120,20 @@ main = defaultMain
     [ benchmark "G1" BN128.G1._g
     , benchmark "G2" BN128.G2._g
     ]
+  , benchmark "Brainpool-P160R1" BrainpoolP160R1._g
+  , benchmark "Brainpool-P160T1" BrainpoolP160T1._g
+  , benchmark "Brainpool-P192R1" BrainpoolP192R1._g
+  , benchmark "Brainpool-P192T1" BrainpoolP192T1._g
+  , benchmark "Brainpool-P224R1" BrainpoolP224R1._g
+  , benchmark "Brainpool-P224T1" BrainpoolP224T1._g
+  , benchmark "Brainpool-P256R1" BrainpoolP256R1._g
+  , benchmark "Brainpool-P256T1" BrainpoolP256T1._g
+  , benchmark "Brainpool-P320R1" BrainpoolP320R1._g
+  , benchmark "Brainpool-P320T1" BrainpoolP320T1._g
+  , benchmark "Brainpool-P384R1" BrainpoolP384R1._g
+  , benchmark "Brainpool-P384T1" BrainpoolP384T1._g
+  , benchmark "Brainpool-P512R1" BrainpoolP512R1._g
+  , benchmark "Brainpool-P512T1" BrainpoolP512T1._g
   , benchmark "SECP112R1" SECP112R1._g
   , benchmark "SECP112R2" SECP112R2._g
   , benchmark "SECP128R1" SECP128R1._g
