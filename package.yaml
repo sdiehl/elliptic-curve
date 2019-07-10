@@ -67,6 +67,16 @@ library:
     - Curve.ShortWeierstrass.ANSSIFRP256V1
     - Curve.ShortWeierstrass.BLS12_381.G1
     - Curve.ShortWeierstrass.BLS12_381.G2
+    - Curve.ShortWeierstrass.BN224
+    - Curve.ShortWeierstrass.BN254A
+    - Curve.ShortWeierstrass.BN254A2
+    - Curve.ShortWeierstrass.BN254B
+    - Curve.ShortWeierstrass.BN254B2
+    - Curve.ShortWeierstrass.BN254P
+    - Curve.ShortWeierstrass.BN254P2
+    - Curve.ShortWeierstrass.BN256
+    - Curve.ShortWeierstrass.BN384
+    - Curve.ShortWeierstrass.BN512
     - Curve.ShortWeierstrass.SECP112R1
     - Curve.ShortWeierstrass.SECP112R2
     - Curve.ShortWeierstrass.SECP128R1

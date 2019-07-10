@@ -1,4 +1,4 @@
-module Curve.ShortWeierstrass.BN128.G1
+module Curve.ShortWeierstrass.BN254A
   -- | Types
   ( Fp
   , P
@@ -21,14 +21,14 @@ import Curve.ShortWeierstrass (Point(..), SWCurve(..), SWPoint)
 -- Types
 -------------------------------------------------------------------------------
 
--- | BN128 curve G1
-data G1
+-- | BN254A curve
+data BN254A
 
--- | Field of BN128 curve G1
-type Fp = PrimeField 0x30644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd47
+-- | Field of BN254A curve
+type Fp = PrimeField 0x2370fb049d410fbe4e761a9886e502417d023f40180000017e80600000000001
 
--- | BN128 curve G1 is a short Weierstrass curve
-instance SWCurve G1 Fp where
+-- | BN254A curve is a short Weierstrass curve
+instance SWCurve BN254A Fp where
   a_ = const _a
   {-# INLINE a_ #-}
   b_ = const _b
@@ -36,41 +36,41 @@ instance SWCurve G1 Fp where
   g_ = _g
   {-# INLINE g_ #-}
 
--- | Point of BN128 curve G1
-type P = SWPoint G1 Fp
+-- | Point of BN254A curve
+type P = SWPoint BN254A Fp
 
 -------------------------------------------------------------------------------
 -- Parameters
 -------------------------------------------------------------------------------
 
--- | Coefficient @A@ of BN128 curve G1
+-- | Coefficient @A@ of BN254A curve
 _a :: Fp
 _a = 0
 {-# INLINE _a #-}
 
--- | Coefficient @B@ of BN128 curve G1
+-- | Coefficient @B@ of BN254A curve
 _b :: Fp
-_b = 3
+_b = 5
 {-# INLINE _b #-}
 
--- | Generator of BN128 curve G1
+-- | Generator of BN254A curve
 _g :: P
 _g = A
      1
-     2
+     0xd45589b158faaf6ab0e4ad38d998e9982e7ff63964ee1460342a592677cccb0
 {-# INLINE _g #-}
 
--- | Cofactor of BN128 curve G1
+-- | Cofactor of BN254A curve
 _h :: Integer
-_h = notImplemented
+_h = 1
 {-# INLINE _h #-}
 
--- | Order of BN128 curve G1
+-- | Order of BN254A curve
 _n :: Integer
-_n = 0x30644e72e131a029b85045b68181585d2833e84879b9709143e1f593f0000001
+_n = 0x2370fb049d410fbe4e761a9886e502411dc1af70120000017e80600000000001
 {-# INLINE _n #-}
 
--- | Characteristic of BN128 curve G1
+-- | Characteristic of BN254A curve
 _p :: Integer
-_p = 0x30644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd47
+_p = 0x2370fb049d410fbe4e761a9886e502417d023f40180000017e80600000000001
 {-# INLINE _p #-}

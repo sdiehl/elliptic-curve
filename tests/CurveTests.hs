@@ -30,8 +30,16 @@ import qualified Curve.Montgomery.M511 as M511
 import qualified Curve.ShortWeierstrass.ANSSIFRP256V1 as ANSSIFRP256V1
 import qualified Curve.ShortWeierstrass.BLS12_381.G1 as BLS12_381.G1
 import qualified Curve.ShortWeierstrass.BLS12_381.G2 as BLS12_381.G2
-import qualified Curve.ShortWeierstrass.BN128.G1 as BN128.G1
-import qualified Curve.ShortWeierstrass.BN128.G2 as BN128.G2
+import qualified Curve.ShortWeierstrass.BN224 as BN224
+import qualified Curve.ShortWeierstrass.BN254A as BN254A
+import qualified Curve.ShortWeierstrass.BN254A2 as BN254A2
+import qualified Curve.ShortWeierstrass.BN254B as BN254B
+import qualified Curve.ShortWeierstrass.BN254B2 as BN254B2
+import qualified Curve.ShortWeierstrass.BN254P as BN254P
+import qualified Curve.ShortWeierstrass.BN254P2 as BN254P2
+import qualified Curve.ShortWeierstrass.BN256 as BN256
+import qualified Curve.ShortWeierstrass.BN384 as BN384
+import qualified Curve.ShortWeierstrass.BN512 as BN512
 import qualified Curve.ShortWeierstrass.BrainpoolP160R1 as BrainpoolP160R1
 import qualified Curve.ShortWeierstrass.BrainpoolP160T1 as BrainpoolP160T1
 import qualified Curve.ShortWeierstrass.BrainpoolP192R1 as BrainpoolP192R1
@@ -194,11 +202,35 @@ test_bls12_381_g1 = groupAxioms (witness :: BLS12_381.G1.P) "BLS12_381.G1"
 test_bls12_381_g2 :: TestTree
 test_bls12_381_g2 = groupAxioms (witness :: BLS12_381.G2.P) "BLS12_381.G2"
 
-test_bn128_g1 :: TestTree
-test_bn128_g1 = groupAxioms (witness :: BN128.G1.P) "BN128.G1"
+test_bn224 :: TestTree
+test_bn224 = groupAxioms (witness :: BN224.P) "BN224"
 
-test_bn128_g2 :: TestTree
-test_bn128_g2 = groupAxioms (witness :: BN128.G2.P) "BN128.G2"
+test_bn254a :: TestTree
+test_bn254a = groupAxioms (witness :: BN254A.P) "BN254A"
+
+test_bn254a2 :: TestTree
+test_bn254a2 = groupAxioms (witness :: BN254A2.P) "BN254A2"
+
+test_bn254b :: TestTree
+test_bn254b = groupAxioms (witness :: BN254B.P) "BN254B"
+
+test_bn254b2 :: TestTree
+test_bn254b2 = groupAxioms (witness :: BN254B2.P) "BN254B2"
+
+test_bn254p :: TestTree
+test_bn254p = groupAxioms (witness :: BN254P.P) "BN254P"
+
+test_bn254p2 :: TestTree
+test_bn254p2 = groupAxioms (witness :: BN254P2.P) "BN254P2"
+
+test_bn256 :: TestTree
+test_bn256 = groupAxioms (witness :: BN256.P) "BN256"
+
+test_bn384 :: TestTree
+test_bn384 = groupAxioms (witness :: BN384.P) "BN384"
+
+test_bn512 :: TestTree
+test_bn512 = groupAxioms (witness :: BN512.P) "BN512"
 
 test_brainpool_p160r1 :: TestTree
 test_brainpool_p160r1 = groupAxioms (witness :: BrainpoolP160R1.P) "Brainpool-P160R1"

@@ -31,8 +31,16 @@ import qualified Curve.Montgomery.M511 as M511
 import qualified Curve.ShortWeierstrass.ANSSIFRP256V1 as ANSSIFRP256V1
 import qualified Curve.ShortWeierstrass.BLS12_381.G1 as BLS12_381.G1
 import qualified Curve.ShortWeierstrass.BLS12_381.G2 as BLS12_381.G2
-import qualified Curve.ShortWeierstrass.BN128.G1 as BN128.G1
-import qualified Curve.ShortWeierstrass.BN128.G2 as BN128.G2
+import qualified Curve.ShortWeierstrass.BN224 as BN224
+import qualified Curve.ShortWeierstrass.BN254A as BN254A
+import qualified Curve.ShortWeierstrass.BN254A2 as BN254A2
+import qualified Curve.ShortWeierstrass.BN254B as BN254B
+import qualified Curve.ShortWeierstrass.BN254B2 as BN254B2
+import qualified Curve.ShortWeierstrass.BN254P as BN254P
+import qualified Curve.ShortWeierstrass.BN254P2 as BN254P2
+import qualified Curve.ShortWeierstrass.BN256 as BN256
+import qualified Curve.ShortWeierstrass.BN384 as BN384
+import qualified Curve.ShortWeierstrass.BN512 as BN512
 import qualified Curve.ShortWeierstrass.BrainpoolP160R1 as BrainpoolP160R1
 import qualified Curve.ShortWeierstrass.BrainpoolP160T1 as BrainpoolP160T1
 import qualified Curve.ShortWeierstrass.BrainpoolP192R1 as BrainpoolP192R1
@@ -116,10 +124,16 @@ main = defaultMain
     [ benchmark "G1" BLS12_381.G1._g
     , benchmark "G2" BLS12_381.G2._g
     ]
-  , bgroup "BN128"
-    [ benchmark "G1" BN128.G1._g
-    , benchmark "G2" BN128.G2._g
-    ]
+  , benchmark "BN224" BN224._g
+  , benchmark "BN254A" BN254A._g
+  , benchmark "BN254A2" BN254A2._g
+  , benchmark "BN254B" BN254B._g
+  , benchmark "BN254B2" BN254B2._g
+  , benchmark "BN254P" BN254P._g
+  , benchmark "BN254P2" BN254P2._g
+  , benchmark "BN256" BN256._g
+  , benchmark "BN384" BN384._g
+  , benchmark "BN412" BN512._g
   , benchmark "Brainpool-P160R1" BrainpoolP160R1._g
   , benchmark "Brainpool-P160T1" BrainpoolP160T1._g
   , benchmark "Brainpool-P192R1" BrainpoolP192R1._g
