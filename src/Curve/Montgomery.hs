@@ -80,3 +80,9 @@ instance (GaloisField k, MCurve c k) => Curve M c k where
       a = a_ (witness :: c)
       b = b_ (witness :: c)
   {-# INLINE def #-}
+
+  disc _ = b * (a ^ 2 - 4)
+    where
+      a = a_ (witness :: c)
+      b = b_ (witness :: c)
+  {-# INLINE disc #-}

@@ -68,3 +68,8 @@ instance (GaloisField k, ECurve c k) => Curve E c k where
       xx = x * x
       yy = y * y
   {-# INLINE def #-}
+
+  disc _ = d * (1 - d)
+    where
+      d = d_ (witness :: c)
+  {-# INLINE disc #-}

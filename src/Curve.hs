@@ -13,9 +13,9 @@ import GaloisField (GaloisField)
 
 -- | Elliptic curves over Galois fields
 class GaloisField k => Curve r c k where
-  {-# MINIMAL id, inv, add, def #-}
+  {-# MINIMAL id, inv, add, def, disc #-}
 
-  -- | Elliptic curve point
+  -- | Curve point
   data family Point r c k :: *
 
   -- | Point identity
@@ -46,6 +46,9 @@ class GaloisField k => Curve r c k where
 
   -- | Point is well-defined
   def :: Point r c k -> Bool
+
+  -- | Curve discriminant
+  disc :: Point r c k -> k
 
 -- | Elliptic curves are semigroups
 instance Curve r c k => Semigroup (Point r c k) where

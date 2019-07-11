@@ -79,3 +79,6 @@ instance (GaloisField k, BCurve c k) => Curve B c k where
       a = a_ (witness :: c)
       b = b_ (witness :: c)
   {-# INLINE def #-}
+
+  disc _ = b_ (witness :: c)
+  {-# INLINE disc #-}
