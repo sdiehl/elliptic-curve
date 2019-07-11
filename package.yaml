@@ -26,7 +26,9 @@ default-extensions:
 dependencies:
   - base >= 4.7 && < 5
   - protolude >= 0.2
+  - criterion
   - galois-field
+  - tasty
   - tasty-hunit
   - tasty-quickcheck
 
@@ -129,10 +131,6 @@ library:
 tests:
   elliptic-curve-tests:
     main: Main
-    dependencies:
-      - tasty
-      - tasty-discover
-      - tasty-quickcheck
     source-dirs:
       - tests
       - src
@@ -140,8 +138,6 @@ tests:
 benchmarks:
   elliptic-curve-benchmarks:
     main: Main
-    dependencies:
-      - criterion
     source-dirs:
       - benchmarks
       - src
