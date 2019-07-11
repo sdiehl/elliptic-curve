@@ -123,6 +123,7 @@ library:
     - Curve.Weierstrass.BrainpoolP512R1
     - Curve.Weierstrass.BrainpoolP512T1
   ghc-options:
+    - -O2
     - -Wall
     - -fno-warn-orphans
   source-dirs:
@@ -131,6 +132,8 @@ library:
 tests:
   elliptic-curve-tests:
     main: Main
+    ghc-options:
+      - -O2
     source-dirs:
       - tests
       - src
@@ -138,6 +141,8 @@ tests:
 benchmarks:
   elliptic-curve-benchmarks:
     main: Main
+    ghc-options:
+      - -O2
     source-dirs:
       - benchmarks
       - src

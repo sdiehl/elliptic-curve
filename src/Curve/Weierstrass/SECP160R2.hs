@@ -62,7 +62,7 @@ _g = A
 
 -- | Cofactor of SECP160R2 curve
 _h :: Integer
-_h = 4
+_h = 1
 {-# INLINE _h #-}
 
 -- | Order of SECP160R2 curve
