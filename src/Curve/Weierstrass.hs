@@ -77,7 +77,7 @@ instance (GaloisField k, WCurve c k) => Curve W c k where
       b = b_ (witness :: c)
   {-# INLINE def #-}
 
-  disc _ = 4 * a ^ 3 + 27 * b ^ 2
+  disc _ = 4 * a * a * a + 27 * b * b
     where
       a = a_ (witness :: c)
       b = b_ (witness :: c)

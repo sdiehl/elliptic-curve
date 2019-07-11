@@ -126,7 +126,7 @@ groupAxioms _ = testGroup "Group axioms"
   ]
 
 hasse :: Integer -> Integer -> Integer -> Bool
-hasse h n q = (h * n - q - 1) ^ 2 <= 4 * q
+hasse h n q = (h * n - q - 1) ^ (2 :: Int) <= 4 * q
 
 curveParameters :: forall r c k .
   (Arbitrary (Point r c k), Curve r c k, Eq (Point r c k), GaloisField k, Show (Point r c k))
