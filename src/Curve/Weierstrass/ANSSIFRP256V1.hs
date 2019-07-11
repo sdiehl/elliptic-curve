@@ -67,7 +67,7 @@ _h = 1
 
 -- | Order of ANSSI-FRP256V1 curve
 _n :: Integer
-_n = notImplemented
+_n = 0xf1fd178c0b3ad58f10126de8ce42435b53dc67e140d2bf941ffdd459c6d655e1
 {-# INLINE _n #-}
 
 -- | Characteristic of ANSSI-FRP256V1 curve

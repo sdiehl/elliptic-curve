@@ -74,12 +74,12 @@ _g = A
 
 -- | Cofactor of BN254T curve
 _h :: Integer
-_h = notImplemented
+_h = 0x30644e72e131a029b85045b68181585e06ceecda572a2489345f2299c0f9fa8d
 {-# INLINE _h #-}
 
 -- | Order of BN254T curve
 _n :: Integer
-_n = notImplemented
+_n = 0x30644e72e131a029b85045b68181585d2833e84879b9709143e1f593f0000001
 {-# INLINE _n #-}
 
 -- | Characteristic of BN254T curve

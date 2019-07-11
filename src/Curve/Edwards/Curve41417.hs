@@ -67,7 +67,7 @@ _h = 8
 
 -- | Order of Curve41417 curve
 _n :: Integer
-_n = notImplemented
+_n = 0x7ffffffffffffffffffffffffffffffffffffffffffffffffffeb3cc92414cf706022b36f1c0338ad63cf181b0e71a5e106af79
 {-# INLINE _n #-}
 
 -- | Characteristic of Curve41417 curve

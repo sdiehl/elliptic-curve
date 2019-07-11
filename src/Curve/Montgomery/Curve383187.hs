@@ -67,7 +67,7 @@ _h = 8
 
 -- | Order of Curve383187 curve
 _n :: Integer
-_n = notImplemented
+_n = 0x1000000000000000000000000000000000000000000000000e85a85287a1488acd41ae84b2b7030446f72088b00a0e21
 {-# INLINE _n #-}
 
 -- | Characteristic of Curve383187 curve
