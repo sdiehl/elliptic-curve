@@ -129,7 +129,8 @@ curveParameters :: forall r c k .
   (Arbitrary (Point r c k), Curve r c k, Eq (Point r c k), GaloisField k, Show (Point r c k))
   => k -> k -> Point r c k -> Integer -> Integer -> Integer -> TestTree
 curveParameters a b g h n p = testGroup "Curve parameters"
-  [
+  [ testCase "field characteristic" $
+    char (witness :: k) @?= p
   ]
 
 test :: forall r c k .
@@ -140,24 +141,24 @@ test s a b g h n p = testGroup s [groupAxioms g, curveParameters a b g h n p]
 main :: IO ()
 main = defaultMain $ testGroup "Tests"
   [ testGroup "Binary"
-    [ test        "SECT113R1"       SECT113R1._a       SECT113R1._b       SECT113R1._g       SECT113R1._h       SECT113R1._n       SECT113R1._f
-    , test        "SECT113R2"       SECT113R2._a       SECT113R2._b       SECT113R2._g       SECT113R2._h       SECT113R2._n       SECT113R2._f
-    , test        "SECT131R1"       SECT131R1._a       SECT131R1._b       SECT131R1._g       SECT131R1._h       SECT131R1._n       SECT131R1._f
-    , test        "SECT131R2"       SECT131R2._a       SECT131R2._b       SECT131R2._g       SECT131R2._h       SECT131R2._n       SECT131R2._f
-    , test        "SECT163K1"       SECT163K1._a       SECT163K1._b       SECT163K1._g       SECT163K1._h       SECT163K1._n       SECT163K1._f
-    , test        "SECT163R1"       SECT163R1._a       SECT163R1._b       SECT163R1._g       SECT163R1._h       SECT163R1._n       SECT163R1._f
-    , test        "SECT163R2"       SECT163R2._a       SECT163R2._b       SECT163R2._g       SECT163R2._h       SECT163R2._n       SECT163R2._f
-    , test        "SECT193R1"       SECT193R1._a       SECT193R1._b       SECT193R1._g       SECT193R1._h       SECT193R1._n       SECT193R1._f
-    , test        "SECT193R2"       SECT193R2._a       SECT193R2._b       SECT193R2._g       SECT193R2._h       SECT193R2._n       SECT193R2._f
-    , test        "SECT233K1"       SECT233K1._a       SECT233K1._b       SECT233K1._g       SECT233K1._h       SECT233K1._n       SECT233K1._f
-    , test        "SECT233R1"       SECT233R1._a       SECT233R1._b       SECT233R1._g       SECT233R1._h       SECT233R1._n       SECT233R1._f
-    , test        "SECT239K1"       SECT239K1._a       SECT239K1._b       SECT239K1._g       SECT239K1._h       SECT239K1._n       SECT239K1._f
-    , test        "SECT283K1"       SECT283K1._a       SECT283K1._b       SECT283K1._g       SECT283K1._h       SECT283K1._n       SECT283K1._f
-    , test        "SECT283R1"       SECT283R1._a       SECT283R1._b       SECT283R1._g       SECT283R1._h       SECT283R1._n       SECT283R1._f
-    , test        "SECT409K1"       SECT409K1._a       SECT409K1._b       SECT409K1._g       SECT409K1._h       SECT409K1._n       SECT409K1._f
-    , test        "SECT409R1"       SECT409R1._a       SECT409R1._b       SECT409R1._g       SECT409R1._h       SECT409R1._n       SECT409R1._f
-    , test        "SECT571K1"       SECT571K1._a       SECT571K1._b       SECT571K1._g       SECT571K1._h       SECT571K1._n       SECT571K1._f
-    , test        "SECT571R1"       SECT571R1._a       SECT571R1._b       SECT571R1._g       SECT571R1._h       SECT571R1._n       SECT571R1._f
+    [ test        "SECT113R1"       SECT113R1._a       SECT113R1._b       SECT113R1._g       SECT113R1._h       SECT113R1._n                  2
+    , test        "SECT113R2"       SECT113R2._a       SECT113R2._b       SECT113R2._g       SECT113R2._h       SECT113R2._n                  2
+    , test        "SECT131R1"       SECT131R1._a       SECT131R1._b       SECT131R1._g       SECT131R1._h       SECT131R1._n                  2
+    , test        "SECT131R2"       SECT131R2._a       SECT131R2._b       SECT131R2._g       SECT131R2._h       SECT131R2._n                  2
+    , test        "SECT163K1"       SECT163K1._a       SECT163K1._b       SECT163K1._g       SECT163K1._h       SECT163K1._n                  2
+    , test        "SECT163R1"       SECT163R1._a       SECT163R1._b       SECT163R1._g       SECT163R1._h       SECT163R1._n                  2
+    , test        "SECT163R2"       SECT163R2._a       SECT163R2._b       SECT163R2._g       SECT163R2._h       SECT163R2._n                  2
+    , test        "SECT193R1"       SECT193R1._a       SECT193R1._b       SECT193R1._g       SECT193R1._h       SECT193R1._n                  2
+    , test        "SECT193R2"       SECT193R2._a       SECT193R2._b       SECT193R2._g       SECT193R2._h       SECT193R2._n                  2
+    , test        "SECT233K1"       SECT233K1._a       SECT233K1._b       SECT233K1._g       SECT233K1._h       SECT233K1._n                  2
+    , test        "SECT233R1"       SECT233R1._a       SECT233R1._b       SECT233R1._g       SECT233R1._h       SECT233R1._n                  2
+    , test        "SECT239K1"       SECT239K1._a       SECT239K1._b       SECT239K1._g       SECT239K1._h       SECT239K1._n                  2
+    , test        "SECT283K1"       SECT283K1._a       SECT283K1._b       SECT283K1._g       SECT283K1._h       SECT283K1._n                  2
+    , test        "SECT283R1"       SECT283R1._a       SECT283R1._b       SECT283R1._g       SECT283R1._h       SECT283R1._n                  2
+    , test        "SECT409K1"       SECT409K1._a       SECT409K1._b       SECT409K1._g       SECT409K1._h       SECT409K1._n                  2
+    , test        "SECT409R1"       SECT409R1._a       SECT409R1._b       SECT409R1._g       SECT409R1._h       SECT409R1._n                  2
+    , test        "SECT571K1"       SECT571K1._a       SECT571K1._b       SECT571K1._g       SECT571K1._h       SECT571K1._n                  2
+    , test        "SECT571R1"       SECT571R1._a       SECT571R1._b       SECT571R1._g       SECT571R1._h       SECT571R1._n                  2
     ]                                                                                                                                          
   , testGroup "Edwards"                                                                                                                        
     [ test        "Curve1174"       Curve1174._a       Curve1174._d       Curve1174._g       Curve1174._h       Curve1174._n       Curve1174._p
