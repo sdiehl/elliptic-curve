@@ -3,85 +3,85 @@ module CurveTests where
 import Protolude
 
 import Curve
-import qualified Curve.BinaryWeierstrass.SECT113R1      as SECT113R1
-import qualified Curve.BinaryWeierstrass.SECT113R2      as SECT113R2
-import qualified Curve.BinaryWeierstrass.SECT131R1      as SECT131R1
-import qualified Curve.BinaryWeierstrass.SECT131R2      as SECT131R2
-import qualified Curve.BinaryWeierstrass.SECT163K1      as SECT163K1
-import qualified Curve.BinaryWeierstrass.SECT163R1      as SECT163R1
-import qualified Curve.BinaryWeierstrass.SECT163R2      as SECT163R2
-import qualified Curve.BinaryWeierstrass.SECT193R1      as SECT193R1
-import qualified Curve.BinaryWeierstrass.SECT193R2      as SECT193R2
-import qualified Curve.BinaryWeierstrass.SECT233K1      as SECT233K1
-import qualified Curve.BinaryWeierstrass.SECT233R1      as SECT233R1
-import qualified Curve.BinaryWeierstrass.SECT239K1      as SECT239K1
-import qualified Curve.BinaryWeierstrass.SECT283K1      as SECT283K1
-import qualified Curve.BinaryWeierstrass.SECT283R1      as SECT283R1
-import qualified Curve.BinaryWeierstrass.SECT409K1      as SECT409K1
-import qualified Curve.BinaryWeierstrass.SECT409R1      as SECT409R1
-import qualified Curve.BinaryWeierstrass.SECT571K1      as SECT571K1
-import qualified Curve.BinaryWeierstrass.SECT571R1      as SECT571R1
-import qualified Curve.Montgomery.Curve448              as Curve448
-import qualified Curve.Montgomery.Curve25519            as Curve25519
-import qualified Curve.Montgomery.Curve383187           as Curve383187
-import qualified Curve.Montgomery.M221                  as M221
-import qualified Curve.Montgomery.M383                  as M383
-import qualified Curve.Montgomery.M511                  as M511
-import qualified Curve.ShortWeierstrass.ANSSIFRP256V1   as ANSSIFRP256V1
-import qualified Curve.ShortWeierstrass.BLS12_381       as BLS12_381
-import qualified Curve.ShortWeierstrass.BLS12_381T      as BLS12_381T
-import qualified Curve.ShortWeierstrass.BLS48_581       as BLS48_581
-import qualified Curve.ShortWeierstrass.BLS48_581T      as BLS48_581T
-import qualified Curve.ShortWeierstrass.BN224           as BN224
-import qualified Curve.ShortWeierstrass.BN254           as BN254
-import qualified Curve.ShortWeierstrass.BN254T          as BN254T
-import qualified Curve.ShortWeierstrass.BN254A          as BN254A
-import qualified Curve.ShortWeierstrass.BN254AT         as BN254AT
-import qualified Curve.ShortWeierstrass.BN254B          as BN254B
-import qualified Curve.ShortWeierstrass.BN254BT         as BN254BT
-import qualified Curve.ShortWeierstrass.BN256           as BN256
-import qualified Curve.ShortWeierstrass.BN384           as BN384
-import qualified Curve.ShortWeierstrass.BN462           as BN462
-import qualified Curve.ShortWeierstrass.BN462T          as BN462T
-import qualified Curve.ShortWeierstrass.BN512           as BN512
-import qualified Curve.ShortWeierstrass.BrainpoolP160R1 as BrainpoolP160R1
-import qualified Curve.ShortWeierstrass.BrainpoolP160T1 as BrainpoolP160T1
-import qualified Curve.ShortWeierstrass.BrainpoolP192R1 as BrainpoolP192R1
-import qualified Curve.ShortWeierstrass.BrainpoolP192T1 as BrainpoolP192T1
-import qualified Curve.ShortWeierstrass.BrainpoolP224R1 as BrainpoolP224R1
-import qualified Curve.ShortWeierstrass.BrainpoolP224T1 as BrainpoolP224T1
-import qualified Curve.ShortWeierstrass.BrainpoolP256R1 as BrainpoolP256R1
-import qualified Curve.ShortWeierstrass.BrainpoolP256T1 as BrainpoolP256T1
-import qualified Curve.ShortWeierstrass.BrainpoolP320R1 as BrainpoolP320R1
-import qualified Curve.ShortWeierstrass.BrainpoolP320T1 as BrainpoolP320T1
-import qualified Curve.ShortWeierstrass.BrainpoolP384R1 as BrainpoolP384R1
-import qualified Curve.ShortWeierstrass.BrainpoolP384T1 as BrainpoolP384T1
-import qualified Curve.ShortWeierstrass.BrainpoolP512R1 as BrainpoolP512R1
-import qualified Curve.ShortWeierstrass.BrainpoolP512T1 as BrainpoolP512T1
-import qualified Curve.ShortWeierstrass.SECP112R1       as SECP112R1
-import qualified Curve.ShortWeierstrass.SECP112R2       as SECP112R2
-import qualified Curve.ShortWeierstrass.SECP128R1       as SECP128R1
-import qualified Curve.ShortWeierstrass.SECP128R2       as SECP128R2
-import qualified Curve.ShortWeierstrass.SECP160K1       as SECP160K1
-import qualified Curve.ShortWeierstrass.SECP160R1       as SECP160R1
-import qualified Curve.ShortWeierstrass.SECP160R2       as SECP160R2
-import qualified Curve.ShortWeierstrass.SECP192K1       as SECP192K1
-import qualified Curve.ShortWeierstrass.SECP192R1       as SECP192R1
-import qualified Curve.ShortWeierstrass.SECP224K1       as SECP224K1
-import qualified Curve.ShortWeierstrass.SECP224R1       as SECP224R1
-import qualified Curve.ShortWeierstrass.SECP256K1       as SECP256K1
-import qualified Curve.ShortWeierstrass.SECP256R1       as SECP256R1
-import qualified Curve.ShortWeierstrass.SECP384R1       as SECP384R1
-import qualified Curve.ShortWeierstrass.SECP521R1       as SECP521R1
-import qualified Curve.TwistedEdwards.Curve1174         as Curve1174
-import qualified Curve.TwistedEdwards.Curve41417        as Curve41417
-import qualified Curve.TwistedEdwards.E222              as E222
-import qualified Curve.TwistedEdwards.E382              as E382
-import qualified Curve.TwistedEdwards.E521              as E521
-import qualified Curve.TwistedEdwards.Ed448             as Ed448
-import qualified Curve.TwistedEdwards.Ed3363            as Ed3363
-import qualified Curve.TwistedEdwards.Ed25519           as Ed25519
-import qualified Curve.TwistedEdwards.JubJub            as JubJub
+import qualified Curve.Binary.SECT113R1            as SECT113R1
+import qualified Curve.Binary.SECT113R2            as SECT113R2
+import qualified Curve.Binary.SECT131R1            as SECT131R1
+import qualified Curve.Binary.SECT131R2            as SECT131R2
+import qualified Curve.Binary.SECT163K1            as SECT163K1
+import qualified Curve.Binary.SECT163R1            as SECT163R1
+import qualified Curve.Binary.SECT163R2            as SECT163R2
+import qualified Curve.Binary.SECT193R1            as SECT193R1
+import qualified Curve.Binary.SECT193R2            as SECT193R2
+import qualified Curve.Binary.SECT233K1            as SECT233K1
+import qualified Curve.Binary.SECT233R1            as SECT233R1
+import qualified Curve.Binary.SECT239K1            as SECT239K1
+import qualified Curve.Binary.SECT283K1            as SECT283K1
+import qualified Curve.Binary.SECT283R1            as SECT283R1
+import qualified Curve.Binary.SECT409K1            as SECT409K1
+import qualified Curve.Binary.SECT409R1            as SECT409R1
+import qualified Curve.Binary.SECT571K1            as SECT571K1
+import qualified Curve.Binary.SECT571R1            as SECT571R1
+import qualified Curve.Edwards.Curve1174           as Curve1174
+import qualified Curve.Edwards.Curve41417          as Curve41417
+import qualified Curve.Edwards.E222                as E222
+import qualified Curve.Edwards.E382                as E382
+import qualified Curve.Edwards.E521                as E521
+import qualified Curve.Edwards.Ed448               as Ed448
+import qualified Curve.Edwards.Ed3363              as Ed3363
+import qualified Curve.Edwards.Ed25519             as Ed25519
+import qualified Curve.Edwards.JubJub              as JubJub
+import qualified Curve.Montgomery.Curve448         as Curve448
+import qualified Curve.Montgomery.Curve25519       as Curve25519
+import qualified Curve.Montgomery.Curve383187      as Curve383187
+import qualified Curve.Montgomery.M221             as M221
+import qualified Curve.Montgomery.M383             as M383
+import qualified Curve.Montgomery.M511             as M511
+import qualified Curve.Weierstrass.ANSSIFRP256V1   as ANSSIFRP256V1
+import qualified Curve.Weierstrass.BLS12_381       as BLS12_381
+import qualified Curve.Weierstrass.BLS12_381T      as BLS12_381T
+import qualified Curve.Weierstrass.BLS48_581       as BLS48_581
+import qualified Curve.Weierstrass.BLS48_581T      as BLS48_581T
+import qualified Curve.Weierstrass.BN224           as BN224
+import qualified Curve.Weierstrass.BN254           as BN254
+import qualified Curve.Weierstrass.BN254T          as BN254T
+import qualified Curve.Weierstrass.BN254A          as BN254A
+import qualified Curve.Weierstrass.BN254AT         as BN254AT
+import qualified Curve.Weierstrass.BN254B          as BN254B
+import qualified Curve.Weierstrass.BN254BT         as BN254BT
+import qualified Curve.Weierstrass.BN256           as BN256
+import qualified Curve.Weierstrass.BN384           as BN384
+import qualified Curve.Weierstrass.BN462           as BN462
+import qualified Curve.Weierstrass.BN462T          as BN462T
+import qualified Curve.Weierstrass.BN512           as BN512
+import qualified Curve.Weierstrass.BrainpoolP160R1 as BrainpoolP160R1
+import qualified Curve.Weierstrass.BrainpoolP160T1 as BrainpoolP160T1
+import qualified Curve.Weierstrass.BrainpoolP192R1 as BrainpoolP192R1
+import qualified Curve.Weierstrass.BrainpoolP192T1 as BrainpoolP192T1
+import qualified Curve.Weierstrass.BrainpoolP224R1 as BrainpoolP224R1
+import qualified Curve.Weierstrass.BrainpoolP224T1 as BrainpoolP224T1
+import qualified Curve.Weierstrass.BrainpoolP256R1 as BrainpoolP256R1
+import qualified Curve.Weierstrass.BrainpoolP256T1 as BrainpoolP256T1
+import qualified Curve.Weierstrass.BrainpoolP320R1 as BrainpoolP320R1
+import qualified Curve.Weierstrass.BrainpoolP320T1 as BrainpoolP320T1
+import qualified Curve.Weierstrass.BrainpoolP384R1 as BrainpoolP384R1
+import qualified Curve.Weierstrass.BrainpoolP384T1 as BrainpoolP384T1
+import qualified Curve.Weierstrass.BrainpoolP512R1 as BrainpoolP512R1
+import qualified Curve.Weierstrass.BrainpoolP512T1 as BrainpoolP512T1
+import qualified Curve.Weierstrass.SECP112R1       as SECP112R1
+import qualified Curve.Weierstrass.SECP112R2       as SECP112R2
+import qualified Curve.Weierstrass.SECP128R1       as SECP128R1
+import qualified Curve.Weierstrass.SECP128R2       as SECP128R2
+import qualified Curve.Weierstrass.SECP160K1       as SECP160K1
+import qualified Curve.Weierstrass.SECP160R1       as SECP160R1
+import qualified Curve.Weierstrass.SECP160R2       as SECP160R2
+import qualified Curve.Weierstrass.SECP192K1       as SECP192K1
+import qualified Curve.Weierstrass.SECP192R1       as SECP192R1
+import qualified Curve.Weierstrass.SECP224K1       as SECP224K1
+import qualified Curve.Weierstrass.SECP224R1       as SECP224R1
+import qualified Curve.Weierstrass.SECP256K1       as SECP256K1
+import qualified Curve.Weierstrass.SECP256R1       as SECP256R1
+import qualified Curve.Weierstrass.SECP384R1       as SECP384R1
+import qualified Curve.Weierstrass.SECP521R1       as SECP521R1
 import GaloisField
 import Test.Tasty
 import Test.Tasty.HUnit
@@ -178,6 +178,33 @@ test_sect571k1 = groupAxioms (witness :: SECT571K1.P) "SECT571K1"
 
 test_sect571r1 :: TestTree
 test_sect571r1 = groupAxioms (witness :: SECT571R1.P) "SECT571R1"
+
+test_curve1174 :: TestTree
+test_curve1174 = groupAxioms (witness :: Curve1174.P) "Curve1174"
+
+test_curve41417 :: TestTree
+test_curve41417 = groupAxioms (witness :: Curve41417.P) "Curve41417"
+
+test_e222 :: TestTree
+test_e222 = groupAxioms (witness :: E222.P) "E-222"
+
+test_e382 :: TestTree
+test_e382 = groupAxioms (witness :: E382.P) "E-382"
+
+test_e521 :: TestTree
+test_e521 = groupAxioms (witness :: E521.P) "E-521"
+
+test_ed448 :: TestTree
+test_ed448 = groupAxioms (witness :: Ed448.P) "Ed448"
+
+test_ed3363 :: TestTree
+test_ed3363 = groupAxioms (witness :: Ed3363.P) "Ed3363"
+
+test_ed25519 :: TestTree
+test_ed25519 = groupAxioms (witness :: Ed25519.P) "Ed25519"
+
+test_jubjub :: TestTree
+test_jubjub = groupAxioms (witness :: JubJub.P) "JubJub"
 
 test_curve448 :: TestTree
 test_curve448 = groupAxioms (witness :: Curve448.P) "Curve448"
@@ -334,30 +361,3 @@ test_secp384r1 = groupAxioms (witness :: SECP384R1.P) "SECP384R1"
 
 test_secp521r1 :: TestTree
 test_secp521r1 = groupAxioms (witness :: SECP521R1.P) "SECP521R1"
-
-test_curve1174 :: TestTree
-test_curve1174 = groupAxioms (witness :: Curve1174.P) "Curve1174"
-
-test_curve41417 :: TestTree
-test_curve41417 = groupAxioms (witness :: Curve41417.P) "Curve41417"
-
-test_e222 :: TestTree
-test_e222 = groupAxioms (witness :: E222.P) "E-222"
-
-test_e382 :: TestTree
-test_e382 = groupAxioms (witness :: E382.P) "E-382"
-
-test_e521 :: TestTree
-test_e521 = groupAxioms (witness :: E521.P) "E-521"
-
-test_ed448 :: TestTree
-test_ed448 = groupAxioms (witness :: Ed448.P) "Ed448"
-
-test_ed3363 :: TestTree
-test_ed3363 = groupAxioms (witness :: Ed3363.P) "Ed3363"
-
-test_ed25519 :: TestTree
-test_ed25519 = groupAxioms (witness :: Ed25519.P) "Ed25519"
-
-test_jubjub :: TestTree
-test_jubjub = groupAxioms (witness :: JubJub.P) "JubJub"
