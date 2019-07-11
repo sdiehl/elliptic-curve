@@ -56,8 +56,8 @@ _d = 0x2a9318e74bfa2b48f5fd9207e6bd7fd4292d7f6d37579d2601065fd6d6343eb1
 -- | Generator of JubJub curve
 _g :: P
 _g = A
-     3
-     0x39d39d6e76c20811ee2fb44b2286fd27c0d43e2dfb6f72af672e03db8d560cb5
+     0x5183972af8eff38ca624b4df00384882000c546bf2f39ede7f4ecf1a74f976c4
+     0x3b43f8472ca2fc2c9e8fcc5abd9dc308096c8707ffa6833b146bad709349702e
 {-# INLINE _g #-}
 
 -- | Cofactor of JubJub curve

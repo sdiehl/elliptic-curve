@@ -129,10 +129,12 @@ curveParameters :: forall r c k .
   (Arbitrary (Point r c k), Curve r c k, Eq (Point r c k), GaloisField k, Show (Point r c k))
   => Point r c k -> Integer -> Integer -> Integer -> TestTree
 curveParameters g h n p = testGroup "Curve parameters"
-  [ testCase "discriminant" $
-    disc (witness :: Point r c k) /= 0 @?= True
-  , testCase "field characteristic" $
+  [ testCase "characteristic" $
     char (witness :: k) @?= p
+  , testCase "discriminant" $
+    disc (witness :: Point r c k) /= 0 @?= True
+  , testCase "order" $
+    mul n g @?= id
   ]
 
 test :: forall r c k .
