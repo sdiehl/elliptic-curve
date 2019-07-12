@@ -8,7 +8,7 @@
 # - gsutil
 # - docker client v18.09.2
 
-FROM haskell:8.6.5
+FROM haskell:8.4.4
 
 ENTRYPOINT []
 
@@ -22,7 +22,8 @@ RUN \
   apt-get -yq --no-install-recommends install \
     build-essential zip unzip rpm \
     openssh-client expat libexpat1-dev xz-utils \
-    google-cloud-sdk
+    google-cloud-sdk && \
+  rm -rf /var/lib/apt/lists/*
 
 RUN stack upgrade
 
