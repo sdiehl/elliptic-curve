@@ -26,7 +26,6 @@ default-extensions:
 dependencies:
   - base >= 4.7 && < 5
   - protolude >= 0.2
-  - criterion
   - galois-field
   - tasty
   - tasty-hunit
@@ -35,6 +34,10 @@ dependencies:
 extra-source-files:
   - README.md
   - ChangeLog.md
+
+ghc-options:
+  - -O2
+  - -Wall
 
 library:
   exposed-modules:
@@ -123,8 +126,6 @@ library:
     - Curve.Weierstrass.BrainpoolP512R1
     - Curve.Weierstrass.BrainpoolP512T1
   ghc-options:
-    - -O2
-    - -Wall
     - -fno-warn-orphans
   source-dirs:
     - src
@@ -132,8 +133,9 @@ library:
 tests:
   elliptic-curve-tests:
     main: Main
-    ghc-options:
-      - -O2
+    dependencies:
+      - tasty
+      - arithmoi
     source-dirs:
       - tests
       - src
@@ -141,8 +143,8 @@ tests:
 benchmarks:
   elliptic-curve-benchmarks:
     main: Main
-    ghc-options:
-      - -O2
+    dependencies:
+      - criterion
     source-dirs:
       - benchmarks
       - src

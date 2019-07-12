@@ -83,6 +83,7 @@ import qualified Curve.Weierstrass.SECP256R1       as SECP256R1
 import qualified Curve.Weierstrass.SECP384R1       as SECP384R1
 import qualified Curve.Weierstrass.SECP521R1       as SECP521R1
 import GaloisField
+import Math.NumberTheory.Primes.Testing
 import Test.Tasty
 import Test.Tasty.HUnit
 import Test.Tasty.QuickCheck
@@ -114,7 +115,7 @@ groupAxioms _ = testGroup "Group axioms"
   , testProperty "doubling closure" $
     def . (double :: Point r c k -> Point r c k)
   , testProperty "multiplication closure" $
-    def . (mul 6 :: Point r c k -> Point r c k)
+    def . (mul (6 :: Int) :: Point r c k -> Point r c k)
   , testProperty "identity" $
     identities (add :: Point r c k -> Point r c k -> Point r c k) mempty
   , testProperty "inverses" $
@@ -132,13 +133,17 @@ curveParameters :: forall r c k .
   (Arbitrary (Point r c k), Curve r c k, Eq (Point r c k), GaloisField k, Show (Point r c k))
   => Point r c k -> Integer -> Integer -> Integer -> TestTree
 curveParameters g h n p = testGroup "Curve parameters"
-  [ testCase "characteristic" $
+  [ testCase "characteristic is typed" $
     char (witness :: k) @?= p
-  , testCase "discriminant" $
+  , testCase "characteristic is prime" $
+    isPrime p @?= True
+  , testCase "discriminant is nonzero" $
     disc (witness :: Point r c k) /= 0 @?= True
-  , testCase "order" $
+  , testCase "generator is in cyclic subgroup" $
     mul n g @?= id
-  , testCase "hasse" $
+  , testCase "cyclic subgroup has prime order" $
+    isPrime n @?= True
+  , testCase "hasse theorem holds" $
     hasse h n (order (witness :: k)) @?= True
   ]
 
