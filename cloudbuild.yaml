@@ -21,7 +21,7 @@ steps:
 
   - id: "Build deps"
     name: $_BUILD_IMAGE
-    waitFor: ["Load cache"]
+    waitFor: ["build-ci-base-image"]
     env: ['STACK_ROOT=/workspace/.stack']
     entrypoint: 'bash'
     args:
