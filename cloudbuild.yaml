@@ -28,12 +28,17 @@ steps:
     - |
       set -euxo pipefail
 
+      stack config set system-ghc --global true
+      stack config set install-ghc --global false
+
       stack build \
         --no-terminal \
+         --system-ghc \
         stylish-haskell hlint weeder
       stack build \
         --no-terminal \
         --test \
+         --system-ghc \
         --dependencies-only
 
   - id: "build"
