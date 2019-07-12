@@ -7,7 +7,6 @@
 # - gcloud
 # - gsutil
 # - docker client v18.09.2
-# - docker-compose v1.23.2
 
 FROM haskell:8.4.4
 
@@ -22,10 +21,8 @@ RUN \
   apt-get update -yqq && \
   apt-get -yq --no-install-recommends install \
     build-essential zip unzip rpm \
-    libleveldb-dev leveldb-doc openssh-client expat libexpat1-dev libpq-dev liblzma-dev xz-utils \
+    openssh-client expat libexpat1-dev xz-utils \
     google-cloud-sdk \
-    python \
-    postgresql && \
   rm -rf /var/lib/apt/lists/*
 
 RUN stack upgrade
