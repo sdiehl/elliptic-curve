@@ -16,19 +16,19 @@ import Curve (Curve(..))
 -- Types
 -------------------------------------------------------------------------------
 
--- | Binary representation
+-- | Binary curve representation.
 data B
 
--- | Binary points
+-- | Binary curve points.
 type BPoint = Point B
 
--- | Binary curves @Y^2 + XY = X^3 + AX^2 + B@
+-- | Binary curves @y^2 + xy = x^3 + Ax^2 + B@.
 class Curve B c k => BCurve c k where
-  a_ :: c -> k     -- ^ A
-  b_ :: c -> k     -- ^ B
-  g_ :: BPoint c k -- ^ generator
+  a_ :: c -> k     -- ^ Coefficient @A@.
+  b_ :: c -> k     -- ^ Coefficient @B@.
+  g_ :: BPoint c k -- ^ Curve generator.
 
--- | Binary curves are arbitrary
+-- Binary curves are arbitrary.
 instance BCurve c k => Arbitrary (Point B c k) where
   arbitrary = return g_
 
@@ -36,11 +36,11 @@ instance BCurve c k => Arbitrary (Point B c k) where
 -- Operations
 -------------------------------------------------------------------------------
 
--- | Binary curves are elliptic curves
+-- Binary curves are elliptic curves.
 instance (GaloisField k, BCurve c k) => Curve B c k where
 
-  data instance Point B c k = A k k -- ^ Affine point
-                            | O     -- ^ Infinite point
+  data instance Point B c k = A k k -- ^ Affine point.
+                            | O     -- ^ Infinite point.
     deriving (Eq, Generic, NFData, Show)
 
   id = O

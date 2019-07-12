@@ -16,19 +16,19 @@ import Curve (Curve(..))
 -- Types
 -------------------------------------------------------------------------------
 
--- | Montgomery representation
+-- | Montgomery curve representation.
 data M
 
--- | Montgomery points
+-- | Montgomery curve points.
 type MPoint = Point M
 
--- | Montgomery curves @BY^2 = X^3 + AX^2 + X@
+-- | Montgomery curves @By^2 = x^3 + Ax^2 + x@.
 class Curve M c k => MCurve c k where
-  a_ :: c -> k     -- ^ A
-  b_ :: c -> k     -- ^ B
-  g_ :: MPoint c k -- ^ generator
+  a_ :: c -> k     -- ^ Coefficient @A@.
+  b_ :: c -> k     -- ^ Coefficient @B@.
+  g_ :: MPoint c k -- ^ Curve generator.
 
--- | Montgomery curves are arbitrary
+-- Montgomery curves are arbitrary.
 instance MCurve c k => Arbitrary (Point M c k) where
   arbitrary = return g_
 
@@ -36,11 +36,11 @@ instance MCurve c k => Arbitrary (Point M c k) where
 -- Operations
 -------------------------------------------------------------------------------
 
--- | Montgomery curves are elliptic curves
+-- Montgomery curves are elliptic curves.
 instance (GaloisField k, MCurve c k) => Curve M c k where
 
-  data instance Point M c k = A k k -- ^ Affine point
-                            | O     -- ^ Infinite point
+  data instance Point M c k = A k k -- ^ Affine point.
+                            | O     -- ^ Infinite point.
     deriving (Eq, Generic, NFData, Show)
 
   id = O

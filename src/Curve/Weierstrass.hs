@@ -16,19 +16,19 @@ import Curve (Curve(..))
 -- Types
 -------------------------------------------------------------------------------
 
--- | Weierstrass representation
+-- | Weierstrass curve representation.
 data W
 
--- | Weierstrass points
+-- | Weierstrass curve points.
 type WPoint = Point W
 
--- | Weierstrass curves @Y^2 = X^3 + AX + B@
+-- | Weierstrass curves @y^2 = x^3 + Ax + B@.
 class Curve W c k => WCurve c k where
-  a_ :: c -> k     -- ^ A
-  b_ :: c -> k     -- ^ B
-  g_ :: WPoint c k -- ^ generator
+  a_ :: c -> k     -- ^ Coefficient @A@.
+  b_ :: c -> k     -- ^ Coefficient @B@.
+  g_ :: WPoint c k -- ^ Curve generator.
 
--- | Weierstrass curves are arbitrary
+-- Weierstrass curves are arbitrary.
 instance WCurve c k => Arbitrary (Point W c k) where
   arbitrary = return g_
 
@@ -36,11 +36,11 @@ instance WCurve c k => Arbitrary (Point W c k) where
 -- Operations
 -------------------------------------------------------------------------------
 
--- | Weierstrass curves are elliptic curves
+-- Weierstrass curves are elliptic curves.
 instance (GaloisField k, WCurve c k) => Curve W c k where
 
-  data instance Point W c k = A k k -- ^ Affine point
-                            | O     -- ^ Infinite point
+  data instance Point W c k = A k k -- ^ Affine point.
+                            | O     -- ^ Infinite point.
     deriving (Eq, Generic, NFData, Show)
 
   id = O

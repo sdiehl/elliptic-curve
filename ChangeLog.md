@@ -1,4 +1,4 @@
-# ChangeLog for elliptic-curve
+# Change log for elliptic-curve
 
 ## 0.1.0
 

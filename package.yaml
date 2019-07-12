@@ -1,7 +1,7 @@
 name:        elliptic-curve
 version:     0.1.0
 synopsis:    Elliptic curve library
-description: Elliptic curve library
+description: An extensible library of elliptic curves used in cryptography research
 maintainer:  Adjoint Inc (info@adjoint.io)
 license:     MIT
 github:      adjoint-io/elliptic-curve
@@ -27,8 +27,6 @@ dependencies:
   - base >= 4.7 && < 5
   - protolude >= 0.2
   - galois-field
-  - tasty
-  - tasty-hunit
   - tasty-quickcheck
 
 extra-source-files:
@@ -135,8 +133,9 @@ tests:
   elliptic-curve-tests:
     main: Main
     dependencies:
-      - tasty
       - arithmoi
+      - tasty
+      - tasty-hunit
     source-dirs:
       - tests
       - src

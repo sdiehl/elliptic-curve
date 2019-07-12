@@ -16,19 +16,19 @@ import Curve (Curve(..))
 -- Types
 -------------------------------------------------------------------------------
 
--- | Edwards representation
+-- | Edwards curve representation.
 data E
 
--- | Edwards points
+-- | Edwards curve points.
 type EPoint = Point E
 
--- | Edwards curves @AX^2 + Y^2 = 1 + DX^2Y^2@
+-- | Edwards curves @Ax^2 + y^2 = 1 + Dx^2y^2@.
 class Curve E c k => ECurve c k where
-  a_ :: c -> k     -- ^ A
-  d_ :: c -> k     -- ^ D
-  g_ :: EPoint c k -- ^ generator
+  a_ :: c -> k     -- ^ Coefficient @A@.
+  d_ :: c -> k     -- ^ Coefficient @D@.
+  g_ :: EPoint c k -- ^ Curve generator.
 
--- | Edwards curves are arbitrary
+-- Edwards curves are arbitrary.
 instance ECurve c k => Arbitrary (Point E c k) where
   arbitrary = return g_
 
@@ -36,10 +36,10 @@ instance ECurve c k => Arbitrary (Point E c k) where
 -- Operations
 -------------------------------------------------------------------------------
 
--- | Edwards curves are elliptic curves
+-- Edwards curves are elliptic curves.
 instance (GaloisField k, ECurve c k) => Curve E c k where
 
-  data instance Point E c k = A k k -- ^ Affine point
+  data instance Point E c k = A k k -- ^ Affine point.
     deriving (Eq, Generic, NFData, Show)
 
   id = A 0 1
