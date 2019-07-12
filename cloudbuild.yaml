@@ -13,33 +13,13 @@ steps:
     - '-c'
     - |
       set -euxo pipefail
-
       if ! docker pull $_BUILD_IMAGE; then
         docker build ci --tag $_BUILD_IMAGE
         docker push $_BUILD_IMAGE
       fi
-
-  - id: "Build deps"
-    name: $_BUILD_IMAGE
-    waitFor: ["build-ci-base-image"]
-    env: ['STACK_ROOT=/workspace/.stack']
-    entrypoint: 'bash'
-    args:
-    - '-c'
-    - |
-      set -euxo pipefail
-
-      stack config set system-ghc --global true
-      stack config set install-ghc --global false
-
-      stack build \
-        --no-terminal \
-        --test \
-        --dependencies-only
-
   - id: "build"
     name: $_BUILD_IMAGE
-    waitFor: ["Build deps"]
+    waitFor: ["build-ci-base-image"]
     entrypoint: bash
     args:
     - '-c'
@@ -52,7 +32,6 @@ steps:
         --test \
         --no-run-tests \
         --local-bin-path .
-
   - id: "test"
     name: $_BUILD_IMAGE
     entrypoint: bash
@@ -61,5 +40,4 @@ steps:
     - '-c'
     - |
       set -euxo pipefail
-
       stack test elliptic-curve:elliptic-curve-tests --no-terminal --system-ghc
