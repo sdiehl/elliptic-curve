@@ -22,14 +22,11 @@ steps:
   - id: "build-deps"
     name: $_BUILD_IMAGE
     waitFor: ["build-ci-base-image"]
-    env: ['STACK_ROOT=/workspace/.stack']
     entrypoint: 'bash'
     args:
     - '-c'
     - |
       set -euxo pipefail
-
-      stack setup --resolver lts-13.19
 
       stack build \
         --no-terminal \
@@ -42,7 +39,6 @@ steps:
   - id: "build"
     name: $_BUILD_IMAGE
     waitFor: ["build-deps"]
-    env: ['STACK_ROOT=/workspace/.stack']
     entrypoint: bash
     args:
     - '-c'
@@ -58,7 +54,6 @@ steps:
 
   - id: "test"
     name: $_BUILD_IMAGE
-    env: ['STACK_ROOT=/workspace/.stack']
     entrypoint: bash
     waitFor: ['build']
     args:
