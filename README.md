@@ -50,7 +50,116 @@ where `A` and `D` are K-rational coefficients such that `D(1 - D)` is non-zero. 
 
 ## Curve usage
 
-TODO
+This library is open for new curve representations and curve implementations through pull requests. These should ideally be executed by replicating and modifying existing curve files, for ease, quickcheck testing, and formatting consistency, but a short description of the file organisation is provided here for clarity. Note that it also has a dependency on the [Galois field library](https://github.com/adjoint-io/galois-field) and its required language extensions.
+
+### Representing a new curve using the curve class
+
+Import the following modules.
+```haskell
+import Curve (Curve(..))
+import GaloisField (GaloisField)
+```
+Create a phantom representation of Weierstrass curves.
+```haskell
+data W
+```
+Create a synonym for the points on Weierstrass curves.
+```haskell
+type WPoint = Point W
+```
+Create a class for Weierstrass curves and their parameters.
+```haskell
+class Curve W c k => WCurve c k where
+  a_ :: c -> k
+  b_ :: c -> k
+  g_ :: WPoint c k
+```
+Create an instance of Weierstrass curves with their operations.
+```haskell
+instance (GaloisField k, WCurve c k) => Curve W c k where
+
+  data instance Point W c k = A k k
+                            | O
+    deriving (Eq, Show)
+
+  def O       = True
+  def (A x y) = y * y == x ^ 3 + a * x ^ 2 + b
+    where
+      a = a_ (undefined :: c)
+      b = b_ (undefined :: c)
+
+  ...
+```
+Export the following data types.
+```haskell
+module Weierstrass
+  ( Point(..)
+  , WCurve(..)
+  , WPoint
+  ) where
+```
+
+### Implementing a new curve using a curve representation
+
+Import a curve representation and a suitable Galois field.
+```haskell
+import Curve.Weierstrass (Point(..), WCurve(..), WPoint)
+import PrimeField (PrimeField)
+```
+Create a phantom representation of the Anomalous curve.
+```haskell
+data Anomalous
+```
+Create a synonym for the field of the Anomalous curve.
+```haskell
+type Fp = PrimeField 0xb0000000000000000000000953000000000000000000001f9d7
+```
+Create a synonym for the points on the Anomalous curve.
+```haskell
+type P = WPoint Anomalous Fp
+```
+Create constants for the parameters of the Anomalous curve.
+```haskell
+_a :: Fp
+_a = 0x98d0fac687d6343eb1a1f595283eb1a1f58d0fac687d635f5e4
+
+_b :: Fp
+_b = 0x4a1f58d0fac687d6343eb1a5e2d6343eb1a1f58d0fac688ab3f
+
+_g :: P
+_g = A
+     0x101efb35fd1963c4871a2d17edaafa7e249807f58f8705126c6
+     0x22389a3954375834304ba1d509a97de6c07148ea7f5951b20e7
+
+...
+```
+Create an instance of the Anomalous curve with its parameters.
+```haskell
+instance WCurve Anomalous Fp where
+  a_ = const _a
+  b_ = const _b
+  g_ = _g
+```
+Export the following data types and constants.
+```haskell
+module Curve.Weierstrass.Anomalous
+  ( Fp
+  , P
+  , _a
+  , _b
+  , _g
+  , ...
+  ) where
+```
+
+### Using an implemented curve
+
+Import the curve class and a curve implementation.
+```haskell
+import Curve
+import qualified Curve.Weierstrass.Anomalous as Anomalous
+```
+The data types and constants can then be accessed readily as `Anomalous.P` and `Anomalous._g`.
 
 ## Curve implementations
 
