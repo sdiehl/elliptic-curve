@@ -103,8 +103,8 @@ The following curves have already been implemented.
 
 ### Weierstrass curves
 
-* [Anomalous.hs](src/Curve/Weierstrass/Anomalous.hs)
-* [ANSSI-FRP256V1.hs](src/Curve/Weierstrass/ANSSIFRP256V1.hs)
+* [Anomalous](src/Curve/Weierstrass/Anomalous.hs)
+* [ANSSI-FRP256V1](src/Curve/Weierstrass/ANSSIFRP256V1.hs)
 * Barreto-Lynn-Scott (BLS) curves
   * [BLS12-381](src/Curve/Weierstrass/BLS12_381.hs)
   * [BLS12-381T](src/Curve/Weierstrass/BLS12_381T.hs)
