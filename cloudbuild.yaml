@@ -41,20 +41,6 @@ steps:
         --test \
         --dependencies-only
 
-  - id: "save-cache"
-    waitFor: ["build-deps"]
-    name: $_BUILD_IMAGE
-    entrypoint: 'bash'
-    env:
-    - BRANCH_NAME=$BRANCH_NAME
-    args:
-    - '-c'
-    - |
-      set -euxo pipefail
-
-      source scripts/ci.sh
-      save-cache
-
   - id: "build"
     name: $_BUILD_IMAGE
     waitFor: ["build-deps"]
