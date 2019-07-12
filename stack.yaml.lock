@@ -5,19 +5,12 @@
 
 packages:
 - completed:
-    cabal-file:
-      size: 3014
-      sha256: 126aaebd9add8388b447f510b93f4f2fb161eaebf2aebf7f7184ace319bd68fb
-    name: galois-field
-    version: 0.2.0
-    git: git@github.com:adjoint-io/galois-field.git
+    hackage: galois-field-0.2.1@sha256:6456f9a7118d0d6231bd686c1984db4a6d173cb05cd33882a5c7bc62acc6771b,2938
     pantry-tree:
-      size: 1169
-      sha256: f8cbd41241127b85ffc137a7a8500d1424d4decc1f20c3c7389522ba268bc4a2
-    commit: a9cc8b299ca1790c9397c5b80b409ed9289c8bd7
+      size: 822
+      sha256: 828a156cc77e1057944072ee82ec6e8eae0efc7a017f0658b6c3df8ca16f9ce2
   original:
-    git: git@github.com:adjoint-io/galois-field.git
-    commit: a9cc8b299ca1790c9397c5b80b409ed9289c8bd7
+    hackage: galois-field-0.2.1
 snapshots:
 - completed:
     size: 498155
