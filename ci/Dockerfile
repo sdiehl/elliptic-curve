@@ -8,7 +8,7 @@
 # - gsutil
 # - docker client v18.09.2
 
-FROM haskell:8.6.4
+FROM haskell:8.6.5
 
 ENTRYPOINT []
 
