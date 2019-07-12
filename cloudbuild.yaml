@@ -1,0 +1,97 @@
+timeout: 3600s # Cache misses are slow to rebuild
+substitutions:
+  # Bump the version if you make changes to `ci/Dockerfile
+  _BUILD_IMAGE: gcr.io/uplink-test-cluster-174313/elliptic-curve-ci:v1
+options:
+  machineType: N1_HIGHCPU_8
+steps:
+  # Build uplink docker image with kaniko
+  - id: "build-ci-base-image"
+    name: gcr.io/cloud-builders/docker
+    entrypoint: 'bash'
+    args:
+    - '-c'
+    - |
+      set -euxo pipefail
+
+      if ! docker pull $_BUILD_IMAGE; then
+        docker build ci --tag $_BUILD_IMAGE
+        docker push $_BUILD_IMAGE
+      fi
+
+  - id: "load-cache"
+    name: $_BUILD_IMAGE
+    waitFor: ["build-ci-base-image"]
+    entrypoint: 'bash'
+    args:
+    - '-c'
+    - |
+      set -euxo pipefail
+
+      source scripts/ci.sh
+      load-cache
+
+  - id: "build-deps"
+    name: $_BUILD_IMAGE
+    waitFor: ["load-cache"]
+    env: ['STACK_ROOT=/workspace/.stack']
+    entrypoint: 'bash'
+    args:
+    - '-c'
+    - |
+      set -euxo pipefail
+
+      stack config set system-ghc --global true
+      stack config set install-ghc --global false
+
+      stack build \
+        --no-terminal \
+        stylish-haskell hlint weeder
+
+      stack build \
+        --no-terminal \
+        --test \
+        --dependencies-only
+
+  - id: "save-cache"
+    waitFor: ["build-deps"]
+    name: $_BUILD_IMAGE
+    entrypoint: 'bash'
+    env:
+    - BRANCH_NAME=$BRANCH_NAME
+    args:
+    - '-c'
+    - |
+      set -euxo pipefail
+
+      source scripts/ci.sh
+      save-cache
+
+  - id: "build"
+    name: $_BUILD_IMAGE
+    waitFor: ["build-deps"]
+    env: ['STACK_ROOT=/workspace/.stack']
+    entrypoint: bash
+    args:
+    - '-c'
+    - |
+      set -euxo pipefail
+      mkdir ./bin
+      stack install \
+        --no-terminal \
+        --fast \
+        --test \
+        --no-run-tests \
+        --local-bin-path .
+
+  - id: "test"
+    name: $_BUILD_IMAGE
+    env: ['STACK_ROOT=/workspace/.stack']
+    entrypoint: bash
+    waitFor: ['build']
+    args:
+    - '-c'
+    - |
+      set -euxo pipefail
+
+      stack test elliptic-curve:elliptic-curve-tests --no-terminal --system-ghc
