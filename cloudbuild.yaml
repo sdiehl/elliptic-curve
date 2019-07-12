@@ -19,31 +19,9 @@ steps:
         docker push $_BUILD_IMAGE
       fi
 
-  - id: "build-deps"
-    name: $_BUILD_IMAGE
-    waitFor: ["build-ci-base-image"]
-    entrypoint: 'bash'
-    args:
-    - '-c'
-    - |
-      set -euxo pipefail
-
-      stack config set system-ghc --global true
-      stack config set install-ghc --global false
-
-      stack build \
-        --no-terminal \
-         --system-ghc \
-        stylish-haskell hlint weeder
-      stack build \
-        --no-terminal \
-        --test \
-         --system-ghc \
-        --dependencies-only
-
   - id: "build"
     name: $_BUILD_IMAGE
-    waitFor: ["build-deps"]
+    waitFor: ["build-ci-base-image"]
     entrypoint: bash
     args:
     - '-c'
