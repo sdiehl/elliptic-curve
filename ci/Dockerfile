@@ -22,8 +22,7 @@ RUN \
   apt-get -yq --no-install-recommends install \
     build-essential zip unzip rpm \
     openssh-client expat libexpat1-dev xz-utils \
-    google-cloud-sdk \
-  rm -rf /var/lib/apt/lists/*
+    google-cloud-sdk
 
 RUN stack upgrade
 
