@@ -79,6 +79,7 @@ library:
     - Curve.Montgomery.M383
     - Curve.Montgomery.M511
     - Curve.Weierstrass
+    - Curve.Weierstrass.Anomalous
     - Curve.Weierstrass.ANSSIFRP256V1
     - Curve.Weierstrass.BLS12_381
     - Curve.Weierstrass.BLS12_381T

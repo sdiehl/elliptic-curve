@@ -36,6 +36,7 @@ import qualified Curve.Montgomery.Curve383187      as Curve383187
 import qualified Curve.Montgomery.M221             as M221
 import qualified Curve.Montgomery.M383             as M383
 import qualified Curve.Montgomery.M511             as M511
+import qualified Curve.Weierstrass.Anomalous       as Anomalous
 import qualified Curve.Weierstrass.ANSSIFRP256V1   as ANSSIFRP256V1
 import qualified Curve.Weierstrass.BLS12_381       as BLS12_381
 import qualified Curve.Weierstrass.BLS12_381T      as BLS12_381T
@@ -194,7 +195,8 @@ main = defaultMain $ testGroup "Tests"
     , test            "M-511"            M511._g            M511._h            M511._n            M511._p
     ]
   , testGroup "Weierstrass"
-    [ test   "ANSSI-FRP256V1"   ANSSIFRP256V1._g   ANSSIFRP256V1._h   ANSSIFRP256V1._n   ANSSIFRP256V1._p
+    [ test        "Anomalous"       Anomalous._g       Anomalous._h       Anomalous._n       Anomalous._p
+    , test   "ANSSI-FRP256V1"   ANSSIFRP256V1._g   ANSSIFRP256V1._h   ANSSIFRP256V1._n   ANSSIFRP256V1._p
     , test        "BLS12-381"       BLS12_381._g       BLS12_381._h       BLS12_381._n       BLS12_381._p
     , test       "BLS12-381T"      BLS12_381T._g      BLS12_381T._h      BLS12_381T._n      BLS12_381T._p
     , test        "BLS48-581"       BLS48_581._g       BLS48_581._h       BLS48_581._n       BLS48_581._p
