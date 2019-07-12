@@ -19,18 +19,6 @@ steps:
         docker push $_BUILD_IMAGE
       fi
 
-  - id: "load-cache"
-    name: $_BUILD_IMAGE
-    waitFor: ["build-ci-base-image"]
-    entrypoint: 'bash'
-    args:
-    - '-c'
-    - |
-      set -euxo pipefail
-
-      source scripts/ci.sh
-      load-cache
-
   - id: "build-deps"
     name: $_BUILD_IMAGE
     waitFor: ["load-cache"]
