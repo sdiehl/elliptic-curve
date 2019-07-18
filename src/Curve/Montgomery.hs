@@ -8,7 +8,7 @@ module Curve.Montgomery
 import Protolude
 
 import GaloisField (GaloisField(..))
-import Test.Tasty.QuickCheck (Arbitrary(..))
+import Test.Tasty.QuickCheck (Arbitrary(..), suchThatMap)
 
 import Curve (Curve(..))
 
@@ -30,13 +30,7 @@ class Curve M c k => MCurve c k where
 
 -- Montgomery curves are arbitrary.
 instance (GaloisField k, MCurve c k) => Arbitrary (Point M c k) where
-  arbitrary = do
-    x <- arbitrary
-    let a = a_ (witness :: c)
-        b = b_ (witness :: c)
-    case sr ((((x + a) * x) + 1) * x / b) of
-      Just y -> return (A x y)
-      _      -> arbitrary
+  arbitrary = suchThatMap arbitrary point
 
 -------------------------------------------------------------------------------
 -- Operations
@@ -71,7 +65,7 @@ instance (GaloisField k, MCurve c k) => Curve M c k where
   {-# INLINE add #-}
 
   double O       = O
-  double (A 0 0) = O
+  double (A _ 0) = O
   double (A x y) = A x' y'
     where
       a  = a_ (witness :: c)
@@ -93,3 +87,9 @@ instance (GaloisField k, MCurve c k) => Curve M c k where
       a = a_ (witness :: c)
       b = b_ (witness :: c)
   {-# INLINE disc #-}
+
+  point x = A x <$> sr ((((x + a) * x) + 1) * x / b)
+    where
+      a  = a_ (witness :: c)
+      b  = b_ (witness :: c)
+  {-# INLINE point #-}

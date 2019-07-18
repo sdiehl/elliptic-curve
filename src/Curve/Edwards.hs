@@ -8,7 +8,7 @@ module Curve.Edwards
 import Protolude
 
 import GaloisField (GaloisField(..))
-import Test.Tasty.QuickCheck (Arbitrary(..))
+import Test.Tasty.QuickCheck (Arbitrary(..), suchThatMap)
 
 import Curve (Curve(..))
 
@@ -30,14 +30,7 @@ class Curve E c k => ECurve c k where
 
 -- Edwards curves are arbitrary.
 instance (GaloisField k, ECurve c k) => Arbitrary (Point E c k) where
-  arbitrary = do
-    x <- arbitrary
-    let a  = a_ (witness :: c)
-        d  = d_ (witness :: c)
-        xx = x * x
-    case sr ((1 - a * xx) / (1 - d * xx)) of
-      Just y -> return (A x y)
-      _      -> arbitrary
+  arbitrary = suchThatMap arbitrary point
 
 -------------------------------------------------------------------------------
 -- Operations
@@ -80,3 +73,10 @@ instance (GaloisField k, ECurve c k) => Curve E c k where
     where
       d = d_ (witness :: c)
   {-# INLINE disc #-}
+
+  point x = A x <$> sr ((1 - a * xx) / (1 - d * xx))
+    where
+      a  = a_ (witness :: c)
+      d  = d_ (witness :: c)
+      xx = x * x
+  {-# INLINE point #-}

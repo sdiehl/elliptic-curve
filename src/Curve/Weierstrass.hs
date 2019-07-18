@@ -7,8 +7,10 @@ module Curve.Weierstrass
 
 import Protolude
 
+import ExtensionField (ExtensionField, IrreducibleMonic)
 import GaloisField (GaloisField(..))
-import Test.Tasty.QuickCheck (Arbitrary(..))
+import PrimeField (PrimeField)
+import Test.Tasty.QuickCheck (Arbitrary(..), suchThatMap)
 
 import Curve (Curve(..))
 
@@ -29,8 +31,12 @@ class Curve W c k => WCurve c k where
   g_ :: WPoint c k -- ^ Curve generator.
 
 -- Weierstrass curves are arbitrary.
-instance WCurve c k => Arbitrary (Point W c k) where
+instance (GaloisField k, IrreducibleMonic k im, WCurve c (ExtensionField k im))
+  => Arbitrary (Point W c (ExtensionField k im)) where
   arbitrary = return g_
+instance (KnownNat p, WCurve c (PrimeField p))
+  => Arbitrary (Point W c (PrimeField p)) where
+  arbitrary = suchThatMap arbitrary point
 
 -------------------------------------------------------------------------------
 -- Operations
@@ -63,6 +69,7 @@ instance (GaloisField k, WCurve c k) => Curve W c k where
   {-# INLINE add #-}
 
   double O       = O
+  double (A _ 0) = O
   double (A x y) = A x' y'
     where
       l  = (3 * x * x + a_ (witness :: c)) / (2 * y)
@@ -71,7 +78,7 @@ instance (GaloisField k, WCurve c k) => Curve W c k where
   {-# INLINE double #-}
 
   def O       = True
-  def (A x y) = y * y == x * (x * x + a) + b
+  def (A x y) = y * y == (x * x + a) * x + b
     where
       a = a_ (witness :: c)
       b = b_ (witness :: c)
@@ -82,3 +89,9 @@ instance (GaloisField k, WCurve c k) => Curve W c k where
       a = a_ (witness :: c)
       b = b_ (witness :: c)
   {-# INLINE disc #-}
+
+  point x = A x <$> sr (((x * x + a) * x) + b)
+    where
+      a = a_ (witness :: c)
+      b = b_ (witness :: c)
+  {-# INLINE point #-}
