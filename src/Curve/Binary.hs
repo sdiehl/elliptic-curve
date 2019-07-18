@@ -7,8 +7,8 @@ module Curve.Binary
 
 import Protolude
 
-import GaloisField (GaloisField)
-import Test.Tasty.QuickCheck (Arbitrary(..))
+import GaloisField (GaloisField(..))
+import Test.Tasty.QuickCheck (Arbitrary(..), suchThatMap)
 
 import Curve (Curve(..))
 
@@ -30,7 +30,7 @@ class Curve B c k => BCurve c k where
 
 -- Binary curves are arbitrary.
 instance BCurve c k => Arbitrary (Point B c k) where
-  arbitrary = return g_
+  arbitrary = suchThatMap arbitrary point
 
 -------------------------------------------------------------------------------
 -- Operations
@@ -82,3 +82,10 @@ instance (GaloisField k, BCurve c k) => Curve B c k where
 
   disc _ = b_ (witness :: c)
   {-# INLINE disc #-}
+
+  point 0 = A 0 <$> sr (b_ (witness :: c))
+  point x = A x <$> quad 1 x ((x + a) * x * x + b)
+    where
+      a = a_ (witness :: c)
+      b = b_ (witness :: c)
+  {-# INLINE point #-}
