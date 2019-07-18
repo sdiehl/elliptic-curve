@@ -29,8 +29,14 @@ class Curve M c k => MCurve c k where
   g_ :: MPoint c k -- ^ Curve generator.
 
 -- Montgomery curves are arbitrary.
-instance MCurve c k => Arbitrary (Point M c k) where
-  arbitrary = return g_
+instance (GaloisField k, MCurve c k) => Arbitrary (Point M c k) where
+  arbitrary = do
+    x <- arbitrary
+    let a = a_ (witness :: c)
+        b = b_ (witness :: c)
+    case sr ((((x + a) * x) + 1) * x / b) of
+      Just y -> return (A x y)
+      _      -> arbitrary
 
 -------------------------------------------------------------------------------
 -- Operations
@@ -65,6 +71,7 @@ instance (GaloisField k, MCurve c k) => Curve M c k where
   {-# INLINE add #-}
 
   double O       = O
+  double (A 0 0) = O
   double (A x y) = A x' y'
     where
       a  = a_ (witness :: c)

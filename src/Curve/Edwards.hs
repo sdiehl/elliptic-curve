@@ -29,8 +29,15 @@ class Curve E c k => ECurve c k where
   g_ :: EPoint c k -- ^ Curve generator.
 
 -- Edwards curves are arbitrary.
-instance ECurve c k => Arbitrary (Point E c k) where
-  arbitrary = return g_
+instance (GaloisField k, ECurve c k) => Arbitrary (Point E c k) where
+  arbitrary = do
+    x <- arbitrary
+    let a  = a_ (witness :: c)
+        d  = d_ (witness :: c)
+        xx = x * x
+    case sr ((1 - a * xx) / (1 - d * xx)) of
+      Just y -> return (A x y)
+      _      -> arbitrary
 
 -------------------------------------------------------------------------------
 -- Operations

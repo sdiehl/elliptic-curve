@@ -13,7 +13,7 @@ module Curve.Weierstrass.BLS48_581T
 
 import Protolude
 
-import ExtensionField (ExtensionField, IrreducibleMonic(..), fromList, t, x)
+import ExtensionField (ExtensionField, IrreducibleMonic(..), fromList, x)
 
 import Curve.Weierstrass (Point(..), WCurve(..), WPoint)
 import Curve.Weierstrass.BLS48_581 (Fp)
@@ -28,15 +28,15 @@ data BLS48_581T
 -- | Field of BLS48-581T curve
 data PolynomialU
 instance IrreducibleMonic Fp PolynomialU where
-  split _ = x ^ (2 :: Int) + 1
+  split _ = [1, 0, 1]
 type Fp2 = ExtensionField Fp PolynomialU
 data PolynomialV
 instance IrreducibleMonic Fp2 PolynomialV where
-  split _ = x ^ (2 :: Int) + t x + 1
+  split _ = [1 + x, 0, 1]
 type Fp4 = ExtensionField Fp2 PolynomialV
 data PolynomialW
 instance IrreducibleMonic Fp4 PolynomialW where
-  split _ = x ^ (2 :: Int) + t x
+  split _ = [x, 0, 1]
 type Fp8 = ExtensionField Fp4 PolynomialW
 
 -- | BLS48-581T curve is a Weierstrass curve

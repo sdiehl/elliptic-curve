@@ -13,7 +13,7 @@ module Curve.Weierstrass.BN462T
 
 import Protolude
 
-import ExtensionField (ExtensionField, IrreducibleMonic(..), fromList, x)
+import ExtensionField (ExtensionField, IrreducibleMonic(..), fromList)
 
 import Curve.Weierstrass (Point(..), WCurve(..), WPoint)
 import Curve.Weierstrass.BN462 (Fp)
@@ -28,7 +28,7 @@ data BN462T
 -- | Field of BN462T curve
 data PolynomialU
 instance IrreducibleMonic Fp PolynomialU where
-  split _ = x ^ (2 :: Int) + 1
+  split _ = [1, 0, 1]
 type Fp2 = ExtensionField Fp PolynomialU
 
 -- | BN462T curve is a Weierstrass curve
