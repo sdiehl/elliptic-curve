@@ -7,8 +7,10 @@ module Curve.Edwards
 
 import Protolude
 
+import Control.Monad.Random (Random(..), getRandom)
 import GaloisField (GaloisField(..))
 import Test.Tasty.QuickCheck (Arbitrary(..), suchThatMap)
+import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
 import Curve (Curve(..))
 
@@ -28,9 +30,23 @@ class Curve E c k => ECurve c k where
   d_ :: c -> k     -- ^ Coefficient @D@.
   g_ :: EPoint c k -- ^ Curve generator.
 
--- Edwards curves are arbitrary.
+-- Edwards points are arbitrary.
 instance (GaloisField k, ECurve c k) => Arbitrary (Point E c k) where
   arbitrary = suchThatMap arbitrary point
+
+-- Edwards points are pretty.
+instance (GaloisField k, ECurve c k) => Pretty (Point E c k) where
+  pretty (A x y) = pretty (x, y)
+
+-- Edwards points are random.
+instance (GaloisField k, ECurve c k) => Random (Point E c k) where
+  random g = case point x of
+    Just p -> (p, g')
+    _      -> random g'
+    where
+      (x, g') = random g
+  {-# INLINE random #-}
+  randomR  = panic "not implemented."
 
 -------------------------------------------------------------------------------
 -- Operations
@@ -40,7 +56,7 @@ instance (GaloisField k, ECurve c k) => Arbitrary (Point E c k) where
 instance (GaloisField k, ECurve c k) => Curve E c k where
 
   data instance Point E c k = A k k -- ^ Affine point.
-    deriving (Eq, Generic, NFData, Show)
+    deriving (Eq, Generic, NFData, Read, Show)
 
   id = A 0 1
   {-# INLINE id #-}
@@ -80,3 +96,6 @@ instance (GaloisField k, ECurve c k) => Curve E c k where
       d  = d_ (witness :: c)
       xx = x * x
   {-# INLINE point #-}
+
+  rnd = getRandom
+  {-# INLINE rnd #-}

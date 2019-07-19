@@ -7,10 +7,12 @@ module Curve.Weierstrass
 
 import Protolude
 
+import Control.Monad.Random (Random(..), getRandom)
 import ExtensionField (ExtensionField, IrreducibleMonic)
 import GaloisField (GaloisField(..))
 import PrimeField (PrimeField)
 import Test.Tasty.QuickCheck (Arbitrary(..), suchThatMap)
+import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
 import Curve (Curve(..))
 
@@ -30,13 +32,28 @@ class Curve W c k => WCurve c k where
   b_ :: c -> k     -- ^ Coefficient @B@.
   g_ :: WPoint c k -- ^ Curve generator.
 
--- Weierstrass curves are arbitrary.
+-- Weierstrass points are arbitrary.
 instance (GaloisField k, IrreducibleMonic k im, WCurve c (ExtensionField k im))
   => Arbitrary (Point W c (ExtensionField k im)) where
-  arbitrary = return g_
+  arbitrary = return g_ -- TODO
 instance (KnownNat p, WCurve c (PrimeField p))
   => Arbitrary (Point W c (PrimeField p)) where
   arbitrary = suchThatMap arbitrary point
+
+-- Weierstrass points are pretty.
+instance (GaloisField k, WCurve c k) => Pretty (Point W c k) where
+  pretty (A x y) = pretty (x, y)
+  pretty O       = "O"
+
+-- Weierstrass points are random.
+instance (GaloisField k, WCurve c k) => Random (Point W c k) where
+  random g = case point x of
+    Just p -> (p, g')
+    _      -> random g'
+    where
+      (x, g') = random g
+  {-# INLINE random #-}
+  randomR  = panic "not implemented."
 
 -------------------------------------------------------------------------------
 -- Operations
@@ -47,7 +64,7 @@ instance (GaloisField k, WCurve c k) => Curve W c k where
 
   data instance Point W c k = A k k -- ^ Affine point.
                             | O     -- ^ Infinite point.
-    deriving (Eq, Generic, NFData, Show)
+    deriving (Eq, Generic, NFData, Read, Show)
 
   id = O
   {-# INLINE id #-}
@@ -95,3 +112,6 @@ instance (GaloisField k, WCurve c k) => Curve W c k where
       a = a_ (witness :: c)
       b = b_ (witness :: c)
   {-# INLINE point #-}
+
+  rnd = getRandom
+  {-# INLINE rnd #-}
