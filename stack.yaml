@@ -1,4 +1,4 @@
 resolver: lts-13.19
 extra-deps:
 - git: git@github.com:adjoint-io/galois-field.git
-  commit: ac9b1274848678f3abd931e74c31459e8cdeaa96
+  commit: abc6a87121eb184ce8785964b46991ece2f189f4
