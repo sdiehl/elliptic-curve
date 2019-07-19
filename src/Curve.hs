@@ -1,5 +1,4 @@
 module Curve
-  -- | Types
   ( Curve(..)
   ) where
 

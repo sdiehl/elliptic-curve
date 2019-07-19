@@ -1,5 +1,4 @@
 module Curve.Binary
-  -- | Types
   ( BCurve(..)
   , BPoint
   , Point(..)

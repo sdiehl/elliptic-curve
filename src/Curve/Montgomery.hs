@@ -1,5 +1,4 @@
 module Curve.Montgomery
-  -- | Types
   ( Point(..)
   , MCurve(..)
   , MPoint

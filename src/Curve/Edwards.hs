@@ -1,5 +1,4 @@
 module Curve.Edwards
-  -- | Types
   ( ECurve(..)
   , EPoint
   , Point(..)

@@ -1,8 +1,6 @@
 module Curve.Weierstrass.BLS48_581T
-  -- | Types
   ( Fp8
   , P
-  -- | Parameters
   , _a
   , _b
   , _g

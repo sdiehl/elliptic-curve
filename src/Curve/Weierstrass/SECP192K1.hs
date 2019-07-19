@@ -1,8 +1,6 @@
 module Curve.Weierstrass.SECP192K1
-  -- | Types
   ( Fp
   , P
-  -- | Parameters
   , _a
   , _b
   , _g

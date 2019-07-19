@@ -1,5 +1,4 @@
 module Curve.Weierstrass
-  -- | Types
   ( Point(..)
   , WCurve(..)
   , WPoint

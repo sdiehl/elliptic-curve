@@ -1,8 +1,6 @@
 module Curve.Weierstrass.BrainpoolP384R1
-  -- | Types
   ( Fp
   , P
-  -- | Parameters
   , _a
   , _b
   , _g

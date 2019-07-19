@@ -1,8 +1,6 @@
 module Curve.Edwards.Curve1174
-  -- | Types
   ( Fp
   , P
-  -- | Parameters
   , _a
   , _d
   , _g

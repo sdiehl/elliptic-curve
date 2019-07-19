@@ -1,8 +1,6 @@
 module Curve.Weierstrass.BLS12_381T
-  -- | Types
   ( Fp2
   , P
-  -- | Parameters
   , _a
   , _b
   , _g

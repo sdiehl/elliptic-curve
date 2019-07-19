@@ -1,8 +1,6 @@
 module Curve.Weierstrass.SECP160R2
-  -- | Types
   ( Fp
   , P
-  -- | Parameters
   , _a
   , _b
   , _g

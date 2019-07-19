@@ -1,8 +1,6 @@
 module Curve.Weierstrass.BN254BT
-  -- | Types
   ( Fp2
   , P
-  -- | Parameters
   , _a
   , _b
   , _g
