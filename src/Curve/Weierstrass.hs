@@ -7,11 +7,11 @@ module Curve.Weierstrass
 
 import Protolude
 
-import Control.Monad.Random (Random(..), getRandom)
+import Control.Monad.Random (Random(..), RandomGen, getRandom)
 import ExtensionField (ExtensionField, IrreducibleMonic)
 import GaloisField (GaloisField(..))
 import PrimeField (PrimeField)
-import Test.Tasty.QuickCheck (Arbitrary(..), suchThatMap)
+import Test.Tasty.QuickCheck (Arbitrary(..), Gen, suchThatMap)
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
 import Curve (Curve(..))
@@ -35,7 +35,7 @@ class Curve W c k => WCurve c k where
 -- Weierstrass points are arbitrary.
 instance (GaloisField k, IrreducibleMonic k im, WCurve c (ExtensionField k im))
   => Arbitrary (Point W c (ExtensionField k im)) where
-  arbitrary = return g_ -- TODO
+  arbitrary = flip mul g_ <$> (arbitrary :: Gen Int) -- TODO
 instance (KnownNat p, WCurve c (PrimeField p))
   => Arbitrary (Point W c (PrimeField p)) where
   arbitrary = suchThatMap arbitrary point
@@ -47,11 +47,12 @@ instance (GaloisField k, WCurve c k) => Pretty (Point W c k) where
 
 -- Weierstrass points are random.
 instance (GaloisField k, WCurve c k) => Random (Point W c k) where
-  random g = case point x of
-    Just p -> (p, g')
-    _      -> random g'
-    where
-      (x, g') = random g
+  random = first (flip mul g_) . (random :: RandomGen g => g -> (Int, g)) -- TODO
+  -- random g = case point x of
+  --   Just p -> (p, g')
+  --   _      -> random g'
+  --   where
+  --     (x, g') = random g
   {-# INLINE random #-}
   randomR  = panic "not implemented."
 
