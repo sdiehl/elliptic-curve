@@ -1,5 +1,4 @@
 module Curve.Weierstrass
-  -- | Types
   ( Point(..)
   , WCurve(..)
   , WPoint
@@ -7,8 +6,12 @@ module Curve.Weierstrass
 
 import Protolude
 
+import Control.Monad.Random (Random(..), RandomGen, getRandom)
+import ExtensionField (ExtensionField, IrreducibleMonic)
 import GaloisField (GaloisField(..))
-import Test.Tasty.QuickCheck (Arbitrary(..))
+import PrimeField (PrimeField)
+import Test.Tasty.QuickCheck (Arbitrary(..), Gen, suchThatMap)
+import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
 import Curve (Curve(..))
 
@@ -28,9 +31,29 @@ class Curve W c k => WCurve c k where
   b_ :: c -> k     -- ^ Coefficient @B@.
   g_ :: WPoint c k -- ^ Curve generator.
 
--- Weierstrass curves are arbitrary.
-instance WCurve c k => Arbitrary (Point W c k) where
-  arbitrary = return g_
+-- Weierstrass points are arbitrary.
+instance (GaloisField k, IrreducibleMonic k im, WCurve c (ExtensionField k im))
+  => Arbitrary (Point W c (ExtensionField k im)) where
+  arbitrary = flip mul g_ <$> (arbitrary :: Gen Int) -- TODO
+instance (KnownNat p, WCurve c (PrimeField p))
+  => Arbitrary (Point W c (PrimeField p)) where
+  arbitrary = suchThatMap arbitrary point
+
+-- Weierstrass points are pretty.
+instance (GaloisField k, WCurve c k) => Pretty (Point W c k) where
+  pretty (A x y) = pretty (x, y)
+  pretty O       = "O"
+
+-- Weierstrass points are random.
+instance (GaloisField k, WCurve c k) => Random (Point W c k) where
+  random = first (flip mul g_) . (random :: RandomGen g => g -> (Int, g)) -- TODO
+  -- random g = case point x of
+  --   Just p -> (p, g')
+  --   _      -> random g'
+  --   where
+  --     (x, g') = random g
+  {-# INLINE random #-}
+  randomR  = panic "not implemented."
 
 -------------------------------------------------------------------------------
 -- Operations
@@ -41,7 +64,7 @@ instance (GaloisField k, WCurve c k) => Curve W c k where
 
   data instance Point W c k = A k k -- ^ Affine point.
                             | O     -- ^ Infinite point.
-    deriving (Eq, Generic, NFData, Show)
+    deriving (Eq, Generic, NFData, Read, Show)
 
   id = O
   {-# INLINE id #-}
@@ -63,6 +86,7 @@ instance (GaloisField k, WCurve c k) => Curve W c k where
   {-# INLINE add #-}
 
   double O       = O
+  double (A _ 0) = O
   double (A x y) = A x' y'
     where
       l  = (3 * x * x + a_ (witness :: c)) / (2 * y)
@@ -71,7 +95,7 @@ instance (GaloisField k, WCurve c k) => Curve W c k where
   {-# INLINE double #-}
 
   def O       = True
-  def (A x y) = y * y == x * (x * x + a) + b
+  def (A x y) = y * y == (x * x + a) * x + b
     where
       a = a_ (witness :: c)
       b = b_ (witness :: c)
@@ -82,3 +106,12 @@ instance (GaloisField k, WCurve c k) => Curve W c k where
       a = a_ (witness :: c)
       b = b_ (witness :: c)
   {-# INLINE disc #-}
+
+  point x = A x <$> sr (((x * x + a) * x) + b)
+    where
+      a = a_ (witness :: c)
+      b = b_ (witness :: c)
+  {-# INLINE point #-}
+
+  rnd = getRandom
+  {-# INLINE rnd #-}

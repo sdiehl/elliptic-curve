@@ -1,8 +1,6 @@
 module Curve.Edwards.Ed3363
-  -- | Types
   ( Fp
   , P
-  -- | Parameters
   , _a
   , _d
   , _g

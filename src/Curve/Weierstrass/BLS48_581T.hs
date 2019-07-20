@@ -1,8 +1,6 @@
 module Curve.Weierstrass.BLS48_581T
-  -- | Types
   ( Fp8
   , P
-  -- | Parameters
   , _a
   , _b
   , _g
@@ -32,7 +30,7 @@ instance IrreducibleMonic Fp PolynomialU where
 type Fp2 = ExtensionField Fp PolynomialU
 data PolynomialV
 instance IrreducibleMonic Fp2 PolynomialV where
-  split _ = x ^ (2 :: Int) + t x + 1
+  split _ = x ^ (2 :: Int) + 1 + t x
 type Fp4 = ExtensionField Fp2 PolynomialV
 data PolynomialW
 instance IrreducibleMonic Fp4 PolynomialW where

@@ -1,8 +1,6 @@
 module Curve.Weierstrass.Anomalous
-  -- | Types
   ( Fp
   , P
-  -- | Parameters
   , _a
   , _b
   , _g

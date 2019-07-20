@@ -1,8 +1,6 @@
 module Curve.Binary.SECT163R1
-  -- | Types
   ( F2m
   , P
-  -- | Parameters
   , _a
   , _b
   , _f

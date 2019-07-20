@@ -1,8 +1,6 @@
 module Curve.Montgomery.Curve25519
-  -- | Types
   ( Fp
   , P
-  -- | Parameters
   , _a
   , _b
   , _g

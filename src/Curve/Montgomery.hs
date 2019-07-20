@@ -1,5 +1,4 @@
 module Curve.Montgomery
-  -- | Types
   ( Point(..)
   , MCurve(..)
   , MPoint
@@ -7,8 +6,10 @@ module Curve.Montgomery
 
 import Protolude
 
+import Control.Monad.Random (Random(..), getRandom)
 import GaloisField (GaloisField(..))
-import Test.Tasty.QuickCheck (Arbitrary(..))
+import Test.Tasty.QuickCheck (Arbitrary(..), suchThatMap)
+import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
 import Curve (Curve(..))
 
@@ -28,9 +29,24 @@ class Curve M c k => MCurve c k where
   b_ :: c -> k     -- ^ Coefficient @B@.
   g_ :: MPoint c k -- ^ Curve generator.
 
--- Montgomery curves are arbitrary.
-instance MCurve c k => Arbitrary (Point M c k) where
-  arbitrary = return g_
+-- Montgomery points are arbitrary.
+instance (GaloisField k, MCurve c k) => Arbitrary (Point M c k) where
+  arbitrary = suchThatMap arbitrary point
+
+-- Montgomery points are pretty.
+instance (GaloisField k, MCurve c k) => Pretty (Point M c k) where
+  pretty (A x y) = pretty (x, y)
+  pretty O       = "O"
+
+-- Montgomery points are random.
+instance (GaloisField k, MCurve c k) => Random (Point M c k) where
+  random g = case point x of
+    Just p -> (p, g')
+    _      -> random g'
+    where
+      (x, g') = random g
+  {-# INLINE random #-}
+  randomR  = panic "not implemented."
 
 -------------------------------------------------------------------------------
 -- Operations
@@ -41,7 +57,7 @@ instance (GaloisField k, MCurve c k) => Curve M c k where
 
   data instance Point M c k = A k k -- ^ Affine point.
                             | O     -- ^ Infinite point.
-    deriving (Eq, Generic, NFData, Show)
+    deriving (Eq, Generic, NFData, Read, Show)
 
   id = O
   {-# INLINE id #-}
@@ -65,6 +81,7 @@ instance (GaloisField k, MCurve c k) => Curve M c k where
   {-# INLINE add #-}
 
   double O       = O
+  double (A _ 0) = O
   double (A x y) = A x' y'
     where
       a  = a_ (witness :: c)
@@ -86,3 +103,12 @@ instance (GaloisField k, MCurve c k) => Curve M c k where
       a = a_ (witness :: c)
       b = b_ (witness :: c)
   {-# INLINE disc #-}
+
+  point x = A x <$> sr ((((x + a) * x) + 1) * x / b)
+    where
+      a  = a_ (witness :: c)
+      b  = b_ (witness :: c)
+  {-# INLINE point #-}
+
+  rnd = getRandom
+  {-# INLINE rnd #-}

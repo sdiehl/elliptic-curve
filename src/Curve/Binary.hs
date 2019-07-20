@@ -1,5 +1,4 @@
 module Curve.Binary
-  -- | Types
   ( BCurve(..)
   , BPoint
   , Point(..)
@@ -7,8 +6,10 @@ module Curve.Binary
 
 import Protolude
 
-import GaloisField (GaloisField)
+import Control.Monad.Random (Random(..), getRandom)
+import GaloisField (GaloisField(..))
 import Test.Tasty.QuickCheck (Arbitrary(..))
+import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
 import Curve (Curve(..))
 
@@ -28,9 +29,26 @@ class Curve B c k => BCurve c k where
   b_ :: c -> k     -- ^ Coefficient @B@.
   g_ :: BPoint c k -- ^ Curve generator.
 
--- Binary curves are arbitrary.
-instance BCurve c k => Arbitrary (Point B c k) where
+-- Binary points are arbitrary.
+instance (GaloisField k, BCurve c k) => Arbitrary (Point B c k) where
   arbitrary = return g_
+  -- arbitrary = flip mul g_ <$> (arbitrary :: Gen Int)
+  -- arbitrary = suchThatMap arbitrary point
+
+-- Binary points are pretty.
+instance (GaloisField k, BCurve c k) => Pretty (Point B c k) where
+  pretty (A x y) = pretty (x, y)
+  pretty O       = "O"
+
+-- Binary points are random.
+instance (GaloisField k, BCurve c k) => Random (Point B c k) where
+  random g = case point x of
+    Just p -> (p, g')
+    _      -> random g'
+    where
+      (x, g') = random g
+  {-# INLINE random #-}
+  randomR  = panic "not implemented."
 
 -------------------------------------------------------------------------------
 -- Operations
@@ -41,7 +59,7 @@ instance (GaloisField k, BCurve c k) => Curve B c k where
 
   data instance Point B c k = A k k -- ^ Affine point.
                             | O     -- ^ Infinite point.
-    deriving (Eq, Generic, NFData, Show)
+    deriving (Eq, Generic, NFData, Read, Show)
 
   id = O
   {-# INLINE id #-}
@@ -82,3 +100,13 @@ instance (GaloisField k, BCurve c k) => Curve B c k where
 
   disc _ = b_ (witness :: c)
   {-# INLINE disc #-}
+
+  point 0 = A 0 <$> sr (b_ (witness :: c))
+  point x = A x <$> quad 1 x ((x + a) * x * x + b)
+    where
+      a = a_ (witness :: c)
+      b = b_ (witness :: c)
+  {-# INLINE point #-}
+
+  rnd = getRandom
+  {-# INLINE rnd #-}

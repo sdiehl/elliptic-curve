@@ -1,8 +1,6 @@
 module Curve.Montgomery.M511
-  -- | Types
   ( Fp
   , P
-  -- | Parameters
   , _a
   , _b
   , _g

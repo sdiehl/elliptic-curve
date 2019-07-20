@@ -1,10 +1,10 @@
 module Curve
-  -- | Types
   ( Curve(..)
   ) where
 
 import Protolude
 
+import Control.Monad.Random (MonadRandom)
 import GaloisField (GaloisField)
 
 -------------------------------------------------------------------------------
@@ -13,7 +13,7 @@ import GaloisField (GaloisField)
 
 -- | Elliptic curves over Galois fields.
 class GaloisField k => Curve r c k where
-  {-# MINIMAL id, inv, add, def, disc #-}
+  {-# MINIMAL id, inv, add, def, disc, point, rnd #-}
 
   -- | Curve point.
   data family Point r c k :: *
@@ -47,8 +47,14 @@ class GaloisField k => Curve r c k where
   -- | Point is well-defined.
   def :: Point r c k -> Bool
 
-  -- | Curve discriminant.
+  -- | Get curve discriminant.
   disc :: Point r c k -> k
+
+  -- | Get point from x coordinate.
+  point :: k -> Maybe (Point r c k)
+
+  -- | Get random point.
+  rnd :: MonadRandom m => m (Point r c k)
 
 -- Elliptic curves are semigroups.
 instance Curve r c k => Semigroup (Point r c k) where
