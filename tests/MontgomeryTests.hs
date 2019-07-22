@@ -2,13 +2,14 @@ module MontgomeryTests where
 
 import Test.Tasty
 
-import CurveTests
 import qualified Curve.Montgomery.Curve448         as Curve448
 import qualified Curve.Montgomery.Curve25519       as Curve25519
 import qualified Curve.Montgomery.Curve383187      as Curve383187
 import qualified Curve.Montgomery.M221             as M221
 import qualified Curve.Montgomery.M383             as M383
 import qualified Curve.Montgomery.M511             as M511
+
+import CurveTests
 
 testMontgomery :: TestTree
 testMontgomery = testGroup "Montgomery"

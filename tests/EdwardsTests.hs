@@ -2,7 +2,6 @@ module EdwardsTests where
 
 import Test.Tasty
 
-import CurveTests
 import qualified Curve.Edwards.Curve1174  as Curve1174
 import qualified Curve.Edwards.Curve41417 as Curve41417
 import qualified Curve.Edwards.E222       as E222
@@ -12,6 +11,8 @@ import qualified Curve.Edwards.Ed448      as Ed448
 import qualified Curve.Edwards.Ed3363     as Ed3363
 import qualified Curve.Edwards.Ed25519    as Ed25519
 import qualified Curve.Edwards.JubJub     as JubJub
+
+import CurveTests
 
 testEdwards :: TestTree
 testEdwards = testGroup "Edwards"
