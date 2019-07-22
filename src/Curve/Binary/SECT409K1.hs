@@ -3,10 +3,10 @@ module Curve.Binary.SECT409K1
   , P
   , _a
   , _b
-  , _f
   , _g
   , _h
   , _n
+  , _p
   ) where
 
 import Protolude
@@ -33,6 +33,12 @@ instance BCurve SECT409K1 F2m where
   {-# INLINE b_ #-}
   g_ = _g
   {-# INLINE g_ #-}
+  h_ = const _h
+  {-# INLINE h_ #-}
+  n_ = const _n
+  {-# INLINE n_ #-}
+  p_ = const _p
+  {-# INLINE p_ #-}
 
 -- | Point of SECT409K1 curve
 type P = BPoint SECT409K1 F2m
@@ -51,11 +57,6 @@ _b :: F2m
 _b = 1
 {-# INLINE _b #-}
 
--- | Polynomial of SECT409K1 curve
-_f :: Integer
-_f = 0x2000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000001
-{-# INLINE _f #-}
-
 -- | Generator of SECT409K1 curve
 _g :: P
 _g = A
@@ -72,3 +73,8 @@ _h = 4
 _n :: Integer
 _n = 0x7ffffffffffffffffffffffffffffffffffffffffffffffffffe5f83b2d4ea20400ec4557d5ed3e3e7ca5b4b5c83b8e01e5fcf
 {-# INLINE _n #-}
+
+-- | Polynomial of SECT409K1 curve
+_p :: Integer
+_p = 0x2000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000001
+{-# INLINE _p #-}

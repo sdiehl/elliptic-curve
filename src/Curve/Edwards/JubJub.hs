@@ -33,6 +33,12 @@ instance ECurve JubJub Fp where
   {-# INLINE d_ #-}
   g_ = _g
   {-# INLINE g_ #-}
+  h_ = const _h
+  {-# INLINE h_ #-}
+  n_ = const _n
+  {-# INLINE n_ #-}
+  p_ = const _p
+  {-# INLINE p_ #-}
 
 -- | Point of JubJub curve
 type P = EPoint JubJub Fp

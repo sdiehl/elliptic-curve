@@ -25,9 +25,13 @@ type EPoint = Point E
 
 -- | Edwards curves @Ax^2 + y^2 = 1 + Dx^2y^2@.
 class Curve E c k => ECurve c k where
-  a_ :: c -> k     -- ^ Coefficient @A@.
-  d_ :: c -> k     -- ^ Coefficient @D@.
-  g_ :: EPoint c k -- ^ Curve generator.
+  {-# MINIMAL a_, d_, g_, h_, n_, p_ #-}
+  a_ :: c -> k                -- ^ Coefficient @A@.
+  d_ :: c -> k                -- ^ Coefficient @D@.
+  g_ :: EPoint c k            -- ^ Curve generator.
+  h_ :: EPoint c k -> Integer -- ^ Curve cofactor.
+  n_ :: EPoint c k -> Integer -- ^ Curve order.
+  p_ :: EPoint c k -> Integer -- ^ Curve polynomial.
 
 -- Edwards points are arbitrary.
 instance (GaloisField k, ECurve c k) => Arbitrary (Point E c k) where
@@ -76,6 +80,9 @@ instance (GaloisField k, ECurve c k) => Curve E c k where
       y3   = (y1y2 - a * x1x2) / (1 - dxy)
   {-# INLINE add #-}
 
+  cof = h_
+  {-# INLINE cof #-}
+
   def (A x y) = a * xx + yy == 1 + d * xx * yy
     where
       a  = a_ (witness :: c)
@@ -92,7 +99,7 @@ instance (GaloisField k, ECurve c k) => Curve E c k where
   gen = g_
   {-# INLINE gen #-}
 
-  order = notImplemented
+  order = n_
   {-# INLINE order #-}
 
   point x = A x <$> yX (witness :: EPoint c k) x

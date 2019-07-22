@@ -27,9 +27,13 @@ type WPoint = Point W
 
 -- | Weierstrass curves @y^2 = x^3 + Ax + B@.
 class Curve W c k => WCurve c k where
-  a_ :: c -> k     -- ^ Coefficient @A@.
-  b_ :: c -> k     -- ^ Coefficient @B@.
-  g_ :: WPoint c k -- ^ Curve generator.
+  {-# MINIMAL a_, b_, g_, h_, n_, p_ #-}
+  a_ :: c -> k                -- ^ Coefficient @A@.
+  b_ :: c -> k                -- ^ Coefficient @B@.
+  g_ :: WPoint c k            -- ^ Curve generator.
+  h_ :: WPoint c k -> Integer -- ^ Curve cofactor.
+  n_ :: WPoint c k -> Integer -- ^ Curve order.
+  p_ :: WPoint c k -> Integer -- ^ Curve polynomial.
 
 -- Weierstrass points are arbitrary.
 instance (GaloisField k, IrreducibleMonic k im, WCurve c (ExtensionField k im))
@@ -95,6 +99,9 @@ instance (GaloisField k, WCurve c k) => Curve W c k where
       y' = l * (x - x') - y
   {-# INLINE double #-}
 
+  cof = h_
+  {-# INLINE cof #-}
+
   def O       = True
   def (A x y) = y * y == (x * x + a) * x + b
     where
@@ -111,7 +118,7 @@ instance (GaloisField k, WCurve c k) => Curve W c k where
   gen = g_
   {-# INLINE gen #-}
 
-  order = notImplemented
+  order = n_
   {-# INLINE order #-}
 
   point x = A x <$> yX (witness :: WPoint c k) x

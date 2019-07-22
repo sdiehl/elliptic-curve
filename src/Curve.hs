@@ -13,7 +13,9 @@ import GaloisField (GaloisField)
 
 -- | Elliptic curves over Galois fields.
 class GaloisField k => Curve r c k where
-  {-# MINIMAL id, inv, add, def, disc, gen, order, point, rnd, yX #-}
+  {-# MINIMAL add, cof, def, disc, gen, id, inv, order, point, rnd, yX #-}
+
+  -- Curve operations.
 
   -- | Curve point.
   data family Point r c k :: *
@@ -46,6 +48,11 @@ class GaloisField k => Curve r c k where
 
   -- | Well-defined.
   def :: Point r c k -> Bool
+
+  -- Curve functions.
+
+  -- | Curve cofactor.
+  cof :: Point r c k -> Integer
 
   -- | Curve discriminant.
   disc :: Point r c k -> k

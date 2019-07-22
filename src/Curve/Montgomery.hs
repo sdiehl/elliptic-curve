@@ -25,9 +25,13 @@ type MPoint = Point M
 
 -- | Montgomery curves @By^2 = x^3 + Ax^2 + x@.
 class Curve M c k => MCurve c k where
-  a_ :: c -> k     -- ^ Coefficient @A@.
-  b_ :: c -> k     -- ^ Coefficient @B@.
-  g_ :: MPoint c k -- ^ Curve generator.
+  {-# MINIMAL a_, b_, g_, h_, n_, p_ #-}
+  a_ :: c -> k                -- ^ Coefficient @A@.
+  b_ :: c -> k                -- ^ Coefficient @B@.
+  g_ :: MPoint c k            -- ^ Curve generator.
+  h_ :: MPoint c k -> Integer -- ^ Curve cofactor.
+  n_ :: MPoint c k -> Integer -- ^ Curve order.
+  p_ :: MPoint c k -> Integer -- ^ Curve polynomial.
 
 -- Montgomery points are arbitrary.
 instance (GaloisField k, MCurve c k) => Arbitrary (Point M c k) where
@@ -91,6 +95,9 @@ instance (GaloisField k, MCurve c k) => Curve M c k where
       y' = l * (x - x') - y
   {-# INLINE double #-}
 
+  cof = h_
+  {-# INLINE cof #-}
+
   def O       = True
   def (A x y) = b * y * y == (((x + a) * x) + 1) * x
     where
@@ -107,7 +114,7 @@ instance (GaloisField k, MCurve c k) => Curve M c k where
   gen = g_
   {-# INLINE gen #-}
 
-  order = notImplemented
+  order = n_
   {-# INLINE order #-}
 
   point x = A x <$> yX (witness :: MPoint c k) x

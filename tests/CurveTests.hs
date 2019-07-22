@@ -54,12 +54,20 @@ curveParameters :: forall r c k .
   (Arbitrary (Point r c k), Curve r c k, Eq (Point r c k), GaloisField k, Show (Point r c k))
   => Point r c k -> Integer -> Integer -> Integer -> TestTree
 curveParameters g h n p = testGroup "Curve parameters"
-  [ testCase "characteristic is typed" $
+  [ testCase "characteristic is parametrised" $
     char (witness :: k) @?= p
+  , testCase "cofactor is parametrised" $
+    cof (witness :: Point r c k) @?= h
+  , testCase "generator is parametrised" $
+    gen @?= g
+  , testCase "order is parametrised" $
+    Curve.order (witness :: Point r c k) @?= n
   , testCase "characteristic is prime" $
     isPrime p @?= True
   , testCase "discriminant is nonzero" $
     disc (witness :: Point r c k) /= 0 @?= True
+  , testCase "generator is well-defined" $
+    def (gen :: Point r c k) @?= True
   , testCase "generator is in cyclic subgroup" $
     mul g n @?= id
   , testCase "cyclic subgroup has prime order" $

@@ -3,10 +3,10 @@ module Curve.Binary.SECT163R2
   , P
   , _a
   , _b
-  , _f
   , _g
   , _h
   , _n
+  , _p
   ) where
 
 import Protolude
@@ -33,6 +33,12 @@ instance BCurve SECT163R2 F2m where
   {-# INLINE b_ #-}
   g_ = _g
   {-# INLINE g_ #-}
+  h_ = const _h
+  {-# INLINE h_ #-}
+  n_ = const _n
+  {-# INLINE n_ #-}
+  p_ = const _p
+  {-# INLINE p_ #-}
 
 -- | Point of SECT163R2 curve
 type P = BPoint SECT163R2 F2m
@@ -51,11 +57,6 @@ _b :: F2m
 _b = 0x20a601907b8c953ca1481eb10512f78744a3205fd
 {-# INLINE _b #-}
 
--- | Polynomial of SECT163R2 curve
-_f :: Integer
-_f = 0x800000000000000000000000000000000000000c9
-{-# INLINE _f #-}
-
 -- | Generator of SECT163R2 curve
 _g :: P
 _g = A
@@ -72,3 +73,8 @@ _h = 2
 _n :: Integer
 _n = 0x40000000000000000000292fe77e70c12a4234c33
 {-# INLINE _n #-}
+
+-- | Polynomial of SECT163R2 curve
+_p :: Integer
+_p = 0x800000000000000000000000000000000000000c9
+{-# INLINE _p #-}

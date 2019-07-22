@@ -33,6 +33,12 @@ instance WCurve SECP256R1 Fp where
   {-# INLINE b_ #-}
   g_ = _g
   {-# INLINE g_ #-}
+  h_ = const _h
+  {-# INLINE h_ #-}
+  n_ = const _n
+  {-# INLINE n_ #-}
+  p_ = const _p
+  {-# INLINE p_ #-}
 
 -- | Point of SECP256R1 curve
 type P = WPoint SECP256R1 Fp

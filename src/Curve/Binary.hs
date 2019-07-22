@@ -25,9 +25,13 @@ type BPoint = Point B
 
 -- | Binary curves @y^2 + xy = x^3 + Ax^2 + B@.
 class Curve B c k => BCurve c k where
-  a_ :: c -> k     -- ^ Coefficient @A@.
-  b_ :: c -> k     -- ^ Coefficient @B@.
-  g_ :: BPoint c k -- ^ Curve generator.
+  {-# MINIMAL a_, b_, g_, h_, n_, p_ #-}
+  a_ :: c -> k                -- ^ Coefficient @A@.
+  b_ :: c -> k                -- ^ Coefficient @B@.
+  g_ :: BPoint c k            -- ^ Curve generator.
+  h_ :: BPoint c k -> Integer -- ^ Curve cofactor.
+  n_ :: BPoint c k -> Integer -- ^ Curve order.
+  p_ :: BPoint c k -> Integer -- ^ Curve polynomial.
 
 -- Binary points are arbitrary.
 instance (GaloisField k, BCurve c k) => Arbitrary (Point B c k) where
@@ -91,6 +95,9 @@ instance (GaloisField k, BCurve c k) => Curve B c k where
       y' = x * x + l' * x'
   {-# INLINE double #-}
 
+  cof = h_
+  {-# INLINE cof #-}
+
   def O       = True
   def (A x y) = ((x + a) * x + y) * x + b + y * y == 0
     where
@@ -104,7 +111,7 @@ instance (GaloisField k, BCurve c k) => Curve B c k where
   gen = g_
   {-# INLINE gen #-}
 
-  order = notImplemented
+  order = n_
   {-# INLINE order #-}
 
   point x = A x <$> yX (witness :: BPoint c k) x

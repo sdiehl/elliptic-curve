@@ -33,6 +33,12 @@ instance MCurve Curve448 Fp where
   {-# INLINE b_ #-}
   g_ = _g
   {-# INLINE g_ #-}
+  h_ = const _h
+  {-# INLINE h_ #-}
+  n_ = const _n
+  {-# INLINE n_ #-}
+  p_ = const _p
+  {-# INLINE p_ #-}
 
 -- | Point of Curve448 curve
 type P = MPoint Curve448 Fp

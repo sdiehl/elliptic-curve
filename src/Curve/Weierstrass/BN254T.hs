@@ -37,6 +37,12 @@ instance WCurve BN254T Fp2 where
   {-# INLINE b_ #-}
   g_ = _g
   {-# INLINE g_ #-}
+  h_ = const _h
+  {-# INLINE h_ #-}
+  n_ = const _n
+  {-# INLINE n_ #-}
+  p_ = const _p
+  {-# INLINE p_ #-}
 
 -- | Point of BN254T curve
 type P = WPoint BN254T Fp2

@@ -33,6 +33,12 @@ instance WCurve ANSSIFRP256V1 Fp where
   {-# INLINE b_ #-}
   g_ = _g
   {-# INLINE g_ #-}
+  h_ = const _h
+  {-# INLINE h_ #-}
+  n_ = const _n
+  {-# INLINE n_ #-}
+  p_ = const _p
+  {-# INLINE p_ #-}
 
 -- | Point of ANSSI-FRP256V1 curve
 type P = WPoint ANSSIFRP256V1 Fp
