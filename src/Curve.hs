@@ -33,15 +33,15 @@ class GaloisField k => Curve r c k where
   {-# INLINE double #-}
 
   -- | Point multiplication.
-  mul :: Integral n => n -> Point r c k -> Point r c k
-  mul n p
-    | n < 0     = inv (mul (-n) p)
+  mul :: Integral n => Point r c k -> n -> Point r c k
+  mul p n
+    | n < 0     = inv (mul p (-n))
     | n == 0    = id
     | n == 1    = p
     | even n    = p'
     | otherwise = add p p'
     where
-      p' = mul (div n 2) (double p)
+      p' = mul (double p) (div n 2)
   {-# INLINE mul #-}
 
   -- | Point is well-defined.

@@ -36,7 +36,7 @@ groupAxioms _ = testGroup "Group axioms"
   , testProperty "doubling closure" $
     def . (double :: Point r c k -> Point r c k)
   , testProperty "multiplication closure" $
-    def . (mul (6 :: Int) :: Point r c k -> Point r c k)
+    def . (flip mul (3 :: Int) :: Point r c k -> Point r c k)
   , testProperty "identity" $
     identities (add :: Point r c k -> Point r c k -> Point r c k) mempty
   , testProperty "inverses" $
@@ -61,7 +61,7 @@ curveParameters g h n p = testGroup "Curve parameters"
   , testCase "discriminant is nonzero" $
     disc (witness :: Point r c k) /= 0 @?= True
   , testCase "generator is in cyclic subgroup" $
-    mul n g @?= id
+    mul g n @?= id
   , testCase "cyclic subgroup has prime order" $
     isPrime n @?= True
   , testCase "hasse theorem holds" $

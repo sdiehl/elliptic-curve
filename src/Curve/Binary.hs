@@ -31,8 +31,8 @@ class Curve B c k => BCurve c k where
 
 -- Binary points are arbitrary.
 instance (GaloisField k, BCurve c k) => Arbitrary (Point B c k) where
-  arbitrary = return g_
-  -- arbitrary = flip mul g_ <$> (arbitrary :: Gen Int)
+  arbitrary = return g_ -- TODO
+  -- arbitrary = mul g_ <$> (arbitrary :: Gen Int)
   -- arbitrary = suchThatMap arbitrary point
 
 -- Binary points are pretty.

@@ -87,7 +87,7 @@ import qualified Curve.Weierstrass.SECP521R1       as SECP521R1
 import GHC.Base
 
 benchmark :: forall r c k . Curve r c k => String -> Point r c k -> Benchmark
-benchmark = (. whnf (mul (6 :: Int))) . bench
+benchmark = (. whnf (flip mul (3 :: Int))) . bench
 
 main :: IO ()
 main = defaultMain
