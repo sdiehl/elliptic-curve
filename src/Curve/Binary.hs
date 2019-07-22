@@ -101,12 +101,21 @@ instance (GaloisField k, BCurve c k) => Curve B c k where
   disc _ = b_ (witness :: c)
   {-# INLINE disc #-}
 
-  point 0 = A 0 <$> sr (b_ (witness :: c))
-  point x = A x <$> quad 1 x ((x + a) * x * x + b)
-    where
-      a = a_ (witness :: c)
-      b = b_ (witness :: c)
+  gen = g_
+  {-# INLINE gen #-}
+
+  order = notImplemented
+  {-# INLINE order #-}
+
+  point x = A x <$> yX (witness :: BPoint c k) x
   {-# INLINE point #-}
 
   rnd = getRandom
   {-# INLINE rnd #-}
+
+  yX _ 0 = sr (b_ (witness :: c))
+  yX _ x = quad 1 x ((x + a) * x * x + b)
+    where
+      a = a_ (witness :: c)
+      b = b_ (witness :: c)
+  {-# INLINE yX #-}

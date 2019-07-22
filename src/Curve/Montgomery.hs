@@ -104,11 +104,20 @@ instance (GaloisField k, MCurve c k) => Curve M c k where
       b = b_ (witness :: c)
   {-# INLINE disc #-}
 
-  point x = A x <$> sr ((((x + a) * x) + 1) * x / b)
-    where
-      a  = a_ (witness :: c)
-      b  = b_ (witness :: c)
+  gen = g_
+  {-# INLINE gen #-}
+
+  order = notImplemented
+  {-# INLINE order #-}
+
+  point x = A x <$> yX (witness :: MPoint c k) x
   {-# INLINE point #-}
 
   rnd = getRandom
   {-# INLINE rnd #-}
+
+  yX _ x = sr ((((x + a) * x) + 1) * x / b)
+    where
+      a  = a_ (witness :: c)
+      b  = b_ (witness :: c)
+  {-# INLINE yX #-}

@@ -65,7 +65,7 @@ curveParameters g h n p = testGroup "Curve parameters"
   , testCase "cyclic subgroup has prime order" $
     isPrime n @?= True
   , testCase "hasse theorem holds" $
-    hasse h n (order (witness :: k)) @?= True
+    hasse h n (GaloisField.order (witness :: k)) @?= True
   ]
 
 test :: forall r c k .

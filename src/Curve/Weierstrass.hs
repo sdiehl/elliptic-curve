@@ -108,11 +108,20 @@ instance (GaloisField k, WCurve c k) => Curve W c k where
       b = b_ (witness :: c)
   {-# INLINE disc #-}
 
-  point x = A x <$> sr (((x * x + a) * x) + b)
-    where
-      a = a_ (witness :: c)
-      b = b_ (witness :: c)
+  gen = g_
+  {-# INLINE gen #-}
+
+  order = notImplemented
+  {-# INLINE order #-}
+
+  point x = A x <$> yX (witness :: WPoint c k) x
   {-# INLINE point #-}
 
   rnd = getRandom
   {-# INLINE rnd #-}
+
+  yX _ x = sr (((x * x + a) * x) + b)
+    where
+      a = a_ (witness :: c)
+      b = b_ (witness :: c)
+  {-# INLINE yX #-}

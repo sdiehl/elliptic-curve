@@ -89,12 +89,21 @@ instance (GaloisField k, ECurve c k) => Curve E c k where
       d = d_ (witness :: c)
   {-# INLINE disc #-}
 
-  point x = A x <$> sr ((1 - a * xx) / (1 - d * xx))
-    where
-      a  = a_ (witness :: c)
-      d  = d_ (witness :: c)
-      xx = x * x
+  gen = g_
+  {-# INLINE gen #-}
+
+  order = notImplemented
+  {-# INLINE order #-}
+
+  point x = A x <$> yX (witness :: EPoint c k) x
   {-# INLINE point #-}
 
   rnd = getRandom
   {-# INLINE rnd #-}
+
+  yX _ x = sr ((1 - a * xx) / (1 - d * xx))
+    where
+      a  = a_ (witness :: c)
+      d  = d_ (witness :: c)
+      xx = x * x
+  {-# INLINE yX #-}

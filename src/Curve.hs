@@ -13,7 +13,7 @@ import GaloisField (GaloisField)
 
 -- | Elliptic curves over Galois fields.
 class GaloisField k => Curve r c k where
-  {-# MINIMAL id, inv, add, def, disc, point, rnd #-}
+  {-# MINIMAL id, inv, add, def, disc, gen, order, point, rnd, yX #-}
 
   -- | Curve point.
   data family Point r c k :: *
@@ -44,17 +44,26 @@ class GaloisField k => Curve r c k where
       p' = mul (double p) (div n 2)
   {-# INLINE mul #-}
 
-  -- | Point is well-defined.
+  -- | Well-defined.
   def :: Point r c k -> Bool
 
-  -- | Get curve discriminant.
+  -- | Curve discriminant.
   disc :: Point r c k -> k
 
-  -- | Get point from x coordinate.
+  -- | Curve generator.
+  gen :: Point r c k
+
+  -- | Curve order.
+  order :: Point r c k -> Integer
+
+  -- | Point from X coordinate.
   point :: k -> Maybe (Point r c k)
 
-  -- | Get random point.
+  -- | Random curve point.
   rnd :: MonadRandom m => m (Point r c k)
+
+  -- | Y coordinate from X coordinate.
+  yX :: Point r c k -> k -> Maybe k
 
 -- Elliptic curves are semigroups.
 instance Curve r c k => Semigroup (Point r c k) where
