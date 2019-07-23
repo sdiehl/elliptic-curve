@@ -31,7 +31,7 @@ class Curve E c k => ECurve c k where
   g_ :: EPoint c k            -- ^ Curve generator.
   h_ :: EPoint c k -> Integer -- ^ Curve cofactor.
   n_ :: EPoint c k -> Integer -- ^ Curve order.
-  p_ :: EPoint c k -> Integer -- ^ Curve polynomial.
+  p_ :: EPoint c k -> Integer -- ^ Curve characteristic.
 
 -- Edwards points are arbitrary.
 instance (GaloisField k, ECurve c k) => Arbitrary (Point E c k) where

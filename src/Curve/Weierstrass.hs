@@ -33,7 +33,7 @@ class Curve W c k => WCurve c k where
   g_ :: WPoint c k            -- ^ Curve generator.
   h_ :: WPoint c k -> Integer -- ^ Curve cofactor.
   n_ :: WPoint c k -> Integer -- ^ Curve order.
-  p_ :: WPoint c k -> Integer -- ^ Curve polynomial.
+  p_ :: WPoint c k -> Integer -- ^ Curve characteristic.
 
 -- Weierstrass points are arbitrary.
 instance (GaloisField k, IrreducibleMonic k im, WCurve c (ExtensionField k im))
@@ -51,14 +51,14 @@ instance (GaloisField k, WCurve c k) => Pretty (Point W c k) where
 
 -- Weierstrass points are random.
 instance (GaloisField k, WCurve c k) => Random (Point W c k) where
-  random = first (mul g_) . (random :: RandomGen g => g -> (Int, g)) -- TODO
+  random  = first (mul g_) . (random :: RandomGen g => g -> (Int, g)) -- TODO
   -- random g = case point x of
   --   Just p -> (p, g')
   --   _      -> random g'
   --   where
   --     (x, g') = random g
   {-# INLINE random #-}
-  randomR  = panic "not implemented."
+  randomR = panic "not implemented."
 
 -------------------------------------------------------------------------------
 -- Operations

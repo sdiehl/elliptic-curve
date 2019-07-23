@@ -71,6 +71,7 @@ library:
     - Curve.Edwards.Ed3363
     - Curve.Edwards.Ed25519
     - Curve.Edwards.JubJub
+    - Curve.Field.BN254F
     - Curve.Montgomery
     - Curve.Montgomery.Curve448
     - Curve.Montgomery.Curve25519

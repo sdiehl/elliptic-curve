@@ -31,7 +31,7 @@ class Curve M c k => MCurve c k where
   g_ :: MPoint c k            -- ^ Curve generator.
   h_ :: MPoint c k -> Integer -- ^ Curve cofactor.
   n_ :: MPoint c k -> Integer -- ^ Curve order.
-  p_ :: MPoint c k -> Integer -- ^ Curve polynomial.
+  p_ :: MPoint c k -> Integer -- ^ Curve characteristic.
 
 -- Montgomery points are arbitrary.
 instance (GaloisField k, MCurve c k) => Arbitrary (Point M c k) where
