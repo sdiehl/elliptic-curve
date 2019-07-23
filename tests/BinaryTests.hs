@@ -1,7 +1,5 @@
 module BinaryTests where
 
-import Test.Tasty
-
 import qualified Curve.Binary.SECT113R1 as SECT113R1
 import qualified Curve.Binary.SECT113R2 as SECT113R2
 import qualified Curve.Binary.SECT131R1 as SECT131R1
@@ -20,6 +18,7 @@ import qualified Curve.Binary.SECT409K1 as SECT409K1
 import qualified Curve.Binary.SECT409R1 as SECT409R1
 import qualified Curve.Binary.SECT571K1 as SECT571K1
 import qualified Curve.Binary.SECT571R1 as SECT571R1
+import Test.Tasty
 
 import CurveTests
 

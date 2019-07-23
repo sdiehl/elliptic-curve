@@ -1,94 +1,71 @@
 module Curve.Field
-  ( FCurve(..)
-  , FPoint
-  , Point(..)
+  ( FGroup
   ) where
 
 import Protolude
 
-import Control.Monad.Random (Random(..), getRandom)
+import Control.Monad.Random (Random(..))
 import GaloisField (GaloisField(..))
 import Test.Tasty.QuickCheck (Arbitrary(..), suchThatMap)
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
-import Curve (Curve(..))
+import Curve (Group(..))
 
 -------------------------------------------------------------------------------
 -- Types
 -------------------------------------------------------------------------------
 
--- | Field curve representation.
-data F
-
--- | Field curve points.
-type FPoint = Point F
-
--- | Field curves @y^2 = x^3 + Ax + B@.
-class Curve F c k => FCurve c k where
-  {-# MINIMAL g_, h_, n_, p_ #-}
-  g_ :: FPoint c k            -- ^ Curve generator.
-  h_ :: FPoint c k -> Integer -- ^ Curve cofactor.
-  n_ :: FPoint c k -> Integer -- ^ Curve order.
-  p_ :: FPoint c k -> Integer -- ^ Curve characteristic.
-
--- Field points are arbitrary.
-instance (GaloisField k, FCurve c k) => Arbitrary (Point F c k) where
-  arbitrary = suchThatMap arbitrary point
-
--- Field points are pretty.
-instance (GaloisField k, FCurve c k) => Pretty (Point F c k) where
-  pretty (K k) = pretty k
-
--- Field points are random.
-instance (GaloisField k, FCurve c k) => Random (Point F c k) where
-  random g = case point x of
-    Just p -> (p, g')
-    _      -> random g'
-    where
-      (x, g') = random g
-  {-# INLINE random #-}
-  randomR  = panic "not implemented."
+-- | Field groups.
+newtype FGroup k = F k
+  deriving (Eq, Generic, NFData, Read, Show)
 
 -------------------------------------------------------------------------------
 -- Operations
 -------------------------------------------------------------------------------
 
--- Field curves are elliptic curves.
-instance (GaloisField k, FCurve c k) => Curve F c k where
+-- Field groups are groups.
+instance GaloisField k => Group (FGroup k) where
 
-  data instance Point F c k = K k -- ^ Field element.
-    deriving (Eq, Generic, NFData, Read, Show)
-
-  id = K 1
-  {-# INLINE id #-}
-
-  inv (K x) = K (recip x)
-  {-# INLINE inv #-}
-
-  add (K x) (K y) = K (x * y)
-  {-# INLINE add #-}
-
-  cof = h_
-  {-# INLINE cof #-}
-
-  def = (/= K 0)
+  def (F x) = x /= 0
   {-# INLINE def #-}
 
-  disc = const 1
-  {-# INLINE disc #-}
+  inv (F x) = F (recip x)
+  {-# INLINE inv #-}
 
-  gen = g_
-  {-# INLINE gen #-}
+  mul (F x) n = F (pow x n)
+  {-# INLINE mul #-}
 
-  order = n_
-  {-# INLINE order #-}
+-- Field groups are monoids.
+instance GaloisField k => Monoid (FGroup k) where
 
-  point 0 = Nothing
-  point x = Just (K x)
-  {-# INLINE point #-}
+  mempty = F 1
+  {-# INLINE mempty #-}
 
-  rnd = getRandom
-  {-# INLINE rnd #-}
+-- Field groups are semigroups.
+instance GaloisField k => Semigroup (FGroup k) where
 
-  yX = panic "not implemented." -- TODO
-  {-# INLINE yX #-}
+  F x <> F y = F (x * y)
+  {-# INLINE (<>) #-}
+
+-------------------------------------------------------------------------------
+-- Instances
+-------------------------------------------------------------------------------
+
+-- Field groups are arbitrary.
+instance GaloisField k => Arbitrary (FGroup k) where
+  arbitrary = suchThatMap arbitrary point
+    where
+      point 0 = Nothing
+      point x = Just (F x)
+
+-- Field groups are pretty.
+instance GaloisField k => Pretty (FGroup k) where
+  pretty (F x) = pretty x
+
+-- Field groups are random.
+instance GaloisField k => Random (FGroup k) where
+  random g = case random g of
+    (0, g') -> random g'
+    (x, g') -> (F x, g')
+  {-# INLINE random #-}
+  randomR  = panic "not implemented."

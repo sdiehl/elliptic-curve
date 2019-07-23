@@ -1,7 +1,5 @@
 module WeierstrassTests where
 
-import Test.Tasty
-
 import qualified Curve.Weierstrass.Anomalous       as Anomalous
 import qualified Curve.Weierstrass.ANSSIFRP256V1   as ANSSIFRP256V1
 import qualified Curve.Weierstrass.BLS12_381       as BLS12_381
@@ -49,6 +47,7 @@ import qualified Curve.Weierstrass.SECP256K1       as SECP256K1
 import qualified Curve.Weierstrass.SECP256R1       as SECP256R1
 import qualified Curve.Weierstrass.SECP384R1       as SECP384R1
 import qualified Curve.Weierstrass.SECP521R1       as SECP521R1
+import Test.Tasty
 
 import CurveTests
 

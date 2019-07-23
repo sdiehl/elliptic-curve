@@ -6,12 +6,12 @@ module Curve.Binary
 
 import Protolude
 
-import Control.Monad.Random (Random(..), getRandom)
+import Control.Monad.Random (Random(..))
 import GaloisField (GaloisField(..))
 import Test.Tasty.QuickCheck (Arbitrary(..))
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
-import Curve (Curve(..))
+import Curve (Curve(..), Group(..))
 
 -------------------------------------------------------------------------------
 -- Types
@@ -33,6 +33,89 @@ class Curve B c k => BCurve c k where
   n_ :: BPoint c k -> Integer -- ^ Curve order.
   p_ :: BPoint c k -> Integer -- ^ Curve polynomial.
 
+-------------------------------------------------------------------------------
+-- Operations
+-------------------------------------------------------------------------------
+
+-- Binary curves are elliptic curves.
+instance (GaloisField k, BCurve c k) => Curve B c k where
+
+  data instance Point B c k = A k k -- ^ Affine point.
+                            | O     -- ^ Infinite point.
+    deriving (Eq, Generic, NFData, Read, Show)
+
+  cof = h_
+  {-# INLINE cof #-}
+
+  disc _ = b_ (witness :: c)
+  {-# INLINE disc #-}
+
+  gen = g_
+  {-# INLINE gen #-}
+
+  order = n_
+  {-# INLINE order #-}
+
+  point x = A x <$> yX (witness :: BPoint c k) x
+  {-# INLINE point #-}
+
+  yX _ 0 = sr (b_ (witness :: c))
+  yX _ x = quad 1 x ((x + a) * x * x + b)
+    where
+      a = a_ (witness :: c)
+      b = b_ (witness :: c)
+  {-# INLINE yX #-}
+
+-- Binary points are groups.
+instance (GaloisField k, BCurve c k) => Group (BPoint c k) where
+
+  def O       = True
+  def (A x y) = ((x + a) * x + y) * x + b + y * y == 0
+    where
+      a = a_ (witness :: c)
+      b = b_ (witness :: c)
+  {-# INLINE def #-}
+
+  double O       = O
+  double (A x y) = A x' y'
+    where
+      l  = x + y / x
+      l' = l + 1
+      x' = l * l' + a_ (witness :: c)
+      y' = x * x + l' * x'
+  {-# INLINE double #-}
+
+  inv O       = O
+  inv (A x y) = A x (x + y)
+  {-# INLINE inv #-}
+
+-- Binary points are monoids.
+instance (GaloisField k, BCurve c k) => Monoid (BPoint c k) where
+
+  mempty = O
+  {-# INLINE mempty #-}
+ 
+-- Binary points are semigroups.
+instance (GaloisField k, BCurve c k) => Semigroup (BPoint c k) where
+
+  p <> O           = p
+  O <> q           = q
+  p@(A x1 y1) <> A x2 y2
+    | xx /= 0      = A x3 y3
+    | yy + x2 /= 0 = double p
+    | otherwise    = O
+    where
+      xx = x1 + x2
+      yy = y1 + y2
+      l  = yy / xx
+      x3 = l * (l + 1) + xx + a_ (witness :: c)
+      y3 = l * (x1 + x3) + x3 + y1
+  {-# INLINE (<>) #-}
+
+-------------------------------------------------------------------------------
+-- Instances
+-------------------------------------------------------------------------------
+
 -- Binary points are arbitrary.
 instance (GaloisField k, BCurve c k) => Arbitrary (Point B c k) where
   arbitrary = return g_ -- TODO
@@ -53,76 +136,3 @@ instance (GaloisField k, BCurve c k) => Random (Point B c k) where
       (x, g') = random g
   {-# INLINE random #-}
   randomR  = panic "not implemented."
-
--------------------------------------------------------------------------------
--- Operations
--------------------------------------------------------------------------------
-
--- Binary curves are elliptic curves.
-instance (GaloisField k, BCurve c k) => Curve B c k where
-
-  data instance Point B c k = A k k -- ^ Affine point.
-                            | O     -- ^ Infinite point.
-    deriving (Eq, Generic, NFData, Read, Show)
-
-  id = O
-  {-# INLINE id #-}
-
-  inv O       = O
-  inv (A x y) = A x (x + y)
-  {-# INLINE inv #-}
-
-  add p O          = p
-  add O q          = q
-  add p@(A x1 y1) (A x2 y2)
-    | xx /= 0      = A x3 y3
-    | yy + x2 /= 0 = double p
-    | otherwise    = O
-    where
-      xx = x1 + x2
-      yy = y1 + y2
-      l  = yy / xx
-      x3 = l * (l + 1) + xx + a_ (witness :: c)
-      y3 = l * (x1 + x3) + x3 + y1
-  {-# INLINE add #-}
-
-  double O       = O
-  double (A x y) = A x' y'
-    where
-      l  = x + y / x
-      l' = l + 1
-      x' = l * l' + a_ (witness :: c)
-      y' = x * x + l' * x'
-  {-# INLINE double #-}
-
-  cof = h_
-  {-# INLINE cof #-}
-
-  def O       = True
-  def (A x y) = ((x + a) * x + y) * x + b + y * y == 0
-    where
-      a = a_ (witness :: c)
-      b = b_ (witness :: c)
-  {-# INLINE def #-}
-
-  disc _ = b_ (witness :: c)
-  {-# INLINE disc #-}
-
-  gen = g_
-  {-# INLINE gen #-}
-
-  order = n_
-  {-# INLINE order #-}
-
-  point x = A x <$> yX (witness :: BPoint c k) x
-  {-# INLINE point #-}
-
-  rnd = getRandom
-  {-# INLINE rnd #-}
-
-  yX _ 0 = sr (b_ (witness :: c))
-  yX _ x = quad 1 x ((x + a) * x * x + b)
-    where
-      a = a_ (witness :: c)
-      b = b_ (witness :: c)
-  {-# INLINE yX #-}

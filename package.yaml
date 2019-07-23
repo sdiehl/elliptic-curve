@@ -21,7 +21,6 @@ default-extensions:
   - DeriveGeneric
   - MultiParamTypeClasses
   - TypeFamilyDependencies
-  - UndecidableInstances
 
 dependencies:
   - base >= 4.7 && < 5
@@ -71,7 +70,8 @@ library:
     - Curve.Edwards.Ed3363
     - Curve.Edwards.Ed25519
     - Curve.Edwards.JubJub
-    - Curve.Field.BN254F
+    - Curve.Field
+    - Curve.Field.BN254TF
     - Curve.Montgomery
     - Curve.Montgomery.Curve448
     - Curve.Montgomery.Curve25519
