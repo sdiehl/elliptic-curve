@@ -1,5 +1,6 @@
 module Curve.Field.BN254TF
-  ( Fp12
+  ( Fp6
+  , Fp12
   , P
   , _g
   , _n
