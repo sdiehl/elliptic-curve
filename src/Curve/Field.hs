@@ -1,5 +1,6 @@
 module Curve.Field
-  ( FGroup
+  ( FGroup(..)
+  , FElement(..)
   ) where
 
 import Protolude
@@ -16,18 +17,27 @@ import Curve (Group(..))
 -------------------------------------------------------------------------------
 
 -- | Field groups.
-newtype FGroup k = F k
+class FGroup k where
+  g_ :: FElement k
+  n_ :: FElement k -> Integer
+  p_ :: FElement k -> Integer
+
+-- | Field elements.
+newtype FElement k = F k
   deriving (Eq, Generic, NFData, Read, Show)
 
 -------------------------------------------------------------------------------
 -- Operations
 -------------------------------------------------------------------------------
 
--- Field groups are groups.
-instance GaloisField k => Group (FGroup k) where
+-- Field elements are groups.
+instance (GaloisField k, FGroup k) => Group (FElement k) where
 
   def (F x) = x /= 0
   {-# INLINE def #-}
+
+  gen = g_
+  {-# INLINE gen #-}
 
   inv (F x) = F (recip x)
   {-# INLINE inv #-}
@@ -35,14 +45,17 @@ instance GaloisField k => Group (FGroup k) where
   mul (F x) n = F (pow x n)
   {-# INLINE mul #-}
 
--- Field groups are monoids.
-instance GaloisField k => Monoid (FGroup k) where
+  order = n_
+  {-# INLINE order #-}
+
+-- Field elements are monoids.
+instance (GaloisField k, FGroup k) => Monoid (FElement k) where
 
   mempty = F 1
   {-# INLINE mempty #-}
 
--- Field groups are semigroups.
-instance GaloisField k => Semigroup (FGroup k) where
+-- Field elements are semigroups.
+instance (GaloisField k, FGroup k) => Semigroup (FElement k) where
 
   F x <> F y = F (x * y)
   {-# INLINE (<>) #-}
@@ -51,19 +64,19 @@ instance GaloisField k => Semigroup (FGroup k) where
 -- Instances
 -------------------------------------------------------------------------------
 
--- Field groups are arbitrary.
-instance GaloisField k => Arbitrary (FGroup k) where
+-- Field elements are arbitrary.
+instance (GaloisField k, FGroup k) => Arbitrary (FElement k) where
   arbitrary = suchThatMap arbitrary point
     where
       point 0 = Nothing
       point x = Just (F x)
 
--- Field groups are pretty.
-instance GaloisField k => Pretty (FGroup k) where
+-- Field elements are pretty.
+instance (GaloisField k, FGroup k) => Pretty (FElement k) where
   pretty (F x) = pretty x
 
--- Field groups are random.
-instance GaloisField k => Random (FGroup k) where
+-- Field elements are random.
+instance (GaloisField k, FGroup k) => Random (FElement k) where
   random g = case random g of
     (0, g') -> random g'
     (x, g') -> (F x, g')

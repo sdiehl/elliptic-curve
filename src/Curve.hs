@@ -16,7 +16,7 @@ import Text.PrettyPrint.Leijen.Text (Pretty)
 
 -- | Elliptic curves.
 class (GaloisField k, Group (Point r c k)) => Curve r c k where
-  {-# MINIMAL cof, disc, gen, order, point, yX #-}
+  {-# MINIMAL cof, disc, point, yX #-}
 
   -- | Curve point.
   data family Point r c k :: *
@@ -27,12 +27,6 @@ class (GaloisField k, Group (Point r c k)) => Curve r c k where
   -- | Curve discriminant.
   disc :: Point r c k -> k
 
-  -- | Curve generator.
-  gen :: Point r c k
-
-  -- | Curve order.
-  order :: Point r c k -> Integer
-
   -- | Point from X coordinate.
   point :: k -> Maybe (Point r c k)
 
@@ -42,7 +36,7 @@ class (GaloisField k, Group (Point r c k)) => Curve r c k where
 -- | Groups.
 class (Arbitrary g, Eq g, Generic g, Monoid g,
        Pretty g, Random g, Read g, Show g) => Group g where
-  {-# MINIMAL def, inv #-}
+  {-# MINIMAL def, gen, inv, order #-}
 
   -- | Well defined.
   def :: g -> Bool
@@ -51,6 +45,9 @@ class (Arbitrary g, Eq g, Generic g, Monoid g,
   double :: g -> g
   double = join (<>)
   {-# INLINE double #-}
+
+  -- | Group generator.
+  gen :: g
 
   -- | Element inversion.
   inv :: g -> g
@@ -66,6 +63,9 @@ class (Arbitrary g, Eq g, Generic g, Monoid g,
     where
       p' = mul (p <> p) (div n 2)
   {-# INLINE mul #-}
+
+  -- | Curve order.
+  order :: g -> Integer
 
   -- | Random element.
   rnd :: MonadRandom m => m g

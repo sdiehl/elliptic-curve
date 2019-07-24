@@ -50,12 +50,6 @@ instance (GaloisField k, BCurve c k) => Curve B c k where
   disc _ = b_ (witness :: c)
   {-# INLINE disc #-}
 
-  gen = g_
-  {-# INLINE gen #-}
-
-  order = n_
-  {-# INLINE order #-}
-
   point x = A x <$> yX (witness :: BPoint c k) x
   {-# INLINE point #-}
 
@@ -85,9 +79,15 @@ instance (GaloisField k, BCurve c k) => Group (BPoint c k) where
       y' = x * x + l' * x'
   {-# INLINE double #-}
 
+  gen = g_
+  {-# INLINE gen #-}
+
   inv O       = O
   inv (A x y) = A x (x + y)
   {-# INLINE inv #-}
+
+  order = n_
+  {-# INLINE order #-}
 
 -- Binary points are monoids.
 instance (GaloisField k, BCurve c k) => Monoid (BPoint c k) where

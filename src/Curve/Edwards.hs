@@ -51,12 +51,6 @@ instance (GaloisField k, ECurve c k) => Curve E c k where
       d = d_ (witness :: c)
   {-# INLINE disc #-}
 
-  gen = g_
-  {-# INLINE gen #-}
-
-  order = n_
-  {-# INLINE order #-}
-
   point x = A x <$> yX (witness :: EPoint c k) x
   {-# INLINE point #-}
 
@@ -78,8 +72,14 @@ instance (GaloisField k, ECurve c k) => Group (EPoint c k) where
       yy = y * y
   {-# INLINE def #-}
 
+  gen = g_
+  {-# INLINE gen #-}
+
   inv (A x y) = A (-x) y
   {-# INLINE inv #-}
+
+  order = n_
+  {-# INLINE order #-}
 
 -- Edwards points are monoids.
 instance (GaloisField k, ECurve c k) => Monoid (EPoint c k) where

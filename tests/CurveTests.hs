@@ -53,14 +53,14 @@ curveParameters :: forall r c k . (Curve r c k, GaloisField k,
   Arbitrary (Point r c k), Eq (Point r c k), Show (Point r c k))
   => Point r c k -> Integer -> Integer -> Integer -> TestTree
 curveParameters g h n p = testGroup "Curve parameters"
-  [ testCase "characteristic is parametrised" $
-    char (witness :: k) @?= p
+  [ testCase "generator is parametrised" $
+    gen @?= g
   , testCase "cofactor is parametrised" $
     cof (witness :: Point r c k) @?= h
-  , testCase "generator is parametrised" $
-    gen @?= g
   , testCase "order is parametrised" $
     Curve.order (witness :: Point r c k) @?= n
+  , testCase "characteristic is parametrised" $
+    char (witness :: k) @?= p
   , testCase "characteristic is prime" $
     isPrime p @?= True
   , testCase "discriminant is nonzero" $
@@ -78,18 +78,25 @@ curveParameters g h n p = testGroup "Curve parameters"
 test :: forall r c k . (Curve r c k, GaloisField k,
   Arbitrary (Point r c k), Eq (Point r c k), Show (Point r c k))
   => TestName -> Point r c k -> Integer -> Integer -> Integer -> TestTree
-test s g h n p = testGroup s
-  [ groupAxioms g
-  , curveParameters g h n p
+test s g h n p = testGroup s [groupAxioms g, curveParameters g h n p]
+
+groupParameters :: forall k . (FGroup k, GaloisField k)
+  => FElement k -> Integer -> Integer -> TestTree
+groupParameters g n p = testGroup "Group parameters"
+  [ testCase "generator is parametrised" $
+    gen @?= g
+  , testCase "order is parametrised" $
+    Curve.order (witness :: FElement k) @?= n
+  , testCase "characteristic is parametrised" $
+    char (witness :: k) @?= p
+  , testCase "characteristic is prime" $
+    isPrime p @?= True
+  , testCase "generator is well-defined" $
+    def (gen :: FElement k) @?= True
+  , testCase "generator is in cyclic subgroup" $
+    mul g n @?= mempty
   ]
 
-test' :: forall k . GaloisField k => TestName -> FGroup k -> Integer -> TestTree
-test' s g p = testGroup s
-  [ groupAxioms g
-  , testGroup "Group parameters"
-    [ testCase "characteristic is parametrised" $
-      char (witness :: k) @?= p
-    , testCase "characteristic is prime" $
-      isPrime p @?= True
-    ]
-  ]
+test' :: forall k . (FGroup k, GaloisField k)
+  => TestName -> FElement k -> Integer -> Integer -> TestTree
+test' s g n p = testGroup s [groupAxioms g, groupParameters g n p]

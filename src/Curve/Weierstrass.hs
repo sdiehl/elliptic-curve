@@ -53,12 +53,6 @@ instance (GaloisField k, WCurve c k) => Curve W c k where
       b = b_ (witness :: c)
   {-# INLINE disc #-}
 
-  gen = g_
-  {-# INLINE gen #-}
-
-  order = n_
-  {-# INLINE order #-}
-
   point x = A x <$> yX (witness :: WPoint c k) x
   {-# INLINE point #-}
 
@@ -87,9 +81,15 @@ instance (GaloisField k, WCurve c k) => Group (WPoint c k) where
       y' = l * (x - x') - y
   {-# INLINE double #-}
 
+  gen = g_
+  {-# INLINE gen #-}
+
   inv O       = O
   inv (A x y) = A x (-y)
   {-# INLINE inv #-}
+
+  order = n_
+  {-# INLINE order #-}
 
 -- Weierstrass points are monoids.
 instance (GaloisField k, WCurve c k) => Monoid (WPoint c k) where
