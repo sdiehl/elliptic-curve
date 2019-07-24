@@ -1,6 +1,6 @@
 module Curve.Field
   ( FGroup(..)
-  , FElement(..)
+  , Element(..)
   ) where
 
 import Protolude
@@ -18,12 +18,12 @@ import Curve (Group(..))
 
 -- | Field groups.
 class FGroup k where
-  g_ :: FElement k
-  n_ :: FElement k -> Integer
-  p_ :: FElement k -> Integer
+  g_ :: Element k
+  n_ :: Element k -> Integer
+  p_ :: Element k -> Integer
 
 -- | Field elements.
-newtype FElement k = F k
+newtype Element k = F k
   deriving (Eq, Generic, NFData, Read, Show)
 
 -------------------------------------------------------------------------------
@@ -31,7 +31,7 @@ newtype FElement k = F k
 -------------------------------------------------------------------------------
 
 -- Field elements are groups.
-instance (GaloisField k, FGroup k) => Group (FElement k) where
+instance (GaloisField k, FGroup k) => Group (Element k) where
 
   def (F x) = x /= 0
   {-# INLINE def #-}
@@ -49,13 +49,13 @@ instance (GaloisField k, FGroup k) => Group (FElement k) where
   {-# INLINE order #-}
 
 -- Field elements are monoids.
-instance (GaloisField k, FGroup k) => Monoid (FElement k) where
+instance (GaloisField k, FGroup k) => Monoid (Element k) where
 
   mempty = F 1
   {-# INLINE mempty #-}
 
 -- Field elements are semigroups.
-instance (GaloisField k, FGroup k) => Semigroup (FElement k) where
+instance (GaloisField k, FGroup k) => Semigroup (Element k) where
 
   F x <> F y = F (x * y)
   {-# INLINE (<>) #-}
@@ -65,18 +65,18 @@ instance (GaloisField k, FGroup k) => Semigroup (FElement k) where
 -------------------------------------------------------------------------------
 
 -- Field elements are arbitrary.
-instance (GaloisField k, FGroup k) => Arbitrary (FElement k) where
+instance (GaloisField k, FGroup k) => Arbitrary (Element k) where
   arbitrary = suchThatMap arbitrary point
     where
       point 0 = Nothing
       point x = Just (F x)
 
 -- Field elements are pretty.
-instance (GaloisField k, FGroup k) => Pretty (FElement k) where
+instance (GaloisField k, FGroup k) => Pretty (Element k) where
   pretty (F x) = pretty x
 
 -- Field elements are random.
-instance (GaloisField k, FGroup k) => Random (FElement k) where
+instance (GaloisField k, FGroup k) => Random (Element k) where
   random g = case random g of
     (0, g') -> random g'
     (x, g') -> (F x, g')

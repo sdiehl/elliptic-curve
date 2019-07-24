@@ -81,22 +81,22 @@ test :: forall r c k . (Curve r c k, GaloisField k,
 test s g h n p = testGroup s [groupAxioms g, curveParameters g h n p]
 
 groupParameters :: forall k . (FGroup k, GaloisField k)
-  => FElement k -> Integer -> Integer -> TestTree
+  => Element k -> Integer -> Integer -> TestTree
 groupParameters g n p = testGroup "Group parameters"
   [ testCase "generator is parametrised" $
     gen @?= g
   , testCase "order is parametrised" $
-    Curve.order (witness :: FElement k) @?= n
+    Curve.order (witness :: Element k) @?= n
   , testCase "characteristic is parametrised" $
     char (witness :: k) @?= p
   , testCase "characteristic is prime" $
     isPrime p @?= True
   , testCase "generator is well-defined" $
-    def (gen :: FElement k) @?= True
+    def (gen :: Element k) @?= True
   , testCase "generator is in cyclic subgroup" $
     mul g n @?= mempty
   ]
 
 test' :: forall k . (FGroup k, GaloisField k)
-  => TestName -> FElement k -> Integer -> Integer -> TestTree
+  => TestName -> Element k -> Integer -> Integer -> TestTree
 test' s g n p = testGroup s [groupAxioms g, groupParameters g n p]

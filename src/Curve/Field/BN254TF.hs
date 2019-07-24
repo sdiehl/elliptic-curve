@@ -10,7 +10,7 @@ import Protolude
 
 import ExtensionField (ExtensionField, IrreducibleMonic(..), t, x)
 
-import Curve.Field (FGroup(..), FElement(..))
+import Curve.Field (FGroup(..), Element(..))
 import Curve.Weierstrass.BN254T (Fp2)
 
 -------------------------------------------------------------------------------
@@ -37,7 +37,7 @@ instance FGroup Fp12 where
   {-# INLINE p_ #-}
 
 -- | Element of BN254TF group
-type P = FElement Fp12
+type P = Element Fp12
 
 -------------------------------------------------------------------------------
 -- Parameters
