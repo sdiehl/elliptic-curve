@@ -1,5 +1,6 @@
 module Curve.Field.BN254TF
   ( Fp12
+  , P
   , _g
   , _n
   , _p
@@ -35,12 +36,15 @@ instance FGroup Fp12 where
   p_ = const _p
   {-# INLINE p_ #-}
 
+-- | Element of BN254TF group
+type P = FElement Fp12
+
 -------------------------------------------------------------------------------
 -- Parameters
 -------------------------------------------------------------------------------
 
 -- | Generator of BN254TF group
-_g :: FElement Fp12
+_g :: P
 _g = F 1 -- TODO
 {-# INLINE _g #-}
 
