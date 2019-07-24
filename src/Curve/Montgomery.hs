@@ -53,8 +53,11 @@ instance (GaloisField k, MCurve c k) => Curve M c k where
       b = b_ (witness :: c)
   {-# INLINE disc #-}
 
-  point x = A x <$> yX (witness :: MPoint c k) x
+  point x y = let p = A x y in if def p then Just p else Nothing
   {-# INLINE point #-}
+
+  pointX x = A x <$> yX (witness :: MPoint c k) x
+  {-# INLINE pointX #-}
 
   yX _ x = sr ((((x + a) * x) + 1) * x / b)
     where
@@ -122,7 +125,7 @@ instance (GaloisField k, MCurve c k) => Semigroup (MPoint c k) where
 
 -- Montgomery points are arbitrary.
 instance (GaloisField k, MCurve c k) => Arbitrary (Point M c k) where
-  arbitrary = suchThatMap arbitrary point
+  arbitrary = suchThatMap arbitrary pointX
 
 -- Montgomery points are pretty.
 instance (GaloisField k, MCurve c k) => Pretty (Point M c k) where
@@ -131,7 +134,7 @@ instance (GaloisField k, MCurve c k) => Pretty (Point M c k) where
 
 -- Montgomery points are random.
 instance (GaloisField k, MCurve c k) => Random (Point M c k) where
-  random g = case point x of
+  random g = case pointX x of
     Just p -> (p, g')
     _      -> random g'
     where

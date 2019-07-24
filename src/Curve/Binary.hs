@@ -50,8 +50,11 @@ instance (GaloisField k, BCurve c k) => Curve B c k where
   disc _ = b_ (witness :: c)
   {-# INLINE disc #-}
 
-  point x = A x <$> yX (witness :: BPoint c k) x
+  point x y = let p = A x y in if def p then Just p else Nothing
   {-# INLINE point #-}
+
+  pointX x = A x <$> yX (witness :: BPoint c k) x
+  {-# INLINE pointX #-}
 
   yX _ 0 = sr (b_ (witness :: c))
   yX _ x = quad 1 x ((x + a) * x * x + b)
@@ -120,7 +123,7 @@ instance (GaloisField k, BCurve c k) => Semigroup (BPoint c k) where
 instance (GaloisField k, BCurve c k) => Arbitrary (Point B c k) where
   arbitrary = return g_ -- TODO
   -- arbitrary = mul g_ <$> (arbitrary :: Gen Int)
-  -- arbitrary = suchThatMap arbitrary point
+  -- arbitrary = suchThatMap arbitrary pointX
 
 -- Binary points are pretty.
 instance (GaloisField k, BCurve c k) => Pretty (Point B c k) where
@@ -129,7 +132,7 @@ instance (GaloisField k, BCurve c k) => Pretty (Point B c k) where
 
 -- Binary points are random.
 instance (GaloisField k, BCurve c k) => Random (Point B c k) where
-  random g = case point x of
+  random g = case pointX x of
     Just p -> (p, g')
     _      -> random g'
     where

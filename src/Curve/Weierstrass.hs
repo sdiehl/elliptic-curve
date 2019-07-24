@@ -53,8 +53,11 @@ instance (GaloisField k, WCurve c k) => Curve W c k where
       b = b_ (witness :: c)
   {-# INLINE disc #-}
 
-  point x = A x <$> yX (witness :: WPoint c k) x
+  point x y = let p = A x y in if def p then Just p else Nothing
   {-# INLINE point #-}
+
+  pointX x = A x <$> yX (witness :: WPoint c k) x
+  {-# INLINE pointX #-}
 
   yX _ x = sr (((x * x + a) * x) + b)
     where
@@ -119,7 +122,7 @@ instance (GaloisField k, WCurve c k) => Semigroup (WPoint c k) where
 -- Weierstrass points are arbitrary.
 instance (GaloisField k, WCurve c k) => Arbitrary (Point W c k) where
   arbitrary = mul g_ <$> (arbitrary :: Gen Integer) -- TODO
-  -- arbitrary = suchThatMap arbitrary point
+  -- arbitrary = suchThatMap arbitrary pointX
 
 -- Weierstrass points are pretty.
 instance (GaloisField k, WCurve c k) => Pretty (Point W c k) where
@@ -129,7 +132,7 @@ instance (GaloisField k, WCurve c k) => Pretty (Point W c k) where
 -- Weierstrass points are random.
 instance (GaloisField k, WCurve c k) => Random (Point W c k) where
   random  = first (mul g_) . (random :: RandomGen g => g -> (Integer, g)) -- TODO
-  -- random g = case point x of
+  -- random g = case pointX x of
   --   Just p -> (p, g')
   --   _      -> random g'
   --   where

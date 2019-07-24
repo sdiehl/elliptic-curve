@@ -51,8 +51,11 @@ instance (GaloisField k, ECurve c k) => Curve E c k where
       d = d_ (witness :: c)
   {-# INLINE disc #-}
 
-  point x = A x <$> yX (witness :: EPoint c k) x
+  point x y = let p = A x y in if def p then Just p else Nothing
   {-# INLINE point #-}
+
+  pointX x = A x <$> yX (witness :: EPoint c k) x
+  {-# INLINE pointX #-}
 
   yX _ x = sr ((1 - a * xx) / (1 - d * xx))
     where
@@ -109,7 +112,7 @@ instance (GaloisField k, ECurve c k) => Semigroup (EPoint c k) where
 
 -- Edwards points are arbitrary.
 instance (GaloisField k, ECurve c k) => Arbitrary (Point E c k) where
-  arbitrary = suchThatMap arbitrary point
+  arbitrary = suchThatMap arbitrary pointX
 
 -- Edwards points are pretty.
 instance (GaloisField k, ECurve c k) => Pretty (Point E c k) where
@@ -117,7 +120,7 @@ instance (GaloisField k, ECurve c k) => Pretty (Point E c k) where
 
 -- Edwards points are random.
 instance (GaloisField k, ECurve c k) => Random (Point E c k) where
-  random g = case point x of
+  random g = case pointX x of
     Just p -> (p, g')
     _      -> random g'
     where

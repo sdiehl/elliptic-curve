@@ -66,10 +66,10 @@ instance (GaloisField k, FGroup k) => Semigroup (Element k) where
 
 -- Field elements are arbitrary.
 instance (GaloisField k, FGroup k) => Arbitrary (Element k) where
-  arbitrary = suchThatMap arbitrary point
+  arbitrary = suchThatMap arbitrary defX
     where
-      point 0 = Nothing
-      point x = Just (F x)
+      defX 0 = Nothing
+      defX x = Just (F x)
 
 -- Field elements are pretty.
 instance (GaloisField k, FGroup k) => Pretty (Element k) where

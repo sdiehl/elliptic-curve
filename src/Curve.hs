@@ -16,7 +16,7 @@ import Text.PrettyPrint.Leijen.Text (Pretty)
 
 -- | Elliptic curves.
 class (GaloisField k, Group (Point r c k)) => Curve r c k where
-  {-# MINIMAL cof, disc, point, yX #-}
+  {-# MINIMAL cof, disc, point, pointX, yX #-}
 
   -- | Curve point.
   data family Point r c k :: *
@@ -27,8 +27,11 @@ class (GaloisField k, Group (Point r c k)) => Curve r c k where
   -- | Curve discriminant.
   disc :: Point r c k -> k
 
+  -- | Point from X and Y coordinates.
+  point :: k -> k -> Maybe (Point r c k)
+
   -- | Point from X coordinate.
-  point :: k -> Maybe (Point r c k)
+  pointX :: k -> Maybe (Point r c k)
 
   -- | Y coordinate from X coordinate.
   yX :: Point r c k -> k -> Maybe k
