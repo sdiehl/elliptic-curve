@@ -28,6 +28,7 @@ dependencies:
   - galois-field
   - MonadRandom
   - tasty-quickcheck
+  - text
   - wl-pprint-text
 
 extra-source-files:
