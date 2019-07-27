@@ -7,6 +7,8 @@ module Curve.Binary.SECT113R2
   , _h
   , _n
   , _p
+  , _x
+  , _y
   ) where
 
 import Protolude
@@ -59,14 +61,12 @@ _b = 0x95e9a9ec9b297bd4bf36e059184f
 
 -- | Generator of SECT113R2 curve
 _g :: P
-_g = A
-     0x1a57a6a7b26ca5ef52fcdb8164797
-     0xb3adc94ed1fe674c06e695baba1d
+_g = A _x _y
 {-# INLINE _g #-}
 
 -- | Cofactor of SECT113R2 curve
 _h :: Integer
-_h = 2
+_h = 0x2
 {-# INLINE _h #-}
 
 -- | Order of SECT113R2 curve
@@ -78,3 +78,13 @@ _n = 0x10000000000000108789b2496af93
 _p :: Integer
 _p = 0x20000000000000000000000000201
 {-# INLINE _p #-}
+
+-- | Coordinate @X@ of SECT113R2 curve
+_x :: F2m
+_x = 0x1a57a6a7b26ca5ef52fcdb8164797
+{-# INLINE _x #-}
+
+-- | Coordinate @Y@ of SECT113R2 curve
+_y :: F2m
+_y = 0xb3adc94ed1fe674c06e695baba1d
+{-# INLINE _y #-}

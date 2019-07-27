@@ -7,25 +7,27 @@ module Curve.Montgomery.M511
   , _h
   , _n
   , _p
+  , _x
+  , _y
   ) where
 
 import Protolude
 
 import PrimeField (PrimeField)
 
-import Curve.Montgomery (Point(..), MCurve(..), MPoint)
+import Curve.Montgomery (MCurve(..), MPoint, Point(..))
 
 -------------------------------------------------------------------------------
 -- Types
 -------------------------------------------------------------------------------
 
--- | M-511 curve
+-- | M511 curve
 data M511
 
--- | Field of M-511 curve
+-- | Field of M511 curve
 type Fp = PrimeField 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff45
 
--- | M-511 curve is a Montgomery curve
+-- | M511 curve is a Montgomery curve
 instance MCurve M511 Fp where
   a_ = const _a
   {-# INLINE a_ #-}
@@ -40,41 +42,49 @@ instance MCurve M511 Fp where
   p_ = const _p
   {-# INLINE p_ #-}
 
--- | Point of M-511 curve
+-- | Point of M511 curve
 type P = MPoint M511 Fp
 
 -------------------------------------------------------------------------------
 -- Parameters
 -------------------------------------------------------------------------------
 
--- | Coefficient @A@ of M-511 curve
+-- | Coefficient @A@ of M511 curve
 _a :: Fp
 _a = 0x81806
 {-# INLINE _a #-}
 
--- | Coefficient @B@ of M-511 curve
+-- | Coefficient @B@ of M511 curve
 _b :: Fp
-_b = 1
+_b = 0x1
 {-# INLINE _b #-}
 
--- | Generator of M-511 curve
+-- | Generator of M511 curve
 _g :: P
-_g = A
-     5
-     0x2fbdc0ad8530803d28fdbad354bb488d32399ac1cf8f6e01ee3f96389b90c809422b9429e8a43dbf49308ac4455940abe9f1dbca542093a895e30a64af056fa5
+_g = A _x _y
 {-# INLINE _g #-}
 
--- | Cofactor of M-511 curve
+-- | Cofactor of M511 curve
 _h :: Integer
-_h = 8
+_h = 0x8
 {-# INLINE _h #-}
 
--- | Order of M-511 curve
+-- | Order of M511 curve
 _n :: Integer
 _n = 0x100000000000000000000000000000000000000000000000000000000000000017b5feff30c7f5677ab2aeebd13779a2ac125042a6aa10bfa54c15bab76baf1b
 {-# INLINE _n #-}
 
--- | Characteristic of M-511 curve
+-- | Characteristic of M511 curve
 _p :: Integer
 _p = 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff45
 {-# INLINE _p #-}
+
+-- | Coordinate @X@ of M511 curve
+_x :: Fp
+_x = 0x5
+{-# INLINE _x #-}
+
+-- | Coordinate @Y@ of M511 curve
+_y :: Fp
+_y = 0x2fbdc0ad8530803d28fdbad354bb488d32399ac1cf8f6e01ee3f96389b90c809422b9429e8a43dbf49308ac4455940abe9f1dbca542093a895e30a64af056fa5
+{-# INLINE _y #-}

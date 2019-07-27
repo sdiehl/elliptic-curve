@@ -7,6 +7,8 @@ module Curve.Weierstrass.SECP160R2
   , _h
   , _n
   , _p
+  , _x
+  , _y
   ) where
 
 import Protolude
@@ -59,14 +61,12 @@ _b = 0xb4e134d3fb59eb8bab57274904664d5af50388ba
 
 -- | Generator of SECP160R2 curve
 _g :: P
-_g = A
-     0x52dcb034293a117e1f4ff11b30f7199d3144ce6d
-     0xfeaffef2e331f296e071fa0df9982cfea7d43f2e
+_g = A _x _y
 {-# INLINE _g #-}
 
 -- | Cofactor of SECP160R2 curve
 _h :: Integer
-_h = 1
+_h = 0x1
 {-# INLINE _h #-}
 
 -- | Order of SECP160R2 curve
@@ -78,3 +78,13 @@ _n = 0x100000000000000000000351ee786a818f3a1a16b
 _p :: Integer
 _p = 0xfffffffffffffffffffffffffffffffeffffac73
 {-# INLINE _p #-}
+
+-- | Coordinate @X@ of SECP160R2 curve
+_x :: Fp
+_x = 0x52dcb034293a117e1f4ff11b30f7199d3144ce6d
+{-# INLINE _x #-}
+
+-- | Coordinate @Y@ of SECP160R2 curve
+_y :: Fp
+_y = 0xfeaffef2e331f296e071fa0df9982cfea7d43f2e
+{-# INLINE _y #-}

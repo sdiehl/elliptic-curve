@@ -7,6 +7,8 @@ module Curve.Weierstrass.SECP384R1
   , _h
   , _n
   , _p
+  , _x
+  , _y
   ) where
 
 import Protolude
@@ -59,14 +61,12 @@ _b = 0xb3312fa7e23ee7e4988e056be3f82d19181d9c6efe8141120314088f5013875ac656398d8
 
 -- | Generator of SECP384R1 curve
 _g :: P
-_g = A
-     0xaa87ca22be8b05378eb1c71ef320ad746e1d3b628ba79b9859f741e082542a385502f25dbf55296c3a545e3872760ab7
-     0x3617de4a96262c6f5d9e98bf9292dc29f8f41dbd289a147ce9da3113b5f0b8c00a60b1ce1d7e819d7a431d7c90ea0e5f
+_g = A _x _y
 {-# INLINE _g #-}
 
 -- | Cofactor of SECP384R1 curve
 _h :: Integer
-_h = 1
+_h = 0x1
 {-# INLINE _h #-}
 
 -- | Order of SECP384R1 curve
@@ -78,3 +78,13 @@ _n = 0xffffffffffffffffffffffffffffffffffffffffffffffffc7634d81f4372ddf581a0db24
 _p :: Integer
 _p = 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffff0000000000000000ffffffff
 {-# INLINE _p #-}
+
+-- | Coordinate @X@ of SECP384R1 curve
+_x :: Fp
+_x = 0xaa87ca22be8b05378eb1c71ef320ad746e1d3b628ba79b9859f741e082542a385502f25dbf55296c3a545e3872760ab7
+{-# INLINE _x #-}
+
+-- | Coordinate @Y@ of SECP384R1 curve
+_y :: Fp
+_y = 0x3617de4a96262c6f5d9e98bf9292dc29f8f41dbd289a147ce9da3113b5f0b8c00a60b1ce1d7e819d7a431d7c90ea0e5f
+{-# INLINE _y #-}

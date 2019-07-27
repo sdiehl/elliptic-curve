@@ -7,13 +7,15 @@ module Curve.Montgomery.Curve383187
   , _h
   , _n
   , _p
+  , _x
+  , _y
   ) where
 
 import Protolude
 
 import PrimeField (PrimeField)
 
-import Curve.Montgomery (Point(..), MCurve(..), MPoint)
+import Curve.Montgomery (MCurve(..), MPoint, Point(..))
 
 -------------------------------------------------------------------------------
 -- Types
@@ -54,19 +56,17 @@ _a = 0x38251
 
 -- | Coefficient @B@ of Curve383187 curve
 _b :: Fp
-_b = 1
+_b = 0x1
 {-# INLINE _b #-}
 
 -- | Generator of Curve383187 curve
 _g :: P
-_g = A
-     5
-     0x1eebe07dc1871896732b12d5504a32370471965c7a11f2c89865f855ab3cbd7c224e3620c31af3370788457dd5ce46df
+_g = A _x _y
 {-# INLINE _g #-}
 
 -- | Cofactor of Curve383187 curve
 _h :: Integer
-_h = 8
+_h = 0x8
 {-# INLINE _h #-}
 
 -- | Order of Curve383187 curve
@@ -78,3 +78,13 @@ _n = 0x1000000000000000000000000000000000000000000000000e85a85287a1488acd41ae84b
 _p :: Integer
 _p = 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff45
 {-# INLINE _p #-}
+
+-- | Coordinate @X@ of Curve383187 curve
+_x :: Fp
+_x = 0x5
+{-# INLINE _x #-}
+
+-- | Coordinate @Y@ of Curve383187 curve
+_y :: Fp
+_y = 0x1eebe07dc1871896732b12d5504a32370471965c7a11f2c89865f855ab3cbd7c224e3620c31af3370788457dd5ce46df
+{-# INLINE _y #-}

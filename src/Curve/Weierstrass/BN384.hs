@@ -7,6 +7,8 @@ module Curve.Weierstrass.BN384
   , _h
   , _n
   , _p
+  , _x
+  , _y
   ) where
 
 import Protolude
@@ -49,24 +51,22 @@ type P = WPoint BN384 Fp
 
 -- | Coefficient @A@ of BN384 curve
 _a :: Fp
-_a = 0
+_a = 0x0
 {-# INLINE _a #-}
 
 -- | Coefficient @B@ of BN384 curve
 _b :: Fp
-_b = 3
+_b = 0x3
 {-# INLINE _b #-}
 
 -- | Generator of BN384 curve
 _g :: P
-_g = A
-     1
-     2
+_g = A _x _y
 {-# INLINE _g #-}
 
 -- | Cofactor of BN384 curve
 _h :: Integer
-_h = 1
+_h = 0x1
 {-# INLINE _h #-}
 
 -- | Order of BN384 curve
@@ -78,3 +78,13 @@ _n = 0xfffffffffffffffffff2a96823d5920d2a127e3f6fbca023c8fbe29531892c795356487d8
 _p :: Integer
 _p = 0xfffffffffffffffffff2a96823d5920d2a127e3f6fbca024c8fbe29531892c79534f9d306328261550a7cabd7cccd10b
 {-# INLINE _p #-}
+
+-- | Coordinate @X@ of BN384 curve
+_x :: Fp
+_x = 0x1
+{-# INLINE _x #-}
+
+-- | Coordinate @Y@ of BN384 curve
+_y :: Fp
+_y = 0x2
+{-# INLINE _y #-}

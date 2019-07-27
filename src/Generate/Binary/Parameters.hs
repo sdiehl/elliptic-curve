@@ -2,6 +2,8 @@ module Generate.Binary.Parameters
   ( curves
   ) where
 
+import Protolude
+
 import Generate.Binary.Types
 
 -------------------------------------------------------------------------------
@@ -37,8 +39,9 @@ curves =
 sect113r1 :: Curve
 sect113r1 = Curve
   { types = Types
-    { curve = "SECT113R1"
-    , field = BinaryField 0x20000000000000000000000000201
+    { curve   = "SECT113R1"
+    , field   = BinaryField "F2m" 0x20000000000000000000000000201
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = BF 0x3088250ca6e7c7fe649ce85820f7
@@ -54,8 +57,9 @@ sect113r1 = Curve
 sect113r2 :: Curve
 sect113r2 = Curve
   { types = Types
-    { curve = "SECT113R2"
-    , field = BinaryField 0x20000000000000000000000000201
+    { curve   = "SECT113R2"
+    , field   = BinaryField "F2m" 0x20000000000000000000000000201
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = BF 0x689918dbec7e5a0dd6dfc0aa55c7
@@ -71,8 +75,9 @@ sect113r2 = Curve
 sect131r1 :: Curve
 sect131r1 = Curve
   { types = Types
-    { curve = "SECT131R1"
-    , field = BinaryField 0x80000000000000000000000000000010d
+    { curve   = "SECT131R1"
+    , field   = BinaryField "F2m" 0x80000000000000000000000000000010d
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = BF 0x7a11b09a76b562144418ff3ff8c2570b8
@@ -88,8 +93,9 @@ sect131r1 = Curve
 sect131r2 :: Curve
 sect131r2 = Curve
   { types = Types
-    { curve = "SECT131R2"
-    , field = BinaryField 0x80000000000000000000000000000010d
+    { curve   = "SECT131R2"
+    , field   = BinaryField "F2m" 0x80000000000000000000000000000010d
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = BF 0x3e5a88919d7cafcbf415f07c2176573b2
@@ -105,8 +111,9 @@ sect131r2 = Curve
 sect163k1 :: Curve
 sect163k1 = Curve
   { types = Types
-    { curve = "SECT163K1"
-    , field = BinaryField 0x800000000000000000000000000000000000000c9
+    { curve   = "SECT163K1"
+    , field   = BinaryField "F2m" 0x800000000000000000000000000000000000000c9
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = BF 0x1
@@ -122,8 +129,9 @@ sect163k1 = Curve
 sect163r1 :: Curve
 sect163r1 = Curve
   { types = Types
-    { curve = "SECT163R1"
-    , field = BinaryField 0x800000000000000000000000000000000000000c9
+    { curve   = "SECT163R1"
+    , field   = BinaryField "F2m" 0x800000000000000000000000000000000000000c9
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = BF 0x7b6882caaefa84f9554ff8428bd88e246d2782ae2
@@ -139,8 +147,9 @@ sect163r1 = Curve
 sect163r2 :: Curve
 sect163r2 = Curve
   { types = Types
-    { curve = "SECT163R2"
-    , field = BinaryField 0x800000000000000000000000000000000000000c9
+    { curve   = "SECT163R2"
+    , field   = BinaryField "F2m" 0x800000000000000000000000000000000000000c9
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = BF 0x1
@@ -156,8 +165,9 @@ sect163r2 = Curve
 sect193r1 :: Curve
 sect193r1 = Curve
   { types = Types
-    { curve = "SECT193R1"
-    , field = BinaryField 0x2000000000000000000000000000000000000000000008001
+    { curve   = "SECT193R1"
+    , field   = BinaryField "F2m" 0x2000000000000000000000000000000000000000000008001
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = BF 0x17858feb7a98975169e171f77b4087de098ac8a911df7b01
@@ -173,8 +183,9 @@ sect193r1 = Curve
 sect193r2 :: Curve
 sect193r2 = Curve
   { types = Types
-    { curve = "SECT193R2"
-    , field = BinaryField 0x2000000000000000000000000000000000000000000008001
+    { curve   = "SECT193R2"
+    , field   = BinaryField "F2m" 0x2000000000000000000000000000000000000000000008001
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = BF 0x163f35a5137c2ce3ea6ed8667190b0bc43ecd69977702709b
@@ -190,8 +201,9 @@ sect193r2 = Curve
 sect233k1 :: Curve
 sect233k1 = Curve
   { types = Types
-    { curve = "SECT233K1"
-    , field = BinaryField 0x20000000000000000000000000000000000000004000000000000000001
+    { curve   = "SECT233K1"
+    , field   = BinaryField "F2m" 0x20000000000000000000000000000000000000004000000000000000001
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = BF 0x0
@@ -207,8 +219,9 @@ sect233k1 = Curve
 sect233r1 :: Curve
 sect233r1 = Curve
   { types = Types
-    { curve = "SECT233R1"
-    , field = BinaryField 0x20000000000000000000000000000000000000004000000000000000001
+    { curve   = "SECT233R1"
+    , field   = BinaryField "F2m" 0x20000000000000000000000000000000000000004000000000000000001
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = BF 0x1
@@ -224,8 +237,9 @@ sect233r1 = Curve
 sect239k1 :: Curve
 sect239k1 = Curve
   { types = Types
-    { curve = "SECT239K1"
-    , field = BinaryField 0x800000000000000000004000000000000000000000000000000000000001
+    { curve   = "SECT239K1"
+    , field   = BinaryField "F2m" 0x800000000000000000004000000000000000000000000000000000000001
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = BF 0x0
@@ -241,8 +255,9 @@ sect239k1 = Curve
 sect283k1 :: Curve
 sect283k1 = Curve
   { types = Types
-    { curve = "SECT283K1"
-    , field = BinaryField 0x800000000000000000000000000000000000000000000000000000000000000000010a1
+    { curve   = "SECT283K1"
+    , field   = BinaryField "F2m" 0x800000000000000000000000000000000000000000000000000000000000000000010a1
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = BF 0x0
@@ -258,8 +273,9 @@ sect283k1 = Curve
 sect283r1 :: Curve
 sect283r1 = Curve
   { types = Types
-    { curve = "SECT283R1"
-    , field = BinaryField 0x800000000000000000000000000000000000000000000000000000000000000000010a1
+    { curve   = "SECT283R1"
+    , field   = BinaryField "F2m" 0x800000000000000000000000000000000000000000000000000000000000000000010a1
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = BF 0x1
@@ -275,8 +291,9 @@ sect283r1 = Curve
 sect409k1 :: Curve
 sect409k1 = Curve
   { types = Types
-    { curve = "SECT409K1"
-    , field = BinaryField 0x2000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000001
+    { curve   = "SECT409K1"
+    , field   = BinaryField "F2m" 0x2000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000001
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = BF 0x0
@@ -292,8 +309,9 @@ sect409k1 = Curve
 sect409r1 :: Curve
 sect409r1 = Curve
   { types = Types
-    { curve = "SECT409R1"
-    , field = BinaryField 0x2000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000001
+    { curve   = "SECT409R1"
+    , field   = BinaryField "F2m" 0x2000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000001
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = BF 0x1
@@ -309,8 +327,9 @@ sect409r1 = Curve
 sect571k1 :: Curve
 sect571k1 = Curve
   { types = Types
-    { curve = "SECT571K1"
-    , field = BinaryField 0x80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000425
+    { curve   = "SECT571K1"
+    , field   = BinaryField "F2m" 0x80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000425
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = BF 0x0
@@ -326,8 +345,9 @@ sect571k1 = Curve
 sect571r1 :: Curve
 sect571r1 = Curve
   { types = Types
-    { curve = "SECT571R1"
-    , field = BinaryField 0x80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000425
+    { curve   = "SECT571R1"
+    , field   = BinaryField "F2m" 0x80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000425
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = BF 0x1

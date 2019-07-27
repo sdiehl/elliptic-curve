@@ -7,6 +7,8 @@ module Curve.Weierstrass.SECP224K1
   , _h
   , _n
   , _p
+  , _x
+  , _y
   ) where
 
 import Protolude
@@ -49,24 +51,22 @@ type P = WPoint SECP224K1 Fp
 
 -- | Coefficient @A@ of SECP224K1 curve
 _a :: Fp
-_a = 0
+_a = 0x0
 {-# INLINE _a #-}
 
 -- | Coefficient @B@ of SECP224K1 curve
 _b :: Fp
-_b = 5
+_b = 0x5
 {-# INLINE _b #-}
 
 -- | Generator of SECP224K1 curve
 _g :: P
-_g = A
-     0xa1455b334df099df30fc28a169a467e9e47075a90f7e650eb6b7a45c
-     0x7e089fed7fba344282cafbd6f7e319f7c0b0bd59e2ca4bdb556d61a5
+_g = A _x _y
 {-# INLINE _g #-}
 
 -- | Cofactor of SECP224K1 curve
 _h :: Integer
-_h = 1
+_h = 0x1
 {-# INLINE _h #-}
 
 -- | Order of SECP224K1 curve
@@ -78,3 +78,13 @@ _n = 0x10000000000000000000000000001dce8d2ec6184caf0a971769fb1f7
 _p :: Integer
 _p = 0xfffffffffffffffffffffffffffffffffffffffffffffffeffffe56d
 {-# INLINE _p #-}
+
+-- | Coordinate @X@ of SECP224K1 curve
+_x :: Fp
+_x = 0xa1455b334df099df30fc28a169a467e9e47075a90f7e650eb6b7a45c
+{-# INLINE _x #-}
+
+-- | Coordinate @Y@ of SECP224K1 curve
+_y :: Fp
+_y = 0x7e089fed7fba344282cafbd6f7e319f7c0b0bd59e2ca4bdb556d61a5
+{-# INLINE _y #-}

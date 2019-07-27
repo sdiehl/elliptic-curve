@@ -89,7 +89,7 @@ instance (GaloisField k, ECurve c k) => Monoid (EPoint c k) where
 
   mempty = A 0 1
   {-# INLINE mempty #-}
- 
+
 -- Edwards points are semigroups.
 instance (GaloisField k, ECurve c k) => Semigroup (EPoint c k) where
 

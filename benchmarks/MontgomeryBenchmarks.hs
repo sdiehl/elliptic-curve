@@ -15,7 +15,7 @@ benchmarkMontgomery = bgroup "Montgomery"
   [ benchmark    "Curve448"    Curve448._g
   , benchmark  "Curve25519"  Curve25519._g
   , benchmark "Curve383187" Curve383187._g
-  , benchmark       "M-221"        M221._g
-  , benchmark       "M-383"        M383._g
-  , benchmark       "M-511"        M511._g
+  , benchmark        "M221"        M221._g
+  , benchmark        "M383"        M383._g
+  , benchmark        "M511"        M511._g
   ]

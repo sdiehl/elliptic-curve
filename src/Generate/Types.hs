@@ -13,6 +13,6 @@ data Element = BF Integer
              | EF [Element]
              | PF Integer
 
-data Field = BinaryField Integer
-           | ExtensionField
-           | PrimeField Integer
+data Field = BinaryField Text Integer
+           | ExtensionField Text Text Text Text (Maybe Field)
+           | PrimeField Text Integer

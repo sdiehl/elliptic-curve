@@ -2,6 +2,8 @@ module Generate.Montgomery.Parameters
   ( curves
   ) where
 
+import Protolude
+
 import Generate.Montgomery.Types
 
 -------------------------------------------------------------------------------
@@ -25,8 +27,9 @@ curves =
 curve448 :: Curve
 curve448 = Curve
   { types = Types
-    { curve = "Curve448"
-    , field = PrimeField 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    { curve   = "Curve448"
+    , field   = PrimeField "Fp" 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = PF 0x262a6
@@ -42,8 +45,9 @@ curve448 = Curve
 curve25519 :: Curve
 curve25519 = Curve
   { types = Types
-    { curve = "Curve25519"
-    , field = PrimeField 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffed
+    { curve   = "Curve25519"
+    , field   = PrimeField "Fp" 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffed
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = PF 0x76d06
@@ -59,8 +63,9 @@ curve25519 = Curve
 curve383187 :: Curve
 curve383187 = Curve
   { types = Types
-    { curve = "Curve383187"
-    , field = PrimeField 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff45
+    { curve   = "Curve383187"
+    , field   = PrimeField "Fp" 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff45
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = PF 0x38251
@@ -76,8 +81,9 @@ curve383187 = Curve
 m221 :: Curve
 m221 = Curve
   { types = Types
-    { curve = "M221"
-    , field = PrimeField 0x1ffffffffffffffffffffffffffffffffffffffffffffffffffffffd
+    { curve   = "M221"
+    , field   = PrimeField "Fp" 0x1ffffffffffffffffffffffffffffffffffffffffffffffffffffffd
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = PF 0x1c93a
@@ -93,8 +99,9 @@ m221 = Curve
 m383 :: Curve
 m383 = Curve
   { types = Types
-    { curve = "M383"
-    , field = PrimeField 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff45
+    { curve   = "M383"
+    , field   = PrimeField "Fp" 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff45
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = PF 0x1f82fe
@@ -110,8 +117,9 @@ m383 = Curve
 m511 :: Curve
 m511 = Curve
   { types = Types
-    { curve = "M511"
-    , field = PrimeField 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff45
+    { curve   = "M511"
+    , field   = PrimeField "Fp" 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff45
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = PF 0x81806

@@ -97,7 +97,7 @@ instance (GaloisField k, BCurve c k) => Monoid (BPoint c k) where
 
   mempty = O
   {-# INLINE mempty #-}
- 
+
 -- Binary points are semigroups.
 instance (GaloisField k, BCurve c k) => Semigroup (BPoint c k) where
 

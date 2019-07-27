@@ -7,8 +7,8 @@ import Protolude
 import Data.Text (toLower)
 import Text.PrettyPrint.Leijen.Text
 
-import Generate.Edwards.Types (Curve(..), Parameters(..), Types(..))
-import Generate.Generate (prettyElement, prettyField)
+import Generate.Edwards.Types
+import Generate.Generate
 import Generate.Pretty
 
 -------------------------------------------------------------------------------
@@ -22,6 +22,8 @@ prettyImports
     (    "( curves"
     <$$> ") where"
     )
+  <>   prettyBreak
+  <$$> "import Protolude"
   <>   prettyBreak
   <$$> "import Generate.Edwards.Types"
 
@@ -51,8 +53,10 @@ prettyParameters curves
       <$$> "  " <> align
         (    "{ types = Types"
         <$$> "  " <> align
-          (    "{ curve = \"" <> pretty curve <> "\""
-          <$$> ", field = " <> prettyField field
+          (    "{ curve   = " <> prettyText curve
+          <$$> ", field   = " <> prettyField field
+          <$$> ", imports = "
+          <>   maybe "Nothing" ((<>) "Just " . prettyText) imports
           <$$> "}"
           )
         <$$> ", parameters = Parameters"

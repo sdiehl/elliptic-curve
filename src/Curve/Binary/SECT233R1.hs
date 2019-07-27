@@ -7,6 +7,8 @@ module Curve.Binary.SECT233R1
   , _h
   , _n
   , _p
+  , _x
+  , _y
   ) where
 
 import Protolude
@@ -49,7 +51,7 @@ type P = BPoint SECT233R1 F2m
 
 -- | Coefficient @A@ of SECT233R1 curve
 _a :: F2m
-_a = 1
+_a = 0x1
 {-# INLINE _a #-}
 
 -- | Coefficient @B@ of SECT233R1 curve
@@ -59,14 +61,12 @@ _b = 0x66647ede6c332c7f8c0923bb58213b333b20e9ce4281fe115f7d8f90ad
 
 -- | Generator of SECT233R1 curve
 _g :: P
-_g = A
-     0xfac9dfcbac8313bb2139f1bb755fef65bc391f8b36f8f8eb7371fd558b
-     0x1006a08a41903350678e58528bebf8a0beff867a7ca36716f7e01f81052
+_g = A _x _y
 {-# INLINE _g #-}
 
 -- | Cofactor of SECT233R1 curve
 _h :: Integer
-_h = 2
+_h = 0x2
 {-# INLINE _h #-}
 
 -- | Order of SECT233R1 curve
@@ -78,3 +78,13 @@ _n = 0x1000000000000000000000000000013e974e72f8a6922031d2603cfe0d7
 _p :: Integer
 _p = 0x20000000000000000000000000000000000000004000000000000000001
 {-# INLINE _p #-}
+
+-- | Coordinate @X@ of SECT233R1 curve
+_x :: F2m
+_x = 0xfac9dfcbac8313bb2139f1bb755fef65bc391f8b36f8f8eb7371fd558b
+{-# INLINE _x #-}
+
+-- | Coordinate @Y@ of SECT233R1 curve
+_y :: F2m
+_y = 0x1006a08a41903350678e58528bebf8a0beff867a7ca36716f7e01f81052
+{-# INLINE _y #-}

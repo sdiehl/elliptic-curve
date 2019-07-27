@@ -99,7 +99,7 @@ instance (GaloisField k, WCurve c k) => Monoid (WPoint c k) where
 
   mempty = O
   {-# INLINE mempty #-}
- 
+
 -- Weierstrass points are semigroups.
 instance (GaloisField k, WCurve c k) => Semigroup (WPoint c k) where
 

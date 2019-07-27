@@ -7,6 +7,8 @@ module Curve.Weierstrass.SECP256R1
   , _h
   , _n
   , _p
+  , _x
+  , _y
   ) where
 
 import Protolude
@@ -59,14 +61,12 @@ _b = 0x5ac635d8aa3a93e7b3ebbd55769886bc651d06b0cc53b0f63bce3c3e27d2604b
 
 -- | Generator of SECP256R1 curve
 _g :: P
-_g = A
-     0x6b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c296
-     0x4fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5
+_g = A _x _y
 {-# INLINE _g #-}
 
 -- | Cofactor of SECP256R1 curve
 _h :: Integer
-_h = 1
+_h = 0x1
 {-# INLINE _h #-}
 
 -- | Order of SECP256R1 curve
@@ -78,3 +78,13 @@ _n = 0xffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632551
 _p :: Integer
 _p = 0xffffffff00000001000000000000000000000000ffffffffffffffffffffffff
 {-# INLINE _p #-}
+
+-- | Coordinate @X@ of SECP256R1 curve
+_x :: Fp
+_x = 0x6b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c296
+{-# INLINE _x #-}
+
+-- | Coordinate @Y@ of SECP256R1 curve
+_y :: Fp
+_y = 0x4fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5
+{-# INLINE _y #-}

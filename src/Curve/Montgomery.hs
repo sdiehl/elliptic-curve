@@ -101,7 +101,7 @@ instance (GaloisField k, MCurve c k) => Monoid (MPoint c k) where
 
   mempty = O
   {-# INLINE mempty #-}
- 
+
 -- Montgomery points are semigroups.
 instance (GaloisField k, MCurve c k) => Semigroup (MPoint c k) where
 

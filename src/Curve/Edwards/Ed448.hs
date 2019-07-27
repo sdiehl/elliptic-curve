@@ -7,6 +7,8 @@ module Curve.Edwards.Ed448
   , _h
   , _n
   , _p
+  , _x
+  , _y
   ) where
 
 import Protolude
@@ -49,24 +51,22 @@ type P = EPoint Ed448 Fp
 
 -- | Coefficient @A@ of Ed448 curve
 _a :: Fp
-_a = 1
+_a = 0x1
 {-# INLINE _a #-}
 
--- | Coefficient @D@ of Ed448 curve
+-- | Coefficient @B@ of Ed448 curve
 _d :: Fp
 _d = 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffffffffffffffffffffffffffffffffffffffffffffffff6756
 {-# INLINE _d #-}
 
 -- | Generator of Ed448 curve
 _g :: P
-_g = A
-     0x297ea0ea2692ff1b4faff46098453a6a26adf733245f065c3c59d0709cecfa96147eaaf3932d94c63d96c170033f4ba0c7f0de840aed939f
-     0x13
+_g = A _x _y
 {-# INLINE _g #-}
 
 -- | Cofactor of Ed448 curve
 _h :: Integer
-_h = 4
+_h = 0x4
 {-# INLINE _h #-}
 
 -- | Order of Ed448 curve
@@ -78,3 +78,13 @@ _n = 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffff7cca23e9c44edb49a
 _p :: Integer
 _p = 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 {-# INLINE _p #-}
+
+-- | Coordinate @X@ of Ed448 curve
+_x :: Fp
+_x = 0x297ea0ea2692ff1b4faff46098453a6a26adf733245f065c3c59d0709cecfa96147eaaf3932d94c63d96c170033f4ba0c7f0de840aed939f
+{-# INLINE _x #-}
+
+-- | Coordinate @Y@ of Ed448 curve
+_y :: Fp
+_y = 0x13
+{-# INLINE _y #-}

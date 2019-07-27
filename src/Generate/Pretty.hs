@@ -5,6 +5,7 @@ module Generate.Pretty
   , prettyInteger
   , prettyLine
   , prettySection
+  , prettyText
   ) where
 
 import Protolude
@@ -18,15 +19,15 @@ import Text.PrettyPrint.Leijen.Text
 
 prettyBreak :: Doc
 prettyBreak
-  = "\n\n"
+  = linebreak
 
 prettyDocumentation :: Doc -> Doc
 prettyDocumentation
   = (<>) "-- | "
 
 prettyInline :: Doc -> Doc
-prettyInline inline
-  = "{-# INLINE " <> inline <> " #-}"
+prettyInline
+  = braces . enclose "-# INLINE " " #-"
 
 prettyInteger :: Integer -> Doc
 prettyInteger
@@ -37,8 +38,9 @@ prettyLine
   = pretty (replicate 79 '-')
 
 prettySection :: Doc -> Doc
-prettySection section
-  =    prettyLine
-  <$$> "-- " <> section
-  <$$> prettyLine
-  <>   prettyBreak
+prettySection
+  = enclose (prettyLine <$$> "-- ") (prettyBreak <> prettyLine <> prettyBreak)
+
+prettyText :: Text -> Doc
+prettyText
+  = dquotes . pretty

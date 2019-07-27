@@ -5,18 +5,24 @@ module Generate
 
 import Protolude
 
+import Data.Text (unpack)
+
 import qualified Generate.Binary.Curve as Binary
 import qualified Generate.Binary.Generate as Binary
 import qualified Generate.Binary.Parameters as Binary
+import qualified Generate.Binary.Types as Binary
 import qualified Generate.Edwards.Curve as Edwards
 import qualified Generate.Edwards.Generate as Edwards
 import qualified Generate.Edwards.Parameters as Edwards
+import qualified Generate.Edwards.Types as Edwards
 import qualified Generate.Montgomery.Curve as Montgomery
 import qualified Generate.Montgomery.Generate as Montgomery
 import qualified Generate.Montgomery.Parameters as Montgomery
+import qualified Generate.Montgomery.Types as Montgomery
 import qualified Generate.Weierstrass.Curve as Weierstrass
 import qualified Generate.Weierstrass.Generate as Weierstrass
 import qualified Generate.Weierstrass.Parameters as Weierstrass
+import qualified Generate.Weierstrass.Types as Weierstrass
 
 -------------------------------------------------------------------------------
 -- Curve generator
@@ -24,22 +30,44 @@ import qualified Generate.Weierstrass.Parameters as Weierstrass
 
 generateCurve :: IO ()
 generateCurve = do
-  mapM_ putStrLn generateBinaryCurve
-  mapM_ putStrLn generateEdwardsCurve
-  mapM_ putStrLn generateMontgomeryCurve
-  mapM_ putStrLn generateWeierstrassCurve
+  mapM_ (uncurry writeFile) generateBinaryCurve
+  mapM_ (uncurry writeFile) generateEdwardsCurve
+  mapM_ (uncurry writeFile) generateMontgomeryCurve
+  mapM_ (uncurry writeFile) generateWeierstrassCurve
 
-generateBinaryCurve :: [Text]
-generateBinaryCurve = map (show . Binary.prettyCurve) Binary.curves
+generateBinaryCurve :: [(FilePath, Text)]
+generateBinaryCurve = map generateBinaryCurve' Binary.curves
+  where
+    generateBinaryCurve' :: Binary.Curve -> (FilePath, Text)
+    generateBinaryCurve' = generateCurve'
+      "Binary" Binary.curve Binary.types Binary.prettyCurve
 
-generateEdwardsCurve :: [Text]
-generateEdwardsCurve = map (show . Edwards.prettyCurve) Edwards.curves
+generateEdwardsCurve :: [(FilePath, Text)]
+generateEdwardsCurve = map generateEdwardsCurve' Edwards.curves
+  where
+    generateEdwardsCurve' :: Edwards.Curve -> (FilePath, Text)
+    generateEdwardsCurve' = generateCurve'
+      "Edwards" Edwards.curve Edwards.types Edwards.prettyCurve
 
-generateMontgomeryCurve :: [Text]
-generateMontgomeryCurve = map (show . Montgomery.prettyCurve) Montgomery.curves
+generateMontgomeryCurve :: [(FilePath, Text)]
+generateMontgomeryCurve = map generateMontgomeryCurve' Montgomery.curves
+  where
+    generateMontgomeryCurve' :: Montgomery.Curve -> (FilePath, Text)
+    generateMontgomeryCurve' = generateCurve'
+      "Montgomery" Montgomery.curve Montgomery.types Montgomery.prettyCurve
 
-generateWeierstrassCurve :: [Text]
-generateWeierstrassCurve = map (show . Weierstrass.prettyCurve) Weierstrass.curves
+generateWeierstrassCurve :: [(FilePath, Text)]
+generateWeierstrassCurve = map generateWeierstrassCurve' Weierstrass.curves
+  where
+    generateWeierstrassCurve' :: Weierstrass.Curve -> (FilePath, Text)
+    generateWeierstrassCurve' = generateCurve'
+      "Weierstrass" Weierstrass.curve Weierstrass.types Weierstrass.prettyCurve
+
+generateCurve' :: Show doc => Text -> (types -> Text)
+  -> (curve -> types) -> (curve -> doc) -> curve -> (FilePath, Text)
+generateCurve' form curve types pretty = (,)
+  <$> unpack . (<> ".hs") . (<>) ("Curve/" <> form <> "/") . curve . types
+  <*> show . pretty
 
 -------------------------------------------------------------------------------
 -- Generate generator
@@ -53,13 +81,20 @@ generateGenerate = do
   writeFile "Generate/Weierstrass/Parameters.hs" generateWeierstrassGenerate
 
 generateBinaryGenerate :: Text
-generateBinaryGenerate = show (Binary.prettyGenerate Binary.curves)
+generateBinaryGenerate = generateGenerate'
+  Binary.prettyGenerate Binary.curves
 
 generateEdwardsGenerate :: Text
-generateEdwardsGenerate = show (Edwards.prettyGenerate Edwards.curves)
+generateEdwardsGenerate = generateGenerate'
+  Edwards.prettyGenerate Edwards.curves
 
 generateMontgomeryGenerate :: Text
-generateMontgomeryGenerate = show (Montgomery.prettyGenerate Montgomery.curves)
+generateMontgomeryGenerate = generateGenerate'
+  Montgomery.prettyGenerate Montgomery.curves
 
 generateWeierstrassGenerate :: Text
-generateWeierstrassGenerate = show (Weierstrass.prettyGenerate Weierstrass.curves)
+generateWeierstrassGenerate = generateGenerate'
+  Weierstrass.prettyGenerate Weierstrass.curves
+
+generateGenerate' :: Show doc => (curve -> doc) -> curve -> Text
+generateGenerate' = (.) show

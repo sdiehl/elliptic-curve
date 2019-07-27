@@ -7,13 +7,15 @@ module Curve.Montgomery.Curve448
   , _h
   , _n
   , _p
+  , _x
+  , _y
   ) where
 
 import Protolude
 
 import PrimeField (PrimeField)
 
-import Curve.Montgomery (Point(..), MCurve(..), MPoint)
+import Curve.Montgomery (MCurve(..), MPoint, Point(..))
 
 -------------------------------------------------------------------------------
 -- Types
@@ -54,19 +56,17 @@ _a = 0x262a6
 
 -- | Coefficient @B@ of Curve448 curve
 _b :: Fp
-_b = 1
+_b = 0x1
 {-# INLINE _b #-}
 
 -- | Generator of Curve448 curve
 _g :: P
-_g = A
-     5
-     0x7d235d1295f5b1f66c98ab6e58326fcecbae5d34f55545d060f75dc28df3f6edb8027e2346430d211312c4b150677af76fd7223d457b5b1a
+_g = A _x _y
 {-# INLINE _g #-}
 
 -- | Cofactor of Curve448 curve
 _h :: Integer
-_h = 4
+_h = 0x4
 {-# INLINE _h #-}
 
 -- | Order of Curve448 curve
@@ -78,3 +78,13 @@ _n = 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffff7cca23e9c44edb49a
 _p :: Integer
 _p = 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 {-# INLINE _p #-}
+
+-- | Coordinate @X@ of Curve448 curve
+_x :: Fp
+_x = 0x5
+{-# INLINE _x #-}
+
+-- | Coordinate @Y@ of Curve448 curve
+_y :: Fp
+_y = 0x7d235d1295f5b1f66c98ab6e58326fcecbae5d34f55545d060f75dc28df3f6edb8027e2346430d211312c4b150677af76fd7223d457b5b1a
+{-# INLINE _y #-}

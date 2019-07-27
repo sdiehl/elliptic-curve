@@ -7,6 +7,8 @@ module Curve.Weierstrass.Anomalous
   , _h
   , _n
   , _p
+  , _x
+  , _y
   ) where
 
 import Protolude
@@ -59,14 +61,12 @@ _b = 0x4a1f58d0fac687d6343eb1a5e2d6343eb1a1f58d0fac688ab3f
 
 -- | Generator of Anomalous curve
 _g :: P
-_g = A
-     0x101efb35fd1963c4871a2d17edaafa7e249807f58f8705126c6
-     0x22389a3954375834304ba1d509a97de6c07148ea7f5951b20e7
+_g = A _x _y
 {-# INLINE _g #-}
 
 -- | Cofactor of Anomalous curve
 _h :: Integer
-_h = 1
+_h = 0x1
 {-# INLINE _h #-}
 
 -- | Order of Anomalous curve
@@ -78,3 +78,13 @@ _n = 0xb0000000000000000000000953000000000000000000001f9d7
 _p :: Integer
 _p = 0xb0000000000000000000000953000000000000000000001f9d7
 {-# INLINE _p #-}
+
+-- | Coordinate @X@ of Anomalous curve
+_x :: Fp
+_x = 0x101efb35fd1963c4871a2d17edaafa7e249807f58f8705126c6
+{-# INLINE _x #-}
+
+-- | Coordinate @Y@ of Anomalous curve
+_y :: Fp
+_y = 0x22389a3954375834304ba1d509a97de6c07148ea7f5951b20e7
+{-# INLINE _y #-}

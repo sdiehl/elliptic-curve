@@ -7,11 +7,13 @@ module Curve.Weierstrass.BN462T
   , _h
   , _n
   , _p
+  , _x
+  , _y
   ) where
 
 import Protolude
 
-import ExtensionField (ExtensionField, IrreducibleMonic(..), fromList, x)
+import ExtensionField
 
 import Curve.Weierstrass (Point(..), WCurve(..), WPoint)
 import Curve.Weierstrass.BN462 (Fp)
@@ -26,7 +28,7 @@ data BN462T
 -- | Field of BN462T curve
 data PolynomialU
 instance IrreducibleMonic Fp PolynomialU where
-  split _ = x ^ (2 :: Int) + 1
+  split _ = x * x + 1
 type Fp2 = ExtensionField Fp PolynomialU
 
 -- | BN462T curve is a Weierstrass curve
@@ -53,27 +55,20 @@ type P = WPoint BN462T Fp2
 
 -- | Coefficient @A@ of BN462T curve
 _a :: Fp2
-_a = 0
+_a = fromList [
+              ]
 {-# INLINE _a #-}
 
 -- | Coefficient @B@ of BN462T curve
 _b :: Fp2
-_b = fromList [2, -1]
+_b = fromList [ 0x2
+              , 0x240480360120023ffffffffff6ff0cf6b7d9bfca0000000000d812908f41c8020ffffffffff6ff66fc6ff687f640000000002401b00840138012
+              ]
 {-# INLINE _b #-}
 
 -- | Generator of BN462T curve
 _g :: P
-_g = A
-  ( fromList
-   [ 0x257ccc85b58dda0dfb38e3a8cbdc5482e0337e7c1cd96ed61c913820408208f9ad2699bad92e0032ae1f0aa6a8b48807695468e3d934ae1e4df
-   , 0x1d2e4343e8599102af8edca849566ba3c98e2a354730cbed9176884058b18134dd86bae555b783718f50af8b59bf7e850e9b73108ba6aa8cd283
-   ]
-  )
-  ( fromList
-   [ 0xa0650439da22c1979517427a20809eca035634706e23c3fa7a6bb42fe810f1399a1f41c9ddae32e03695a140e7b11d7c3376e5b68df0db7154e
-   , 0x73ef0cbd438cbe0172c8ae37306324d44d5e6b0c69ac57b393f1ab370fd725cc647692444a04ef87387aa68d53743493b9eba14cc552ca2a93a
-   ]
-  )
+_g = A _x _y
 {-# INLINE _g #-}
 
 -- | Cofactor of BN462T curve
@@ -90,3 +85,17 @@ _n = 0x240480360120023ffffffffff6ff0cf6b7d9bfca0000000000d812908ee1c201f7fffffff
 _p :: Integer
 _p = 0x240480360120023ffffffffff6ff0cf6b7d9bfca0000000000d812908f41c8020ffffffffff6ff66fc6ff687f640000000002401b00840138013
 {-# INLINE _p #-}
+
+-- | Coordinate @X@ of BN462T curve
+_x :: Fp2
+_x = fromList [ 0x257ccc85b58dda0dfb38e3a8cbdc5482e0337e7c1cd96ed61c913820408208f9ad2699bad92e0032ae1f0aa6a8b48807695468e3d934ae1e4df
+              , 0x1d2e4343e8599102af8edca849566ba3c98e2a354730cbed9176884058b18134dd86bae555b783718f50af8b59bf7e850e9b73108ba6aa8cd283
+              ]
+{-# INLINE _x #-}
+
+-- | Coordinate @Y@ of BN462T curve
+_y :: Fp2
+_y = fromList [ 0xa0650439da22c1979517427a20809eca035634706e23c3fa7a6bb42fe810f1399a1f41c9ddae32e03695a140e7b11d7c3376e5b68df0db7154e
+              , 0x73ef0cbd438cbe0172c8ae37306324d44d5e6b0c69ac57b393f1ab370fd725cc647692444a04ef87387aa68d53743493b9eba14cc552ca2a93a
+              ]
+{-# INLINE _y #-}

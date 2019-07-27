@@ -7,6 +7,8 @@ module Curve.Weierstrass.SECP224R1
   , _h
   , _n
   , _p
+  , _x
+  , _y
   ) where
 
 import Protolude
@@ -59,14 +61,12 @@ _b = 0xb4050a850c04b3abf54132565044b0b7d7bfd8ba270b39432355ffb4
 
 -- | Generator of SECP224R1 curve
 _g :: P
-_g = A
-     0xb70e0cbd6bb4bf7f321390b94a03c1d356c21122343280d6115c1d21
-     0xbd376388b5f723fb4c22dfe6cd4375a05a07476444d5819985007e34
+_g = A _x _y
 {-# INLINE _g #-}
 
 -- | Cofactor of SECP224R1 curve
 _h :: Integer
-_h = 1
+_h = 0x1
 {-# INLINE _h #-}
 
 -- | Order of SECP224R1 curve
@@ -78,3 +78,13 @@ _n = 0xffffffffffffffffffffffffffff16a2e0b8f03e13dd29455c5c2a3d
 _p :: Integer
 _p = 0xffffffffffffffffffffffffffffffff000000000000000000000001
 {-# INLINE _p #-}
+
+-- | Coordinate @X@ of SECP224R1 curve
+_x :: Fp
+_x = 0xb70e0cbd6bb4bf7f321390b94a03c1d356c21122343280d6115c1d21
+{-# INLINE _x #-}
+
+-- | Coordinate @Y@ of SECP224R1 curve
+_y :: Fp
+_y = 0xbd376388b5f723fb4c22dfe6cd4375a05a07476444d5819985007e34
+{-# INLINE _y #-}

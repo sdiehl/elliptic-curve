@@ -8,7 +8,7 @@ module Generate.Weierstrass.Types
 
 import Protolude
 
-import Generate.Types (Element(..), Field(..))
+import Generate.Types
 
 -------------------------------------------------------------------------------
 -- Types
@@ -30,6 +30,7 @@ data Parameters = Parameters
   }
 
 data Types = Types
-  { curve :: Text
-  , field :: Field
+  { curve   :: Text
+  , field   :: Field
+  , imports :: Maybe Text
   }

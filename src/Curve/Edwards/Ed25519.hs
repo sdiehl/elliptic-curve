@@ -7,6 +7,8 @@ module Curve.Edwards.Ed25519
   , _h
   , _n
   , _p
+  , _x
+  , _y
   ) where
 
 import Protolude
@@ -49,24 +51,22 @@ type P = EPoint Ed25519 Fp
 
 -- | Coefficient @A@ of Ed25519 curve
 _a :: Fp
-_a = -1
+_a = 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffec
 {-# INLINE _a #-}
 
--- | Coefficient @D@ of Ed25519 curve
+-- | Coefficient @B@ of Ed25519 curve
 _d :: Fp
 _d = 0x52036cee2b6ffe738cc740797779e89800700a4d4141d8ab75eb4dca135978a3
 {-# INLINE _d #-}
 
 -- | Generator of Ed25519 curve
 _g :: P
-_g = A
-     0x216936d3cd6e53fec0a4e231fdd6dc5c692cc7609525a7b2c9562d608f25d51a
-     0x6666666666666666666666666666666666666666666666666666666666666658
+_g = A _x _y
 {-# INLINE _g #-}
 
 -- | Cofactor of Ed25519 curve
 _h :: Integer
-_h = 8
+_h = 0x8
 {-# INLINE _h #-}
 
 -- | Order of Ed25519 curve
@@ -78,3 +78,13 @@ _n = 0x1000000000000000000000000000000014def9dea2f79cd65812631a5cf5d3ed
 _p :: Integer
 _p = 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffed
 {-# INLINE _p #-}
+
+-- | Coordinate @X@ of Ed25519 curve
+_x :: Fp
+_x = 0x216936d3cd6e53fec0a4e231fdd6dc5c692cc7609525a7b2c9562d608f25d51a
+{-# INLINE _x #-}
+
+-- | Coordinate @Y@ of Ed25519 curve
+_y :: Fp
+_y = 0x6666666666666666666666666666666666666666666666666666666666666658
+{-# INLINE _y #-}

@@ -9,7 +9,7 @@ module Curve.Field.BN254TF
 
 import Protolude
 
-import ExtensionField (ExtensionField, IrreducibleMonic(..), fromList, t, x)
+import ExtensionField
 
 import Curve.Field (FGroup(..), Element(..))
 import Curve.Weierstrass.BN254T (Fp2)

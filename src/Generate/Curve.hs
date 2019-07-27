@@ -9,8 +9,8 @@ import Protolude
 
 import Text.PrettyPrint.Leijen.Text
 
-import Generate.Pretty (prettyInteger)
-import Generate.Types (Element(..), Field(..))
+import Generate.Pretty
+import Generate.Types
 
 -------------------------------------------------------------------------------
 -- Pretty
@@ -29,25 +29,33 @@ prettyElement (PF n)
   = prettyInteger n
 
 prettyField :: Field -> Doc
-prettyField (BinaryField _)
-  = "F2m"
-prettyField (ExtensionField)
-  = "Fp12"
-prettyField (PrimeField _)
-  = "Fp"
+prettyField (BinaryField f2m _)
+  = pretty f2m
+prettyField (ExtensionField fq _ _ _ _)
+  = pretty fq
+prettyField (PrimeField fp _)
+  = pretty fp
 
 prettyImport :: Field -> Doc
-prettyImport (BinaryField _)
+prettyImport (BinaryField _ _)
   = "import BinaryField (BinaryField)"
-prettyImport (ExtensionField)
-  = "import ExtensionField (ExtensionField, IrreducibleMonic(..), fromList, t, x)"
-prettyImport (PrimeField _)
+prettyImport (ExtensionField _ _ _ _ _)
+  = "import ExtensionField"
+prettyImport (PrimeField _ _)
   = "import PrimeField (PrimeField)"
 
 prettyType :: Field -> Doc
-prettyType (BinaryField p)
-  = "type F2m = BinaryField " <> prettyInteger p
-prettyType (ExtensionField)
-  = "type Fp12 = ExtensionField"
-prettyType (PrimeField p)
-  = "type Fp = PrimeField " <> prettyInteger p
+prettyType (BinaryField f2m p)
+  = "type " <> pretty f2m <> " = BinaryField " <> prettyInteger p
+prettyType (ExtensionField fq fp p s k)
+  =    prettyType' k
+  <$$> "data " <> pretty p
+  <$$> "instance IrreducibleMonic " <> pretty fp <> " " <> pretty p <> " where"
+  <$$> "  split _ = " <> pretty s
+  <$$> "type " <> pretty fq <> " = ExtensionField " <> pretty fp <> " " <> pretty p
+  where
+    prettyType' :: Maybe Field -> Doc
+    prettyType' (Just f) = prettyType f
+    prettyType' _        = ""
+prettyType (PrimeField fp p)
+  = "type " <> pretty fp <> " = PrimeField " <> prettyInteger p

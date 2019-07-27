@@ -6,8 +6,8 @@ import Protolude
 
 import Text.PrettyPrint.Leijen.Text
 
-import Generate.Curve (prettyElement, prettyField, prettyImport, prettyType)
-import Generate.Montgomery.Types (Curve(..), Parameters(..), Types(..))
+import Generate.Curve
+import Generate.Montgomery.Types
 import Generate.Pretty
 
 -------------------------------------------------------------------------------
@@ -37,7 +37,8 @@ prettyImports Types{..}
   <>   prettyBreak
   <$$> prettyImport field
   <>   prettyBreak
-  <$$> "import Curve.Montgomery (MCurve(..), MPoint(..), Point(..))"
+  <$$> "import Curve.Montgomery (MCurve(..), MPoint, Point(..))"
+  <$$> maybe "" pretty imports
 
 prettyTypes :: Types -> Doc
 prettyTypes Types{..}
@@ -86,7 +87,7 @@ prettyParameters (Curve Types{..} Parameters{..})
   <>   prettyBreak
   <$$> prettyDocumentation ("Generator" <> curve')
   <$$> "_g :: P"
-  <$$> "_g = A x y"
+  <$$> "_g = A _x _y"
   <$$> prettyInline "_g"
   <>   prettyBreak
   <$$> prettyDocumentation ("Cofactor" <> curve')

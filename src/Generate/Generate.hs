@@ -7,8 +7,8 @@ import Protolude
 
 import Text.PrettyPrint.Leijen.Text
 
-import Generate.Pretty (prettyInteger)
-import Generate.Types (Element(..), Field(..))
+import Generate.Pretty
+import Generate.Types
 
 -------------------------------------------------------------------------------
 -- Pretty
@@ -27,9 +27,16 @@ prettyElement (PF n)
   = "PF " <> prettyInteger n
 
 prettyField :: Field -> Doc
-prettyField (BinaryField p)
-  = "BinaryField " <> prettyInteger p
-prettyField (ExtensionField)
-  = "ExtensionField"
-prettyField (PrimeField p)
-  = "PrimeField " <> prettyInteger p
+prettyField (BinaryField fp p)
+  = "BinaryField " <> prettyText fp <> " " <> prettyInteger p
+prettyField (ExtensionField fq fp p s k)
+  = align
+    (  "ExtensionField " <> prettyText fq <> " " <> prettyText fp <> " "
+    <> prettyText p <> " " <> prettyText s <> " " <> prettyField' k
+    )
+  where
+    prettyField' :: Maybe Field -> Doc
+    prettyField' (Just f) = "(Just" <$$> "( " <> align (prettyField f) <$$> "))"
+    prettyField' _        = "Nothing"
+prettyField (PrimeField f2m p)
+  = "PrimeField " <> prettyText f2m <> " " <> prettyInteger p

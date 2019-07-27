@@ -2,6 +2,8 @@ module Generate.Edwards.Parameters
   ( curves
   ) where
 
+import Protolude
+
 import Generate.Edwards.Types
 
 -------------------------------------------------------------------------------
@@ -28,8 +30,9 @@ curves =
 curve1174 :: Curve
 curve1174 = Curve
   { types = Types
-    { curve = "Curve1174"
-    , field = PrimeField 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7
+    { curve   = "Curve1174"
+    , field   = PrimeField "Fp" 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = PF 0x1
@@ -45,8 +48,9 @@ curve1174 = Curve
 curve41417 :: Curve
 curve41417 = Curve
   { types = Types
-    { curve = "Curve41417"
-    , field = PrimeField 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffef
+    { curve   = "Curve41417"
+    , field   = PrimeField "Fp" 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffef
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = PF 0x1
@@ -62,8 +66,9 @@ curve41417 = Curve
 e222 :: Curve
 e222 = Curve
   { types = Types
-    { curve = "E222"
-    , field = PrimeField 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffff8b
+    { curve   = "E222"
+    , field   = PrimeField "Fp" 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffff8b
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = PF 0x1
@@ -79,8 +84,9 @@ e222 = Curve
 e382 :: Curve
 e382 = Curve
   { types = Types
-    { curve = "E382"
-    , field = PrimeField 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff97
+    { curve   = "E382"
+    , field   = PrimeField "Fp" 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff97
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = PF 0x1
@@ -96,8 +102,9 @@ e382 = Curve
 e521 :: Curve
 e521 = Curve
   { types = Types
-    { curve = "E521"
-    , field = PrimeField 0x1ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    { curve   = "E521"
+    , field   = PrimeField "Fp" 0x1ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = PF 0x1
@@ -113,8 +120,9 @@ e521 = Curve
 ed448 :: Curve
 ed448 = Curve
   { types = Types
-    { curve = "Ed448"
-    , field = PrimeField 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    { curve   = "Ed448"
+    , field   = PrimeField "Fp" 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = PF 0x1
@@ -130,8 +138,9 @@ ed448 = Curve
 ed3363 :: Curve
 ed3363 = Curve
   { types = Types
-    { curve = "Ed3363"
-    , field = PrimeField 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd
+    { curve   = "Ed3363"
+    , field   = PrimeField "Fp" 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = PF 0x1
@@ -147,8 +156,9 @@ ed3363 = Curve
 ed25519 :: Curve
 ed25519 = Curve
   { types = Types
-    { curve = "Ed25519"
-    , field = PrimeField 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffed
+    { curve   = "Ed25519"
+    , field   = PrimeField "Fp" 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffed
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = PF 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffec
@@ -164,8 +174,9 @@ ed25519 = Curve
 jubjub :: Curve
 jubjub = Curve
   { types = Types
-    { curve = "JubJub"
-    , field = PrimeField 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
+    { curve   = "JubJub"
+    , field   = PrimeField "Fp" 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
+    , imports = Nothing
     }
   , parameters = Parameters
     { a = PF 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000000

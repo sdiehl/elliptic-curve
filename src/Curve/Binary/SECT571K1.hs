@@ -7,6 +7,8 @@ module Curve.Binary.SECT571K1
   , _h
   , _n
   , _p
+  , _x
+  , _y
   ) where
 
 import Protolude
@@ -49,24 +51,22 @@ type P = BPoint SECT571K1 F2m
 
 -- | Coefficient @A@ of SECT571K1 curve
 _a :: F2m
-_a = 0
+_a = 0x0
 {-# INLINE _a #-}
 
 -- | Coefficient @B@ of SECT571K1 curve
 _b :: F2m
-_b = 1
+_b = 0x1
 {-# INLINE _b #-}
 
 -- | Generator of SECT571K1 curve
 _g :: P
-_g = A
-     0x26eb7a859923fbc82189631f8103fe4ac9ca2970012d5d46024804801841ca44370958493b205e647da304db4ceb08cbbd1ba39494776fb988b47174dca88c7e2945283a01c8972
-     0x349dc807f4fbf374f4aeade3bca95314dd58cec9f307a54ffc61efc006d8a2c9d4979c0ac44aea74fbebbb9f772aedcb620b01a7ba7af1b320430c8591984f601cd4c143ef1c7a3
+_g = A _x _y
 {-# INLINE _g #-}
 
 -- | Cofactor of SECT571K1 curve
 _h :: Integer
-_h = 4
+_h = 0x4
 {-# INLINE _h #-}
 
 -- | Order of SECT571K1 curve
@@ -78,3 +78,13 @@ _n = 0x2000000000000000000000000000000000000000000000000000000000000000000000013
 _p :: Integer
 _p = 0x80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000425
 {-# INLINE _p #-}
+
+-- | Coordinate @X@ of SECT571K1 curve
+_x :: F2m
+_x = 0x26eb7a859923fbc82189631f8103fe4ac9ca2970012d5d46024804801841ca44370958493b205e647da304db4ceb08cbbd1ba39494776fb988b47174dca88c7e2945283a01c8972
+{-# INLINE _x #-}
+
+-- | Coordinate @Y@ of SECT571K1 curve
+_y :: F2m
+_y = 0x349dc807f4fbf374f4aeade3bca95314dd58cec9f307a54ffc61efc006d8a2c9d4979c0ac44aea74fbebbb9f772aedcb620b01a7ba7af1b320430c8591984f601cd4c143ef1c7a3
+{-# INLINE _y #-}

@@ -7,6 +7,8 @@ module Curve.Weierstrass.BN254B
   , _h
   , _n
   , _p
+  , _x
+  , _y
   ) where
 
 import Protolude
@@ -49,24 +51,22 @@ type P = WPoint BN254B Fp
 
 -- | Coefficient @A@ of BN254B curve
 _a :: Fp
-_a = 0
+_a = 0x0
 {-# INLINE _a #-}
 
 -- | Coefficient @B@ of BN254B curve
 _b :: Fp
-_b = 2
+_b = 0x2
 {-# INLINE _b #-}
 
 -- | Generator of BN254B curve
 _g :: P
-_g = A
-     0x2523648240000001ba344d80000000086121000000000013a700000000000012
-     1
+_g = A _x _y
 {-# INLINE _g #-}
 
 -- | Cofactor of BN254B curve
 _h :: Integer
-_h = 1
+_h = 0x1
 {-# INLINE _h #-}
 
 -- | Order of BN254B curve
@@ -78,3 +78,13 @@ _n = 0x2523648240000001ba344d8000000007ff9f800000000010a10000000000000d
 _p :: Integer
 _p = 0x2523648240000001ba344d80000000086121000000000013a700000000000013
 {-# INLINE _p #-}
+
+-- | Coordinate @X@ of BN254B curve
+_x :: Fp
+_x = 0x2523648240000001ba344d80000000086121000000000013a700000000000012
+{-# INLINE _x #-}
+
+-- | Coordinate @Y@ of BN254B curve
+_y :: Fp
+_y = 0x1
+{-# INLINE _y #-}

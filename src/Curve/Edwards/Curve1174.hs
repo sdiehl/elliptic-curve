@@ -7,6 +7,8 @@ module Curve.Edwards.Curve1174
   , _h
   , _n
   , _p
+  , _x
+  , _y
   ) where
 
 import Protolude
@@ -49,24 +51,22 @@ type P = EPoint Curve1174 Fp
 
 -- | Coefficient @A@ of Curve1174 curve
 _a :: Fp
-_a = 1
+_a = 0x1
 {-# INLINE _a #-}
 
--- | Coefficient @D@ of Curve1174 curve
+-- | Coefficient @B@ of Curve1174 curve
 _d :: Fp
 _d = 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffb61
 {-# INLINE _d #-}
 
 -- | Generator of Curve1174 curve
 _g :: P
-_g = A
-     0x37fbb0cea308c479343aee7c029a190c021d96a492ecd6516123f27bce29eda
-     0x6b72f82d47fb7cc6656841169840e0c4fe2dee2af3f976ba4ccb1bf9b46360e
+_g = A _x _y
 {-# INLINE _g #-}
 
 -- | Cofactor of Curve1174 curve
 _h :: Integer
-_h = 4
+_h = 0x4
 {-# INLINE _h #-}
 
 -- | Order of Curve1174 curve
@@ -78,3 +78,13 @@ _n = 0x1fffffffffffffffffffffffffffffff77965c4dfd307348944d45fd166c971
 _p :: Integer
 _p = 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7
 {-# INLINE _p #-}
+
+-- | Coordinate @X@ of Curve1174 curve
+_x :: Fp
+_x = 0x37fbb0cea308c479343aee7c029a190c021d96a492ecd6516123f27bce29eda
+{-# INLINE _x #-}
+
+-- | Coordinate @Y@ of Curve1174 curve
+_y :: Fp
+_y = 0x6b72f82d47fb7cc6656841169840e0c4fe2dee2af3f976ba4ccb1bf9b46360e
+{-# INLINE _y #-}
