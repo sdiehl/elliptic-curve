@@ -1,6 +1,11 @@
 module Curve.Weierstrass.BLS12381
-  ( Fp
+  ( Curve(..)
+  , Fp
+  , Group(..)
   , P
+  , Point(..)
+  , WPoint
+  , WCurve(..)
   , _a
   , _b
   , _g
@@ -15,6 +20,7 @@ import Protolude
 
 import PrimeField (PrimeField)
 
+import Curve (Curve(..), Group(..))
 import Curve.Weierstrass (Point(..), WCurve(..), WPoint)
 
 -------------------------------------------------------------------------------
@@ -41,6 +47,10 @@ instance WCurve BLS12381 Fp where
   {-# INLINE n_ #-}
   p_ = const _p
   {-# INLINE p_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
 
 -- | Point of BLS12381 curve.
 type P = WPoint BLS12381 Fp

@@ -1,6 +1,11 @@
 module Curve.Weierstrass.BLS48581T
-  ( Fp8
+  ( Curve(..)
+  , Fp8
+  , Group(..)
   , P
+  , Point(..)
+  , WPoint
+  , WCurve(..)
   , _a
   , _b
   , _g
@@ -15,6 +20,7 @@ import Protolude
 
 import ExtensionField
 
+import Curve (Curve(..), Group(..))
 import Curve.Weierstrass (Point(..), WCurve(..), WPoint)
 import Curve.Weierstrass.BLS48581 (Fp)
 
@@ -53,6 +59,10 @@ instance WCurve BLS48581T Fp8 where
   {-# INLINE n_ #-}
   p_ = const _p
   {-# INLINE p_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
 
 -- | Point of BLS48581T curve.
 type P = WPoint BLS48581T Fp8

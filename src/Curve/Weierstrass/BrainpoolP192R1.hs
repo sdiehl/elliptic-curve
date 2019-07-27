@@ -1,6 +1,11 @@
 module Curve.Weierstrass.BrainpoolP192R1
-  ( Fp
+  ( Curve(..)
+  , Fp
+  , Group(..)
   , P
+  , Point(..)
+  , WPoint
+  , WCurve(..)
   , _a
   , _b
   , _g
@@ -15,6 +20,7 @@ import Protolude
 
 import PrimeField (PrimeField)
 
+import Curve (Curve(..), Group(..))
 import Curve.Weierstrass (Point(..), WCurve(..), WPoint)
 
 -------------------------------------------------------------------------------
@@ -41,6 +47,10 @@ instance WCurve BrainpoolP192R1 Fp where
   {-# INLINE n_ #-}
   p_ = const _p
   {-# INLINE p_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
 
 -- | Point of BrainpoolP192R1 curve.
 type P = WPoint BrainpoolP192R1 Fp

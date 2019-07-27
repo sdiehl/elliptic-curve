@@ -1,6 +1,11 @@
 module Curve.Montgomery.M383
-  ( Fp
+  ( Curve(..)
+  , Fp
+  , Group(..)
+  , MPoint
+  , MCurve(..)
   , P
+  , Point(..)
   , _a
   , _b
   , _g
@@ -15,6 +20,7 @@ import Protolude
 
 import PrimeField (PrimeField)
 
+import Curve (Curve(..), Group(..))
 import Curve.Montgomery (MCurve(..), MPoint, Point(..))
 
 -------------------------------------------------------------------------------
@@ -41,6 +47,10 @@ instance MCurve M383 Fp where
   {-# INLINE n_ #-}
   p_ = const _p
   {-# INLINE p_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
 
 -- | Point of M383 curve.
 type P = MPoint M383 Fp

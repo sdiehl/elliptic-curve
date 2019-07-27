@@ -1,7 +1,9 @@
 module Curve.Montgomery
-  ( Point(..)
+  ( Curve(..)
+  , Group(..)
   , MCurve(..)
   , MPoint
+  , Point(..)
   ) where
 
 import Protolude
@@ -25,13 +27,15 @@ type MPoint = Point M
 
 -- | Montgomery curves @By^2 = x^3 + Ax^2 + x@.
 class Curve M c k => MCurve c k where
-  {-# MINIMAL a_, b_, g_, h_, n_, p_ #-}
+  {-# MINIMAL a_, b_, g_, h_, n_, p_, x_, y_ #-}
   a_ :: c -> k                -- ^ Coefficient @A@.
   b_ :: c -> k                -- ^ Coefficient @B@.
   g_ :: MPoint c k            -- ^ Curve generator.
   h_ :: MPoint c k -> Integer -- ^ Curve cofactor.
   n_ :: MPoint c k -> Integer -- ^ Curve order.
   p_ :: MPoint c k -> Integer -- ^ Curve characteristic.
+  x_ :: c -> k                -- ^ Coordinate @X@.
+  y_ :: c -> k                -- ^ Coordinate @Y@.
 
 -------------------------------------------------------------------------------
 -- Operations

@@ -1,6 +1,11 @@
 module Curve.Weierstrass.BN254BT
-  ( Fp2
+  ( Curve(..)
+  , Fp2
+  , Group(..)
   , P
+  , Point(..)
+  , WPoint
+  , WCurve(..)
   , _a
   , _b
   , _g
@@ -15,6 +20,7 @@ import Protolude
 
 import ExtensionField
 
+import Curve (Curve(..), Group(..))
 import Curve.Weierstrass (Point(..), WCurve(..), WPoint)
 import Curve.Weierstrass.BN254B (Fp)
 
@@ -45,6 +51,10 @@ instance WCurve BN254BT Fp2 where
   {-# INLINE n_ #-}
   p_ = const _p
   {-# INLINE p_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
 
 -- | Point of BN254BT curve.
 type P = WPoint BN254BT Fp2

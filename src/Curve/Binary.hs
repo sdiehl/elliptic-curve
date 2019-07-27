@@ -1,6 +1,8 @@
 module Curve.Binary
   ( BCurve(..)
   , BPoint
+  , Curve(..)
+  , Group(..)
   , Point(..)
   ) where
 
@@ -25,13 +27,15 @@ type BPoint = Point B
 
 -- | Binary curves @y^2 + xy = x^3 + Ax^2 + B@.
 class Curve B c k => BCurve c k where
-  {-# MINIMAL a_, b_, g_, h_, n_, p_ #-}
+  {-# MINIMAL a_, b_, g_, h_, n_, p_, x_, y_ #-}
   a_ :: c -> k                -- ^ Coefficient @A@.
   b_ :: c -> k                -- ^ Coefficient @B@.
   g_ :: BPoint c k            -- ^ Curve generator.
   h_ :: BPoint c k -> Integer -- ^ Curve cofactor.
   n_ :: BPoint c k -> Integer -- ^ Curve order.
   p_ :: BPoint c k -> Integer -- ^ Curve polynomial.
+  x_ :: c -> k                -- ^ Coordinate @X@.
+  y_ :: c -> k                -- ^ Coordinate @Y@.
 
 -------------------------------------------------------------------------------
 -- Operations

@@ -1,6 +1,8 @@
 module Curve.Edwards
-  ( ECurve(..)
+  ( Curve(..)
+  , ECurve(..)
   , EPoint
+  , Group(..)
   , Point(..)
   ) where
 
@@ -25,13 +27,15 @@ type EPoint = Point E
 
 -- | Edwards curves @Ax^2 + y^2 = 1 + Dx^2y^2@.
 class Curve E c k => ECurve c k where
-  {-# MINIMAL a_, d_, g_, h_, n_, p_ #-}
+  {-# MINIMAL a_, d_, g_, h_, n_, p_, x_, y_ #-}
   a_ :: c -> k                -- ^ Coefficient @A@.
   d_ :: c -> k                -- ^ Coefficient @D@.
   g_ :: EPoint c k            -- ^ Curve generator.
   h_ :: EPoint c k -> Integer -- ^ Curve cofactor.
   n_ :: EPoint c k -> Integer -- ^ Curve order.
   p_ :: EPoint c k -> Integer -- ^ Curve characteristic.
+  x_ :: c -> k                -- ^ Coordinate @X@.
+  y_ :: c -> k                -- ^ Coordinate @Y@.
 
 -------------------------------------------------------------------------------
 -- Operations

@@ -56,6 +56,6 @@ prettyType (ExtensionField fq fp p s k)
   where
     prettyType' :: Maybe Field -> Doc
     prettyType' (Just f) = prettyType f
-    prettyType' _        = ""
+    prettyType' _        = mempty
 prettyType (PrimeField fp p)
   = "type " <> pretty fp <> " = PrimeField " <> prettyInteger p

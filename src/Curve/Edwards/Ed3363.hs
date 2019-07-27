@@ -1,6 +1,11 @@
 module Curve.Edwards.Ed3363
-  ( Fp
+  ( Curve(..)
+  , EPoint
+  , ECurve(..)
+  , Fp
+  , Group(..)
   , P
+  , Point(..)
   , _a
   , _d
   , _g
@@ -15,6 +20,7 @@ import Protolude
 
 import PrimeField (PrimeField)
 
+import Curve (Curve(..), Group(..))
 import Curve.Edwards (ECurve(..), EPoint, Point(..))
 
 -------------------------------------------------------------------------------
@@ -41,6 +47,10 @@ instance ECurve Ed3363 Fp where
   {-# INLINE n_ #-}
   p_ = const _p
   {-# INLINE p_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
 
 -- | Point of Ed3363 curve.
 type P = EPoint Ed3363 Fp

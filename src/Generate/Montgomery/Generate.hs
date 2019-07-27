@@ -53,7 +53,7 @@ prettyParameters curves
       <$$> "  " <> align
         (    "{ types = Types"
         <$$> "  " <> align
-          (    "{ curve   = " <> prettyText curve <> ""
+          (    "{ curve   = " <> prettyText curve
           <$$> ", field   = " <> prettyField field
           <$$> ", imports = "
           <>   maybe "Nothing" ((<>) "Just " . prettyText) imports

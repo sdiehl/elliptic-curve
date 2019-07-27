@@ -1,6 +1,11 @@
 module Curve.Binary.SECT239K1
-  ( F2m
+  ( BCurve(..)
+  , BPoint
+  , Curve(..)
+  , F2m
+  , Group(..)
   , P
+  , Point(..)
   , _a
   , _b
   , _g
@@ -15,6 +20,7 @@ import Protolude
 
 import BinaryField (BinaryField)
 
+import Curve (Curve(..), Group(..))
 import Curve.Binary (BCurve(..), BPoint, Point(..))
 
 -------------------------------------------------------------------------------
@@ -41,6 +47,10 @@ instance BCurve SECT239K1 F2m where
   {-# INLINE n_ #-}
   p_ = const _p
   {-# INLINE p_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
 
 -- | Point of SECT239K1 curve.
 type P = BPoint SECT239K1 F2m

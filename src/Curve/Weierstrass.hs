@@ -1,5 +1,7 @@
 module Curve.Weierstrass
-  ( Point(..)
+  ( Curve(..)
+  , Group(..)
+  , Point(..)
   , WCurve(..)
   , WPoint
   ) where
@@ -25,13 +27,15 @@ type WPoint = Point W
 
 -- | Weierstrass curves @y^2 = x^3 + Ax + B@.
 class Curve W c k => WCurve c k where
-  {-# MINIMAL a_, b_, g_, h_, n_, p_ #-}
+  {-# MINIMAL a_, b_, g_, h_, n_, p_, x_, y_ #-}
   a_ :: c -> k                -- ^ Coefficient @A@.
   b_ :: c -> k                -- ^ Coefficient @B@.
   g_ :: WPoint c k            -- ^ Curve generator.
   h_ :: WPoint c k -> Integer -- ^ Curve cofactor.
   n_ :: WPoint c k -> Integer -- ^ Curve order.
   p_ :: WPoint c k -> Integer -- ^ Curve characteristic.
+  x_ :: c -> k                -- ^ Coordinate @X@.
+  y_ :: c -> k                -- ^ Coordinate @Y@.
 
 -------------------------------------------------------------------------------
 -- Operations

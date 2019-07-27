@@ -18,8 +18,13 @@ prettyModule :: Types -> Doc
 prettyModule Types{..}
   =    "module Curve.Montgomery." <> pretty curve
   <$$> "  " <> align
-    (    "( " <> prettyField field
+    (    "( Curve(..)"
+    <$$> ", " <> prettyField field
+    <$$> ", Group(..)"
+    <$$> ", MPoint"
+    <$$> ", MCurve(..)"
     <$$> ", P"
+    <$$> ", Point(..)"
     <$$> ", _a"
     <$$> ", _b"
     <$$> ", _g"
@@ -37,8 +42,9 @@ prettyImports Types{..}
   <>   prettyBreak
   <$$> prettyImport field
   <>   prettyBreak
+  <$$> "import Curve (Curve(..), Group(..))"
   <$$> "import Curve.Montgomery (MCurve(..), MPoint, Point(..))"
-  <$$> maybe "" pretty imports
+  <$$> maybe mempty pretty imports
 
 prettyTypes :: Types -> Doc
 prettyTypes Types{..}
@@ -64,6 +70,10 @@ prettyTypes Types{..}
     <$$> prettyInline "n_"
     <$$> "p_ = const _p"
     <$$> prettyInline "p_"
+    <$$> "x_ = const _x"
+    <$$> prettyInline "x_"
+    <$$> "y_ = const _y"
+    <$$> prettyInline "y_"
     )
   <>   prettyBreak
   <$$> prettyDocumentation ("Point of " <> curve')
