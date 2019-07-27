@@ -23,7 +23,7 @@ prettyBreak
 
 prettyDocumentation :: Doc -> Doc
 prettyDocumentation
-  = (<>) "-- | "
+  = enclose "-- | " dot
 
 prettyInline :: Doc -> Doc
 prettyInline

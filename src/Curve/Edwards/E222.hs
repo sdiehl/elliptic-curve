@@ -21,13 +21,13 @@ import Curve.Edwards (ECurve(..), EPoint, Point(..))
 -- Types
 -------------------------------------------------------------------------------
 
--- | E222 curve
+-- | E222 curve.
 data E222
 
--- | Field of E222 curve
+-- | Field of E222 curve.
 type Fp = PrimeField 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffff8b
 
--- | E222 curve is an Edwards curve
+-- | E222 curve is an Edwards curve.
 instance ECurve E222 Fp where
   a_ = const _a
   {-# INLINE a_ #-}
@@ -42,49 +42,49 @@ instance ECurve E222 Fp where
   p_ = const _p
   {-# INLINE p_ #-}
 
--- | Point of E222 curve
+-- | Point of E222 curve.
 type P = EPoint E222 Fp
 
 -------------------------------------------------------------------------------
 -- Parameters
 -------------------------------------------------------------------------------
 
--- | Coefficient @A@ of E222 curve
+-- | Coefficient @A@ of E222 curve.
 _a :: Fp
 _a = 0x1
 {-# INLINE _a #-}
 
--- | Coefficient @B@ of E222 curve
+-- | Coefficient @B@ of E222 curve.
 _d :: Fp
 _d = 0x27166
 {-# INLINE _d #-}
 
--- | Generator of E222 curve
+-- | Generator of E222 curve.
 _g :: P
 _g = A _x _y
 {-# INLINE _g #-}
 
--- | Cofactor of E222 curve
+-- | Cofactor of E222 curve.
 _h :: Integer
 _h = 0x4
 {-# INLINE _h #-}
 
--- | Order of E222 curve
+-- | Order of E222 curve.
 _n :: Integer
 _n = 0xffffffffffffffffffffffffffff70cbc95e932f802f31423598cbf
 {-# INLINE _n #-}
 
--- | Characteristic of E222 curve
+-- | Characteristic of E222 curve.
 _p :: Integer
 _p = 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffff8b
 {-# INLINE _p #-}
 
--- | Coordinate @X@ of E222 curve
+-- | Coordinate @X@ of E222 curve.
 _x :: Fp
 _x = 0x19b12bb156a389e55c9768c303316d07c23adab3736eb2bc3eb54e51
 {-# INLINE _x #-}
 
--- | Coordinate @Y@ of E222 curve
+-- | Coordinate @Y@ of E222 curve.
 _y :: Fp
 _y = 0x1c
 {-# INLINE _y #-}

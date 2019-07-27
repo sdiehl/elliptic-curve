@@ -21,13 +21,13 @@ import Curve.Binary (BCurve(..), BPoint, Point(..))
 -- Types
 -------------------------------------------------------------------------------
 
--- | SECT283K1 curve
+-- | SECT283K1 curve.
 data SECT283K1
 
--- | Field of SECT283K1 curve
+-- | Field of SECT283K1 curve.
 type F2m = BinaryField 0x800000000000000000000000000000000000000000000000000000000000000000010a1
 
--- | SECT283K1 curve is a binary curve
+-- | SECT283K1 curve is a binary curve.
 instance BCurve SECT283K1 F2m where
   a_ = const _a
   {-# INLINE a_ #-}
@@ -42,49 +42,49 @@ instance BCurve SECT283K1 F2m where
   p_ = const _p
   {-# INLINE p_ #-}
 
--- | Point of SECT283K1 curve
+-- | Point of SECT283K1 curve.
 type P = BPoint SECT283K1 F2m
 
 -------------------------------------------------------------------------------
 -- Parameters
 -------------------------------------------------------------------------------
 
--- | Coefficient @A@ of SECT283K1 curve
+-- | Coefficient @A@ of SECT283K1 curve.
 _a :: F2m
 _a = 0x0
 {-# INLINE _a #-}
 
--- | Coefficient @B@ of SECT283K1 curve
+-- | Coefficient @B@ of SECT283K1 curve.
 _b :: F2m
 _b = 0x1
 {-# INLINE _b #-}
 
--- | Generator of SECT283K1 curve
+-- | Generator of SECT283K1 curve.
 _g :: P
 _g = A _x _y
 {-# INLINE _g #-}
 
--- | Cofactor of SECT283K1 curve
+-- | Cofactor of SECT283K1 curve.
 _h :: Integer
 _h = 0x4
 {-# INLINE _h #-}
 
--- | Order of SECT283K1 curve
+-- | Order of SECT283K1 curve.
 _n :: Integer
 _n = 0x1ffffffffffffffffffffffffffffffffffe9ae2ed07577265dff7f94451e061e163c61
 {-# INLINE _n #-}
 
--- | Polynomial of SECT283K1 curve
+-- | Polynomial of SECT283K1 curve.
 _p :: Integer
 _p = 0x800000000000000000000000000000000000000000000000000000000000000000010a1
 {-# INLINE _p #-}
 
--- | Coordinate @X@ of SECT283K1 curve
+-- | Coordinate @X@ of SECT283K1 curve.
 _x :: F2m
 _x = 0x503213f78ca44883f1a3b8162f188e553cd265f23c1567a16876913b0c2ac2458492836
 {-# INLINE _x #-}
 
--- | Coordinate @Y@ of SECT283K1 curve
+-- | Coordinate @Y@ of SECT283K1 curve.
 _y :: F2m
 _y = 0x1ccda380f1c9e318d90f95d07e5426fe87e45c0e8184698e45962364e34116177dd2259
 {-# INLINE _y #-}

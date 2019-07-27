@@ -21,13 +21,13 @@ import Curve.Binary (BCurve(..), BPoint, Point(..))
 -- Types
 -------------------------------------------------------------------------------
 
--- | SECT113R2 curve
+-- | SECT113R2 curve.
 data SECT113R2
 
--- | Field of SECT113R2 curve
+-- | Field of SECT113R2 curve.
 type F2m = BinaryField 0x20000000000000000000000000201
 
--- | SECT113R2 curve is a binary curve
+-- | SECT113R2 curve is a binary curve.
 instance BCurve SECT113R2 F2m where
   a_ = const _a
   {-# INLINE a_ #-}
@@ -42,49 +42,49 @@ instance BCurve SECT113R2 F2m where
   p_ = const _p
   {-# INLINE p_ #-}
 
--- | Point of SECT113R2 curve
+-- | Point of SECT113R2 curve.
 type P = BPoint SECT113R2 F2m
 
 -------------------------------------------------------------------------------
 -- Parameters
 -------------------------------------------------------------------------------
 
--- | Coefficient @A@ of SECT113R2 curve
+-- | Coefficient @A@ of SECT113R2 curve.
 _a :: F2m
 _a = 0x689918dbec7e5a0dd6dfc0aa55c7
 {-# INLINE _a #-}
 
--- | Coefficient @B@ of SECT113R2 curve
+-- | Coefficient @B@ of SECT113R2 curve.
 _b :: F2m
 _b = 0x95e9a9ec9b297bd4bf36e059184f
 {-# INLINE _b #-}
 
--- | Generator of SECT113R2 curve
+-- | Generator of SECT113R2 curve.
 _g :: P
 _g = A _x _y
 {-# INLINE _g #-}
 
--- | Cofactor of SECT113R2 curve
+-- | Cofactor of SECT113R2 curve.
 _h :: Integer
 _h = 0x2
 {-# INLINE _h #-}
 
--- | Order of SECT113R2 curve
+-- | Order of SECT113R2 curve.
 _n :: Integer
 _n = 0x10000000000000108789b2496af93
 {-# INLINE _n #-}
 
--- | Polynomial of SECT113R2 curve
+-- | Polynomial of SECT113R2 curve.
 _p :: Integer
 _p = 0x20000000000000000000000000201
 {-# INLINE _p #-}
 
--- | Coordinate @X@ of SECT113R2 curve
+-- | Coordinate @X@ of SECT113R2 curve.
 _x :: F2m
 _x = 0x1a57a6a7b26ca5ef52fcdb8164797
 {-# INLINE _x #-}
 
--- | Coordinate @Y@ of SECT113R2 curve
+-- | Coordinate @Y@ of SECT113R2 curve.
 _y :: F2m
 _y = 0xb3adc94ed1fe674c06e695baba1d
 {-# INLINE _y #-}

@@ -21,13 +21,13 @@ import Curve.Binary (BCurve(..), BPoint, Point(..))
 -- Types
 -------------------------------------------------------------------------------
 
--- | SECT233K1 curve
+-- | SECT233K1 curve.
 data SECT233K1
 
--- | Field of SECT233K1 curve
+-- | Field of SECT233K1 curve.
 type F2m = BinaryField 0x20000000000000000000000000000000000000004000000000000000001
 
--- | SECT233K1 curve is a binary curve
+-- | SECT233K1 curve is a binary curve.
 instance BCurve SECT233K1 F2m where
   a_ = const _a
   {-# INLINE a_ #-}
@@ -42,49 +42,49 @@ instance BCurve SECT233K1 F2m where
   p_ = const _p
   {-# INLINE p_ #-}
 
--- | Point of SECT233K1 curve
+-- | Point of SECT233K1 curve.
 type P = BPoint SECT233K1 F2m
 
 -------------------------------------------------------------------------------
 -- Parameters
 -------------------------------------------------------------------------------
 
--- | Coefficient @A@ of SECT233K1 curve
+-- | Coefficient @A@ of SECT233K1 curve.
 _a :: F2m
 _a = 0x0
 {-# INLINE _a #-}
 
--- | Coefficient @B@ of SECT233K1 curve
+-- | Coefficient @B@ of SECT233K1 curve.
 _b :: F2m
 _b = 0x1
 {-# INLINE _b #-}
 
--- | Generator of SECT233K1 curve
+-- | Generator of SECT233K1 curve.
 _g :: P
 _g = A _x _y
 {-# INLINE _g #-}
 
--- | Cofactor of SECT233K1 curve
+-- | Cofactor of SECT233K1 curve.
 _h :: Integer
 _h = 0x4
 {-# INLINE _h #-}
 
--- | Order of SECT233K1 curve
+-- | Order of SECT233K1 curve.
 _n :: Integer
 _n = 0x8000000000000000000000000000069d5bb915bcd46efb1ad5f173abdf
 {-# INLINE _n #-}
 
--- | Polynomial of SECT233K1 curve
+-- | Polynomial of SECT233K1 curve.
 _p :: Integer
 _p = 0x20000000000000000000000000000000000000004000000000000000001
 {-# INLINE _p #-}
 
--- | Coordinate @X@ of SECT233K1 curve
+-- | Coordinate @X@ of SECT233K1 curve.
 _x :: F2m
 _x = 0x17232ba853a7e731af129f22ff4149563a419c26bf50a4c9d6eefad6126
 {-# INLINE _x #-}
 
--- | Coordinate @Y@ of SECT233K1 curve
+-- | Coordinate @Y@ of SECT233K1 curve.
 _y :: F2m
 _y = 0x1db537dece819b7f70f555a67c427a8cd9bf18aeb9b56e0c11056fae6a3
 {-# INLINE _y #-}

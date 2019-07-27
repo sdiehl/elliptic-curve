@@ -21,13 +21,13 @@ import Curve.Edwards (ECurve(..), EPoint, Point(..))
 -- Types
 -------------------------------------------------------------------------------
 
--- | E382 curve
+-- | E382 curve.
 data E382
 
--- | Field of E382 curve
+-- | Field of E382 curve.
 type Fp = PrimeField 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff97
 
--- | E382 curve is an Edwards curve
+-- | E382 curve is an Edwards curve.
 instance ECurve E382 Fp where
   a_ = const _a
   {-# INLINE a_ #-}
@@ -42,49 +42,49 @@ instance ECurve E382 Fp where
   p_ = const _p
   {-# INLINE p_ #-}
 
--- | Point of E382 curve
+-- | Point of E382 curve.
 type P = EPoint E382 Fp
 
 -------------------------------------------------------------------------------
 -- Parameters
 -------------------------------------------------------------------------------
 
--- | Coefficient @A@ of E382 curve
+-- | Coefficient @A@ of E382 curve.
 _a :: Fp
 _a = 0x1
 {-# INLINE _a #-}
 
--- | Coefficient @B@ of E382 curve
+-- | Coefficient @B@ of E382 curve.
 _d :: Fp
 _d = 0x3ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffef8e1
 {-# INLINE _d #-}
 
--- | Generator of E382 curve
+-- | Generator of E382 curve.
 _g :: P
 _g = A _x _y
 {-# INLINE _g #-}
 
--- | Cofactor of E382 curve
+-- | Cofactor of E382 curve.
 _h :: Integer
 _h = 0x4
 {-# INLINE _h #-}
 
--- | Order of E382 curve
+-- | Order of E382 curve.
 _n :: Integer
 _n = 0xfffffffffffffffffffffffffffffffffffffffffffffffd5fb21f21e95eee17c5e69281b102d2773e27e13fd3c9719
 {-# INLINE _n #-}
 
--- | Characteristic of E382 curve
+-- | Characteristic of E382 curve.
 _p :: Integer
 _p = 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff97
 {-# INLINE _p #-}
 
--- | Coordinate @X@ of E382 curve
+-- | Coordinate @X@ of E382 curve.
 _x :: Fp
 _x = 0x196f8dd0eab20391e5f05be96e8d20ae68f840032b0b64352923bab85364841193517dbce8105398ebc0cc9470f79603
 {-# INLINE _x #-}
 
--- | Coordinate @Y@ of E382 curve
+-- | Coordinate @Y@ of E382 curve.
 _y :: Fp
 _y = 0x11
 {-# INLINE _y #-}
