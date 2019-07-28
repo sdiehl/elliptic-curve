@@ -36,7 +36,7 @@ groupAxioms _ = testGroup "Group axioms"
   , testProperty "doubling closure" $
     def . (double :: g -> g)
   , testProperty "multiplication closure" $
-    def . (flip mul 3 :: g -> g)
+    def . (flip mul' 3 :: g -> g)
   , testProperty "identity" $
     identities ((<>) :: g -> g -> g) mempty
   , testProperty "inverses" $
@@ -48,56 +48,56 @@ groupAxioms _ = testGroup "Group axioms"
   ]
 
 hasse :: Integer -> Integer -> Integer -> Bool
-hasse h n q = (h * n - q - 1) ^ (2 :: Int) <= 4 * q
+hasse h r q' = (h * r - q' - 1) ^ (2 :: Int) <= 4 * q'
 
-curveParameters :: forall r c k . (Curve r c k, GaloisField k,
-  Arbitrary (Point r c k), Eq (Point r c k), Show (Point r c k))
-  => Point r c k -> Integer -> Integer -> Integer -> TestTree
-curveParameters g h n p = testGroup "Curve parameters"
+curveParameters :: forall f c k . (Curve f c k, GaloisField k,
+  Arbitrary (Point f c k), Eq (Point f c k), Show (Point f c k))
+  => Point f c k -> Integer -> Integer -> Integer -> TestTree
+curveParameters g h q r = testGroup "Curve parameters"
   [ testCase "generator is parametrised" $
     gen @?= g
   , testCase "cofactor is parametrised" $
-    cof (witness :: Point r c k) @?= h
-  , testCase "order is parametrised" $
-    Group.order (witness :: Point r c k) @?= n
+    cof (witness :: Point f c k) @?= h
   , testCase "characteristic is parametrised" $
-    char (witness :: k) @?= p
+    Curve.char (witness :: Point f c k) @?= q
+  , testCase "order is parametrised" $
+    Group.order (witness :: Point f c k) @?= r
   , testCase "characteristic is prime" $
-    isPrime p @?= True
+    isPrime q @?= True
   , testCase "discriminant is nonzero" $
-    disc (witness :: Point r c k) /= 0 @?= True
+    disc (witness :: Point f c k) /= 0 @?= True
   , testCase "generator is well-defined" $
-    def (gen :: Point r c k) @?= True
+    def (gen :: Point f c k) @?= True
   , testCase "generator is in cyclic subgroup" $
-    mul g n @?= mempty
+    mul' g r @?= mempty
   , testCase "cyclic subgroup has prime order" $
-    isPrime n @?= True
+    isPrime r @?= True
   , testCase "hasse theorem holds" $
-    hasse h n (GaloisField.order (witness :: k)) @?= True
+    hasse h r (GaloisField.order (witness :: k)) @?= True
   ]
 
-test :: forall r c k . (Curve r c k, GaloisField k,
-  Arbitrary (Point r c k), Eq (Point r c k), Show (Point r c k))
-  => TestName -> Point r c k -> Integer -> Integer -> Integer -> TestTree
-test s g h n p = testGroup s [groupAxioms g, curveParameters g h n p]
+test :: forall f c k . (Curve f c k, GaloisField k,
+  Arbitrary (Point f c k), Eq (Point f c k), Show (Point f c k))
+  => TestName -> Point f c k -> Integer -> Integer -> Integer -> TestTree
+test s g h q r = testGroup s [groupAxioms g, curveParameters g h q r]
 
 fieldParameters :: forall k . (FGroup k, GaloisField k)
   => Element k -> Integer -> Integer -> TestTree
-fieldParameters g n p = testGroup "Group parameters"
+fieldParameters g q r = testGroup "Group parameters"
   [ testCase "generator is parametrised" $
     gen @?= g
-  , testCase "order is parametrised" $
-    Group.order (witness :: Element k) @?= n
   , testCase "characteristic is parametrised" $
-    char (witness :: k) @?= p
+    GaloisField.char (witness :: k) @?= q
+  , testCase "order is parametrised" $
+    Group.order (witness :: Element k) @?= r
   , testCase "characteristic is prime" $
-    isPrime p @?= True
+    isPrime q @?= True
   , testCase "generator is well-defined" $
     def (gen :: Element k) @?= True
   , testCase "generator is in cyclic subgroup" $
-    mul g n @?= mempty
+    mul' g r @?= mempty
   ]
 
 test' :: forall k . (FGroup k, GaloisField k)
   => TestName -> Element k -> Integer -> Integer -> TestTree
-test' s g n p = testGroup s [groupAxioms g, fieldParameters g n p]
+test' s g q r = testGroup s [groupAxioms g, fieldParameters g q r]

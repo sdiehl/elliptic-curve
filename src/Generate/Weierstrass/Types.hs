@@ -22,15 +22,9 @@ data Curve = Curve
 data Parameters = Parameters
   { a :: Element
   , b :: Element
+  , h :: Integer
+  , q :: Integer
+  , r :: Integer
   , x :: Element
   , y :: Element
-  , h :: Integer
-  , n :: Integer
-  , p :: Integer
-  }
-
-data Types = Types
-  { curve   :: Text
-  , field   :: Field
-  , imports :: Maybe Text
   }

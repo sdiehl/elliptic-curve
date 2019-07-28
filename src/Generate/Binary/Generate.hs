@@ -55,6 +55,7 @@ prettyParameters curves
         <$$> "  " <> align
           (    "{ curve   = " <> prettyText curve
           <$$> ", field   = " <> prettyField field
+          <$$> ", field'  = " <> prettyField field'
           <$$> ", imports = "
           <>   maybe "Nothing" ((<>) "Just " . prettyText) imports
           <$$> "}"
@@ -63,11 +64,11 @@ prettyParameters curves
         <$$> "  " <> align
           (    "{ a = " <> prettyElement a
           <$$> ", b = " <> prettyElement b
+          <$$> ", h = " <> prettyInteger h
+          <$$> ", p = " <> prettyInteger p
+          <$$> ", r = " <> prettyInteger r
           <$$> ", x = " <> prettyElement x
           <$$> ", y = " <> prettyElement y
-          <$$> ", h = " <> prettyInteger h
-          <$$> ", n = " <> prettyInteger n
-          <$$> ", p = " <> prettyInteger p
           <$$> "}"
           )
         <$$> "}"

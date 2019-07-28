@@ -3,6 +3,7 @@ module Curve.Binary.SECT163R2
   , BPoint
   , Curve(..)
   , F2m
+  , Fr
   , Group(..)
   , P
   , Point(..)
@@ -10,8 +11,8 @@ module Curve.Binary.SECT163R2
   , _b
   , _g
   , _h
-  , _n
   , _p
+  , _r
   , _x
   , _y
   ) where
@@ -19,6 +20,7 @@ module Curve.Binary.SECT163R2
 import Protolude
 
 import BinaryField (BinaryField)
+import PrimeField (PrimeField)
 
 import Curve (Curve(..))
 import Curve.Binary (BCurve(..), BPoint, Point(..))
@@ -31,8 +33,11 @@ import Group (Group(..))
 -- | SECT163R2 curve.
 data SECT163R2
 
--- | Field of SECT163R2 curve.
+-- | Field of points of SECT163R2 curve.
 type F2m = BinaryField 0x800000000000000000000000000000000000000c9
+
+-- | Field of coefficients of SECT163R2 curve.
+type Fr = PrimeField 0x40000000000000000000292fe77e70c12a4234c33
 
 -- | SECT163R2 curve is a binary curve.
 instance BCurve SECT163R2 F2m where
@@ -44,10 +49,10 @@ instance BCurve SECT163R2 F2m where
   {-# INLINE g_ #-}
   h_ = const _h
   {-# INLINE h_ #-}
-  n_ = const _n
-  {-# INLINE n_ #-}
   p_ = const _p
   {-# INLINE p_ #-}
+  r_ = const _r
+  {-# INLINE r_ #-}
   x_ = const _x
   {-# INLINE x_ #-}
   y_ = const _y
@@ -80,15 +85,15 @@ _h :: Integer
 _h = 0x2
 {-# INLINE _h #-}
 
--- | Order of SECT163R2 curve.
-_n :: Integer
-_n = 0x40000000000000000000292fe77e70c12a4234c33
-{-# INLINE _n #-}
-
 -- | Polynomial of SECT163R2 curve.
 _p :: Integer
 _p = 0x800000000000000000000000000000000000000c9
 {-# INLINE _p #-}
+
+-- | Order of SECT163R2 curve.
+_r :: Integer
+_r = 0x40000000000000000000292fe77e70c12a4234c33
+{-# INLINE _r #-}
 
 -- | Coordinate @X@ of SECT163R2 curve.
 _x :: F2m

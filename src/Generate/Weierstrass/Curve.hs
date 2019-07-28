@@ -14,12 +14,13 @@ import Generate.Pretty
 -- Curve
 -------------------------------------------------------------------------------
 
-prettyModule :: Types -> Doc
-prettyModule Types{..}
+prettyImports :: Types -> Doc
+prettyImports Types{..}
   =    "module Curve.Weierstrass." <> pretty curve
   <$$> "  " <> align
     (    "( Curve(..)"
     <$$> ", " <> prettyField field
+    <$$> ", Fr"
     <$$> ", Group(..)"
     <$$> ", P"
     <$$> ", Point(..)"
@@ -29,23 +30,17 @@ prettyModule Types{..}
     <$$> ", _b"
     <$$> ", _g"
     <$$> ", _h"
-    <$$> ", _n"
-    <$$> ", _p"
+    <$$> ", _q"
+    <$$> ", _r"
     <$$> ", _x"
     <$$> ", _y"
     <$$> ") where"
     )
-
-prettyImports :: Types -> Doc
-prettyImports Types{..}
-  =    "import Protolude"
   <>   prettyBreak
   <$$> prettyImport field
-  <>   prettyBreak
-  <$$> "import Curve (Curve(..))"
   <$$> "import Curve.Weierstrass (Point(..), WCurve(..), WPoint)"
-  <$$> "import Group (Group(..))"
   <$$> maybe mempty pretty imports
+  <$$> "import Group (Group(..))"
 
 prettyTypes :: Types -> Doc
 prettyTypes Types{..}
@@ -53,8 +48,11 @@ prettyTypes Types{..}
   <$$> prettyDocumentation curve'
   <$$> "data " <> pretty curve
   <>   prettyBreak
-  <$$> prettyDocumentation ("Field of " <> curve')
+  <$$> prettyDocumentation ("Field of points of " <> curve')
   <$$> prettyType field
+  <>   prettyBreak
+  <$$> prettyDocumentation ("Field of coefficients of " <> curve')
+  <$$> prettyType field'
   <>   prettyBreak
   <$$> prettyDocumentation (curve' <> " is a Weierstrass curve")
   <$$> "instance WCurve " <> pretty curve <> " " <> prettyField field <> " where"
@@ -67,10 +65,10 @@ prettyTypes Types{..}
     <$$> prettyInline "g_"
     <$$> "h_ = const _h"
     <$$> prettyInline "h_"
-    <$$> "n_ = const _n"
-    <$$> prettyInline "n_"
-    <$$> "p_ = const _p"
-    <$$> prettyInline "p_"
+    <$$> "q_ = const _q"
+    <$$> prettyInline "q_"
+    <$$> "r_ = const _r"
+    <$$> prettyInline "r_"
     <$$> "x_ = const _x"
     <$$> prettyInline "x_"
     <$$> "y_ = const _y"
@@ -87,12 +85,12 @@ prettyParameters :: Curve -> Doc
 prettyParameters (Curve Types{..} Parameters{..})
   =    prettySection "Parameters"
   <$$> prettyDocumentation ("Coefficient @A@" <> curve')
-  <$$> "_a" <> field'
+  <$$> "_a" <> field''
   <$$> "_a = " <> prettyElement a
   <$$> prettyInline "_a"
   <>   prettyBreak
   <$$> prettyDocumentation ("Coefficient @B@" <> curve')
-  <$$> "_b" <> field'
+  <$$> "_b" <> field''
   <$$> "_b = " <> prettyElement b
   <$$> prettyInline "_b"
   <>   prettyBreak
@@ -106,36 +104,34 @@ prettyParameters (Curve Types{..} Parameters{..})
   <$$> "_h = " <> prettyInteger h
   <$$> prettyInline "_h"
   <>   prettyBreak
-  <$$> prettyDocumentation ("Order" <> curve')
-  <$$> "_n :: Integer"
-  <$$> "_n = " <> prettyInteger n
-  <$$> prettyInline "_n"
-  <>   prettyBreak
   <$$> prettyDocumentation ("Characteristic" <> curve')
-  <$$> "_p :: Integer"
-  <$$> "_p = " <> prettyInteger p
-  <$$> prettyInline "_p"
+  <$$> "_q :: Integer"
+  <$$> "_q = " <> prettyInteger q
+  <$$> prettyInline "_q"
+  <>   prettyBreak
+  <$$> prettyDocumentation ("Order" <> curve')
+  <$$> "_r :: Integer"
+  <$$> "_r = " <> prettyInteger r
+  <$$> prettyInline "_r"
   <>   prettyBreak
   <$$> prettyDocumentation ("Coordinate @X@" <> curve')
-  <$$> "_x" <> field'
+  <$$> "_x" <> field''
   <$$> "_x = " <> prettyElement x
   <$$> prettyInline "_x"
   <>   prettyBreak
   <$$> prettyDocumentation ("Coordinate @Y@" <> curve')
-  <$$> "_y" <> field'
+  <$$> "_y" <> field''
   <$$> "_y = " <> prettyElement y
   <$$> prettyInline "_y"
   where
     curve' :: Doc
     curve' = " of " <> pretty curve <> " curve"
-    field' :: Doc
-    field' = " :: " <> prettyField field
+    field'' :: Doc
+    field'' = " :: " <> prettyField field
 
 prettyCurve :: Curve -> Doc
 prettyCurve curve@(Curve types _)
-  =    prettyModule types
-  <>   prettyBreak
-  <$$> prettyImports types
+  =    prettyImports types
   <>   prettyBreak
   <$$> prettyTypes types
   <>   prettyBreak

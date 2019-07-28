@@ -28,13 +28,13 @@ type BPoint = Point B
 
 -- | Binary curves @y^2 + xy = x^3 + Ax^2 + B@.
 class Curve B c k => BCurve c k where
-  {-# MINIMAL a_, b_, g_, h_, n_, p_, x_, y_ #-}
+  {-# MINIMAL a_, b_, g_, h_, p_, r_, x_, y_ #-}
   a_ :: c -> k                -- ^ Coefficient @A@.
   b_ :: c -> k                -- ^ Coefficient @B@.
   g_ :: BPoint c k            -- ^ Curve generator.
   h_ :: BPoint c k -> Integer -- ^ Curve cofactor.
-  n_ :: BPoint c k -> Integer -- ^ Curve order.
   p_ :: BPoint c k -> Integer -- ^ Curve polynomial.
+  r_ :: BPoint c k -> Integer -- ^ Curve order.
   x_ :: c -> k                -- ^ Coordinate @X@.
   y_ :: c -> k                -- ^ Coordinate @Y@.
 
@@ -48,6 +48,9 @@ instance (GaloisField k, BCurve c k) => Curve B c k where
   data instance Point B c k = A k k -- ^ Affine point.
                             | O     -- ^ Infinite point.
     deriving (Eq, Generic, NFData, Read, Show)
+
+  char = const 2
+  {-# INLINE char #-}
 
   cof = h_
   {-# INLINE cof #-}
@@ -94,7 +97,7 @@ instance (GaloisField k, BCurve c k) => Group (BPoint c k) where
   inv (A x y) = A x (x + y)
   {-# INLINE inv #-}
 
-  order = n_
+  order = r_
   {-# INLINE order #-}
 
 -- Binary points are monoids.

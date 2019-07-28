@@ -1,6 +1,7 @@
 module Curve.Weierstrass.BN512
   ( Curve(..)
-  , Fp
+  , Fq
+  , Fr
   , Group(..)
   , P
   , Point(..)
@@ -10,8 +11,8 @@ module Curve.Weierstrass.BN512
   , _b
   , _g
   , _h
-  , _n
-  , _p
+  , _q
+  , _r
   , _x
   , _y
   ) where
@@ -31,11 +32,14 @@ import Group (Group(..))
 -- | BN512 curve.
 data BN512
 
--- | Field of BN512 curve.
-type Fp = PrimeField 0xfffffffffffffffffffffffffff9ec7f01c60ba1d8cb5307c0bbe3c111b0ef455146cf1eacbe98b8e48c65deab236fe1916a55ce5f4c6467b4eb280922adef33
+-- | Field of points of BN512 curve.
+type Fq = PrimeField 0xfffffffffffffffffffffffffff9ec7f01c60ba1d8cb5307c0bbe3c111b0ef455146cf1eacbe98b8e48c65deab236fe1916a55ce5f4c6467b4eb280922adef33
+
+-- | Field of coefficients of BN512 curve.
+type Fr = PrimeField 0xfffffffffffffffffffffffffff9ec7f01c60ba1d8cb5307c0bbe3c111b0ef445146cf1eacbe98b8e48c65deab2679a34a10313e04f9a2b406a64a5f519a09ed
 
 -- | BN512 curve is a Weierstrass curve.
-instance WCurve BN512 Fp where
+instance WCurve BN512 Fq where
   a_ = const _a
   {-# INLINE a_ #-}
   b_ = const _b
@@ -44,29 +48,29 @@ instance WCurve BN512 Fp where
   {-# INLINE g_ #-}
   h_ = const _h
   {-# INLINE h_ #-}
-  n_ = const _n
-  {-# INLINE n_ #-}
-  p_ = const _p
-  {-# INLINE p_ #-}
+  q_ = const _q
+  {-# INLINE q_ #-}
+  r_ = const _r
+  {-# INLINE r_ #-}
   x_ = const _x
   {-# INLINE x_ #-}
   y_ = const _y
   {-# INLINE y_ #-}
 
 -- | Point of BN512 curve.
-type P = WPoint BN512 Fp
+type P = WPoint BN512 Fq
 
 -------------------------------------------------------------------------------
 -- Parameters
 -------------------------------------------------------------------------------
 
 -- | Coefficient @A@ of BN512 curve.
-_a :: Fp
+_a :: Fq
 _a = 0x0
 {-# INLINE _a #-}
 
 -- | Coefficient @B@ of BN512 curve.
-_b :: Fp
+_b :: Fq
 _b = 0x3
 {-# INLINE _b #-}
 
@@ -80,22 +84,22 @@ _h :: Integer
 _h = 0x1
 {-# INLINE _h #-}
 
--- | Order of BN512 curve.
-_n :: Integer
-_n = 0xfffffffffffffffffffffffffff9ec7f01c60ba1d8cb5307c0bbe3c111b0ef445146cf1eacbe98b8e48c65deab2679a34a10313e04f9a2b406a64a5f519a09ed
-{-# INLINE _n #-}
-
 -- | Characteristic of BN512 curve.
-_p :: Integer
-_p = 0xfffffffffffffffffffffffffff9ec7f01c60ba1d8cb5307c0bbe3c111b0ef455146cf1eacbe98b8e48c65deab236fe1916a55ce5f4c6467b4eb280922adef33
-{-# INLINE _p #-}
+_q :: Integer
+_q = 0xfffffffffffffffffffffffffff9ec7f01c60ba1d8cb5307c0bbe3c111b0ef455146cf1eacbe98b8e48c65deab236fe1916a55ce5f4c6467b4eb280922adef33
+{-# INLINE _q #-}
+
+-- | Order of BN512 curve.
+_r :: Integer
+_r = 0xfffffffffffffffffffffffffff9ec7f01c60ba1d8cb5307c0bbe3c111b0ef445146cf1eacbe98b8e48c65deab2679a34a10313e04f9a2b406a64a5f519a09ed
+{-# INLINE _r #-}
 
 -- | Coordinate @X@ of BN512 curve.
-_x :: Fp
+_x :: Fq
 _x = 0x1
 {-# INLINE _x #-}
 
 -- | Coordinate @Y@ of BN512 curve.
-_y :: Fp
+_y :: Fq
 _y = 0x2
 {-# INLINE _y #-}

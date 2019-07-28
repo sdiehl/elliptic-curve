@@ -28,13 +28,13 @@ type WPoint = Point W
 
 -- | Weierstrass curves @y^2 = x^3 + Ax + B@.
 class Curve W c k => WCurve c k where
-  {-# MINIMAL a_, b_, g_, h_, n_, p_, x_, y_ #-}
+  {-# MINIMAL a_, b_, g_, h_, q_, r_, x_, y_ #-}
   a_ :: c -> k                -- ^ Coefficient @A@.
   b_ :: c -> k                -- ^ Coefficient @B@.
   g_ :: WPoint c k            -- ^ Curve generator.
   h_ :: WPoint c k -> Integer -- ^ Curve cofactor.
-  n_ :: WPoint c k -> Integer -- ^ Curve order.
-  p_ :: WPoint c k -> Integer -- ^ Curve characteristic.
+  q_ :: WPoint c k -> Integer -- ^ Curve characteristic.
+  r_ :: WPoint c k -> Integer -- ^ Curve order.
   x_ :: c -> k                -- ^ Coordinate @X@.
   y_ :: c -> k                -- ^ Coordinate @Y@.
 
@@ -48,6 +48,9 @@ instance (GaloisField k, WCurve c k) => Curve W c k where
   data instance Point W c k = A k k -- ^ Affine point.
                             | O     -- ^ Infinite point.
     deriving (Eq, Generic, NFData, Read, Show)
+
+  char = q_
+  {-# INLINE char #-}
 
   cof = h_
   {-# INLINE cof #-}
@@ -96,7 +99,7 @@ instance (GaloisField k, WCurve c k) => Group (WPoint c k) where
   inv (A x y) = A x (-y)
   {-# INLINE inv #-}
 
-  order = n_
+  order = r_
   {-# INLINE order #-}
 
 -- Weierstrass points are monoids.
@@ -126,7 +129,7 @@ instance (GaloisField k, WCurve c k) => Semigroup (WPoint c k) where
 
 -- Weierstrass points are arbitrary.
 instance (GaloisField k, WCurve c k) => Arbitrary (Point W c k) where
-  arbitrary = mul g_ <$> (arbitrary :: Gen Integer) -- TODO
+  arbitrary = mul' g_ <$> (arbitrary :: Gen Integer) -- TODO
   -- arbitrary = suchThatMap arbitrary pointX
 
 -- Weierstrass points are pretty.
@@ -136,7 +139,7 @@ instance (GaloisField k, WCurve c k) => Pretty (Point W c k) where
 
 -- Weierstrass points are random.
 instance (GaloisField k, WCurve c k) => Random (Point W c k) where
-  random  = first (mul g_) . (random :: RandomGen g => g -> (Integer, g)) -- TODO
+  random  = first (mul' g_) . (random :: RandomGen g => g -> (Integer, g)) -- TODO
   -- random g = case pointX x of
   --   Just p -> (p, g')
   --   _      -> random g'

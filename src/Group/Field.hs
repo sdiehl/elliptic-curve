@@ -18,10 +18,10 @@ import Group (Group(..))
 
 -- | Field groups.
 class FGroup k where
-  {-# MINIMAL g_, n_, p_, x_ #-}
+  {-# MINIMAL g_, q_, r_, x_ #-}
   g_ :: Element k            -- ^ Group generator.
-  n_ :: Element k -> Integer -- ^ Group order.
-  p_ :: Element k -> Integer -- ^ Group characteristic.
+  q_ :: Element k -> Integer -- ^ Group characteristic.
+  r_ :: Element k -> Integer -- ^ Group order.
   x_ :: k                    -- ^ Group element.
 
 -- | Field elements.
@@ -44,10 +44,10 @@ instance (GaloisField k, FGroup k) => Group (Element k) where
   inv (F x) = F (recip x)
   {-# INLINE inv #-}
 
-  mul (F x) n = F (pow x n)
-  {-# INLINE mul #-}
+  mul' (F x) n = F (pow x n)
+  {-# INLINE mul' #-}
 
-  order = n_
+  order = r_
   {-# INLINE order #-}
 
 -- Field elements are monoids.

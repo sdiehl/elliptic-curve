@@ -1,13 +1,13 @@
 module Group.Field.BN254TF
   ( Element(..)
   , FGroup(..)
-  , Fp6
-  , Fp12
+  , Fq6
+  , Fq12
   , Group(..)
   , P
   , _g
-  , _n
-  , _p
+  , _q
+  , _r
   , _x
   ) where
 
@@ -15,7 +15,7 @@ import Protolude
 
 import ExtensionField
 
-import Curve.Weierstrass.BN254T (Fp2)
+import Curve.Weierstrass.BN254T (Fq2)
 import Group (Group(..))
 import Group.Field (FGroup(..), Element(..))
 
@@ -25,27 +25,27 @@ import Group.Field (FGroup(..), Element(..))
 
 -- | Field of BN254TF group.
 data PolynomialV
-instance IrreducibleMonic Fp2 PolynomialV where
+instance IrreducibleMonic Fq2 PolynomialV where
   split _ = x * x * x - t x - 9
-type Fp6 = ExtensionField Fp2 PolynomialV
+type Fq6 = ExtensionField Fq2 PolynomialV
 data PolynomialW
-instance IrreducibleMonic Fp6 PolynomialW where
+instance IrreducibleMonic Fq6 PolynomialW where
   split _ = x * x - t x
-type Fp12 = ExtensionField Fp6 PolynomialW
+type Fq12 = ExtensionField Fq6 PolynomialW
 
 -- | BN254TF group is a field group.
-instance FGroup Fp12 where
+instance FGroup Fq12 where
   g_ = _g
   {-# INLINE g_ #-}
-  n_ = const _n
-  {-# INLINE n_ #-}
-  p_ = const _p
-  {-# INLINE p_ #-}
+  q_ = const _q
+  {-# INLINE q_ #-}
+  r_ = const _r
+  {-# INLINE r_ #-}
   x_ = _x
   {-# INLINE x_ #-}
 
 -- | Element of BN254TF group.
-type P = Element Fp12
+type P = Element Fq12
 
 -------------------------------------------------------------------------------
 -- Parameters
@@ -56,36 +56,36 @@ _g :: P
 _g = F _x
 {-# INLINE _g #-}
 
--- | Order of BN254TF group.
-_n :: Integer
-_n = 0x30644e72e131a029b85045b68181585d2833e84879b9709143e1f593f0000001
-{-# INLINE _n #-}
-
 -- | Characteristic of BN254TF group.
-_p :: Integer
-_p = 0x30644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd47
-{-# INLINE _p #-}
+_q :: Integer
+_q = 0x30644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd47
+{-# INLINE _q #-}
+
+-- | Order of BN254TF group.
+_r :: Integer
+_r = 0x30644e72e131a029b85045b68181585d2833e84879b9709143e1f593f0000001
+{-# INLINE _r #-}
 
 -- | Element @X@ of BN254TF group.
-_x :: Fp12
-_x = fromList [ fromList [ fromList [ 8493334370784016972005089913588211327688223499729897951716206968320726508021
-                                    , 3758435817766288188804561253838670030762970764366672594784247447067868088068
+_x :: Fq12
+_x = fromList [ fromList [ fromList [ 0x12c70e90e12b7874510cd1707e8856f71bf7f61d72631e268fca81000db9a1f5
+                                    , 0x84f330485b09e866bc2f2ea2b897394deaf3f12aa31f28cb0552990967d4704
                                     ]
-                         , fromList [ 6565798094314091391201231504228224566495939541538094766881371862976727043038
-                                    , 14656606573936501743457633041048024656612227301473084805627390748872617280984
+                         , fromList [ 0xe841c2ac18a4003ac9326b9558380e0bc27fdd375e3605f96b819a358d34bde
+                                    , 0x2067586885c3318eeffa1938c754fe3c60224ee5ae15e66af6b5104c47c8c5d8
                                     ]
-                         , fromList [ 634997487638609332803583491743335852620873788902390365055086820718589720118
-                                    , 19455424343576886430889849773367397946457449073528455097210946839000147698372
+                         , fromList [ 0x1676555de427abc409c4a394bc5426886302996919d4bf4bdd02236e14b3636
+                                    , 0x2b03614464f04dd772d86df88674c270ffc8747ea13e72da95e3594468f222c4
                                     ]
                          ]
-              , fromList [ fromList [ 20049218015652006197026173611347504489508678646783216776320737476707192559881
-                                    , 18059168546148152671857026372711724379319778306792011146784665080987064164612
+              , fromList [ fromList [ 0x2c53748bcd21a7c038fb30ddc8ac3bf0af25d7859cfbc12c30c866276c565909
+                                    , 0x27ed208e7a0b55ae6e710bbfbd2fd922669c026360e37cc5b2ab862411536104
                                     ]
-                         , fromList [ 12145052038566888241256672223106590273978429515702193755778990643425246950730
-                                    , 17918828665069491344039743589118342552553375221610735811112289083834142789347
+                         , fromList [ 0x1ad9db1937fd72f4ac462173d31d3d6117411fa48dba8d499d762b47edb3b54a
+                                    , 0x279db296f9d479292532c7c493d8e0722b6efae42158387564889c79fc038ee3
                                     ]
-                         , fromList [ 6223602427219597392892794664899549544171383137467762280768257680446283161705
-                                    , 7484542354754424633621663080190936924481536615300815203692506276894207018007
+                         , fromList [ 0xdc26f240656bbe2029bd441d77c221f0ba4c70c94b29b5f17f0f6d08745a069
+                                    , 0x108c19d15f9446f744d0f110405d3856d6cc3bda6c4d537663729f5257628417
                                     ]
                          ]
               ]

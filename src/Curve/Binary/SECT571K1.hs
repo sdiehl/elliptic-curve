@@ -3,6 +3,7 @@ module Curve.Binary.SECT571K1
   , BPoint
   , Curve(..)
   , F2m
+  , Fr
   , Group(..)
   , P
   , Point(..)
@@ -10,8 +11,8 @@ module Curve.Binary.SECT571K1
   , _b
   , _g
   , _h
-  , _n
   , _p
+  , _r
   , _x
   , _y
   ) where
@@ -19,6 +20,7 @@ module Curve.Binary.SECT571K1
 import Protolude
 
 import BinaryField (BinaryField)
+import PrimeField (PrimeField)
 
 import Curve (Curve(..))
 import Curve.Binary (BCurve(..), BPoint, Point(..))
@@ -31,8 +33,11 @@ import Group (Group(..))
 -- | SECT571K1 curve.
 data SECT571K1
 
--- | Field of SECT571K1 curve.
+-- | Field of points of SECT571K1 curve.
 type F2m = BinaryField 0x80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000425
+
+-- | Field of coefficients of SECT571K1 curve.
+type Fr = PrimeField 0x20000000000000000000000000000000000000000000000000000000000000000000000131850e1f19a63e4b391a8db917f4138b630d84be5d639381e91deb45cfe778f637c1001
 
 -- | SECT571K1 curve is a binary curve.
 instance BCurve SECT571K1 F2m where
@@ -44,10 +49,10 @@ instance BCurve SECT571K1 F2m where
   {-# INLINE g_ #-}
   h_ = const _h
   {-# INLINE h_ #-}
-  n_ = const _n
-  {-# INLINE n_ #-}
   p_ = const _p
   {-# INLINE p_ #-}
+  r_ = const _r
+  {-# INLINE r_ #-}
   x_ = const _x
   {-# INLINE x_ #-}
   y_ = const _y
@@ -80,15 +85,15 @@ _h :: Integer
 _h = 0x4
 {-# INLINE _h #-}
 
--- | Order of SECT571K1 curve.
-_n :: Integer
-_n = 0x20000000000000000000000000000000000000000000000000000000000000000000000131850e1f19a63e4b391a8db917f4138b630d84be5d639381e91deb45cfe778f637c1001
-{-# INLINE _n #-}
-
 -- | Polynomial of SECT571K1 curve.
 _p :: Integer
 _p = 0x80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000425
 {-# INLINE _p #-}
+
+-- | Order of SECT571K1 curve.
+_r :: Integer
+_r = 0x20000000000000000000000000000000000000000000000000000000000000000000000131850e1f19a63e4b391a8db917f4138b630d84be5d639381e91deb45cfe778f637c1001
+{-# INLINE _r #-}
 
 -- | Coordinate @X@ of SECT571K1 curve.
 _x :: F2m

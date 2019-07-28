@@ -28,13 +28,13 @@ type EPoint = Point E
 
 -- | Edwards curves @Ax^2 + y^2 = 1 + Dx^2y^2@.
 class Curve E c k => ECurve c k where
-  {-# MINIMAL a_, d_, g_, h_, n_, p_, x_, y_ #-}
+  {-# MINIMAL a_, d_, g_, h_, q_, r_, x_, y_ #-}
   a_ :: c -> k                -- ^ Coefficient @A@.
   d_ :: c -> k                -- ^ Coefficient @D@.
   g_ :: EPoint c k            -- ^ Curve generator.
   h_ :: EPoint c k -> Integer -- ^ Curve cofactor.
-  n_ :: EPoint c k -> Integer -- ^ Curve order.
-  p_ :: EPoint c k -> Integer -- ^ Curve characteristic.
+  q_ :: EPoint c k -> Integer -- ^ Curve characteristic.
+  r_ :: EPoint c k -> Integer -- ^ Curve order.
   x_ :: c -> k                -- ^ Coordinate @X@.
   y_ :: c -> k                -- ^ Coordinate @Y@.
 
@@ -47,6 +47,9 @@ instance (GaloisField k, ECurve c k) => Curve E c k where
 
   data instance Point E c k = A k k -- ^ Affine point.
     deriving (Eq, Generic, NFData, Read, Show)
+
+  char = q_
+  {-# INLINE char #-}
 
   cof = h_
   {-# INLINE cof #-}
@@ -86,7 +89,7 @@ instance (GaloisField k, ECurve c k) => Group (EPoint c k) where
   inv (A x y) = A (-x) y
   {-# INLINE inv #-}
 
-  order = n_
+  order = r_
   {-# INLINE order #-}
 
 -- Edwards points are monoids.

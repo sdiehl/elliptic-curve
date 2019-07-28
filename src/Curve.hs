@@ -15,10 +15,13 @@ import Group (Group(..))
 
 -- | Elliptic curves.
 class (GaloisField k, Group (Point f c k)) => Curve f c k where
-  {-# MINIMAL cof, disc, point, pointX, yX #-}
+  {-# MINIMAL char, cof, disc, point, pointX, yX #-}
 
   -- | Curve point.
   data family Point f c k :: *
+
+  -- | Curve characteristic.
+  char :: Point f c k -> Integer
 
   -- | Curve cofactor.
   cof :: Point f c k -> Integer

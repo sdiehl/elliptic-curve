@@ -28,13 +28,13 @@ type MPoint = Point M
 
 -- | Montgomery curves @By^2 = x^3 + Ax^2 + x@.
 class Curve M c k => MCurve c k where
-  {-# MINIMAL a_, b_, g_, h_, n_, p_, x_, y_ #-}
+  {-# MINIMAL a_, b_, g_, h_, q_, r_, x_, y_ #-}
   a_ :: c -> k                -- ^ Coefficient @A@.
   b_ :: c -> k                -- ^ Coefficient @B@.
   g_ :: MPoint c k            -- ^ Curve generator.
   h_ :: MPoint c k -> Integer -- ^ Curve cofactor.
-  n_ :: MPoint c k -> Integer -- ^ Curve order.
-  p_ :: MPoint c k -> Integer -- ^ Curve characteristic.
+  q_ :: MPoint c k -> Integer -- ^ Curve characteristic.
+  r_ :: MPoint c k -> Integer -- ^ Curve order.
   x_ :: c -> k                -- ^ Coordinate @X@.
   y_ :: c -> k                -- ^ Coordinate @Y@.
 
@@ -48,6 +48,9 @@ instance (GaloisField k, MCurve c k) => Curve M c k where
   data instance Point M c k = A k k -- ^ Affine point.
                             | O     -- ^ Infinite point.
     deriving (Eq, Generic, NFData, Read, Show)
+
+  char = q_
+  {-# INLINE char #-}
 
   cof = h_
   {-# INLINE cof #-}
@@ -98,7 +101,7 @@ instance (GaloisField k, MCurve c k) => Group (MPoint c k) where
   inv (A x y) = A x (-y)
   {-# INLINE inv #-}
 
-  order = n_
+  order = r_
   {-# INLINE order #-}
 
 -- Montgomery points are monoids.
