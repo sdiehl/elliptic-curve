@@ -20,8 +20,9 @@ import Protolude
 
 import PrimeField (PrimeField)
 
-import Curve (Curve(..), Group(..))
+import Curve (Curve(..))
 import Curve.Edwards (ECurve(..), EPoint, Point(..))
+import Group (Group(..))
 
 -------------------------------------------------------------------------------
 -- Types

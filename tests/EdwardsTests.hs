@@ -11,7 +11,7 @@ import qualified Curve.Edwards.Ed25519    as Ed25519
 import qualified Curve.Edwards.JubJub     as JubJub
 import Test.Tasty
 
-import CurveTests
+import GroupTests
 
 testEdwards :: TestTree
 testEdwards = testGroup "Edwards"

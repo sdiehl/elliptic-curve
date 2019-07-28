@@ -71,8 +71,6 @@ library:
     - Curve.Edwards.Ed3363
     - Curve.Edwards.Ed25519
     - Curve.Edwards.JubJub
-    - Curve.Field
-    - Curve.Field.BN254TF
     - Curve.Montgomery
     - Curve.Montgomery.Curve448
     - Curve.Montgomery.Curve25519
@@ -128,6 +126,9 @@ library:
     - Curve.Weierstrass.BrainpoolP384T1
     - Curve.Weierstrass.BrainpoolP512R1
     - Curve.Weierstrass.BrainpoolP512T1
+    - Group
+    - Group.Field
+    - Group.Field.BN254TF
   ghc-options:
     - -fno-warn-orphans
   other-modules:

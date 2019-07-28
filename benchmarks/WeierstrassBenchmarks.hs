@@ -49,7 +49,7 @@ import qualified Curve.Weierstrass.SECP256R1       as SECP256R1
 import qualified Curve.Weierstrass.SECP384R1       as SECP384R1
 import qualified Curve.Weierstrass.SECP521R1       as SECP521R1
 
-import CurveBenchmarks
+import GroupBenchmarks
 
 benchmarkWeierstrass :: Benchmark
 benchmarkWeierstrass = bgroup "Weierstrass"

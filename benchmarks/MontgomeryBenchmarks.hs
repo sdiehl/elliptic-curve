@@ -8,7 +8,7 @@ import qualified Curve.Montgomery.M221        as M221
 import qualified Curve.Montgomery.M383        as M383
 import qualified Curve.Montgomery.M511        as M511
 
-import CurveBenchmarks
+import GroupBenchmarks
 
 benchmarkMontgomery :: Benchmark
 benchmarkMontgomery = bgroup "Montgomery"

@@ -1,9 +1,9 @@
 module FieldTests where
 
-import qualified Curve.Field.BN254TF as BN254TF
+import qualified Group.Field.BN254TF as BN254TF
 import Test.Tasty
 
-import CurveTests
+import GroupTests
 
 testField :: TestTree
 testField = testGroup "Field"

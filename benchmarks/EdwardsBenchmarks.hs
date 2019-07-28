@@ -11,7 +11,7 @@ import qualified Curve.Edwards.Ed3363     as Ed3363
 import qualified Curve.Edwards.Ed25519    as Ed25519
 import qualified Curve.Edwards.JubJub     as JubJub
 
-import CurveBenchmarks
+import GroupBenchmarks
 
 benchmarkEdwards :: Benchmark
 benchmarkEdwards = bgroup "Edwards"

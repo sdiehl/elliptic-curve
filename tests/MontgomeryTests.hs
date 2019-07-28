@@ -8,7 +8,7 @@ import qualified Curve.Montgomery.M383        as M383
 import qualified Curve.Montgomery.M511        as M511
 import Test.Tasty
 
-import CurveTests
+import GroupTests
 
 testMontgomery :: TestTree
 testMontgomery = testGroup "Montgomery"

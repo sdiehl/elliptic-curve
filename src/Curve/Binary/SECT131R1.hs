@@ -20,8 +20,9 @@ import Protolude
 
 import BinaryField (BinaryField)
 
-import Curve (Curve(..), Group(..))
+import Curve (Curve(..))
 import Curve.Binary (BCurve(..), BPoint, Point(..))
+import Group (Group(..))
 
 -------------------------------------------------------------------------------
 -- Types

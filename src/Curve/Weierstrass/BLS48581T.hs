@@ -20,8 +20,9 @@ import Protolude
 
 import ExtensionField
 
-import Curve (Curve(..), Group(..))
+import Curve (Curve(..))
 import Curve.Weierstrass (Point(..), WCurve(..), WPoint)
+import Group (Group(..))
 import Curve.Weierstrass.BLS48581 (Fp)
 
 -------------------------------------------------------------------------------

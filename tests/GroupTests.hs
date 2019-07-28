@@ -1,10 +1,11 @@
-module CurveTests where
+module GroupTests where
 
 import Protolude
 
 import Curve
-import Curve.Field
 import GaloisField
+import Group
+import Group.Field
 import Math.NumberTheory.Primes.Testing
 import Test.Tasty
 import Test.Tasty.HUnit
@@ -58,7 +59,7 @@ curveParameters g h n p = testGroup "Curve parameters"
   , testCase "cofactor is parametrised" $
     cof (witness :: Point r c k) @?= h
   , testCase "order is parametrised" $
-    Curve.order (witness :: Point r c k) @?= n
+    Group.order (witness :: Point r c k) @?= n
   , testCase "characteristic is parametrised" $
     char (witness :: k) @?= p
   , testCase "characteristic is prime" $
@@ -80,13 +81,13 @@ test :: forall r c k . (Curve r c k, GaloisField k,
   => TestName -> Point r c k -> Integer -> Integer -> Integer -> TestTree
 test s g h n p = testGroup s [groupAxioms g, curveParameters g h n p]
 
-groupParameters :: forall k . (FGroup k, GaloisField k)
+fieldParameters :: forall k . (FGroup k, GaloisField k)
   => Element k -> Integer -> Integer -> TestTree
-groupParameters g n p = testGroup "Group parameters"
+fieldParameters g n p = testGroup "Group parameters"
   [ testCase "generator is parametrised" $
     gen @?= g
   , testCase "order is parametrised" $
-    Curve.order (witness :: Element k) @?= n
+    Group.order (witness :: Element k) @?= n
   , testCase "characteristic is parametrised" $
     char (witness :: k) @?= p
   , testCase "characteristic is prime" $
@@ -99,4 +100,4 @@ groupParameters g n p = testGroup "Group parameters"
 
 test' :: forall k . (FGroup k, GaloisField k)
   => TestName -> Element k -> Integer -> Integer -> TestTree
-test' s g n p = testGroup s [groupAxioms g, groupParameters g n p]
+test' s g n p = testGroup s [groupAxioms g, fieldParameters g n p]

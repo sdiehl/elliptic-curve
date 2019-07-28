@@ -20,8 +20,9 @@ import Protolude
 
 import PrimeField (PrimeField)
 
-import Curve (Curve(..), Group(..))
+import Curve (Curve(..))
 import Curve.Weierstrass (Point(..), WCurve(..), WPoint)
+import Group (Group(..))
 
 -------------------------------------------------------------------------------
 -- Types

@@ -1,4 +1,4 @@
-module Curve.Field
+module Group.Field
   ( FGroup(..)
   , Element(..)
   ) where
@@ -10,7 +10,7 @@ import GaloisField (GaloisField(..))
 import Test.Tasty.QuickCheck (Arbitrary(..), suchThatMap)
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
-import Curve (Group(..))
+import Group (Group(..))
 
 -------------------------------------------------------------------------------
 -- Types
@@ -18,9 +18,11 @@ import Curve (Group(..))
 
 -- | Field groups.
 class FGroup k where
-  g_ :: Element k
-  n_ :: Element k -> Integer
-  p_ :: Element k -> Integer
+  {-# MINIMAL g_, n_, p_, x_ #-}
+  g_ :: Element k            -- ^ Group generator.
+  n_ :: Element k -> Integer -- ^ Group order.
+  p_ :: Element k -> Integer -- ^ Group characteristic.
+  x_ :: k                    -- ^ Group element.
 
 -- | Field elements.
 newtype Element k = F k

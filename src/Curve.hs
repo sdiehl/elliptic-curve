@@ -5,72 +5,32 @@ module Curve
 
 import Protolude
 
-import Control.Monad.Random (MonadRandom, Random, getRandom)
 import GaloisField (GaloisField)
-import Test.Tasty.QuickCheck (Arbitrary)
-import Text.PrettyPrint.Leijen.Text (Pretty)
+
+import Group (Group(..))
 
 -------------------------------------------------------------------------------
 -- Types
 -------------------------------------------------------------------------------
 
 -- | Elliptic curves.
-class (GaloisField k, Group (Point r c k)) => Curve r c k where
+class (GaloisField k, Group (Point f c k)) => Curve f c k where
   {-# MINIMAL cof, disc, point, pointX, yX #-}
 
   -- | Curve point.
-  data family Point r c k :: *
+  data family Point f c k :: *
 
   -- | Curve cofactor.
-  cof :: Point r c k -> Integer
+  cof :: Point f c k -> Integer
 
   -- | Curve discriminant.
-  disc :: Point r c k -> k
+  disc :: Point f c k -> k
 
   -- | Point from X and Y coordinates.
-  point :: k -> k -> Maybe (Point r c k)
+  point :: k -> k -> Maybe (Point f c k)
 
   -- | Point from X coordinate.
-  pointX :: k -> Maybe (Point r c k)
+  pointX :: k -> Maybe (Point f c k)
 
   -- | Y coordinate from X coordinate.
-  yX :: Point r c k -> k -> Maybe k
-
--- | Groups.
-class (Arbitrary g, Eq g, Generic g, Monoid g,
-       Pretty g, Random g, Read g, Show g) => Group g where
-  {-# MINIMAL def, gen, inv, order #-}
-
-  -- | Well defined.
-  def :: g -> Bool
-
-  -- | Element doubling.
-  double :: g -> g
-  double = join (<>)
-  {-# INLINE double #-}
-
-  -- | Group generator.
-  gen :: g
-
-  -- | Element inversion.
-  inv :: g -> g
-
-  -- | Element multiplication.
-  mul :: g -> Integer -> g
-  mul p n
-    | n < 0     = inv (mul p (-n))
-    | n == 0    = mempty
-    | n == 1    = p
-    | even n    = p'
-    | otherwise = p <> p'
-    where
-      p' = mul (p <> p) (div n 2)
-  {-# INLINE mul #-}
-
-  -- | Curve order.
-  order :: g -> Integer
-
-  -- | Random element.
-  rnd :: MonadRandom m => m g
-  rnd = getRandom
-  {-# INLINE rnd #-}
+  yX :: Point f c k -> k -> Maybe k

@@ -13,7 +13,8 @@ import GaloisField (GaloisField(..))
 import Test.Tasty.QuickCheck (Arbitrary(..), Gen)
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
-import Curve (Curve(..), Group(..))
+import Curve (Curve(..))
+import Group (Group(..))
 
 -------------------------------------------------------------------------------
 -- Types

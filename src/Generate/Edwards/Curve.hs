@@ -42,8 +42,9 @@ prettyImports Types{..}
   <>   prettyBreak
   <$$> prettyImport field
   <>   prettyBreak
-  <$$> "import Curve (Curve(..), Group(..))"
+  <$$> "import Curve (Curve(..))"
   <$$> "import Curve.Edwards (ECurve(..), EPoint, Point(..))"
+  <$$> "import Group (Group(..))"
   <$$> maybe mempty pretty imports
 
 prettyTypes :: Types -> Doc

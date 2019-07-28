@@ -1,9 +1,9 @@
 module FieldBenchmarks where
 
 import Criterion.Main
-import qualified Curve.Field.BN254TF as BN254TF
+import qualified Group.Field.BN254TF as BN254TF
 
-import CurveBenchmarks
+import GroupBenchmarks
 
 benchmarkField :: Benchmark
 benchmarkField = bgroup "Field"
