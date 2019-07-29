@@ -1,12 +1,14 @@
 module Curve.Weierstrass.SECP521R1
-  ( Curve(..)
+  ( AP
+  , Curve(..)
   , Fq
   , Fr
   , Group(..)
-  , P
   , Point(..)
-  , WPoint
   , WCurve(..)
+  , WPoint
+  , WACurve(..)
+  , WAPoint
   , _a
   , _b
   , _g
@@ -21,12 +23,12 @@ import Protolude
 
 import PrimeField (PrimeField)
 
-import Curve (Curve(..))
-import Curve.Weierstrass (Point(..), WCurve(..), WPoint)
+import Curve (Curve(..), Form(..))
+import Curve.Weierstrass (Point(..), WCurve(..), WPoint, WACurve(..), WAPoint)
 import Group (Group(..))
 
 -------------------------------------------------------------------------------
--- Types
+-- SECP521R1 curve
 -------------------------------------------------------------------------------
 
 -- | SECP521R1 curve.
@@ -39,30 +41,17 @@ type Fq = PrimeField 0x1ffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 type Fr = PrimeField 0x1fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffa51868783bf2f966b7fcc0148f709a5d03bb5c9b8899c47aebb6fb71e91386409
 
 -- | SECP521R1 curve is a Weierstrass curve.
-instance WCurve SECP521R1 Fq where
+instance Curve 'Weierstrass c SECP521R1 Fq => WCurve c SECP521R1 Fq where
   a_ = const _a
   {-# INLINE a_ #-}
   b_ = const _b
   {-# INLINE b_ #-}
-  g_ = _g
-  {-# INLINE g_ #-}
   h_ = const _h
   {-# INLINE h_ #-}
   q_ = const _q
   {-# INLINE q_ #-}
   r_ = const _r
   {-# INLINE r_ #-}
-  x_ = const _x
-  {-# INLINE x_ #-}
-  y_ = const _y
-  {-# INLINE y_ #-}
-
--- | Point of SECP521R1 curve.
-type P = WPoint SECP521R1 Fq
-
--------------------------------------------------------------------------------
--- Parameters
--------------------------------------------------------------------------------
 
 -- | Coefficient @A@ of SECP521R1 curve.
 _a :: Fq
@@ -73,11 +62,6 @@ _a = 0x1ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 _b :: Fq
 _b = 0x51953eb9618e1c9a1f929a21a0b68540eea2da725b99b315f3b8b489918ef109e156193951ec7e937b1652c0bd3bb1bf073573df883d2c34f1ef451fd46b503f00
 {-# INLINE _b #-}
-
--- | Generator of SECP521R1 curve.
-_g :: P
-_g = A _x _y
-{-# INLINE _g #-}
 
 -- | Cofactor of SECP521R1 curve.
 _h :: Integer
@@ -94,12 +78,33 @@ _r :: Integer
 _r = 0x1fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffa51868783bf2f966b7fcc0148f709a5d03bb5c9b8899c47aebb6fb71e91386409
 {-# INLINE _r #-}
 
--- | Coordinate @X@ of SECP521R1 curve.
+-------------------------------------------------------------------------------
+-- Affine coordinates
+-------------------------------------------------------------------------------
+
+-- | Affine SECP521R1 point.
+type AP = WAPoint SECP521R1 Fq
+
+-- | Affine SECP521R1 curve is a Weierstrass affine curve.
+instance WACurve SECP521R1 Fq where
+  g_ = _g
+  {-# INLINE g_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
+
+-- | Generator of affine SECP521R1 curve.
+_g :: AP
+_g = A _x _y
+{-# INLINE _g #-}
+
+-- | Coordinate @X@ of affine SECP521R1 curve.
 _x :: Fq
 _x = 0xc6858e06b70404e9cd9e3ecb662395b4429c648139053fb521f828af606b4d3dbaa14b5e77efe75928fe1dc127a2ffa8de3348b3c1856a429bf97e7e31c2e5bd66
 {-# INLINE _x #-}
 
--- | Coordinate @Y@ of SECP521R1 curve.
+-- | Coordinate @Y@ of affine SECP521R1 curve.
 _y :: Fq
 _y = 0x11839296a789a3bc0045c8a5fb42c7d1bd998f54449579b446817afbd17273e662c97ee72995ef42640c550b9013fad0761353c7086a272c24088be94769fd16650
 {-# INLINE _y #-}

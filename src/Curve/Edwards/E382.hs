@@ -1,11 +1,13 @@
 module Curve.Edwards.E382
-  ( Curve(..)
-  , EPoint
+  ( AP
+  , Curve(..)
   , ECurve(..)
+  , EPoint
+  , EACurve(..)
+  , EAPoint
   , Fq
   , Fr
   , Group(..)
-  , P
   , Point(..)
   , _a
   , _d
@@ -21,12 +23,12 @@ import Protolude
 
 import PrimeField (PrimeField)
 
-import Curve (Curve(..))
-import Curve.Edwards (ECurve(..), EPoint, Point(..))
+import Curve (Curve(..), Form(..))
+import Curve.Edwards (ECurve(..), EPoint, EACurve(..), EAPoint, Point(..))
 import Group (Group(..))
 
 -------------------------------------------------------------------------------
--- Types
+-- E382 curve
 -------------------------------------------------------------------------------
 
 -- | E382 curve.
@@ -39,45 +41,27 @@ type Fq = PrimeField 0x3ffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 type Fr = PrimeField 0xfffffffffffffffffffffffffffffffffffffffffffffffd5fb21f21e95eee17c5e69281b102d2773e27e13fd3c9719
 
 -- | E382 curve is an Edwards curve.
-instance ECurve E382 Fq where
+instance Curve 'Edwards c E382 Fq => ECurve c E382 Fq where
   a_ = const _a
   {-# INLINE a_ #-}
   d_ = const _d
   {-# INLINE d_ #-}
-  g_ = _g
-  {-# INLINE g_ #-}
   h_ = const _h
   {-# INLINE h_ #-}
   q_ = const _q
   {-# INLINE q_ #-}
   r_ = const _r
   {-# INLINE r_ #-}
-  x_ = const _x
-  {-# INLINE x_ #-}
-  y_ = const _y
-  {-# INLINE y_ #-}
-
--- | Point of E382 curve.
-type P = EPoint E382 Fq
-
--------------------------------------------------------------------------------
--- Parameters
--------------------------------------------------------------------------------
 
 -- | Coefficient @A@ of E382 curve.
 _a :: Fq
 _a = 0x1
 {-# INLINE _a #-}
 
--- | Coefficient @B@ of E382 curve.
+-- | Coefficient @D@ of E382 curve.
 _d :: Fq
 _d = 0x3ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffef8e1
 {-# INLINE _d #-}
-
--- | Generator of E382 curve.
-_g :: P
-_g = A _x _y
-{-# INLINE _g #-}
 
 -- | Cofactor of E382 curve.
 _h :: Integer
@@ -94,12 +78,33 @@ _r :: Integer
 _r = 0xfffffffffffffffffffffffffffffffffffffffffffffffd5fb21f21e95eee17c5e69281b102d2773e27e13fd3c9719
 {-# INLINE _r #-}
 
--- | Coordinate @X@ of E382 curve.
+-------------------------------------------------------------------------------
+-- Affine coordinates
+-------------------------------------------------------------------------------
+
+-- | Affine E382 point.
+type AP = EAPoint E382 Fq
+
+-- | Affine E382 curve is an Edwards affine curve.
+instance EACurve E382 Fq where
+  g_ = _g
+  {-# INLINE g_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
+
+-- | Generator of affine E382 curve.
+_g :: AP
+_g = A _x _y
+{-# INLINE _g #-}
+
+-- | Coordinate @X@ of affine E382 curve.
 _x :: Fq
 _x = 0x196f8dd0eab20391e5f05be96e8d20ae68f840032b0b64352923bab85364841193517dbce8105398ebc0cc9470f79603
 {-# INLINE _x #-}
 
--- | Coordinate @Y@ of E382 curve.
+-- | Coordinate @Y@ of affine E382 curve.
 _y :: Fq
 _y = 0x11
 {-# INLINE _y #-}

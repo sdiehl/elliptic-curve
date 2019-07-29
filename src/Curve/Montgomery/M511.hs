@@ -1,11 +1,13 @@
 module Curve.Montgomery.M511
-  ( Curve(..)
+  ( AP
+  , Curve(..)
   , Fq
   , Fr
   , Group(..)
-  , MPoint
   , MCurve(..)
-  , P
+  , MPoint
+  , MACurve(..)
+  , MAPoint
   , Point(..)
   , _a
   , _b
@@ -21,12 +23,12 @@ import Protolude
 
 import PrimeField (PrimeField)
 
-import Curve (Curve(..))
-import Curve.Montgomery (MCurve(..), MPoint, Point(..))
+import Curve (Curve(..), Form(..))
+import Curve.Montgomery (MCurve(..), MPoint, MACurve(..), MAPoint, Point(..))
 import Group (Group(..))
 
 -------------------------------------------------------------------------------
--- Types
+-- M511 curve
 -------------------------------------------------------------------------------
 
 -- | M511 curve.
@@ -39,30 +41,17 @@ type Fq = PrimeField 0x7ffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 type Fr = PrimeField 0x100000000000000000000000000000000000000000000000000000000000000017b5feff30c7f5677ab2aeebd13779a2ac125042a6aa10bfa54c15bab76baf1b
 
 -- | M511 curve is a Montgomery curve.
-instance MCurve M511 Fq where
+instance Curve 'Montgomery c M511 Fq => MCurve c M511 Fq where
   a_ = const _a
   {-# INLINE a_ #-}
   b_ = const _b
   {-# INLINE b_ #-}
-  g_ = _g
-  {-# INLINE g_ #-}
   h_ = const _h
   {-# INLINE h_ #-}
   q_ = const _q
   {-# INLINE q_ #-}
   r_ = const _r
   {-# INLINE r_ #-}
-  x_ = const _x
-  {-# INLINE x_ #-}
-  y_ = const _y
-  {-# INLINE y_ #-}
-
--- | Point of M511 curve.
-type P = MPoint M511 Fq
-
--------------------------------------------------------------------------------
--- Parameters
--------------------------------------------------------------------------------
 
 -- | Coefficient @A@ of M511 curve.
 _a :: Fq
@@ -73,11 +62,6 @@ _a = 0x81806
 _b :: Fq
 _b = 0x1
 {-# INLINE _b #-}
-
--- | Generator of M511 curve.
-_g :: P
-_g = A _x _y
-{-# INLINE _g #-}
 
 -- | Cofactor of M511 curve.
 _h :: Integer
@@ -94,12 +78,33 @@ _r :: Integer
 _r = 0x100000000000000000000000000000000000000000000000000000000000000017b5feff30c7f5677ab2aeebd13779a2ac125042a6aa10bfa54c15bab76baf1b
 {-# INLINE _r #-}
 
--- | Coordinate @X@ of M511 curve.
+-------------------------------------------------------------------------------
+-- Affine coordinates
+-------------------------------------------------------------------------------
+
+-- | Affine M511 point.
+type AP = MAPoint M511 Fq
+
+-- | Affine M511 curve is a Montgomery affine curve.
+instance MACurve M511 Fq where
+  g_ = _g
+  {-# INLINE g_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
+
+-- | Generator of affine M511 curve.
+_g :: AP
+_g = A _x _y
+{-# INLINE _g #-}
+
+-- | Coordinate @X@ of affine M511 curve.
 _x :: Fq
 _x = 0x5
 {-# INLINE _x #-}
 
--- | Coordinate @Y@ of M511 curve.
+-- | Coordinate @Y@ of affine M511 curve.
 _y :: Fq
 _y = 0x2fbdc0ad8530803d28fdbad354bb488d32399ac1cf8f6e01ee3f96389b90c809422b9429e8a43dbf49308ac4455940abe9f1dbca542093a895e30a64af056fa5
 {-# INLINE _y #-}

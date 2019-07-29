@@ -1,11 +1,13 @@
 module Curve.Edwards.Ed448
-  ( Curve(..)
-  , EPoint
+  ( AP
+  , Curve(..)
   , ECurve(..)
+  , EPoint
+  , EACurve(..)
+  , EAPoint
   , Fq
   , Fr
   , Group(..)
-  , P
   , Point(..)
   , _a
   , _d
@@ -21,12 +23,12 @@ import Protolude
 
 import PrimeField (PrimeField)
 
-import Curve (Curve(..))
-import Curve.Edwards (ECurve(..), EPoint, Point(..))
+import Curve (Curve(..), Form(..))
+import Curve.Edwards (ECurve(..), EPoint, EACurve(..), EAPoint, Point(..))
 import Group (Group(..))
 
 -------------------------------------------------------------------------------
--- Types
+-- Ed448 curve
 -------------------------------------------------------------------------------
 
 -- | Ed448 curve.
@@ -39,45 +41,27 @@ type Fq = PrimeField 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffef
 type Fr = PrimeField 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffff7cca23e9c44edb49aed63690216cc2728dc58f552378c292ab5844f3
 
 -- | Ed448 curve is an Edwards curve.
-instance ECurve Ed448 Fq where
+instance Curve 'Edwards c Ed448 Fq => ECurve c Ed448 Fq where
   a_ = const _a
   {-# INLINE a_ #-}
   d_ = const _d
   {-# INLINE d_ #-}
-  g_ = _g
-  {-# INLINE g_ #-}
   h_ = const _h
   {-# INLINE h_ #-}
   q_ = const _q
   {-# INLINE q_ #-}
   r_ = const _r
   {-# INLINE r_ #-}
-  x_ = const _x
-  {-# INLINE x_ #-}
-  y_ = const _y
-  {-# INLINE y_ #-}
-
--- | Point of Ed448 curve.
-type P = EPoint Ed448 Fq
-
--------------------------------------------------------------------------------
--- Parameters
--------------------------------------------------------------------------------
 
 -- | Coefficient @A@ of Ed448 curve.
 _a :: Fq
 _a = 0x1
 {-# INLINE _a #-}
 
--- | Coefficient @B@ of Ed448 curve.
+-- | Coefficient @D@ of Ed448 curve.
 _d :: Fq
 _d = 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffffffffffffffffffffffffffffffffffffffffffffffff6756
 {-# INLINE _d #-}
-
--- | Generator of Ed448 curve.
-_g :: P
-_g = A _x _y
-{-# INLINE _g #-}
 
 -- | Cofactor of Ed448 curve.
 _h :: Integer
@@ -94,12 +78,33 @@ _r :: Integer
 _r = 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffff7cca23e9c44edb49aed63690216cc2728dc58f552378c292ab5844f3
 {-# INLINE _r #-}
 
--- | Coordinate @X@ of Ed448 curve.
+-------------------------------------------------------------------------------
+-- Affine coordinates
+-------------------------------------------------------------------------------
+
+-- | Affine Ed448 point.
+type AP = EAPoint Ed448 Fq
+
+-- | Affine Ed448 curve is an Edwards affine curve.
+instance EACurve Ed448 Fq where
+  g_ = _g
+  {-# INLINE g_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
+
+-- | Generator of affine Ed448 curve.
+_g :: AP
+_g = A _x _y
+{-# INLINE _g #-}
+
+-- | Coordinate @X@ of affine Ed448 curve.
 _x :: Fq
 _x = 0x297ea0ea2692ff1b4faff46098453a6a26adf733245f065c3c59d0709cecfa96147eaaf3932d94c63d96c170033f4ba0c7f0de840aed939f
 {-# INLINE _x #-}
 
--- | Coordinate @Y@ of Ed448 curve.
+-- | Coordinate @Y@ of affine Ed448 curve.
 _y :: Fq
 _y = 0x13
 {-# INLINE _y #-}

@@ -1,11 +1,13 @@
 module Curve.Binary.SECT283R1
-  ( BCurve(..)
+  ( AP
+  , BCurve(..)
   , BPoint
+  , BACurve(..)
+  , BAPoint
   , Curve(..)
   , F2m
   , Fr
   , Group(..)
-  , P
   , Point(..)
   , _a
   , _b
@@ -22,12 +24,12 @@ import Protolude
 import BinaryField (BinaryField)
 import PrimeField (PrimeField)
 
-import Curve (Curve(..))
-import Curve.Binary (BCurve(..), BPoint, Point(..))
+import Curve (Curve(..), Form(..))
+import Curve.Binary (BCurve(..), BPoint, BACurve(..), BAPoint, Point(..))
 import Group (Group(..))
 
 -------------------------------------------------------------------------------
--- Types
+-- SECT283R1 curve
 -------------------------------------------------------------------------------
 
 -- | SECT283R1 curve.
@@ -40,30 +42,17 @@ type F2m = BinaryField 0x8000000000000000000000000000000000000000000000000000000
 type Fr = PrimeField 0x3ffffffffffffffffffffffffffffffffffef90399660fc938a90165b042a7cefadb307
 
 -- | SECT283R1 curve is a binary curve.
-instance BCurve SECT283R1 F2m where
+instance Curve 'Binary c SECT283R1 F2m => BCurve c SECT283R1 F2m where
   a_ = const _a
   {-# INLINE a_ #-}
   b_ = const _b
   {-# INLINE b_ #-}
-  g_ = _g
-  {-# INLINE g_ #-}
   h_ = const _h
   {-# INLINE h_ #-}
   p_ = const _p
   {-# INLINE p_ #-}
   r_ = const _r
   {-# INLINE r_ #-}
-  x_ = const _x
-  {-# INLINE x_ #-}
-  y_ = const _y
-  {-# INLINE y_ #-}
-
--- | Point of SECT283R1 curve.
-type P = BPoint SECT283R1 F2m
-
--------------------------------------------------------------------------------
--- Parameters
--------------------------------------------------------------------------------
 
 -- | Coefficient @A@ of SECT283R1 curve.
 _a :: F2m
@@ -74,11 +63,6 @@ _a = 0x1
 _b :: F2m
 _b = 0x27b680ac8b8596da5a4af8a19a0303fca97fd7645309fa2a581485af6263e313b79a2f5
 {-# INLINE _b #-}
-
--- | Generator of SECT283R1 curve.
-_g :: P
-_g = A _x _y
-{-# INLINE _g #-}
 
 -- | Cofactor of SECT283R1 curve.
 _h :: Integer
@@ -95,12 +79,33 @@ _r :: Integer
 _r = 0x3ffffffffffffffffffffffffffffffffffef90399660fc938a90165b042a7cefadb307
 {-# INLINE _r #-}
 
--- | Coordinate @X@ of SECT283R1 curve.
+-------------------------------------------------------------------------------
+-- Affine coordinates
+-------------------------------------------------------------------------------
+
+-- | Affine SECT283R1 point.
+type AP = BAPoint SECT283R1 F2m
+
+-- | Affine SECT283R1 curve is a binary affine curve.
+instance BACurve SECT283R1 F2m where
+  g_ = _g
+  {-# INLINE g_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
+
+-- | Generator of affine SECT283R1 curve.
+_g :: AP
+_g = A _x _y
+{-# INLINE _g #-}
+
+-- | Coordinate @X@ of affine SECT283R1 curve.
 _x :: F2m
 _x = 0x5f939258db7dd90e1934f8c70b0dfec2eed25b8557eac9c80e2e198f8cdbecd86b12053
 {-# INLINE _x #-}
 
--- | Coordinate @Y@ of SECT283R1 curve.
+-- | Coordinate @Y@ of affine SECT283R1 curve.
 _y :: F2m
 _y = 0x3676854fe24141cb98fe6d4b20d02b4516ff702350eddb0826779c813f0df45be8112f4
 {-# INLINE _y #-}

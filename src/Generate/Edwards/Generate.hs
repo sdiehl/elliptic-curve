@@ -18,7 +18,7 @@ import Generate.Pretty
 prettyImports :: Doc
 prettyImports
   =    "module Generate.Edwards.Parameters"
-  <$$> "  " <> align
+  <$$> " " <+> align
     (    "( curves"
     <$$> ") where"
     )
@@ -32,7 +32,7 @@ prettyCurves curves
   =    prettySection "Curves"
   <$$> "curves :: [Curve]"
   <$$> "curves ="
-  <$$> "  " <> align
+  <$$> " " <+> align
     (    "[ "
     <>   hcat (punctuate "\n, " (map prettyCurves' curves))
     <$$> "]"
@@ -48,27 +48,27 @@ prettyParameters curves
   where
     prettyParameters' :: Curve -> Doc
     prettyParameters' (Curve Types{..} Parameters{..})
-      =    pretty (toLower curve) <> " :: Curve"
-      <$$> pretty (toLower curve) <> " = Curve"
-      <$$> "  " <> align
+      =    pretty (toLower curve) <+> ":: Curve"
+      <$$> pretty (toLower curve) <+> "= Curve"
+      <$$> " " <+> align
         (    "{ types = Types"
-        <$$> "  " <> align
-          (    "{ curve   = " <> prettyText curve
-          <$$> ", field   = " <> prettyField field
-          <$$> ", field'  = " <> prettyField field'
+        <$$> " " <+> align
+          (    "{ curve   =" <+> prettyText curve
+          <$$> ", field   =" <+> prettyField field
+          <$$> ", field'  =" <+> prettyField field'
           <$$> ", imports = "
           <>   maybe "Nothing" ((<>) "Just " . prettyText) imports
           <$$> "}"
           )
         <$$> ", parameters = Parameters"
-        <$$> "  " <> align
-          (    "{ a = " <> prettyElement a
-          <$$> ", d = " <> prettyElement d
-          <$$> ", h = " <> prettyInteger h
-          <$$> ", q = " <> prettyInteger q
-          <$$> ", r = " <> prettyInteger r
-          <$$> ", x = " <> prettyElement x
-          <$$> ", y = " <> prettyElement y
+        <$$> " " <+> align
+          (    "{ a =" <+> prettyElement a
+          <$$> ", d =" <+> prettyElement d
+          <$$> ", h =" <+> prettyInteger h
+          <$$> ", q =" <+> prettyInteger q
+          <$$> ", r =" <+> prettyInteger r
+          <$$> ", x =" <+> prettyElement x
+          <$$> ", y =" <+> prettyElement y
           <$$> "}"
           )
         <$$> "}"

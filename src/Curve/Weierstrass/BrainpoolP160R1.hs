@@ -1,12 +1,14 @@
 module Curve.Weierstrass.BrainpoolP160R1
-  ( Curve(..)
+  ( AP
+  , Curve(..)
   , Fq
   , Fr
   , Group(..)
-  , P
   , Point(..)
-  , WPoint
   , WCurve(..)
+  , WPoint
+  , WACurve(..)
+  , WAPoint
   , _a
   , _b
   , _g
@@ -21,12 +23,12 @@ import Protolude
 
 import PrimeField (PrimeField)
 
-import Curve (Curve(..))
-import Curve.Weierstrass (Point(..), WCurve(..), WPoint)
+import Curve (Curve(..), Form(..))
+import Curve.Weierstrass (Point(..), WCurve(..), WPoint, WACurve(..), WAPoint)
 import Group (Group(..))
 
 -------------------------------------------------------------------------------
--- Types
+-- BrainpoolP160R1 curve
 -------------------------------------------------------------------------------
 
 -- | BrainpoolP160R1 curve.
@@ -39,30 +41,17 @@ type Fq = PrimeField 0xe95e4a5f737059dc60dfc7ad95b3d8139515620f
 type Fr = PrimeField 0xe95e4a5f737059dc60df5991d45029409e60fc09
 
 -- | BrainpoolP160R1 curve is a Weierstrass curve.
-instance WCurve BrainpoolP160R1 Fq where
+instance Curve 'Weierstrass c BrainpoolP160R1 Fq => WCurve c BrainpoolP160R1 Fq where
   a_ = const _a
   {-# INLINE a_ #-}
   b_ = const _b
   {-# INLINE b_ #-}
-  g_ = _g
-  {-# INLINE g_ #-}
   h_ = const _h
   {-# INLINE h_ #-}
   q_ = const _q
   {-# INLINE q_ #-}
   r_ = const _r
   {-# INLINE r_ #-}
-  x_ = const _x
-  {-# INLINE x_ #-}
-  y_ = const _y
-  {-# INLINE y_ #-}
-
--- | Point of BrainpoolP160R1 curve.
-type P = WPoint BrainpoolP160R1 Fq
-
--------------------------------------------------------------------------------
--- Parameters
--------------------------------------------------------------------------------
 
 -- | Coefficient @A@ of BrainpoolP160R1 curve.
 _a :: Fq
@@ -73,11 +62,6 @@ _a = 0x340e7be2a280eb74e2be61bada745d97e8f7c300
 _b :: Fq
 _b = 0x1e589a8595423412134faa2dbdec95c8d8675e58
 {-# INLINE _b #-}
-
--- | Generator of BrainpoolP160R1 curve.
-_g :: P
-_g = A _x _y
-{-# INLINE _g #-}
 
 -- | Cofactor of BrainpoolP160R1 curve.
 _h :: Integer
@@ -94,12 +78,33 @@ _r :: Integer
 _r = 0xe95e4a5f737059dc60df5991d45029409e60fc09
 {-# INLINE _r #-}
 
--- | Coordinate @X@ of BrainpoolP160R1 curve.
+-------------------------------------------------------------------------------
+-- Affine coordinates
+-------------------------------------------------------------------------------
+
+-- | Affine BrainpoolP160R1 point.
+type AP = WAPoint BrainpoolP160R1 Fq
+
+-- | Affine BrainpoolP160R1 curve is a Weierstrass affine curve.
+instance WACurve BrainpoolP160R1 Fq where
+  g_ = _g
+  {-# INLINE g_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
+
+-- | Generator of affine BrainpoolP160R1 curve.
+_g :: AP
+_g = A _x _y
+{-# INLINE _g #-}
+
+-- | Coordinate @X@ of affine BrainpoolP160R1 curve.
 _x :: Fq
 _x = 0xbed5af16ea3f6a4f62938c4631eb5af7bdbcdbc3
 {-# INLINE _x #-}
 
--- | Coordinate @Y@ of BrainpoolP160R1 curve.
+-- | Coordinate @Y@ of affine BrainpoolP160R1 curve.
 _y :: Fq
 _y = 0x1667cb477a1a8ec338f94741669c976316da6321
 {-# INLINE _y #-}

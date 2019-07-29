@@ -50,24 +50,24 @@ groupAxioms _ = testGroup "Group axioms"
 hasse :: Integer -> Integer -> Integer -> Bool
 hasse h r q' = (h * r - q' - 1) ^ (2 :: Int) <= 4 * q'
 
-curveParameters :: forall f c k . (Curve f c k, GaloisField k,
-  Arbitrary (Point f c k), Eq (Point f c k), Show (Point f c k))
-  => Point f c k -> Integer -> Integer -> Integer -> TestTree
+curveParameters :: forall f c e k . (Curve f c e k, GaloisField k,
+  Arbitrary (Point f c e k), Eq (Point f c e k), Show (Point f c e k))
+  => Point f c e k -> Integer -> Integer -> Integer -> TestTree
 curveParameters g h q r = testGroup "Curve parameters"
   [ testCase "generator is parametrised" $
     gen @?= g
   , testCase "cofactor is parametrised" $
-    cof (witness :: Point f c k) @?= h
+    cof (witness :: Point f c e k) @?= h
   , testCase "characteristic is parametrised" $
-    Curve.char (witness :: Point f c k) @?= q
+    Curve.char (witness :: Point f c e k) @?= q
   , testCase "order is parametrised" $
-    Group.order (witness :: Point f c k) @?= r
+    Group.order (witness :: Point f c e k) @?= r
   , testCase "characteristic is prime" $
     isPrime q @?= True
   , testCase "discriminant is nonzero" $
-    disc (witness :: Point f c k) /= 0 @?= True
+    disc (witness :: Point f c e k) /= 0 @?= True
   , testCase "generator is well-defined" $
-    def (gen :: Point f c k) @?= True
+    def (gen :: Point f c e k) @?= True
   , testCase "generator is in cyclic subgroup" $
     mul' g r @?= mempty
   , testCase "cyclic subgroup has prime order" $
@@ -76,9 +76,9 @@ curveParameters g h q r = testGroup "Curve parameters"
     hasse h r (GaloisField.order (witness :: k)) @?= True
   ]
 
-test :: forall f c k . (Curve f c k, GaloisField k,
-  Arbitrary (Point f c k), Eq (Point f c k), Show (Point f c k))
-  => TestName -> Point f c k -> Integer -> Integer -> Integer -> TestTree
+test :: forall f c e k . (Curve f c e k, GaloisField k,
+  Arbitrary (Point f c e k), Eq (Point f c e k), Show (Point f c e k))
+  => TestName -> Point f c e k -> Integer -> Integer -> Integer -> TestTree
 test s g h q r = testGroup s [groupAxioms g, curveParameters g h q r]
 
 fieldParameters :: forall k . (FGroup k, GaloisField k)

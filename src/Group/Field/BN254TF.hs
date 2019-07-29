@@ -1,6 +1,8 @@
 module Group.Field.BN254TF
   ( Element(..)
   , FGroup(..)
+  , Fq
+  , Fq2
   , Fq6
   , Fq12
   , Group(..)
@@ -15,6 +17,7 @@ import Protolude
 
 import ExtensionField
 
+import Curve.Weierstrass.BN254 (Fq)
 import Curve.Weierstrass.BN254T (Fq2)
 import Group (Group(..))
 import Group.Field (FGroup(..), Element(..))

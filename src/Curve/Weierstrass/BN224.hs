@@ -1,12 +1,14 @@
 module Curve.Weierstrass.BN224
-  ( Curve(..)
+  ( AP
+  , Curve(..)
   , Fq
   , Fr
   , Group(..)
-  , P
   , Point(..)
-  , WPoint
   , WCurve(..)
+  , WPoint
+  , WACurve(..)
+  , WAPoint
   , _a
   , _b
   , _g
@@ -21,12 +23,12 @@ import Protolude
 
 import PrimeField (PrimeField)
 
-import Curve (Curve(..))
-import Curve.Weierstrass (Point(..), WCurve(..), WPoint)
+import Curve (Curve(..), Form(..))
+import Curve.Weierstrass (Point(..), WCurve(..), WPoint, WACurve(..), WAPoint)
 import Group (Group(..))
 
 -------------------------------------------------------------------------------
--- Types
+-- BN224 curve
 -------------------------------------------------------------------------------
 
 -- | BN224 curve.
@@ -39,30 +41,17 @@ type Fq = PrimeField 0xfffffffffff107288ec29e602c4520db42180823bb907d1287127833
 type Fr = PrimeField 0xfffffffffff107288ec29e602c4420db4218082b36c2accff76c58ed
 
 -- | BN224 curve is a Weierstrass curve.
-instance WCurve BN224 Fq where
+instance Curve 'Weierstrass c BN224 Fq => WCurve c BN224 Fq where
   a_ = const _a
   {-# INLINE a_ #-}
   b_ = const _b
   {-# INLINE b_ #-}
-  g_ = _g
-  {-# INLINE g_ #-}
   h_ = const _h
   {-# INLINE h_ #-}
   q_ = const _q
   {-# INLINE q_ #-}
   r_ = const _r
   {-# INLINE r_ #-}
-  x_ = const _x
-  {-# INLINE x_ #-}
-  y_ = const _y
-  {-# INLINE y_ #-}
-
--- | Point of BN224 curve.
-type P = WPoint BN224 Fq
-
--------------------------------------------------------------------------------
--- Parameters
--------------------------------------------------------------------------------
 
 -- | Coefficient @A@ of BN224 curve.
 _a :: Fq
@@ -73,11 +62,6 @@ _a = 0x0
 _b :: Fq
 _b = 0x3
 {-# INLINE _b #-}
-
--- | Generator of BN224 curve.
-_g :: P
-_g = A _x _y
-{-# INLINE _g #-}
 
 -- | Cofactor of BN224 curve.
 _h :: Integer
@@ -94,12 +78,33 @@ _r :: Integer
 _r = 0xfffffffffff107288ec29e602c4420db4218082b36c2accff76c58ed
 {-# INLINE _r #-}
 
--- | Coordinate @X@ of BN224 curve.
+-------------------------------------------------------------------------------
+-- Affine coordinates
+-------------------------------------------------------------------------------
+
+-- | Affine BN224 point.
+type AP = WAPoint BN224 Fq
+
+-- | Affine BN224 curve is a Weierstrass affine curve.
+instance WACurve BN224 Fq where
+  g_ = _g
+  {-# INLINE g_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
+
+-- | Generator of affine BN224 curve.
+_g :: AP
+_g = A _x _y
+{-# INLINE _g #-}
+
+-- | Coordinate @X@ of affine BN224 curve.
 _x :: Fq
 _x = 0x1
 {-# INLINE _x #-}
 
--- | Coordinate @Y@ of BN224 curve.
+-- | Coordinate @Y@ of affine BN224 curve.
 _y :: Fq
 _y = 0x2
 {-# INLINE _y #-}

@@ -1,11 +1,13 @@
 module Curve.Binary.SECT239K1
-  ( BCurve(..)
+  ( AP
+  , BCurve(..)
   , BPoint
+  , BACurve(..)
+  , BAPoint
   , Curve(..)
   , F2m
   , Fr
   , Group(..)
-  , P
   , Point(..)
   , _a
   , _b
@@ -22,12 +24,12 @@ import Protolude
 import BinaryField (BinaryField)
 import PrimeField (PrimeField)
 
-import Curve (Curve(..))
-import Curve.Binary (BCurve(..), BPoint, Point(..))
+import Curve (Curve(..), Form(..))
+import Curve.Binary (BCurve(..), BPoint, BACurve(..), BAPoint, Point(..))
 import Group (Group(..))
 
 -------------------------------------------------------------------------------
--- Types
+-- SECT239K1 curve
 -------------------------------------------------------------------------------
 
 -- | SECT239K1 curve.
@@ -40,30 +42,17 @@ type F2m = BinaryField 0x8000000000000000000040000000000000000000000000000000000
 type Fr = PrimeField 0x2000000000000000000000000000005a79fec67cb6e91f1c1da800e478a5
 
 -- | SECT239K1 curve is a binary curve.
-instance BCurve SECT239K1 F2m where
+instance Curve 'Binary c SECT239K1 F2m => BCurve c SECT239K1 F2m where
   a_ = const _a
   {-# INLINE a_ #-}
   b_ = const _b
   {-# INLINE b_ #-}
-  g_ = _g
-  {-# INLINE g_ #-}
   h_ = const _h
   {-# INLINE h_ #-}
   p_ = const _p
   {-# INLINE p_ #-}
   r_ = const _r
   {-# INLINE r_ #-}
-  x_ = const _x
-  {-# INLINE x_ #-}
-  y_ = const _y
-  {-# INLINE y_ #-}
-
--- | Point of SECT239K1 curve.
-type P = BPoint SECT239K1 F2m
-
--------------------------------------------------------------------------------
--- Parameters
--------------------------------------------------------------------------------
 
 -- | Coefficient @A@ of SECT239K1 curve.
 _a :: F2m
@@ -74,11 +63,6 @@ _a = 0x0
 _b :: F2m
 _b = 0x1
 {-# INLINE _b #-}
-
--- | Generator of SECT239K1 curve.
-_g :: P
-_g = A _x _y
-{-# INLINE _g #-}
 
 -- | Cofactor of SECT239K1 curve.
 _h :: Integer
@@ -95,12 +79,33 @@ _r :: Integer
 _r = 0x2000000000000000000000000000005a79fec67cb6e91f1c1da800e478a5
 {-# INLINE _r #-}
 
--- | Coordinate @X@ of SECT239K1 curve.
+-------------------------------------------------------------------------------
+-- Affine coordinates
+-------------------------------------------------------------------------------
+
+-- | Affine SECT239K1 point.
+type AP = BAPoint SECT239K1 F2m
+
+-- | Affine SECT239K1 curve is a binary affine curve.
+instance BACurve SECT239K1 F2m where
+  g_ = _g
+  {-# INLINE g_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
+
+-- | Generator of affine SECT239K1 curve.
+_g :: AP
+_g = A _x _y
+{-# INLINE _g #-}
+
+-- | Coordinate @X@ of affine SECT239K1 curve.
 _x :: F2m
 _x = 0x29a0b6a887a983e9730988a68727a8b2d126c44cc2cc7b2a6555193035dc
 {-# INLINE _x #-}
 
--- | Coordinate @Y@ of SECT239K1 curve.
+-- | Coordinate @Y@ of affine SECT239K1 curve.
 _y :: F2m
 _y = 0x76310804f12e549bdb011c103089e73510acb275fc312a5dc6b76553f0ca
 {-# INLINE _y #-}

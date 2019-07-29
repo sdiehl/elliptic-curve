@@ -1,6 +1,9 @@
 module Curve.Binary
   ( BCurve(..)
   , BPoint
+  , BACurve(..)
+  , BAPoint
+  , Coordinates(..)
   , Curve(..)
   , Group(..)
   , Point(..)
@@ -13,102 +16,116 @@ import GaloisField (GaloisField(..))
 import Test.Tasty.QuickCheck (Arbitrary(..))
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
-import Curve (Curve(..))
+import Curve (Curve(..), Form(..))
 import Group (Group(..))
 
 -------------------------------------------------------------------------------
--- Types
+-- Binary form
 -------------------------------------------------------------------------------
 
--- | Binary curve representation.
-data B
+-- | Binary points.
+type BPoint = Point 'Binary
 
--- | Binary curve points.
-type BPoint = Point B
+-- | Binary curves.
+class Curve 'Binary c e k => BCurve c e k where
+  {-# MINIMAL a_, b_, h_, p_, r_ #-}
+  a_ :: BPoint c e k -> k       -- ^ Coefficient @A@.
+  b_ :: BPoint c e k -> k       -- ^ Coefficient @B@.
+  h_ :: BPoint c e k -> Integer -- ^ Curve cofactor.
+  p_ :: BPoint c e k -> Integer -- ^ Curve polynomial.
+  r_ :: BPoint c e k -> Integer -- ^ Curve order.
 
--- | Binary curves @y^2 + xy = x^3 + Ax^2 + B@.
-class Curve B c k => BCurve c k where
-  {-# MINIMAL a_, b_, g_, h_, p_, r_, x_, y_ #-}
-  a_ :: c -> k                -- ^ Coefficient @A@.
-  b_ :: c -> k                -- ^ Coefficient @B@.
-  g_ :: BPoint c k            -- ^ Curve generator.
-  h_ :: BPoint c k -> Integer -- ^ Curve cofactor.
-  p_ :: BPoint c k -> Integer -- ^ Curve polynomial.
-  r_ :: BPoint c k -> Integer -- ^ Curve order.
-  x_ :: c -> k                -- ^ Coordinate @X@.
-  y_ :: c -> k                -- ^ Coordinate @Y@.
+-- | Binary coordinates.
+data Coordinates = Affine
 
 -------------------------------------------------------------------------------
--- Operations
+-- Affine coordinates
 -------------------------------------------------------------------------------
 
--- Binary curves are elliptic curves.
-instance (GaloisField k, BCurve c k) => Curve B c k where
+-- | Binary affine points.
+type BAPoint = BPoint 'Affine
 
-  data instance Point B c k = A k k -- ^ Affine point.
-                            | O     -- ^ Infinite point.
+-- | Binary affine curves @y^2 + xy = x^3 + Ax^2 + B@.
+class BCurve 'Affine e k => BACurve e k where
+  {-# MINIMAL g_, x_, y_ #-}
+  g_ :: BAPoint e k -- ^ Curve generator.
+  x_ :: e -> k      -- ^ Coordinate @X@.
+  y_ :: e -> k      -- ^ Coordinate @Y@.
+
+-- Binary affine curves are elliptic curves.
+instance (GaloisField k, BACurve e k) => Curve 'Binary 'Affine e k where
+  data instance Point 'Binary 'Affine e k = A k k -- ^ Affine point.
+                                          | O     -- ^ Infinite point.
     deriving (Eq, Generic, NFData, Read, Show)
-
-  char = const 2
+  char      = const 2
   {-# INLINE char #-}
-
-  cof = h_
+  cof       = h_
   {-# INLINE cof #-}
-
-  disc _ = b_ (witness :: c)
+  disc _    = b_ (witness :: BAPoint e k)
   {-# INLINE disc #-}
-
   point x y = let p = A x y in if def p then Just p else Nothing
   {-# INLINE point #-}
-
-  pointX x = A x <$> yX (witness :: BPoint c k) x
+  pointX x  = A x <$> yX (witness :: BAPoint e k) x
   {-# INLINE pointX #-}
-
-  yX _ 0 = sr (b_ (witness :: c))
-  yX _ x = quad 1 x ((x + a) * x * x + b)
+  yX _ 0    = sr (b_ (witness :: BAPoint e k))
+  yX _ x    = quad 1 x ((x + a) * x * x + b)
     where
-      a = a_ (witness :: c)
-      b = b_ (witness :: c)
+      a = a_ (witness :: BAPoint e k)
+      b = b_ (witness :: BAPoint e k)
   {-# INLINE yX #-}
 
--- Binary points are groups.
-instance (GaloisField k, BCurve c k) => Group (BPoint c k) where
+-- Binary affine points are arbitrary.
+instance (GaloisField k, BACurve e k) => Arbitrary (BAPoint e k) where
+  arbitrary = return g_ -- TODO
+  -- arbitrary = mul g_ <$> (arbitrary :: Gen Int)
+  -- arbitrary = suchThatMap arbitrary pointX
 
-  def O       = True
-  def (A x y) = ((x + a) * x + y) * x + b + y * y == 0
+-- Binary affine points are groups.
+instance (GaloisField k, BACurve e k) => Group (BAPoint e k) where
+  def O          = True
+  def (A x y)    = ((x + a) * x + y) * x + b + y * y == 0
     where
-      a = a_ (witness :: c)
-      b = b_ (witness :: c)
+      a = a_ (witness :: BAPoint e k)
+      b = b_ (witness :: BAPoint e k)
   {-# INLINE def #-}
-
   double O       = O
   double (A x y) = A x' y'
     where
       l  = x + y / x
       l' = l + 1
-      x' = l * l' + a_ (witness :: c)
+      x' = l * l' + a_ (witness :: BAPoint e k)
       y' = x * x + l' * x'
   {-# INLINE double #-}
-
-  gen = g_
+  gen            = g_
   {-# INLINE gen #-}
-
-  inv O       = O
-  inv (A x y) = A x (x + y)
+  inv O          = O
+  inv (A x y)    = A x (x + y)
   {-# INLINE inv #-}
-
-  order = r_
+  order          = r_
   {-# INLINE order #-}
 
--- Binary points are monoids.
-instance (GaloisField k, BCurve c k) => Monoid (BPoint c k) where
-
+-- Binary affine points are monoids.
+instance (GaloisField k, BACurve e k) => Monoid (BAPoint e k) where
   mempty = O
   {-# INLINE mempty #-}
 
--- Binary points are semigroups.
-instance (GaloisField k, BCurve c k) => Semigroup (BPoint c k) where
+-- Binary affine points are pretty.
+instance (GaloisField k, BACurve e k) => Pretty (BAPoint e k) where
+  pretty (A x y) = pretty (x, y)
+  pretty O       = "O"
 
+-- Binary affine points are random.
+instance (GaloisField k, BACurve e k) => Random (BAPoint e k) where
+  random g = case pointX x of
+    Just p -> (p, g')
+    _      -> random g'
+    where
+      (x, g') = random g
+  {-# INLINE random #-}
+  randomR  = panic "not implemented."
+
+-- Binary affine points are semigroups.
+instance (GaloisField k, BACurve e k) => Semigroup (BAPoint e k) where
   p <> O           = p
   O <> q           = q
   p@(A x1 y1) <> A x2 y2
@@ -119,31 +136,6 @@ instance (GaloisField k, BCurve c k) => Semigroup (BPoint c k) where
       xx = x1 + x2
       yy = y1 + y2
       l  = yy / xx
-      x3 = l * (l + 1) + xx + a_ (witness :: c)
+      x3 = l * (l + 1) + xx + a_ (witness :: BAPoint e k)
       y3 = l * (x1 + x3) + x3 + y1
   {-# INLINE (<>) #-}
-
--------------------------------------------------------------------------------
--- Instances
--------------------------------------------------------------------------------
-
--- Binary points are arbitrary.
-instance (GaloisField k, BCurve c k) => Arbitrary (Point B c k) where
-  arbitrary = return g_ -- TODO
-  -- arbitrary = mul g_ <$> (arbitrary :: Gen Int)
-  -- arbitrary = suchThatMap arbitrary pointX
-
--- Binary points are pretty.
-instance (GaloisField k, BCurve c k) => Pretty (Point B c k) where
-  pretty (A x y) = pretty (x, y)
-  pretty O       = "O"
-
--- Binary points are random.
-instance (GaloisField k, BCurve c k) => Random (Point B c k) where
-  random g = case pointX x of
-    Just p -> (p, g')
-    _      -> random g'
-    where
-      (x, g') = random g
-  {-# INLINE random #-}
-  randomR  = panic "not implemented."
