@@ -36,7 +36,7 @@ extra-source-files:
   - ChangeLog.md
 
 ghc-options:
-  - -O2
+  - -fno-warn-orphans
   - -Wall
 
 library:
@@ -129,8 +129,6 @@ library:
     - Group
     - Group.Field
     - Group.Field.BN254TF
-  ghc-options:
-    - -fno-warn-orphans
   other-modules:
     - Generate
     - Generate.Binary.Curve
