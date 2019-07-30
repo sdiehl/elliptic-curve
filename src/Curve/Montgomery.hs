@@ -47,10 +47,10 @@ type MAPoint = MPoint 'Affine
 
 -- | Montgomery affine curves @By^2 = x^3 + Ax^2 + x@.
 class MCurve 'Affine e k => MACurve e k where
-  {-# MINIMAL g_, x_, y_ #-}
-  g_ :: MAPoint e k -- ^ Curve generator.
-  x_ :: e -> k      -- ^ Coordinate @X@.
-  y_ :: e -> k      -- ^ Coordinate @Y@.
+  {-# MINIMAL gA_, xA_, yA_ #-}
+  gA_ :: MAPoint e k -- ^ Curve generator.
+  xA_ :: e -> k      -- ^ Coordinate @X@.
+  yA_ :: e -> k      -- ^ Coordinate @Y@.
 
 -- Montgomery affine curves are elliptic curves.
 instance (GaloisField k, MACurve e k) => Curve 'Montgomery 'Affine e k where
@@ -98,7 +98,7 @@ instance (GaloisField k, MACurve e k) => Group (MAPoint e k) where
       x' = b * l * l - a - 2 * x
       y' = l * (x - x') - y
   {-# INLINE double #-}
-  gen            = g_
+  gen            = gA_
   {-# INLINE gen #-}
   inv O          = O
   inv (A x y)    = A x (-y)

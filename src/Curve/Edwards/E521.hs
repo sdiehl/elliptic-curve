@@ -11,12 +11,12 @@ module Curve.Edwards.E521
   , Point(..)
   , _a
   , _d
-  , _g
   , _h
   , _q
   , _r
-  , _x
-  , _y
+  , gA
+  , xA
+  , yA
   ) where
 
 import Protolude
@@ -87,24 +87,24 @@ type AP = EAPoint E521 Fq
 
 -- | Affine E521 curve is an Edwards affine curve.
 instance EACurve E521 Fq where
-  g_ = _g
-  {-# INLINE g_ #-}
-  x_ = const _x
-  {-# INLINE x_ #-}
-  y_ = const _y
-  {-# INLINE y_ #-}
+  gA_ = gA
+  {-# INLINE gA_ #-}
+  xA_ = const xA
+  {-# INLINE xA_ #-}
+  yA_ = const yA
+  {-# INLINE yA_ #-}
 
 -- | Generator of affine E521 curve.
-_g :: AP
-_g = A _x _y
-{-# INLINE _g #-}
+gA :: AP
+gA = A xA yA
+{-# INLINE gA #-}
 
 -- | Coordinate @X@ of affine E521 curve.
-_x :: Fq
-_x = 0x752cb45c48648b189df90cb2296b2878a3bfd9f42fc6c818ec8bf3c9c0c6203913f6ecc5ccc72434b1ae949d568fc99c6059d0fb13364838aa302a940a2f19ba6c
-{-# INLINE _x #-}
+xA :: Fq
+xA = 0x752cb45c48648b189df90cb2296b2878a3bfd9f42fc6c818ec8bf3c9c0c6203913f6ecc5ccc72434b1ae949d568fc99c6059d0fb13364838aa302a940a2f19ba6c
+{-# INLINE xA #-}
 
 -- | Coordinate @Y@ of affine E521 curve.
-_y :: Fq
-_y = 0xc
-{-# INLINE _y #-}
+yA :: Fq
+yA = 0xc
+{-# INLINE yA #-}

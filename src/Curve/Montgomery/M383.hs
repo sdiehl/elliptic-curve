@@ -11,12 +11,12 @@ module Curve.Montgomery.M383
   , Point(..)
   , _a
   , _b
-  , _g
   , _h
   , _q
   , _r
-  , _x
-  , _y
+  , gA
+  , xA
+  , yA
   ) where
 
 import Protolude
@@ -87,24 +87,24 @@ type AP = MAPoint M383 Fq
 
 -- | Affine M383 curve is a Montgomery affine curve.
 instance MACurve M383 Fq where
-  g_ = _g
-  {-# INLINE g_ #-}
-  x_ = const _x
-  {-# INLINE x_ #-}
-  y_ = const _y
-  {-# INLINE y_ #-}
+  gA_ = gA
+  {-# INLINE gA_ #-}
+  xA_ = const xA
+  {-# INLINE xA_ #-}
+  yA_ = const yA
+  {-# INLINE yA_ #-}
 
 -- | Generator of affine M383 curve.
-_g :: AP
-_g = A _x _y
-{-# INLINE _g #-}
+gA :: AP
+gA = A xA yA
+{-# INLINE gA #-}
 
 -- | Coordinate @X@ of affine M383 curve.
-_x :: Fq
-_x = 0xc
-{-# INLINE _x #-}
+xA :: Fq
+xA = 0xc
+{-# INLINE xA #-}
 
 -- | Coordinate @Y@ of affine M383 curve.
-_y :: Fq
-_y = 0x1ec7ed04aaf834af310e304b2da0f328e7c165f0e8988abd3992861290f617aa1f1b2e7d0b6e332e969991b62555e77e
-{-# INLINE _y #-}
+yA :: Fq
+yA = 0x1ec7ed04aaf834af310e304b2da0f328e7c165f0e8988abd3992861290f617aa1f1b2e7d0b6e332e969991b62555e77e
+{-# INLINE yA #-}

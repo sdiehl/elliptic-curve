@@ -11,12 +11,12 @@ module Curve.Montgomery.M511
   , Point(..)
   , _a
   , _b
-  , _g
   , _h
   , _q
   , _r
-  , _x
-  , _y
+  , gA
+  , xA
+  , yA
   ) where
 
 import Protolude
@@ -87,24 +87,24 @@ type AP = MAPoint M511 Fq
 
 -- | Affine M511 curve is a Montgomery affine curve.
 instance MACurve M511 Fq where
-  g_ = _g
-  {-# INLINE g_ #-}
-  x_ = const _x
-  {-# INLINE x_ #-}
-  y_ = const _y
-  {-# INLINE y_ #-}
+  gA_ = gA
+  {-# INLINE gA_ #-}
+  xA_ = const xA
+  {-# INLINE xA_ #-}
+  yA_ = const yA
+  {-# INLINE yA_ #-}
 
 -- | Generator of affine M511 curve.
-_g :: AP
-_g = A _x _y
-{-# INLINE _g #-}
+gA :: AP
+gA = A xA yA
+{-# INLINE gA #-}
 
 -- | Coordinate @X@ of affine M511 curve.
-_x :: Fq
-_x = 0x5
-{-# INLINE _x #-}
+xA :: Fq
+xA = 0x5
+{-# INLINE xA #-}
 
 -- | Coordinate @Y@ of affine M511 curve.
-_y :: Fq
-_y = 0x2fbdc0ad8530803d28fdbad354bb488d32399ac1cf8f6e01ee3f96389b90c809422b9429e8a43dbf49308ac4455940abe9f1dbca542093a895e30a64af056fa5
-{-# INLINE _y #-}
+yA :: Fq
+yA = 0x2fbdc0ad8530803d28fdbad354bb488d32399ac1cf8f6e01ee3f96389b90c809422b9429e8a43dbf49308ac4455940abe9f1dbca542093a895e30a64af056fa5
+{-# INLINE yA #-}

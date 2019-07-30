@@ -11,12 +11,12 @@ module Curve.Binary.SECT163K1
   , Point(..)
   , _a
   , _b
-  , _g
   , _h
   , _p
   , _r
-  , _x
-  , _y
+  , gA
+  , xA
+  , yA
   ) where
 
 import Protolude
@@ -88,24 +88,24 @@ type AP = BAPoint SECT163K1 F2m
 
 -- | Affine SECT163K1 curve is a binary affine curve.
 instance BACurve SECT163K1 F2m where
-  g_ = _g
-  {-# INLINE g_ #-}
-  x_ = const _x
-  {-# INLINE x_ #-}
-  y_ = const _y
-  {-# INLINE y_ #-}
+  gA_ = gA
+  {-# INLINE gA_ #-}
+  xA_ = const xA
+  {-# INLINE xA_ #-}
+  yA_ = const yA
+  {-# INLINE yA_ #-}
 
 -- | Generator of affine SECT163K1 curve.
-_g :: AP
-_g = A _x _y
-{-# INLINE _g #-}
+gA :: AP
+gA = A xA yA
+{-# INLINE gA #-}
 
 -- | Coordinate @X@ of affine SECT163K1 curve.
-_x :: F2m
-_x = 0x2fe13c0537bbc11acaa07d793de4e6d5e5c94eee8
-{-# INLINE _x #-}
+xA :: F2m
+xA = 0x2fe13c0537bbc11acaa07d793de4e6d5e5c94eee8
+{-# INLINE xA #-}
 
 -- | Coordinate @Y@ of affine SECT163K1 curve.
-_y :: F2m
-_y = 0x289070fb05d38ff58321f2e800536d538ccdaa3d9
-{-# INLINE _y #-}
+yA :: F2m
+yA = 0x289070fb05d38ff58321f2e800536d538ccdaa3d9
+{-# INLINE yA #-}

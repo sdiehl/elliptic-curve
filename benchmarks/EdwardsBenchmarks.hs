@@ -15,13 +15,31 @@ import GroupBenchmarks
 
 benchmarkEdwards :: Benchmark
 benchmarkEdwards = bgroup "Edwards"
-  [ benchmark  "Curve1174"  Curve1174._g
-  , benchmark "Curve41417" Curve41417._g
-  , benchmark       "E222"       E222._g
-  , benchmark       "E382"       E382._g
-  , benchmark       "E521"       E521._g
-  , benchmark      "Ed448"      Ed448._g
-  , benchmark     "Ed3363"     Ed3363._g
-  , benchmark    "Ed25519"    Ed25519._g
-  , benchmark     "JubJub"     JubJub._g
+  [ bgroup  "Curve1174"
+    [ benchmark "Affine"  Curve1174.gA
+    ]
+  , bgroup "Curve41417"
+    [ benchmark "Affine" Curve41417.gA
+    ]
+  , bgroup       "E222"
+    [ benchmark "Affine"       E222.gA
+    ]
+  , bgroup       "E382"
+    [ benchmark "Affine"       E382.gA
+    ]
+  , bgroup       "E521"
+    [ benchmark "Affine"       E521.gA
+    ]
+  , bgroup      "Ed448"
+    [ benchmark "Affine"      Ed448.gA
+    ]
+  , bgroup     "Ed3363"
+    [ benchmark "Affine"     Ed3363.gA
+    ]
+  , bgroup    "Ed25519"
+    [ benchmark "Affine"    Ed25519.gA
+    ]
+  , bgroup     "JubJub"
+    [ benchmark "Affine"     JubJub.gA
+    ]
   ]

@@ -53,51 +53,145 @@ import GroupBenchmarks
 
 benchmarkWeierstrass :: Benchmark
 benchmarkWeierstrass = bgroup "Weierstrass"
-  [ benchmark       "Anomalous"       Anomalous._g
-  , benchmark   "ANSSIFRP256V1"   ANSSIFRP256V1._g
-  , benchmark        "BLS12381"        BLS12381._g
-  , benchmark       "BLS12381T"       BLS12381T._g
-  , benchmark        "BLS48581"        BLS48581._g
-  , benchmark       "BLS48581T"       BLS48581T._g
-  , benchmark           "BN224"           BN224._g
-  , benchmark           "BN254"           BN254._g
-  , benchmark          "BN254T"          BN254T._g
-  , benchmark          "BN254A"          BN254A._g
-  , benchmark         "BN254AT"         BN254AT._g
-  , benchmark          "BN254B"          BN254B._g
-  , benchmark         "BN254BT"         BN254BT._g
-  , benchmark           "BN256"           BN256._g
-  , benchmark           "BN384"           BN384._g
-  , benchmark           "BN462"           BN462._g
-  , benchmark          "BN462T"          BN462T._g
-  , benchmark           "BN512"           BN512._g
-  , benchmark "BrainpoolP160R1" BrainpoolP160R1._g
-  , benchmark "BrainpoolP160T1" BrainpoolP160T1._g
-  , benchmark "BrainpoolP192R1" BrainpoolP192R1._g
-  , benchmark "BrainpoolP192T1" BrainpoolP192T1._g
-  , benchmark "BrainpoolP224R1" BrainpoolP224R1._g
-  , benchmark "BrainpoolP224T1" BrainpoolP224T1._g
-  , benchmark "BrainpoolP256R1" BrainpoolP256R1._g
-  , benchmark "BrainpoolP256T1" BrainpoolP256T1._g
-  , benchmark "BrainpoolP320R1" BrainpoolP320R1._g
-  , benchmark "BrainpoolP320T1" BrainpoolP320T1._g
-  , benchmark "BrainpoolP384R1" BrainpoolP384R1._g
-  , benchmark "BrainpoolP384T1" BrainpoolP384T1._g
-  , benchmark "BrainpoolP512R1" BrainpoolP512R1._g
-  , benchmark "BrainpoolP512T1" BrainpoolP512T1._g
-  , benchmark       "SECP112R1"       SECP112R1._g
-  , benchmark       "SECP112R2"       SECP112R2._g
-  , benchmark       "SECP128R1"       SECP128R1._g
-  , benchmark       "SECP128R2"       SECP128R2._g
-  , benchmark       "SECP160K1"       SECP160K1._g
-  , benchmark       "SECP160R1"       SECP160R1._g
-  , benchmark       "SECP160R2"       SECP160R2._g
-  , benchmark       "SECP192K1"       SECP192K1._g
-  , benchmark       "SECP192R1"       SECP192R1._g
-  , benchmark       "SECP224K1"       SECP224K1._g
-  , benchmark       "SECP224R1"       SECP224R1._g
-  , benchmark       "SECP256K1"       SECP256K1._g
-  , benchmark       "SECP256R1"       SECP256R1._g
-  , benchmark       "SECP384R1"       SECP384R1._g
-  , benchmark       "SECP521R1"       SECP521R1._g
+  [ bgroup       "Anomalous"
+    [ benchmark "Affine"       Anomalous.gA
+    ]
+  , bgroup   "ANSSIFRP256V1"
+    [ benchmark "Affine"   ANSSIFRP256V1.gA
+    ]
+  , bgroup        "BLS12381"
+    [ benchmark "Affine"        BLS12381.gA
+    ]
+  , bgroup       "BLS12381T"
+    [ benchmark "Affine"       BLS12381T.gA
+    ]
+  , bgroup        "BLS48581"
+    [ benchmark "Affine"        BLS48581.gA
+    ]
+  , bgroup       "BLS48581T"
+    [ benchmark "Affine"       BLS48581T.gA
+    ]
+  , bgroup           "BN224"
+    [ benchmark "Affine"           BN224.gA
+    ]
+  , bgroup           "BN254"
+    [ benchmark "Affine"           BN254.gA
+    ]
+  , bgroup          "BN254T"
+    [ benchmark "Affine"          BN254T.gA
+    ]
+  , bgroup          "BN254A"
+    [ benchmark "Affine"          BN254A.gA
+    ]
+  , bgroup         "BN254AT"
+    [ benchmark "Affine"         BN254AT.gA
+    ]
+  , bgroup          "BN254B"
+    [ benchmark "Affine"          BN254B.gA
+    ]
+  , bgroup         "BN254BT"
+    [ benchmark "Affine"         BN254BT.gA
+    ]
+  , bgroup           "BN256"
+    [ benchmark "Affine"           BN256.gA
+    ]
+  , bgroup           "BN384"
+    [ benchmark "Affine"           BN384.gA
+    ]
+  , bgroup           "BN462"
+    [ benchmark "Affine"           BN462.gA
+    ]
+  , bgroup          "BN462T"
+    [ benchmark "Affine"          BN462T.gA
+    ]
+  , bgroup           "BN512"
+    [ benchmark "Affine"           BN512.gA
+    ]
+  , bgroup "BrainpoolP160R1"
+    [ benchmark "Affine" BrainpoolP160R1.gA
+    ]
+  , bgroup "BrainpoolP160T1"
+    [ benchmark "Affine" BrainpoolP160T1.gA
+    ]
+  , bgroup "BrainpoolP192R1"
+    [ benchmark "Affine" BrainpoolP192R1.gA
+    ]
+  , bgroup "BrainpoolP192T1"
+    [ benchmark "Affine" BrainpoolP192T1.gA
+    ]
+  , bgroup "BrainpoolP224R1"
+    [ benchmark "Affine" BrainpoolP224R1.gA
+    ]
+  , bgroup "BrainpoolP224T1"
+    [ benchmark "Affine" BrainpoolP224T1.gA
+    ]
+  , bgroup "BrainpoolP256R1"
+    [ benchmark "Affine" BrainpoolP256R1.gA
+    ]
+  , bgroup "BrainpoolP256T1"
+    [ benchmark "Affine" BrainpoolP256T1.gA
+    ]
+  , bgroup "BrainpoolP320R1"
+    [ benchmark "Affine" BrainpoolP320R1.gA
+    ]
+  , bgroup "BrainpoolP320T1"
+    [ benchmark "Affine" BrainpoolP320T1.gA
+    ]
+  , bgroup "BrainpoolP384R1"
+    [ benchmark "Affine" BrainpoolP384R1.gA
+    ]
+  , bgroup "BrainpoolP384T1"
+    [ benchmark "Affine" BrainpoolP384T1.gA
+    ]
+  , bgroup "BrainpoolP512R1"
+    [ benchmark "Affine" BrainpoolP512R1.gA
+    ]
+  , bgroup "BrainpoolP512T1"
+    [ benchmark "Affine" BrainpoolP512T1.gA
+    ]
+  , bgroup       "SECP112R1"
+    [ benchmark "Affine"       SECP112R1.gA
+    ]
+  , bgroup       "SECP112R2"
+    [ benchmark "Affine"       SECP112R2.gA
+    ]
+  , bgroup       "SECP128R1"
+    [ benchmark "Affine"       SECP128R1.gA
+    ]
+  , bgroup       "SECP128R2"
+    [ benchmark "Affine"       SECP128R2.gA
+    ]
+  , bgroup       "SECP160K1"
+    [ benchmark "Affine"       SECP160K1.gA
+    ]
+  , bgroup       "SECP160R1"
+    [ benchmark "Affine"       SECP160R1.gA
+    ]
+  , bgroup       "SECP160R2"
+    [ benchmark "Affine"       SECP160R2.gA
+    ]
+  , bgroup       "SECP192K1"
+    [ benchmark "Affine"       SECP192K1.gA
+    ]
+  , bgroup       "SECP192R1"
+    [ benchmark "Affine"       SECP192R1.gA
+    ]
+  , bgroup       "SECP224K1"
+    [ benchmark "Affine"       SECP224K1.gA
+    ]
+  , bgroup       "SECP224R1"
+    [ benchmark "Affine"       SECP224R1.gA
+    ]
+  , bgroup       "SECP256K1"
+    [ benchmark "Affine"       SECP256K1.gA
+    ]
+  , bgroup       "SECP256R1"
+    [ benchmark "Affine"       SECP256R1.gA
+    ]
+  , bgroup       "SECP384R1"
+    [ benchmark "Affine"       SECP384R1.gA
+    ]
+  , bgroup       "SECP521R1"
+    [ benchmark "Affine"       SECP521R1.gA
+    ]
   ]

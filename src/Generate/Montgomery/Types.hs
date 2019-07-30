@@ -1,5 +1,6 @@
 module Generate.Montgomery.Types
-  ( Curve(..)
+  ( Affine(..)
+  , Curve(..)
   , Element(..)
   , Field(..)
   , Parameters(..)
@@ -17,6 +18,7 @@ import Generate.Types
 data Curve = Curve
   { types      :: Types
   , parameters :: Parameters
+  , affine     :: Affine
   }
 
 data Parameters = Parameters
@@ -25,6 +27,9 @@ data Parameters = Parameters
   , h :: Integer
   , q :: Integer
   , r :: Integer
-  , x :: Element
-  , y :: Element
+  }
+
+data Affine = Affine
+  { xA :: Element
+  , yA :: Element
   }

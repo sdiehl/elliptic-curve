@@ -11,12 +11,12 @@ module Curve.Edwards.Ed25519
   , Point(..)
   , _a
   , _d
-  , _g
   , _h
   , _q
   , _r
-  , _x
-  , _y
+  , gA
+  , xA
+  , yA
   ) where
 
 import Protolude
@@ -87,24 +87,24 @@ type AP = EAPoint Ed25519 Fq
 
 -- | Affine Ed25519 curve is an Edwards affine curve.
 instance EACurve Ed25519 Fq where
-  g_ = _g
-  {-# INLINE g_ #-}
-  x_ = const _x
-  {-# INLINE x_ #-}
-  y_ = const _y
-  {-# INLINE y_ #-}
+  gA_ = gA
+  {-# INLINE gA_ #-}
+  xA_ = const xA
+  {-# INLINE xA_ #-}
+  yA_ = const yA
+  {-# INLINE yA_ #-}
 
 -- | Generator of affine Ed25519 curve.
-_g :: AP
-_g = A _x _y
-{-# INLINE _g #-}
+gA :: AP
+gA = A xA yA
+{-# INLINE gA #-}
 
 -- | Coordinate @X@ of affine Ed25519 curve.
-_x :: Fq
-_x = 0x216936d3cd6e53fec0a4e231fdd6dc5c692cc7609525a7b2c9562d608f25d51a
-{-# INLINE _x #-}
+xA :: Fq
+xA = 0x216936d3cd6e53fec0a4e231fdd6dc5c692cc7609525a7b2c9562d608f25d51a
+{-# INLINE xA #-}
 
 -- | Coordinate @Y@ of affine Ed25519 curve.
-_y :: Fq
-_y = 0x6666666666666666666666666666666666666666666666666666666666666658
-{-# INLINE _y #-}
+yA :: Fq
+yA = 0x6666666666666666666666666666666666666666666666666666666666666658
+{-# INLINE yA #-}

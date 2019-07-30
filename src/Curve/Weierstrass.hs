@@ -47,10 +47,10 @@ type WAPoint = WPoint 'Affine
 
 -- | Weierstrass affine curves @y^2 = x^3 + Ax + B@.
 class WCurve 'Affine e k => WACurve e k where
-  {-# MINIMAL g_, x_, y_ #-}
-  g_ :: WAPoint e k -- ^ Curve generator.
-  x_ :: e -> k      -- ^ Coordinate @X@.
-  y_ :: e -> k      -- ^ Coordinate @Y@.
+  {-# MINIMAL gA_, xA_, yA_ #-}
+  gA_ :: WAPoint e k -- ^ Curve generator.
+  xA_ :: e -> k      -- ^ Coordinate @X@.
+  yA_ :: e -> k      -- ^ Coordinate @Y@.
 
 -- Weierstrass affine curves are elliptic curves.
 instance (GaloisField k, WACurve e k) => Curve 'Weierstrass 'Affine e k where
@@ -85,7 +85,7 @@ instance (GaloisField k, WACurve e k) => Curve 'Weierstrass 'Affine e k where
 
 -- Weierstrass affine points are arbitrary.
 instance (GaloisField k, WACurve e k) => Arbitrary (WAPoint e k) where
-  arbitrary = mul' g_ <$> (arbitrary :: Gen Integer) -- TODO
+  arbitrary = mul' gA_ <$> (arbitrary :: Gen Integer) -- TODO
   -- arbitrary = suchThatMap arbitrary pointX
 
 -- Weierstrass affine points are groups.
@@ -104,7 +104,7 @@ instance (GaloisField k, WACurve e k) => Group (WAPoint e k) where
       x' = l * l - 2 * x
       y' = l * (x - x') - y
   {-# INLINE double #-}
-  gen            = g_
+  gen            = gA_
   {-# INLINE gen #-}
   inv O          = O
   inv (A x y)    = A x (-y)
@@ -124,7 +124,7 @@ instance (GaloisField k, WACurve e k) => Pretty (WAPoint e k) where
 
 -- Weierstrass affine points are random.
 instance (GaloisField k, WACurve e k) => Random (WAPoint e k) where
-  random  = first (mul' g_) . (random :: RandomGen g => g -> (Integer, g)) -- TODO
+  random  = first (mul' gA_) . (random :: RandomGen g => g -> (Integer, g)) -- TODO
   -- random g = case pointX x of
   --   Just p -> (p, g')
   --   _      -> random g'

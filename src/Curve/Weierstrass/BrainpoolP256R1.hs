@@ -11,12 +11,12 @@ module Curve.Weierstrass.BrainpoolP256R1
   , WAPoint
   , _a
   , _b
-  , _g
   , _h
   , _q
   , _r
-  , _x
-  , _y
+  , gA
+  , xA
+  , yA
   ) where
 
 import Protolude
@@ -87,24 +87,24 @@ type AP = WAPoint BrainpoolP256R1 Fq
 
 -- | Affine BrainpoolP256R1 curve is a Weierstrass affine curve.
 instance WACurve BrainpoolP256R1 Fq where
-  g_ = _g
-  {-# INLINE g_ #-}
-  x_ = const _x
-  {-# INLINE x_ #-}
-  y_ = const _y
-  {-# INLINE y_ #-}
+  gA_ = gA
+  {-# INLINE gA_ #-}
+  xA_ = const xA
+  {-# INLINE xA_ #-}
+  yA_ = const yA
+  {-# INLINE yA_ #-}
 
 -- | Generator of affine BrainpoolP256R1 curve.
-_g :: AP
-_g = A _x _y
-{-# INLINE _g #-}
+gA :: AP
+gA = A xA yA
+{-# INLINE gA #-}
 
 -- | Coordinate @X@ of affine BrainpoolP256R1 curve.
-_x :: Fq
-_x = 0x8bd2aeb9cb7e57cb2c4b482ffc81b7afb9de27e1e3bd23c23a4453bd9ace3262
-{-# INLINE _x #-}
+xA :: Fq
+xA = 0x8bd2aeb9cb7e57cb2c4b482ffc81b7afb9de27e1e3bd23c23a4453bd9ace3262
+{-# INLINE xA #-}
 
 -- | Coordinate @Y@ of affine BrainpoolP256R1 curve.
-_y :: Fq
-_y = 0x547ef835c3dac4fd97f8461a14611dc9c27745132ded8e545c1d54c72f046997
-{-# INLINE _y #-}
+yA :: Fq
+yA = 0x547ef835c3dac4fd97f8461a14611dc9c27745132ded8e545c1d54c72f046997
+{-# INLINE yA #-}

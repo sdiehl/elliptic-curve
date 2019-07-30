@@ -47,10 +47,10 @@ type BAPoint = BPoint 'Affine
 
 -- | Binary affine curves @y^2 + xy = x^3 + Ax^2 + B@.
 class BCurve 'Affine e k => BACurve e k where
-  {-# MINIMAL g_, x_, y_ #-}
-  g_ :: BAPoint e k -- ^ Curve generator.
-  x_ :: e -> k      -- ^ Coordinate @X@.
-  y_ :: e -> k      -- ^ Coordinate @Y@.
+  {-# MINIMAL gA_, xA_, yA_ #-}
+  gA_ :: BAPoint e k -- ^ Curve generator.
+  xA_ :: e -> k      -- ^ Coordinate @X@.
+  yA_ :: e -> k      -- ^ Coordinate @Y@.
 
 -- Binary affine curves are elliptic curves.
 instance (GaloisField k, BACurve e k) => Curve 'Binary 'Affine e k where
@@ -76,8 +76,8 @@ instance (GaloisField k, BACurve e k) => Curve 'Binary 'Affine e k where
 
 -- Binary affine points are arbitrary.
 instance (GaloisField k, BACurve e k) => Arbitrary (BAPoint e k) where
-  arbitrary = return g_ -- TODO
-  -- arbitrary = mul g_ <$> (arbitrary :: Gen Int)
+  arbitrary = return gA_ -- TODO
+  -- arbitrary = mul gA_ <$> (arbitrary :: Gen Int)
   -- arbitrary = suchThatMap arbitrary pointX
 
 -- Binary affine points are groups.
@@ -96,7 +96,7 @@ instance (GaloisField k, BACurve e k) => Group (BAPoint e k) where
       x' = l * l' + a_ (witness :: BAPoint e k)
       y' = x * x + l' * x'
   {-# INLINE double #-}
-  gen            = g_
+  gen            = gA_
   {-# INLINE gen #-}
   inv O          = O
   inv (A x y)    = A x (x + y)

@@ -47,7 +47,7 @@ prettyParameters curves
   <$$> vcat (punctuate prettyBreak (map prettyParameters' curves))
   where
     prettyParameters' :: Curve -> Doc
-    prettyParameters' (Curve Types{..} Parameters{..})
+    prettyParameters' (Curve Types{..} Parameters{..} Affine{..})
       =    pretty (toLower curve) <+> ":: Curve"
       <$$> pretty (toLower curve) <+> "= Curve"
       <$$> " " <+> align
@@ -67,8 +67,12 @@ prettyParameters curves
           <$$> ", h =" <+> prettyInteger h
           <$$> ", q =" <+> prettyInteger q
           <$$> ", r =" <+> prettyInteger r
-          <$$> ", x =" <+> prettyElement x
-          <$$> ", y =" <+> prettyElement y
+          <$$> "}"
+          )
+        <$$> ", affine = Affine"
+        <$$> " " <+> align
+          (    "{ xA =" <+> prettyElement xA
+          <$$> ", yA =" <+> prettyElement yA
           <$$> "}"
           )
         <$$> "}"

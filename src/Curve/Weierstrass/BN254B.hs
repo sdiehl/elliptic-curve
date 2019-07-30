@@ -11,12 +11,12 @@ module Curve.Weierstrass.BN254B
   , WAPoint
   , _a
   , _b
-  , _g
   , _h
   , _q
   , _r
-  , _x
-  , _y
+  , gA
+  , xA
+  , yA
   ) where
 
 import Protolude
@@ -87,24 +87,24 @@ type AP = WAPoint BN254B Fq
 
 -- | Affine BN254B curve is a Weierstrass affine curve.
 instance WACurve BN254B Fq where
-  g_ = _g
-  {-# INLINE g_ #-}
-  x_ = const _x
-  {-# INLINE x_ #-}
-  y_ = const _y
-  {-# INLINE y_ #-}
+  gA_ = gA
+  {-# INLINE gA_ #-}
+  xA_ = const xA
+  {-# INLINE xA_ #-}
+  yA_ = const yA
+  {-# INLINE yA_ #-}
 
 -- | Generator of affine BN254B curve.
-_g :: AP
-_g = A _x _y
-{-# INLINE _g #-}
+gA :: AP
+gA = A xA yA
+{-# INLINE gA #-}
 
 -- | Coordinate @X@ of affine BN254B curve.
-_x :: Fq
-_x = 0x2523648240000001ba344d80000000086121000000000013a700000000000012
-{-# INLINE _x #-}
+xA :: Fq
+xA = 0x2523648240000001ba344d80000000086121000000000013a700000000000012
+{-# INLINE xA #-}
 
 -- | Coordinate @Y@ of affine BN254B curve.
-_y :: Fq
-_y = 0x1
-{-# INLINE _y #-}
+yA :: Fq
+yA = 0x1
+{-# INLINE yA #-}

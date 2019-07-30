@@ -47,10 +47,10 @@ type EAPoint = EPoint 'Affine
 
 -- | Edwards affine curves @Ax^2 + y^2 = 1 + Dx^2y^2@.
 class ECurve 'Affine e k => EACurve e k where
-  {-# MINIMAL g_, x_, y_ #-}
-  g_ :: EAPoint e k -- ^ Curve generator.
-  x_ :: e -> k      -- ^ Coordinate @X@.
-  y_ :: e -> k      -- ^ Coordinate @Y@.
+  {-# MINIMAL gA_, xA_, yA_ #-}
+  gA_ :: EAPoint e k -- ^ Curve generator.
+  xA_ :: e -> k      -- ^ Coordinate @X@.
+  yA_ :: e -> k      -- ^ Coordinate @Y@.
 
 -- Edwards affine curves are elliptic curves.
 instance (GaloisField k, EACurve e k) => Curve 'Edwards 'Affine e k where
@@ -88,7 +88,7 @@ instance (GaloisField k, EACurve e k) => Group (EAPoint e k) where
       xx = x * x
       yy = y * y
   {-# INLINE def #-}
-  gen         = g_
+  gen         = gA_
   {-# INLINE gen #-}
   inv (A x y) = A (-x) y
   {-# INLINE inv #-}

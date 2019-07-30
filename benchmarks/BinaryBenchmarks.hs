@@ -24,22 +24,58 @@ import GroupBenchmarks
 
 benchmarkBinary :: Benchmark
 benchmarkBinary = bgroup "Binary"
-  [ benchmark "SECT113R1" SECT113R1._g
-  , benchmark "SECT113R2" SECT113R2._g
-  , benchmark "SECT131R1" SECT131R1._g
-  , benchmark "SECT131R2" SECT131R2._g
-  , benchmark "SECT163K1" SECT163K1._g
-  , benchmark "SECT163R1" SECT163R1._g
-  , benchmark "SECT163R2" SECT163R2._g
-  , benchmark "SECT193R1" SECT193R1._g
-  , benchmark "SECT193R2" SECT193R2._g
-  , benchmark "SECT233K1" SECT233K1._g
-  , benchmark "SECT233R1" SECT233R1._g
-  , benchmark "SECT239K1" SECT239K1._g
-  , benchmark "SECT283K1" SECT283K1._g
-  , benchmark "SECT283R1" SECT283R1._g
-  , benchmark "SECT409K1" SECT409K1._g
-  , benchmark "SECT409R1" SECT409R1._g
-  , benchmark "SECT571K1" SECT571K1._g
-  , benchmark "SECT571R1" SECT571R1._g
+  [ bgroup "SECT113R1"
+    [ benchmark "Affine" SECT113R1.gA
+    ]
+  , bgroup "SECT113R2"
+    [ benchmark "Affine" SECT113R2.gA
+    ]
+  , bgroup "SECT131R1"
+    [ benchmark "Affine" SECT131R1.gA
+    ]
+  , bgroup "SECT131R2"
+    [ benchmark "Affine" SECT131R2.gA
+    ]
+  , bgroup "SECT163K1"
+    [ benchmark "Affine" SECT163K1.gA
+    ]
+  , bgroup "SECT163R1"
+    [ benchmark "Affine" SECT163R1.gA
+    ]
+  , bgroup "SECT163R2"
+    [ benchmark "Affine" SECT163R2.gA
+    ]
+  , bgroup "SECT193R1"
+    [ benchmark "Affine" SECT193R1.gA
+    ]
+  , bgroup "SECT193R2"
+    [ benchmark "Affine" SECT193R2.gA
+    ]
+  , bgroup "SECT233K1"
+    [ benchmark "Affine" SECT233K1.gA
+    ]
+  , bgroup "SECT233R1"
+    [ benchmark "Affine" SECT233R1.gA
+    ]
+  , bgroup "SECT239K1"
+    [ benchmark "Affine" SECT239K1.gA
+    ]
+  , bgroup "SECT283K1"
+    [ benchmark "Affine" SECT283K1.gA
+    ]
+  , bgroup "SECT283R1"
+    [ benchmark "Affine" SECT283R1.gA
+    ]
+  , bgroup "SECT409K1"
+    [ benchmark "Affine" SECT409K1.gA
+    ]
+  , bgroup "SECT409R1"
+    [ benchmark "Affine" SECT409R1.gA
+    ]
+  , bgroup "SECT571K1"
+    [ benchmark "Affine" SECT571K1.gA
+    ]
+  , bgroup "SECT571R1"
+    [ benchmark "Affine" SECT571R1.gA
+    ]
   ]

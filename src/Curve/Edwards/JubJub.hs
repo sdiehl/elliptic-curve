@@ -11,12 +11,12 @@ module Curve.Edwards.JubJub
   , Point(..)
   , _a
   , _d
-  , _g
   , _h
   , _q
   , _r
-  , _x
-  , _y
+  , gA
+  , xA
+  , yA
   ) where
 
 import Protolude
@@ -87,24 +87,24 @@ type AP = EAPoint JubJub Fq
 
 -- | Affine JubJub curve is an Edwards affine curve.
 instance EACurve JubJub Fq where
-  g_ = _g
-  {-# INLINE g_ #-}
-  x_ = const _x
-  {-# INLINE x_ #-}
-  y_ = const _y
-  {-# INLINE y_ #-}
+  gA_ = gA
+  {-# INLINE gA_ #-}
+  xA_ = const xA
+  {-# INLINE xA_ #-}
+  yA_ = const yA
+  {-# INLINE yA_ #-}
 
 -- | Generator of affine JubJub curve.
-_g :: AP
-_g = A _x _y
-{-# INLINE _g #-}
+gA :: AP
+gA = A xA yA
+{-# INLINE gA #-}
 
 -- | Coordinate @X@ of affine JubJub curve.
-_x :: Fq
-_x = 0x5183972af8eff38ca624b4df00384882000c546bf2f39ede7f4ecf1a74f976c4
-{-# INLINE _x #-}
+xA :: Fq
+xA = 0x5183972af8eff38ca624b4df00384882000c546bf2f39ede7f4ecf1a74f976c4
+{-# INLINE xA #-}
 
 -- | Coordinate @Y@ of affine JubJub curve.
-_y :: Fq
-_y = 0x3b43f8472ca2fc2c9e8fcc5abd9dc308096c8707ffa6833b146bad709349702e
-{-# INLINE _y #-}
+yA :: Fq
+yA = 0x3b43f8472ca2fc2c9e8fcc5abd9dc308096c8707ffa6833b146bad709349702e
+{-# INLINE yA #-}

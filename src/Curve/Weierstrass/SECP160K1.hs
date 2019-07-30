@@ -11,12 +11,12 @@ module Curve.Weierstrass.SECP160K1
   , WAPoint
   , _a
   , _b
-  , _g
   , _h
   , _q
   , _r
-  , _x
-  , _y
+  , gA
+  , xA
+  , yA
   ) where
 
 import Protolude
@@ -87,24 +87,24 @@ type AP = WAPoint SECP160K1 Fq
 
 -- | Affine SECP160K1 curve is a Weierstrass affine curve.
 instance WACurve SECP160K1 Fq where
-  g_ = _g
-  {-# INLINE g_ #-}
-  x_ = const _x
-  {-# INLINE x_ #-}
-  y_ = const _y
-  {-# INLINE y_ #-}
+  gA_ = gA
+  {-# INLINE gA_ #-}
+  xA_ = const xA
+  {-# INLINE xA_ #-}
+  yA_ = const yA
+  {-# INLINE yA_ #-}
 
 -- | Generator of affine SECP160K1 curve.
-_g :: AP
-_g = A _x _y
-{-# INLINE _g #-}
+gA :: AP
+gA = A xA yA
+{-# INLINE gA #-}
 
 -- | Coordinate @X@ of affine SECP160K1 curve.
-_x :: Fq
-_x = 0x3b4c382ce37aa192a4019e763036f4f5dd4d7ebb
-{-# INLINE _x #-}
+xA :: Fq
+xA = 0x3b4c382ce37aa192a4019e763036f4f5dd4d7ebb
+{-# INLINE xA #-}
 
 -- | Coordinate @Y@ of affine SECP160K1 curve.
-_y :: Fq
-_y = 0x938cf935318fdced6bc28286531733c3f03c4fee
-{-# INLINE _y #-}
+yA :: Fq
+yA = 0x938cf935318fdced6bc28286531733c3f03c4fee
+{-# INLINE yA #-}

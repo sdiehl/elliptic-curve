@@ -11,12 +11,12 @@ module Curve.Edwards.Ed448
   , Point(..)
   , _a
   , _d
-  , _g
   , _h
   , _q
   , _r
-  , _x
-  , _y
+  , gA
+  , xA
+  , yA
   ) where
 
 import Protolude
@@ -87,24 +87,24 @@ type AP = EAPoint Ed448 Fq
 
 -- | Affine Ed448 curve is an Edwards affine curve.
 instance EACurve Ed448 Fq where
-  g_ = _g
-  {-# INLINE g_ #-}
-  x_ = const _x
-  {-# INLINE x_ #-}
-  y_ = const _y
-  {-# INLINE y_ #-}
+  gA_ = gA
+  {-# INLINE gA_ #-}
+  xA_ = const xA
+  {-# INLINE xA_ #-}
+  yA_ = const yA
+  {-# INLINE yA_ #-}
 
 -- | Generator of affine Ed448 curve.
-_g :: AP
-_g = A _x _y
-{-# INLINE _g #-}
+gA :: AP
+gA = A xA yA
+{-# INLINE gA #-}
 
 -- | Coordinate @X@ of affine Ed448 curve.
-_x :: Fq
-_x = 0x297ea0ea2692ff1b4faff46098453a6a26adf733245f065c3c59d0709cecfa96147eaaf3932d94c63d96c170033f4ba0c7f0de840aed939f
-{-# INLINE _x #-}
+xA :: Fq
+xA = 0x297ea0ea2692ff1b4faff46098453a6a26adf733245f065c3c59d0709cecfa96147eaaf3932d94c63d96c170033f4ba0c7f0de840aed939f
+{-# INLINE xA #-}
 
 -- | Coordinate @Y@ of affine Ed448 curve.
-_y :: Fq
-_y = 0x13
-{-# INLINE _y #-}
+yA :: Fq
+yA = 0x13
+{-# INLINE yA #-}

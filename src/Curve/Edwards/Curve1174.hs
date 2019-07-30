@@ -11,12 +11,12 @@ module Curve.Edwards.Curve1174
   , Point(..)
   , _a
   , _d
-  , _g
   , _h
   , _q
   , _r
-  , _x
-  , _y
+  , gA
+  , xA
+  , yA
   ) where
 
 import Protolude
@@ -87,24 +87,24 @@ type AP = EAPoint Curve1174 Fq
 
 -- | Affine Curve1174 curve is an Edwards affine curve.
 instance EACurve Curve1174 Fq where
-  g_ = _g
-  {-# INLINE g_ #-}
-  x_ = const _x
-  {-# INLINE x_ #-}
-  y_ = const _y
-  {-# INLINE y_ #-}
+  gA_ = gA
+  {-# INLINE gA_ #-}
+  xA_ = const xA
+  {-# INLINE xA_ #-}
+  yA_ = const yA
+  {-# INLINE yA_ #-}
 
 -- | Generator of affine Curve1174 curve.
-_g :: AP
-_g = A _x _y
-{-# INLINE _g #-}
+gA :: AP
+gA = A xA yA
+{-# INLINE gA #-}
 
 -- | Coordinate @X@ of affine Curve1174 curve.
-_x :: Fq
-_x = 0x37fbb0cea308c479343aee7c029a190c021d96a492ecd6516123f27bce29eda
-{-# INLINE _x #-}
+xA :: Fq
+xA = 0x37fbb0cea308c479343aee7c029a190c021d96a492ecd6516123f27bce29eda
+{-# INLINE xA #-}
 
 -- | Coordinate @Y@ of affine Curve1174 curve.
-_y :: Fq
-_y = 0x6b72f82d47fb7cc6656841169840e0c4fe2dee2af3f976ba4ccb1bf9b46360e
-{-# INLINE _y #-}
+yA :: Fq
+yA = 0x6b72f82d47fb7cc6656841169840e0c4fe2dee2af3f976ba4ccb1bf9b46360e
+{-# INLINE yA #-}

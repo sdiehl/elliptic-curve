@@ -11,12 +11,12 @@ module Curve.Edwards.Ed3363
   , Point(..)
   , _a
   , _d
-  , _g
   , _h
   , _q
   , _r
-  , _x
-  , _y
+  , gA
+  , xA
+  , yA
   ) where
 
 import Protolude
@@ -87,24 +87,24 @@ type AP = EAPoint Ed3363 Fq
 
 -- | Affine Ed3363 curve is an Edwards affine curve.
 instance EACurve Ed3363 Fq where
-  g_ = _g
-  {-# INLINE g_ #-}
-  x_ = const _x
-  {-# INLINE x_ #-}
-  y_ = const _y
-  {-# INLINE y_ #-}
+  gA_ = gA
+  {-# INLINE gA_ #-}
+  xA_ = const xA
+  {-# INLINE xA_ #-}
+  yA_ = const yA
+  {-# INLINE yA_ #-}
 
 -- | Generator of affine Ed3363 curve.
-_g :: AP
-_g = A _x _y
-{-# INLINE _g #-}
+gA :: AP
+gA = A xA yA
+{-# INLINE gA #-}
 
 -- | Coordinate @X@ of affine Ed3363 curve.
-_x :: Fq
-_x = 0xc
-{-# INLINE _x #-}
+xA :: Fq
+xA = 0xc
+{-# INLINE xA #-}
 
 -- | Coordinate @Y@ of affine Ed3363 curve.
-_y :: Fq
-_y = 0xc0dc616b56502e18e1c161d007853d1b14b46c3811c7ef435b6db5d5650ca0365db12bec68505fe8632
-{-# INLINE _y #-}
+yA :: Fq
+yA = 0xc0dc616b56502e18e1c161d007853d1b14b46c3811c7ef435b6db5d5650ca0365db12bec68505fe8632
+{-# INLINE yA #-}

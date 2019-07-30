@@ -11,12 +11,12 @@ module Curve.Weierstrass.ANSSIFRP256V1
   , WAPoint
   , _a
   , _b
-  , _g
   , _h
   , _q
   , _r
-  , _x
-  , _y
+  , gA
+  , xA
+  , yA
   ) where
 
 import Protolude
@@ -87,24 +87,24 @@ type AP = WAPoint ANSSIFRP256V1 Fq
 
 -- | Affine ANSSIFRP256V1 curve is a Weierstrass affine curve.
 instance WACurve ANSSIFRP256V1 Fq where
-  g_ = _g
-  {-# INLINE g_ #-}
-  x_ = const _x
-  {-# INLINE x_ #-}
-  y_ = const _y
-  {-# INLINE y_ #-}
+  gA_ = gA
+  {-# INLINE gA_ #-}
+  xA_ = const xA
+  {-# INLINE xA_ #-}
+  yA_ = const yA
+  {-# INLINE yA_ #-}
 
 -- | Generator of affine ANSSIFRP256V1 curve.
-_g :: AP
-_g = A _x _y
-{-# INLINE _g #-}
+gA :: AP
+gA = A xA yA
+{-# INLINE gA #-}
 
 -- | Coordinate @X@ of affine ANSSIFRP256V1 curve.
-_x :: Fq
-_x = 0xb6b3d4c356c139eb31183d4749d423958c27d2dcaf98b70164c97a2dd98f5cff
-{-# INLINE _x #-}
+xA :: Fq
+xA = 0xb6b3d4c356c139eb31183d4749d423958c27d2dcaf98b70164c97a2dd98f5cff
+{-# INLINE xA #-}
 
 -- | Coordinate @Y@ of affine ANSSIFRP256V1 curve.
-_y :: Fq
-_y = 0x6142e0f7c8b204911f9271f0f3ecef8c2701c307e8e4c9e183115a1554062cfb
-{-# INLINE _y #-}
+yA :: Fq
+yA = 0x6142e0f7c8b204911f9271f0f3ecef8c2701c307e8e4c9e183115a1554062cfb
+{-# INLINE yA #-}

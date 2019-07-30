@@ -11,12 +11,12 @@ module Curve.Edwards.E382
   , Point(..)
   , _a
   , _d
-  , _g
   , _h
   , _q
   , _r
-  , _x
-  , _y
+  , gA
+  , xA
+  , yA
   ) where
 
 import Protolude
@@ -87,24 +87,24 @@ type AP = EAPoint E382 Fq
 
 -- | Affine E382 curve is an Edwards affine curve.
 instance EACurve E382 Fq where
-  g_ = _g
-  {-# INLINE g_ #-}
-  x_ = const _x
-  {-# INLINE x_ #-}
-  y_ = const _y
-  {-# INLINE y_ #-}
+  gA_ = gA
+  {-# INLINE gA_ #-}
+  xA_ = const xA
+  {-# INLINE xA_ #-}
+  yA_ = const yA
+  {-# INLINE yA_ #-}
 
 -- | Generator of affine E382 curve.
-_g :: AP
-_g = A _x _y
-{-# INLINE _g #-}
+gA :: AP
+gA = A xA yA
+{-# INLINE gA #-}
 
 -- | Coordinate @X@ of affine E382 curve.
-_x :: Fq
-_x = 0x196f8dd0eab20391e5f05be96e8d20ae68f840032b0b64352923bab85364841193517dbce8105398ebc0cc9470f79603
-{-# INLINE _x #-}
+xA :: Fq
+xA = 0x196f8dd0eab20391e5f05be96e8d20ae68f840032b0b64352923bab85364841193517dbce8105398ebc0cc9470f79603
+{-# INLINE xA #-}
 
 -- | Coordinate @Y@ of affine E382 curve.
-_y :: Fq
-_y = 0x11
-{-# INLINE _y #-}
+yA :: Fq
+yA = 0x11
+{-# INLINE yA #-}
