@@ -1,6 +1,5 @@
 module Curve.Montgomery.M221
-  ( AP
-  , Curve(..)
+  ( Curve(..)
   , Fq
   , Fr
   , Group(..)
@@ -8,27 +7,25 @@ module Curve.Montgomery.M221
   , MPoint
   , MACurve(..)
   , MAPoint
-  , Point(..)
+  , PA
   , _a
   , _b
   , _h
   , _q
   , _r
+  , _x
+  , _y
   , gA
-  , xA
-  , yA
   ) where
 
 import Protolude
 
-import PrimeField (PrimeField)
+import PrimeField
 
-import Curve (Curve(..), Form(..))
-import Curve.Montgomery (MCurve(..), MPoint, MACurve(..), MAPoint, Point(..))
-import Group (Group(..))
+import Curve.Montgomery
 
 -------------------------------------------------------------------------------
--- M221 curve
+-- Types
 -------------------------------------------------------------------------------
 
 -- | M221 curve.
@@ -52,6 +49,22 @@ instance Curve 'Montgomery c M221 Fq => MCurve c M221 Fq where
   {-# INLINE q_ #-}
   r_ = const _r
   {-# INLINE r_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
+
+-- | Affine M221 curve point.
+type PA = MAPoint M221 Fq
+
+-- | Affine M221 curve is a Montgomery affine curve.
+instance MACurve M221 Fq where
+  gA_ = gA
+  {-# INLINE gA_ #-}
+
+-------------------------------------------------------------------------------
+-- Parameters
+-------------------------------------------------------------------------------
 
 -- | Coefficient @A@ of M221 curve.
 _a :: Fq
@@ -78,33 +91,17 @@ _r :: Integer
 _r = 0x40000000000000000000000000015a08ed730e8a2f77f005042605b
 {-# INLINE _r #-}
 
--------------------------------------------------------------------------------
--- Affine coordinates
--------------------------------------------------------------------------------
+-- | Coordinate @X@ of M221 curve.
+_x :: Fq
+_x = 0x4
+{-# INLINE _x #-}
 
--- | Affine M221 point.
-type AP = MAPoint M221 Fq
+-- | Coordinate @Y@ of M221 curve.
+_y :: Fq
+_y = 0xf7acdd2a4939571d1cef14eca37c228e61dbff10707dc6c08c5056d
+{-# INLINE _y #-}
 
--- | Affine M221 curve is a Montgomery affine curve.
-instance MACurve M221 Fq where
-  gA_ = gA
-  {-# INLINE gA_ #-}
-  xA_ = const xA
-  {-# INLINE xA_ #-}
-  yA_ = const yA
-  {-# INLINE yA_ #-}
-
--- | Generator of affine M221 curve.
-gA :: AP
-gA = A xA yA
+-- | Affine generator of M221 curve.
+gA :: PA
+gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
-
--- | Coordinate @X@ of affine M221 curve.
-xA :: Fq
-xA = 0x4
-{-# INLINE xA #-}
-
--- | Coordinate @Y@ of affine M221 curve.
-yA :: Fq
-yA = 0xf7acdd2a4939571d1cef14eca37c228e61dbff10707dc6c08c5056d
-{-# INLINE yA #-}

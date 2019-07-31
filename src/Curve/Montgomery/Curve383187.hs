@@ -1,6 +1,5 @@
 module Curve.Montgomery.Curve383187
-  ( AP
-  , Curve(..)
+  ( Curve(..)
   , Fq
   , Fr
   , Group(..)
@@ -8,27 +7,25 @@ module Curve.Montgomery.Curve383187
   , MPoint
   , MACurve(..)
   , MAPoint
-  , Point(..)
+  , PA
   , _a
   , _b
   , _h
   , _q
   , _r
+  , _x
+  , _y
   , gA
-  , xA
-  , yA
   ) where
 
 import Protolude
 
-import PrimeField (PrimeField)
+import PrimeField
 
-import Curve (Curve(..), Form(..))
-import Curve.Montgomery (MCurve(..), MPoint, MACurve(..), MAPoint, Point(..))
-import Group (Group(..))
+import Curve.Montgomery
 
 -------------------------------------------------------------------------------
--- Curve383187 curve
+-- Types
 -------------------------------------------------------------------------------
 
 -- | Curve383187 curve.
@@ -52,6 +49,22 @@ instance Curve 'Montgomery c Curve383187 Fq => MCurve c Curve383187 Fq where
   {-# INLINE q_ #-}
   r_ = const _r
   {-# INLINE r_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
+
+-- | Affine Curve383187 curve point.
+type PA = MAPoint Curve383187 Fq
+
+-- | Affine Curve383187 curve is a Montgomery affine curve.
+instance MACurve Curve383187 Fq where
+  gA_ = gA
+  {-# INLINE gA_ #-}
+
+-------------------------------------------------------------------------------
+-- Parameters
+-------------------------------------------------------------------------------
 
 -- | Coefficient @A@ of Curve383187 curve.
 _a :: Fq
@@ -78,33 +91,17 @@ _r :: Integer
 _r = 0x1000000000000000000000000000000000000000000000000e85a85287a1488acd41ae84b2b7030446f72088b00a0e21
 {-# INLINE _r #-}
 
--------------------------------------------------------------------------------
--- Affine coordinates
--------------------------------------------------------------------------------
+-- | Coordinate @X@ of Curve383187 curve.
+_x :: Fq
+_x = 0x5
+{-# INLINE _x #-}
 
--- | Affine Curve383187 point.
-type AP = MAPoint Curve383187 Fq
+-- | Coordinate @Y@ of Curve383187 curve.
+_y :: Fq
+_y = 0x1eebe07dc1871896732b12d5504a32370471965c7a11f2c89865f855ab3cbd7c224e3620c31af3370788457dd5ce46df
+{-# INLINE _y #-}
 
--- | Affine Curve383187 curve is a Montgomery affine curve.
-instance MACurve Curve383187 Fq where
-  gA_ = gA
-  {-# INLINE gA_ #-}
-  xA_ = const xA
-  {-# INLINE xA_ #-}
-  yA_ = const yA
-  {-# INLINE yA_ #-}
-
--- | Generator of affine Curve383187 curve.
-gA :: AP
-gA = A xA yA
+-- | Affine generator of Curve383187 curve.
+gA :: PA
+gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
-
--- | Coordinate @X@ of affine Curve383187 curve.
-xA :: Fq
-xA = 0x5
-{-# INLINE xA #-}
-
--- | Coordinate @Y@ of affine Curve383187 curve.
-yA :: Fq
-yA = 0x1eebe07dc1871896732b12d5504a32370471965c7a11f2c89865f855ab3cbd7c224e3620c31af3370788457dd5ce46df
-{-# INLINE yA #-}

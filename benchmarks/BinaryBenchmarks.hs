@@ -24,58 +24,27 @@ import GroupBenchmarks
 
 benchmarkBinary :: Benchmark
 benchmarkBinary = bgroup "Binary"
-  [ bgroup "SECT113R1"
-    [ benchmark "Affine" SECT113R1.gA
-    ]
-  , bgroup "SECT113R2"
-    [ benchmark "Affine" SECT113R2.gA
-    ]
-  , bgroup "SECT131R1"
-    [ benchmark "Affine" SECT131R1.gA
-    ]
-  , bgroup "SECT131R2"
-    [ benchmark "Affine" SECT131R2.gA
-    ]
-  , bgroup "SECT163K1"
-    [ benchmark "Affine" SECT163K1.gA
-    ]
-  , bgroup "SECT163R1"
-    [ benchmark "Affine" SECT163R1.gA
-    ]
-  , bgroup "SECT163R2"
-    [ benchmark "Affine" SECT163R2.gA
-    ]
-  , bgroup "SECT193R1"
-    [ benchmark "Affine" SECT193R1.gA
-    ]
-  , bgroup "SECT193R2"
-    [ benchmark "Affine" SECT193R2.gA
-    ]
-  , bgroup "SECT233K1"
-    [ benchmark "Affine" SECT233K1.gA
-    ]
-  , bgroup "SECT233R1"
-    [ benchmark "Affine" SECT233R1.gA
-    ]
-  , bgroup "SECT239K1"
-    [ benchmark "Affine" SECT239K1.gA
-    ]
-  , bgroup "SECT283K1"
-    [ benchmark "Affine" SECT283K1.gA
-    ]
-  , bgroup "SECT283R1"
-    [ benchmark "Affine" SECT283R1.gA
-    ]
-  , bgroup "SECT409K1"
-    [ benchmark "Affine" SECT409K1.gA
-    ]
-  , bgroup "SECT409R1"
-    [ benchmark "Affine" SECT409R1.gA
-    ]
-  , bgroup "SECT571K1"
-    [ benchmark "Affine" SECT571K1.gA
-    ]
-  , bgroup "SECT571R1"
-    [ benchmark "Affine" SECT571R1.gA
-    ]
+  [ benchmarkBinary' "SECT113R1" SECT113R1.gA SECT113R1.gP
+  , benchmarkBinary' "SECT113R2" SECT113R2.gA SECT113R2.gP
+  , benchmarkBinary' "SECT131R1" SECT131R1.gA SECT131R1.gP
+  , benchmarkBinary' "SECT131R2" SECT131R2.gA SECT131R2.gP
+  , benchmarkBinary' "SECT163K1" SECT163K1.gA SECT163K1.gP
+  , benchmarkBinary' "SECT163R1" SECT163R1.gA SECT163R1.gP
+  , benchmarkBinary' "SECT163R2" SECT163R2.gA SECT163R2.gP
+  , benchmarkBinary' "SECT193R1" SECT193R1.gA SECT193R1.gP
+  , benchmarkBinary' "SECT193R2" SECT193R2.gA SECT193R2.gP
+  , benchmarkBinary' "SECT233K1" SECT233K1.gA SECT233K1.gP
+  , benchmarkBinary' "SECT233R1" SECT233R1.gA SECT233R1.gP
+  , benchmarkBinary' "SECT239K1" SECT239K1.gA SECT239K1.gP
+  , benchmarkBinary' "SECT283K1" SECT283K1.gA SECT283K1.gP
+  , benchmarkBinary' "SECT283R1" SECT283R1.gA SECT283R1.gP
+  , benchmarkBinary' "SECT409K1" SECT409K1.gA SECT409K1.gP
+  , benchmarkBinary' "SECT409R1" SECT409R1.gA SECT409R1.gP
+  , benchmarkBinary' "SECT571K1" SECT571K1.gA SECT571K1.gP
+  , benchmarkBinary' "SECT571R1" SECT571R1.gA SECT571R1.gP
   ]
+  where
+    benchmarkBinary' curve affine projective = bgroup curve
+      [ benchmark "Affine" affine
+      , benchmark "Projective" projective
+      ]

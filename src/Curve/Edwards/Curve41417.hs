@@ -1,34 +1,35 @@
 module Curve.Edwards.Curve41417
-  ( AP
-  , Curve(..)
+  ( Curve(..)
   , ECurve(..)
   , EPoint
   , EACurve(..)
   , EAPoint
+  , EPCurve(..)
+  , EPPoint
   , Fq
   , Fr
   , Group(..)
-  , Point(..)
+  , PA
+  , PP
   , _a
   , _d
   , _h
   , _q
   , _r
+  , _x
+  , _y
   , gA
-  , xA
-  , yA
+  , gP
   ) where
 
 import Protolude
 
-import PrimeField (PrimeField)
+import PrimeField
 
-import Curve (Curve(..), Form(..))
-import Curve.Edwards (ECurve(..), EPoint, EACurve(..), EAPoint, Point(..))
-import Group (Group(..))
+import Curve.Edwards
 
 -------------------------------------------------------------------------------
--- Curve41417 curve
+-- Types
 -------------------------------------------------------------------------------
 
 -- | Curve41417 curve.
@@ -52,6 +53,30 @@ instance Curve 'Edwards c Curve41417 Fq => ECurve c Curve41417 Fq where
   {-# INLINE q_ #-}
   r_ = const _r
   {-# INLINE r_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
+
+-- | Affine Curve41417 curve point.
+type PA = EAPoint Curve41417 Fq
+
+-- | Affine Curve41417 curve is an Edwards affine curve.
+instance EACurve Curve41417 Fq where
+  gA_ = gA
+  {-# INLINE gA_ #-}
+
+-- | Projective Curve41417 point.
+type PP = EPPoint Curve41417 Fq
+
+-- | Projective Curve41417 curve is an Edwards projective curve.
+instance EPCurve Curve41417 Fq where
+  gP_ = gP
+  {-# INLINE gP_ #-}
+
+-------------------------------------------------------------------------------
+-- Parameters
+-------------------------------------------------------------------------------
 
 -- | Coefficient @A@ of Curve41417 curve.
 _a :: Fq
@@ -78,33 +103,22 @@ _r :: Integer
 _r = 0x7ffffffffffffffffffffffffffffffffffffffffffffffffffeb3cc92414cf706022b36f1c0338ad63cf181b0e71a5e106af79
 {-# INLINE _r #-}
 
--------------------------------------------------------------------------------
--- Affine coordinates
--------------------------------------------------------------------------------
+-- | Coordinate @X@ of Curve41417 curve.
+_x :: Fq
+_x = 0x1a334905141443300218c0631c326e5fcd46369f44c03ec7f57ff35498a4ab4d6d6ba111301a73faa8537c64c4fd3812f3cbc595
+{-# INLINE _x #-}
 
--- | Affine Curve41417 point.
-type AP = EAPoint Curve41417 Fq
+-- | Coordinate @Y@ of Curve41417 curve.
+_y :: Fq
+_y = 0x22
+{-# INLINE _y #-}
 
--- | Affine Curve41417 curve is an Edwards affine curve.
-instance EACurve Curve41417 Fq where
-  gA_ = gA
-  {-# INLINE gA_ #-}
-  xA_ = const xA
-  {-# INLINE xA_ #-}
-  yA_ = const yA
-  {-# INLINE yA_ #-}
-
--- | Generator of affine Curve41417 curve.
-gA :: AP
-gA = A xA yA
+-- | Affine generator of Curve41417 curve.
+gA :: PA
+gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Coordinate @X@ of affine Curve41417 curve.
-xA :: Fq
-xA = 0x1a334905141443300218c0631c326e5fcd46369f44c03ec7f57ff35498a4ab4d6d6ba111301a73faa8537c64c4fd3812f3cbc595
-{-# INLINE xA #-}
-
--- | Coordinate @Y@ of affine Curve41417 curve.
-yA :: Fq
-yA = 0x22
-{-# INLINE yA #-}
+-- | Projective generator of Curve41417 curve.
+gP :: PP
+gP = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gP #-}

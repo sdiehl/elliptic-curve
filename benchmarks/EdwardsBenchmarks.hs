@@ -15,31 +15,18 @@ import GroupBenchmarks
 
 benchmarkEdwards :: Benchmark
 benchmarkEdwards = bgroup "Edwards"
-  [ bgroup  "Curve1174"
-    [ benchmark "Affine"  Curve1174.gA
-    ]
-  , bgroup "Curve41417"
-    [ benchmark "Affine" Curve41417.gA
-    ]
-  , bgroup       "E222"
-    [ benchmark "Affine"       E222.gA
-    ]
-  , bgroup       "E382"
-    [ benchmark "Affine"       E382.gA
-    ]
-  , bgroup       "E521"
-    [ benchmark "Affine"       E521.gA
-    ]
-  , bgroup      "Ed448"
-    [ benchmark "Affine"      Ed448.gA
-    ]
-  , bgroup     "Ed3363"
-    [ benchmark "Affine"     Ed3363.gA
-    ]
-  , bgroup    "Ed25519"
-    [ benchmark "Affine"    Ed25519.gA
-    ]
-  , bgroup     "JubJub"
-    [ benchmark "Affine"     JubJub.gA
-    ]
+  [ benchmarkEdwards'  "Curve1174"  Curve1174.gA  Curve1174.gP
+  , benchmarkEdwards' "Curve41417" Curve41417.gA Curve41417.gP
+  , benchmarkEdwards'       "E222"       E222.gA       E222.gP
+  , benchmarkEdwards'       "E382"       E382.gA       E382.gP
+  , benchmarkEdwards'       "E521"       E521.gA       E521.gP
+  , benchmarkEdwards'      "Ed448"      Ed448.gA      Ed448.gP
+  , benchmarkEdwards'     "Ed3363"     Ed3363.gA     Ed3363.gP
+  , benchmarkEdwards'    "Ed25519"    Ed25519.gA    Ed25519.gP
+  , benchmarkEdwards'     "JubJub"     JubJub.gA     JubJub.gP
   ]
+  where
+    benchmarkEdwards' curve affine projective = bgroup curve
+      [ benchmark "Affine" affine
+      , benchmark "Projective" projective
+      ]

@@ -1,34 +1,35 @@
 module Curve.Weierstrass.ANSSIFRP256V1
-  ( AP
-  , Curve(..)
+  ( Curve(..)
   , Fq
   , Fr
   , Group(..)
-  , Point(..)
+  , PA
+  , PP
   , WCurve(..)
   , WPoint
   , WACurve(..)
   , WAPoint
+  , WPCurve(..)
+  , WPPoint
   , _a
   , _b
   , _h
   , _q
   , _r
+  , _x
+  , _y
   , gA
-  , xA
-  , yA
+  , gP
   ) where
 
 import Protolude
 
-import PrimeField (PrimeField)
+import PrimeField
 
-import Curve (Curve(..), Form(..))
-import Curve.Weierstrass (Point(..), WCurve(..), WPoint, WACurve(..), WAPoint)
-import Group (Group(..))
+import Curve.Weierstrass
 
 -------------------------------------------------------------------------------
--- ANSSIFRP256V1 curve
+-- Types
 -------------------------------------------------------------------------------
 
 -- | ANSSIFRP256V1 curve.
@@ -52,6 +53,30 @@ instance Curve 'Weierstrass c ANSSIFRP256V1 Fq => WCurve c ANSSIFRP256V1 Fq wher
   {-# INLINE q_ #-}
   r_ = const _r
   {-# INLINE r_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
+
+-- | Affine ANSSIFRP256V1 curve point.
+type PA = WAPoint ANSSIFRP256V1 Fq
+
+-- | Affine ANSSIFRP256V1 curve is a Weierstrass affine curve.
+instance WACurve ANSSIFRP256V1 Fq where
+  gA_ = gA
+  {-# INLINE gA_ #-}
+
+-- | Projective ANSSIFRP256V1 point.
+type PP = WPPoint ANSSIFRP256V1 Fq
+
+-- | Projective ANSSIFRP256V1 curve is a Weierstrass projective curve.
+instance WPCurve ANSSIFRP256V1 Fq where
+  gP_ = gP
+  {-# INLINE gP_ #-}
+
+-------------------------------------------------------------------------------
+-- Parameters
+-------------------------------------------------------------------------------
 
 -- | Coefficient @A@ of ANSSIFRP256V1 curve.
 _a :: Fq
@@ -78,33 +103,22 @@ _r :: Integer
 _r = 0xf1fd178c0b3ad58f10126de8ce42435b53dc67e140d2bf941ffdd459c6d655e1
 {-# INLINE _r #-}
 
--------------------------------------------------------------------------------
--- Affine coordinates
--------------------------------------------------------------------------------
+-- | Coordinate @X@ of ANSSIFRP256V1 curve.
+_x :: Fq
+_x = 0xb6b3d4c356c139eb31183d4749d423958c27d2dcaf98b70164c97a2dd98f5cff
+{-# INLINE _x #-}
 
--- | Affine ANSSIFRP256V1 point.
-type AP = WAPoint ANSSIFRP256V1 Fq
+-- | Coordinate @Y@ of ANSSIFRP256V1 curve.
+_y :: Fq
+_y = 0x6142e0f7c8b204911f9271f0f3ecef8c2701c307e8e4c9e183115a1554062cfb
+{-# INLINE _y #-}
 
--- | Affine ANSSIFRP256V1 curve is a Weierstrass affine curve.
-instance WACurve ANSSIFRP256V1 Fq where
-  gA_ = gA
-  {-# INLINE gA_ #-}
-  xA_ = const xA
-  {-# INLINE xA_ #-}
-  yA_ = const yA
-  {-# INLINE yA_ #-}
-
--- | Generator of affine ANSSIFRP256V1 curve.
-gA :: AP
-gA = A xA yA
+-- | Affine generator of ANSSIFRP256V1 curve.
+gA :: PA
+gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Coordinate @X@ of affine ANSSIFRP256V1 curve.
-xA :: Fq
-xA = 0xb6b3d4c356c139eb31183d4749d423958c27d2dcaf98b70164c97a2dd98f5cff
-{-# INLINE xA #-}
-
--- | Coordinate @Y@ of affine ANSSIFRP256V1 curve.
-yA :: Fq
-yA = 0x6142e0f7c8b204911f9271f0f3ecef8c2701c307e8e4c9e183115a1554062cfb
-{-# INLINE yA #-}
+-- | Projective generator of ANSSIFRP256V1 curve.
+gP :: PP
+gP = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gP #-}

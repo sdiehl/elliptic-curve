@@ -1,35 +1,36 @@
 module Curve.Binary.SECT163K1
-  ( AP
-  , BCurve(..)
+  ( BCurve(..)
   , BPoint
   , BACurve(..)
   , BAPoint
+  , BPCurve(..)
+  , BPPoint
   , Curve(..)
   , F2m
   , Fr
   , Group(..)
-  , Point(..)
+  , PA
+  , PP
   , _a
   , _b
   , _h
   , _p
   , _r
+  , _x
+  , _y
   , gA
-  , xA
-  , yA
+  , gP
   ) where
 
 import Protolude
 
-import BinaryField (BinaryField)
-import PrimeField (PrimeField)
+import BinaryField
+import PrimeField
 
-import Curve (Curve(..), Form(..))
-import Curve.Binary (BCurve(..), BPoint, BACurve(..), BAPoint, Point(..))
-import Group (Group(..))
+import Curve.Binary
 
 -------------------------------------------------------------------------------
--- SECT163K1 curve
+-- Types
 -------------------------------------------------------------------------------
 
 -- | SECT163K1 curve.
@@ -53,6 +54,30 @@ instance Curve 'Binary c SECT163K1 F2m => BCurve c SECT163K1 F2m where
   {-# INLINE p_ #-}
   r_ = const _r
   {-# INLINE r_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
+
+-- | Affine SECT163K1 curve point.
+type PA = BAPoint SECT163K1 F2m
+
+-- | Affine SECT163K1 curve is a binary affine curve.
+instance BACurve SECT163K1 F2m where
+  gA_ = gA
+  {-# INLINE gA_ #-}
+
+-- | Projective SECT163K1 point.
+type PP = BPPoint SECT163K1 F2m
+
+-- | Projective SECT163K1 curve is a binary projective curve.
+instance BPCurve SECT163K1 F2m where
+  gP_ = gP
+  {-# INLINE gP_ #-}
+
+-------------------------------------------------------------------------------
+-- Parameters
+-------------------------------------------------------------------------------
 
 -- | Coefficient @A@ of SECT163K1 curve.
 _a :: F2m
@@ -79,33 +104,22 @@ _r :: Integer
 _r = 0x4000000000000000000020108a2e0cc0d99f8a5ef
 {-# INLINE _r #-}
 
--------------------------------------------------------------------------------
--- Affine coordinates
--------------------------------------------------------------------------------
+-- | Coordinate @X@ of SECT163K1 curve.
+_x :: F2m
+_x = 0x2fe13c0537bbc11acaa07d793de4e6d5e5c94eee8
+{-# INLINE _x #-}
 
--- | Affine SECT163K1 point.
-type AP = BAPoint SECT163K1 F2m
+-- | Coordinate @Y@ of SECT163K1 curve.
+_y :: F2m
+_y = 0x289070fb05d38ff58321f2e800536d538ccdaa3d9
+{-# INLINE _y #-}
 
--- | Affine SECT163K1 curve is a binary affine curve.
-instance BACurve SECT163K1 F2m where
-  gA_ = gA
-  {-# INLINE gA_ #-}
-  xA_ = const xA
-  {-# INLINE xA_ #-}
-  yA_ = const yA
-  {-# INLINE yA_ #-}
-
--- | Generator of affine SECT163K1 curve.
-gA :: AP
-gA = A xA yA
+-- | Affine generator of SECT163K1 curve.
+gA :: PA
+gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Coordinate @X@ of affine SECT163K1 curve.
-xA :: F2m
-xA = 0x2fe13c0537bbc11acaa07d793de4e6d5e5c94eee8
-{-# INLINE xA #-}
-
--- | Coordinate @Y@ of affine SECT163K1 curve.
-yA :: F2m
-yA = 0x289070fb05d38ff58321f2e800536d538ccdaa3d9
-{-# INLINE yA #-}
+-- | Projective generator of SECT163K1 curve.
+gP :: PP
+gP = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gP #-}

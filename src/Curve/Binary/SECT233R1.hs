@@ -1,35 +1,36 @@
 module Curve.Binary.SECT233R1
-  ( AP
-  , BCurve(..)
+  ( BCurve(..)
   , BPoint
   , BACurve(..)
   , BAPoint
+  , BPCurve(..)
+  , BPPoint
   , Curve(..)
   , F2m
   , Fr
   , Group(..)
-  , Point(..)
+  , PA
+  , PP
   , _a
   , _b
   , _h
   , _p
   , _r
+  , _x
+  , _y
   , gA
-  , xA
-  , yA
+  , gP
   ) where
 
 import Protolude
 
-import BinaryField (BinaryField)
-import PrimeField (PrimeField)
+import BinaryField
+import PrimeField
 
-import Curve (Curve(..), Form(..))
-import Curve.Binary (BCurve(..), BPoint, BACurve(..), BAPoint, Point(..))
-import Group (Group(..))
+import Curve.Binary
 
 -------------------------------------------------------------------------------
--- SECT233R1 curve
+-- Types
 -------------------------------------------------------------------------------
 
 -- | SECT233R1 curve.
@@ -53,6 +54,30 @@ instance Curve 'Binary c SECT233R1 F2m => BCurve c SECT233R1 F2m where
   {-# INLINE p_ #-}
   r_ = const _r
   {-# INLINE r_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
+
+-- | Affine SECT233R1 curve point.
+type PA = BAPoint SECT233R1 F2m
+
+-- | Affine SECT233R1 curve is a binary affine curve.
+instance BACurve SECT233R1 F2m where
+  gA_ = gA
+  {-# INLINE gA_ #-}
+
+-- | Projective SECT233R1 point.
+type PP = BPPoint SECT233R1 F2m
+
+-- | Projective SECT233R1 curve is a binary projective curve.
+instance BPCurve SECT233R1 F2m where
+  gP_ = gP
+  {-# INLINE gP_ #-}
+
+-------------------------------------------------------------------------------
+-- Parameters
+-------------------------------------------------------------------------------
 
 -- | Coefficient @A@ of SECT233R1 curve.
 _a :: F2m
@@ -79,33 +104,22 @@ _r :: Integer
 _r = 0x1000000000000000000000000000013e974e72f8a6922031d2603cfe0d7
 {-# INLINE _r #-}
 
--------------------------------------------------------------------------------
--- Affine coordinates
--------------------------------------------------------------------------------
+-- | Coordinate @X@ of SECT233R1 curve.
+_x :: F2m
+_x = 0xfac9dfcbac8313bb2139f1bb755fef65bc391f8b36f8f8eb7371fd558b
+{-# INLINE _x #-}
 
--- | Affine SECT233R1 point.
-type AP = BAPoint SECT233R1 F2m
+-- | Coordinate @Y@ of SECT233R1 curve.
+_y :: F2m
+_y = 0x1006a08a41903350678e58528bebf8a0beff867a7ca36716f7e01f81052
+{-# INLINE _y #-}
 
--- | Affine SECT233R1 curve is a binary affine curve.
-instance BACurve SECT233R1 F2m where
-  gA_ = gA
-  {-# INLINE gA_ #-}
-  xA_ = const xA
-  {-# INLINE xA_ #-}
-  yA_ = const yA
-  {-# INLINE yA_ #-}
-
--- | Generator of affine SECT233R1 curve.
-gA :: AP
-gA = A xA yA
+-- | Affine generator of SECT233R1 curve.
+gA :: PA
+gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Coordinate @X@ of affine SECT233R1 curve.
-xA :: F2m
-xA = 0xfac9dfcbac8313bb2139f1bb755fef65bc391f8b36f8f8eb7371fd558b
-{-# INLINE xA #-}
-
--- | Coordinate @Y@ of affine SECT233R1 curve.
-yA :: F2m
-yA = 0x1006a08a41903350678e58528bebf8a0beff867a7ca36716f7e01f81052
-{-# INLINE yA #-}
+-- | Projective generator of SECT233R1 curve.
+gP :: PP
+gP = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gP #-}

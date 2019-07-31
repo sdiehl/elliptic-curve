@@ -1,36 +1,37 @@
 module Curve.Weierstrass.BLS12381T
-  ( AP
-  , Curve(..)
+  ( Curve(..)
   , Fq2
   , Fr
   , Group(..)
-  , Point(..)
+  , PA
+  , PP
   , WCurve(..)
   , WPoint
   , WACurve(..)
   , WAPoint
+  , WPCurve(..)
+  , WPPoint
   , _a
   , _b
   , _h
   , _q
   , _r
+  , _x
+  , _y
   , gA
-  , xA
-  , yA
+  , gP
   ) where
 
 import Protolude
 
 import ExtensionField
-import PrimeField (PrimeField)
+import PrimeField
 
-import Curve (Curve(..), Form(..))
-import Curve.Weierstrass (Point(..), WCurve(..), WPoint, WACurve(..), WAPoint)
+import Curve.Weierstrass
 import Curve.Weierstrass.BLS12381 (Fq)
-import Group (Group(..))
 
 -------------------------------------------------------------------------------
--- BLS12381T curve
+-- Types
 -------------------------------------------------------------------------------
 
 -- | BLS12381T curve.
@@ -57,6 +58,30 @@ instance Curve 'Weierstrass c BLS12381T Fq2 => WCurve c BLS12381T Fq2 where
   {-# INLINE q_ #-}
   r_ = const _r
   {-# INLINE r_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
+
+-- | Affine BLS12381T curve point.
+type PA = WAPoint BLS12381T Fq2
+
+-- | Affine BLS12381T curve is a Weierstrass affine curve.
+instance WACurve BLS12381T Fq2 where
+  gA_ = gA
+  {-# INLINE gA_ #-}
+
+-- | Projective BLS12381T point.
+type PP = WPPoint BLS12381T Fq2
+
+-- | Projective BLS12381T curve is a Weierstrass projective curve.
+instance WPCurve BLS12381T Fq2 where
+  gP_ = gP
+  {-# INLINE gP_ #-}
+
+-------------------------------------------------------------------------------
+-- Parameters
+-------------------------------------------------------------------------------
 
 -- | Coefficient @A@ of BLS12381T curve.
 _a :: Fq2
@@ -86,37 +111,26 @@ _r :: Integer
 _r = 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
 {-# INLINE _r #-}
 
--------------------------------------------------------------------------------
--- Affine coordinates
--------------------------------------------------------------------------------
-
--- | Affine BLS12381T point.
-type AP = WAPoint BLS12381T Fq2
-
--- | Affine BLS12381T curve is a Weierstrass affine curve.
-instance WACurve BLS12381T Fq2 where
-  gA_ = gA
-  {-# INLINE gA_ #-}
-  xA_ = const xA
-  {-# INLINE xA_ #-}
-  yA_ = const yA
-  {-# INLINE yA_ #-}
-
--- | Generator of affine BLS12381T curve.
-gA :: AP
-gA = A xA yA
-{-# INLINE gA #-}
-
--- | Coordinate @X@ of affine BLS12381T curve.
-xA :: Fq2
-xA = fromList [ 0x24aa2b2f08f0a91260805272dc51051c6e47ad4fa403b02b4510b647ae3d1770bac0326a805bbefd48056c8c121bdb8
+-- | Coordinate @X@ of BLS12381T curve.
+_x :: Fq2
+_x = fromList [ 0x24aa2b2f08f0a91260805272dc51051c6e47ad4fa403b02b4510b647ae3d1770bac0326a805bbefd48056c8c121bdb8
               , 0x13e02b6052719f607dacd3a088274f65596bd0d09920b61ab5da61bbdc7f5049334cf11213945d57e5ac7d055d042b7e
               ]
-{-# INLINE xA #-}
+{-# INLINE _x #-}
 
--- | Coordinate @Y@ of affine BLS12381T curve.
-yA :: Fq2
-yA = fromList [ 0xce5d527727d6e118cc9cdc6da2e351aadfd9baa8cbdd3a76d429a695160d12c923ac9cc3baca289e193548608b82801
+-- | Coordinate @Y@ of BLS12381T curve.
+_y :: Fq2
+_y = fromList [ 0xce5d527727d6e118cc9cdc6da2e351aadfd9baa8cbdd3a76d429a695160d12c923ac9cc3baca289e193548608b82801
               , 0x606c4a02ea734cc32acd2b02bc28b99cb3e287e85a763af267492ab572e99ab3f370d275cec1da1aaa9075ff05f79be
               ]
-{-# INLINE yA #-}
+{-# INLINE _y #-}
+
+-- | Affine generator of BLS12381T curve.
+gA :: PA
+gA = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gA #-}
+
+-- | Projective generator of BLS12381T curve.
+gP :: PP
+gP = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gP #-}

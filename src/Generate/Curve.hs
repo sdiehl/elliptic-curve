@@ -41,12 +41,10 @@ prettyImport k
   =    "import Protolude"
   <>   prettyBreak
   <$$> k'
-  <$$> "import PrimeField (PrimeField)"
-  <>   prettyBreak
-  <$$> "import Curve (Curve(..), Form(..))"
+  <$$> "import PrimeField"
   where
     k' = case k of
-      BinaryField _ _          -> "import BinaryField (BinaryField)"
+      BinaryField _ _          -> "import BinaryField"
       ExtensionField _ _ _ _ _ -> "import ExtensionField"
       _                        -> mempty
 

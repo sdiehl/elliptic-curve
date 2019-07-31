@@ -15,19 +15,23 @@ import Text.PrettyPrint.Leijen.Text (Pretty)
 
 -- | Groups.
 class (Arbitrary g, Eq g, Generic g, Monoid g,
-       Pretty g, Random g, Read g, Show g) => Group g where
-  {-# MINIMAL def, gen, inv, order #-}
+       NFData g, Pretty g, Random g, Read g, Show g) => Group g where
+  {-# MINIMAL add, dbl, def, gen, id, inv, order #-}
 
-  -- | Well defined.
-  def :: g -> Bool
+  -- | Element addition.
+  add :: g -> g -> g
 
   -- | Element doubling.
-  double :: g -> g
-  double = join (<>)
-  {-# INLINE double #-}
+  dbl :: g -> g
+
+  -- | Check well-defined.
+  def :: g -> Bool
 
   -- | Group generator.
   gen :: g
+
+  -- | Identity element.
+  id :: g
 
   -- | Element inversion.
   inv :: g -> g
@@ -41,12 +45,12 @@ class (Arbitrary g, Eq g, Generic g, Monoid g,
   mul' :: g -> Integer -> g
   mul' p n
     | n < 0     = inv (mul' p (-n))
-    | n == 0    = mempty
+    | n == 0    = id
     | n == 1    = p
     | even n    = p'
-    | otherwise = p <> p'
+    | otherwise = add p p'
     where
-      p' = mul' (p <> p) (div n 2)
+      p' = mul' (dbl p) (div n 2)
   {-# INLINE mul' #-}
 
   -- | Curve order.

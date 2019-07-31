@@ -35,11 +35,20 @@ newtype Element k = F k
 -- Field elements are groups.
 instance (GaloisField k, FGroup k) => Group (Element k) where
 
+  add = (<>)
+  {-# INLINE add #-}
+
+  dbl = join (<>)
+  {-# INLINE dbl #-}
+
   def (F x) = x /= 0
   {-# INLINE def #-}
 
   gen = g_
   {-# INLINE gen #-}
+
+  id = mempty
+  {-# INLINE id #-}
 
   inv (F x) = F (recip x)
   {-# INLINE inv #-}

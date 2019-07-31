@@ -1,6 +1,5 @@
 module Generate.Weierstrass.Types
-  ( Affine(..)
-  , Curve(..)
+  ( Curve(..)
   , Element(..)
   , Field(..)
   , Parameters(..)
@@ -18,7 +17,6 @@ import Generate.Types
 data Curve = Curve
   { types      :: Types
   , parameters :: Parameters
-  , affine     :: Affine
   }
 
 data Parameters = Parameters
@@ -27,9 +25,6 @@ data Parameters = Parameters
   , h :: Integer
   , q :: Integer
   , r :: Integer
-  }
-
-data Affine = Affine
-  { xA :: Element
-  , yA :: Element
+  , x :: Element
+  , y :: Element
   }

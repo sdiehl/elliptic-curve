@@ -34,7 +34,7 @@ groupAxioms _ = testGroup "Group axioms"
   , testProperty "addition closure" $
     (.) def . ((<>) :: g -> g -> g)
   , testProperty "doubling closure" $
-    def . (double :: g -> g)
+    def . (join (<>) :: g -> g)
   , testProperty "multiplication closure" $
     def . (flip mul' 3 :: g -> g)
   , testProperty "identity" $
@@ -50,8 +50,7 @@ groupAxioms _ = testGroup "Group axioms"
 hasse :: Integer -> Integer -> Integer -> Bool
 hasse h r q' = (h * r - q' - 1) ^ (2 :: Int) <= 4 * q'
 
-curveParameters :: forall f c e k . (Curve f c e k, GaloisField k,
-  Arbitrary (Point f c e k), Eq (Point f c e k), Show (Point f c e k))
+curveParameters :: forall f c e k . Curve f c e k
   => Point f c e k -> Integer -> Integer -> Integer -> TestTree
 curveParameters g h q r = testGroup "Curve parameters"
   [ testCase "generator is parametrised" $
@@ -76,8 +75,7 @@ curveParameters g h q r = testGroup "Curve parameters"
     hasse h r (GaloisField.order (witness :: k)) @?= True
   ]
 
-test :: forall f c e k . (Curve f c e k, GaloisField k,
-  Arbitrary (Point f c e k), Eq (Point f c e k), Show (Point f c e k))
+test :: Curve f c e k
   => TestName -> Point f c e k -> Integer -> Integer -> Integer -> TestTree
 test s g h q r = testGroup s [groupAxioms g, curveParameters g h q r]
 
@@ -98,6 +96,6 @@ fieldParameters g q r = testGroup "Group parameters"
     mul' g r @?= mempty
   ]
 
-test' :: forall k . (FGroup k, GaloisField k)
+test' :: (FGroup k, GaloisField k)
   => TestName -> Element k -> Integer -> Integer -> TestTree
 test' s g q r = testGroup s [groupAxioms g, fieldParameters g q r]

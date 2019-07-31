@@ -1,34 +1,35 @@
 module Curve.Weierstrass.SECP160R1
-  ( AP
-  , Curve(..)
+  ( Curve(..)
   , Fq
   , Fr
   , Group(..)
-  , Point(..)
+  , PA
+  , PP
   , WCurve(..)
   , WPoint
   , WACurve(..)
   , WAPoint
+  , WPCurve(..)
+  , WPPoint
   , _a
   , _b
   , _h
   , _q
   , _r
+  , _x
+  , _y
   , gA
-  , xA
-  , yA
+  , gP
   ) where
 
 import Protolude
 
-import PrimeField (PrimeField)
+import PrimeField
 
-import Curve (Curve(..), Form(..))
-import Curve.Weierstrass (Point(..), WCurve(..), WPoint, WACurve(..), WAPoint)
-import Group (Group(..))
+import Curve.Weierstrass
 
 -------------------------------------------------------------------------------
--- SECP160R1 curve
+-- Types
 -------------------------------------------------------------------------------
 
 -- | SECP160R1 curve.
@@ -52,6 +53,30 @@ instance Curve 'Weierstrass c SECP160R1 Fq => WCurve c SECP160R1 Fq where
   {-# INLINE q_ #-}
   r_ = const _r
   {-# INLINE r_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
+
+-- | Affine SECP160R1 curve point.
+type PA = WAPoint SECP160R1 Fq
+
+-- | Affine SECP160R1 curve is a Weierstrass affine curve.
+instance WACurve SECP160R1 Fq where
+  gA_ = gA
+  {-# INLINE gA_ #-}
+
+-- | Projective SECP160R1 point.
+type PP = WPPoint SECP160R1 Fq
+
+-- | Projective SECP160R1 curve is a Weierstrass projective curve.
+instance WPCurve SECP160R1 Fq where
+  gP_ = gP
+  {-# INLINE gP_ #-}
+
+-------------------------------------------------------------------------------
+-- Parameters
+-------------------------------------------------------------------------------
 
 -- | Coefficient @A@ of SECP160R1 curve.
 _a :: Fq
@@ -78,33 +103,22 @@ _r :: Integer
 _r = 0x100000000000000000001f4c8f927aed3ca752257
 {-# INLINE _r #-}
 
--------------------------------------------------------------------------------
--- Affine coordinates
--------------------------------------------------------------------------------
+-- | Coordinate @X@ of SECP160R1 curve.
+_x :: Fq
+_x = 0x4a96b5688ef573284664698968c38bb913cbfc82
+{-# INLINE _x #-}
 
--- | Affine SECP160R1 point.
-type AP = WAPoint SECP160R1 Fq
+-- | Coordinate @Y@ of SECP160R1 curve.
+_y :: Fq
+_y = 0x23a628553168947d59dcc912042351377ac5fb32
+{-# INLINE _y #-}
 
--- | Affine SECP160R1 curve is a Weierstrass affine curve.
-instance WACurve SECP160R1 Fq where
-  gA_ = gA
-  {-# INLINE gA_ #-}
-  xA_ = const xA
-  {-# INLINE xA_ #-}
-  yA_ = const yA
-  {-# INLINE yA_ #-}
-
--- | Generator of affine SECP160R1 curve.
-gA :: AP
-gA = A xA yA
+-- | Affine generator of SECP160R1 curve.
+gA :: PA
+gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Coordinate @X@ of affine SECP160R1 curve.
-xA :: Fq
-xA = 0x4a96b5688ef573284664698968c38bb913cbfc82
-{-# INLINE xA #-}
-
--- | Coordinate @Y@ of affine SECP160R1 curve.
-yA :: Fq
-yA = 0x23a628553168947d59dcc912042351377ac5fb32
-{-# INLINE yA #-}
+-- | Projective generator of SECP160R1 curve.
+gP :: PP
+gP = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gP #-}

@@ -1,34 +1,35 @@
 module Curve.Edwards.Ed25519
-  ( AP
-  , Curve(..)
+  ( Curve(..)
   , ECurve(..)
   , EPoint
   , EACurve(..)
   , EAPoint
+  , EPCurve(..)
+  , EPPoint
   , Fq
   , Fr
   , Group(..)
-  , Point(..)
+  , PA
+  , PP
   , _a
   , _d
   , _h
   , _q
   , _r
+  , _x
+  , _y
   , gA
-  , xA
-  , yA
+  , gP
   ) where
 
 import Protolude
 
-import PrimeField (PrimeField)
+import PrimeField
 
-import Curve (Curve(..), Form(..))
-import Curve.Edwards (ECurve(..), EPoint, EACurve(..), EAPoint, Point(..))
-import Group (Group(..))
+import Curve.Edwards
 
 -------------------------------------------------------------------------------
--- Ed25519 curve
+-- Types
 -------------------------------------------------------------------------------
 
 -- | Ed25519 curve.
@@ -52,6 +53,30 @@ instance Curve 'Edwards c Ed25519 Fq => ECurve c Ed25519 Fq where
   {-# INLINE q_ #-}
   r_ = const _r
   {-# INLINE r_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
+
+-- | Affine Ed25519 curve point.
+type PA = EAPoint Ed25519 Fq
+
+-- | Affine Ed25519 curve is an Edwards affine curve.
+instance EACurve Ed25519 Fq where
+  gA_ = gA
+  {-# INLINE gA_ #-}
+
+-- | Projective Ed25519 point.
+type PP = EPPoint Ed25519 Fq
+
+-- | Projective Ed25519 curve is an Edwards projective curve.
+instance EPCurve Ed25519 Fq where
+  gP_ = gP
+  {-# INLINE gP_ #-}
+
+-------------------------------------------------------------------------------
+-- Parameters
+-------------------------------------------------------------------------------
 
 -- | Coefficient @A@ of Ed25519 curve.
 _a :: Fq
@@ -78,33 +103,22 @@ _r :: Integer
 _r = 0x1000000000000000000000000000000014def9dea2f79cd65812631a5cf5d3ed
 {-# INLINE _r #-}
 
--------------------------------------------------------------------------------
--- Affine coordinates
--------------------------------------------------------------------------------
+-- | Coordinate @X@ of Ed25519 curve.
+_x :: Fq
+_x = 0x216936d3cd6e53fec0a4e231fdd6dc5c692cc7609525a7b2c9562d608f25d51a
+{-# INLINE _x #-}
 
--- | Affine Ed25519 point.
-type AP = EAPoint Ed25519 Fq
+-- | Coordinate @Y@ of Ed25519 curve.
+_y :: Fq
+_y = 0x6666666666666666666666666666666666666666666666666666666666666658
+{-# INLINE _y #-}
 
--- | Affine Ed25519 curve is an Edwards affine curve.
-instance EACurve Ed25519 Fq where
-  gA_ = gA
-  {-# INLINE gA_ #-}
-  xA_ = const xA
-  {-# INLINE xA_ #-}
-  yA_ = const yA
-  {-# INLINE yA_ #-}
-
--- | Generator of affine Ed25519 curve.
-gA :: AP
-gA = A xA yA
+-- | Affine generator of Ed25519 curve.
+gA :: PA
+gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Coordinate @X@ of affine Ed25519 curve.
-xA :: Fq
-xA = 0x216936d3cd6e53fec0a4e231fdd6dc5c692cc7609525a7b2c9562d608f25d51a
-{-# INLINE xA #-}
-
--- | Coordinate @Y@ of affine Ed25519 curve.
-yA :: Fq
-yA = 0x6666666666666666666666666666666666666666666666666666666666666658
-{-# INLINE yA #-}
+-- | Projective generator of Ed25519 curve.
+gP :: PP
+gP = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gP #-}

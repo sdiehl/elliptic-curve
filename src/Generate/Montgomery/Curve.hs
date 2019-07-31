@@ -17,9 +17,8 @@ import Generate.Pretty
 prettyImports :: Types -> Doc
 prettyImports Types{..}
   =    "module Curve.Montgomery." <> pretty curve
-  <$$> " " <+> align
-    (    "( AP"
-    <$$> ", Curve(..)"
+  <$$> indent 2
+    (    "( Curve(..)"
     <$$> "," <+> prettyField field
     <$$> ", Fr"
     <$$> ", Group(..)"
@@ -27,26 +26,26 @@ prettyImports Types{..}
     <$$> ", MPoint"
     <$$> ", MACurve(..)"
     <$$> ", MAPoint"
-    <$$> ", Point(..)"
+    <$$> ", PA"
     <$$> ", _a"
     <$$> ", _b"
     <$$> ", _h"
     <$$> ", _q"
     <$$> ", _r"
+    <$$> ", _x"
+    <$$> ", _y"
     <$$> ", gA"
-    <$$> ", xA"
-    <$$> ", yA"
     <$$> ") where"
     )
   <>   prettyBreak
   <$$> prettyImport field
-  <$$> "import Curve.Montgomery (MCurve(..), MPoint, MACurve(..), MAPoint, Point(..))"
+  <>   prettyBreak
+  <$$> "import Curve.Montgomery"
   <$$> maybe mempty pretty imports
-  <$$> "import Group (Group(..))"
 
-prettyForm :: Types -> Parameters -> Doc
-prettyForm Types{..} Parameters{..}
-  =    prettySection curve'
+prettyTypes :: Types -> Doc
+prettyTypes Types{..}
+  =    prettySection "Types"
   <$$> prettyDocumentation curve'
   <$$> "data" <+> pretty curve
   <>   prettyBreak
@@ -59,7 +58,7 @@ prettyForm Types{..} Parameters{..}
   <$$> prettyDocumentation (curve' <+> "is a Montgomery curve")
   <$$> "instance Curve 'Montgomery c" <+> pretty curve <+> prettyField field
   <+>  "=> MCurve c" <+> pretty curve <+> prettyField field <+> "where"
-  <$$> " " <+> align
+  <$$> indent 2
     (    "a_ = const _a"
     <$$> prettyInline "a_"
     <$$> "b_ = const _b"
@@ -70,76 +69,76 @@ prettyForm Types{..} Parameters{..}
     <$$> prettyInline "q_"
     <$$> "r_ = const _r"
     <$$> prettyInline "r_"
+    <$$> "x_ = const _x"
+    <$$> prettyInline "x_"
+    <$$> "y_ = const _y"
+    <$$> prettyInline "y_"
     )
   <>   prettyBreak
-  <$$> prettyDocumentation ("Coefficient @A@ of" <+> curve')
+  <$$> prettyDocumentation ("Affine" <+> curve' <+> "point")
+  <$$> "type PA = MAPoint" <+> pretty curve <+> prettyField field
+  <>   prettyBreak
+  <$$> prettyDocumentation ("Affine" <+> curve' <+> "is a Montgomery affine curve")
+  <$$> "instance MACurve" <+> pretty curve <+> prettyField field <+> "where"
+  <$$> indent 2
+    (    "gA_ = gA"
+    <$$> prettyInline "gA_"
+    )
+  where
+    curve' :: Doc
+    curve' = pretty curve <+> "curve"
+
+prettyParameters :: Types -> Parameters -> Doc
+prettyParameters Types{..} Parameters{..}
+  =    prettySection "Parameters"
+  <$$> prettyDocumentation ("Coefficient @A@" <+> curve')
   <$$> "_a ::" <+> prettyField field
   <$$> "_a =" <+> prettyElement a
   <$$> prettyInline "_a"
   <>   prettyBreak
-  <$$> prettyDocumentation ("Coefficient @B@ of" <+> curve')
+  <$$> prettyDocumentation ("Coefficient @B@" <+> curve')
   <$$> "_b ::" <+> prettyField field
   <$$> "_b =" <+> prettyElement b
   <$$> prettyInline "_b"
   <>   prettyBreak
-  <$$> prettyDocumentation ("Cofactor of" <+> curve')
+  <$$> prettyDocumentation ("Cofactor" <+> curve')
   <$$> "_h :: Integer"
   <$$> "_h =" <+> prettyInteger h
   <$$> prettyInline "_h"
   <>   prettyBreak
-  <$$> prettyDocumentation ("Characteristic of" <+> curve')
+  <$$> prettyDocumentation ("Characteristic" <+> curve')
   <$$> "_q :: Integer"
   <$$> "_q =" <+> prettyInteger q
   <$$> prettyInline "_q"
   <>   prettyBreak
-  <$$> prettyDocumentation ("Order of" <+> curve')
+  <$$> prettyDocumentation ("Order" <+> curve')
   <$$> "_r :: Integer"
   <$$> "_r =" <+> prettyInteger r
   <$$> prettyInline "_r"
-  where
-    curve' :: Doc
-    curve' = pretty curve <+> "curve"
-
-prettyAffine :: Types -> Affine -> Doc
-prettyAffine Types{..} Affine{..}
-  =    prettySection "Affine coordinates"
-  <$$> prettyDocumentation ("Affine" <+> pretty curve <+> "point")
-  <$$> "type AP = MAPoint" <+> pretty curve <+> prettyField field
   <>   prettyBreak
-  <$$> prettyDocumentation ("Affine" <+> curve' <+> "is a Montgomery affine curve")
-  <$$> "instance MACurve" <+> pretty curve <+> prettyField field <+> "where"
-  <$$> " " <+> align
-    (    "gA_ = gA"
-    <$$> prettyInline "gA_"
-    <$$> "xA_ = const xA"
-    <$$> prettyInline "xA_"
-    <$$> "yA_ = const yA"
-    <$$> prettyInline "yA_"
-    )
+  <$$> prettyDocumentation ("Coordinate @X@" <+> curve')
+  <$$> "_x ::" <+> prettyField field
+  <$$> "_x =" <+> prettyElement x
+  <$$> prettyInline "_x"
   <>   prettyBreak
-  <$$> prettyDocumentation ("Generator of affine" <+> curve')
-  <$$> "gA :: AP"
-  <$$> "gA = A xA yA"
+  <$$> prettyDocumentation ("Coordinate @Y@" <+> curve')
+  <$$> "_y ::" <+> prettyField field
+  <$$> "_y =" <+> prettyElement y
+  <$$> prettyInline "_y"
+  <>   prettyBreak
+  <$$> prettyDocumentation ("Affine generator" <+> curve')
+  <$$> "gA :: PA"
+  <$$> "gA = fromMaybe (panic" <+> dquotes "not well-defined." <> ") (point _x _y)"
   <$$> prettyInline "gA"
-  <>   prettyBreak
-  <$$> prettyDocumentation ("Coordinate @X@ of affine" <+> curve')
-  <$$> "xA ::" <+> prettyField field
-  <$$> "xA =" <+> prettyElement xA
-  <$$> prettyInline "xA"
-  <>   prettyBreak
-  <$$> prettyDocumentation ("Coordinate @Y@ of affine" <+> curve')
-  <$$> "yA ::" <+> prettyField field
-  <$$> "yA =" <+> prettyElement yA
-  <$$> prettyInline "yA"
   where
     curve' :: Doc
-    curve' = pretty curve <+> "curve"
+    curve' = "of" <+> pretty curve <+> "curve"
 
 prettyCurve :: Curve -> Doc
-prettyCurve (Curve types parameters affine)
+prettyCurve (Curve types parameters)
   =    prettyImports types
   <>   prettyBreak
-  <$$> prettyForm types parameters
+  <$$> prettyTypes types
   <>   prettyBreak
-  <$$> prettyAffine types affine
+  <$$> prettyParameters types parameters
   <>   prettyBreak

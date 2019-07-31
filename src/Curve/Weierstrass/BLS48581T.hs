@@ -1,36 +1,37 @@
 module Curve.Weierstrass.BLS48581T
-  ( AP
-  , Curve(..)
+  ( Curve(..)
   , Fq8
   , Fr
   , Group(..)
-  , Point(..)
+  , PA
+  , PP
   , WCurve(..)
   , WPoint
   , WACurve(..)
   , WAPoint
+  , WPCurve(..)
+  , WPPoint
   , _a
   , _b
   , _h
   , _q
   , _r
+  , _x
+  , _y
   , gA
-  , xA
-  , yA
+  , gP
   ) where
 
 import Protolude
 
 import ExtensionField
-import PrimeField (PrimeField)
+import PrimeField
 
-import Curve (Curve(..), Form(..))
-import Curve.Weierstrass (Point(..), WCurve(..), WPoint, WACurve(..), WAPoint)
+import Curve.Weierstrass
 import Curve.Weierstrass.BLS48581 (Fq)
-import Group (Group(..))
 
 -------------------------------------------------------------------------------
--- BLS48581T curve
+-- Types
 -------------------------------------------------------------------------------
 
 -- | BLS48581T curve.
@@ -65,6 +66,30 @@ instance Curve 'Weierstrass c BLS48581T Fq8 => WCurve c BLS48581T Fq8 where
   {-# INLINE q_ #-}
   r_ = const _r
   {-# INLINE r_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
+
+-- | Affine BLS48581T curve point.
+type PA = WAPoint BLS48581T Fq8
+
+-- | Affine BLS48581T curve is a Weierstrass affine curve.
+instance WACurve BLS48581T Fq8 where
+  gA_ = gA
+  {-# INLINE gA_ #-}
+
+-- | Projective BLS48581T point.
+type PP = WPPoint BLS48581T Fq8
+
+-- | Projective BLS48581T curve is a Weierstrass projective curve.
+instance WPCurve BLS48581T Fq8 where
+  gP_ = gP
+  {-# INLINE gP_ #-}
+
+-------------------------------------------------------------------------------
+-- Parameters
+-------------------------------------------------------------------------------
 
 -- | Coefficient @A@ of BLS48581T curve.
 _a :: Fq8
@@ -100,30 +125,9 @@ _r :: Integer
 _r = 0x2386f8a925e2885e233a9ccc1615c0d6c635387a3f0b3cbe003fad6bc972c2e6e741969d34c4c92016a85c7cd0562303c4ccbe599467c24da118a5fe6fcd671c01
 {-# INLINE _r #-}
 
--------------------------------------------------------------------------------
--- Affine coordinates
--------------------------------------------------------------------------------
-
--- | Affine BLS48581T point.
-type AP = WAPoint BLS48581T Fq8
-
--- | Affine BLS48581T curve is a Weierstrass affine curve.
-instance WACurve BLS48581T Fq8 where
-  gA_ = gA
-  {-# INLINE gA_ #-}
-  xA_ = const xA
-  {-# INLINE xA_ #-}
-  yA_ = const yA
-  {-# INLINE yA_ #-}
-
--- | Generator of affine BLS48581T curve.
-gA :: AP
-gA = A xA yA
-{-# INLINE gA #-}
-
--- | Coordinate @X@ of affine BLS48581T curve.
-xA :: Fq8
-xA = fromList [ fromList [ fromList [ 0x5d615d9a7871e4a38237fa45a2775debabbefc70344dbccb7de64db3a2ef156c46ff79baad1a8c42281a63ca0612f400503004d80491f510317b79766322154dec34fd0b4ace8bfab
+-- | Coordinate @X@ of BLS48581T curve.
+_x :: Fq8
+_x = fromList [ fromList [ fromList [ 0x5d615d9a7871e4a38237fa45a2775debabbefc70344dbccb7de64db3a2ef156c46ff79baad1a8c42281a63ca0612f400503004d80491f510317b79766322154dec34fd0b4ace8bfab
                                     , 0x7c4973ece2258512069b0e86abc07e8b22bb6d980e1623e9526f6da12307f4e1c3943a00abfedf16214a76affa62504f0c3c7630d979630ffd75556a01afa143f1669b36676b47c57
                                     ]
                          , fromList [ 0x1fccc70198f1334e1b2ea1853ad83bc73a8a6ca9ae237ca7a6d6957ccbab5ab6860161c1dbd19242ffae766f0d2a6d55f028cbdfbb879d5fea8ef4cded6b3f0b46488156ca55a3e6a
@@ -138,11 +142,11 @@ xA = fromList [ fromList [ fromList [ 0x5d615d9a7871e4a38237fa45a2775debabbefc70
                                     ]
                          ]
               ]
-{-# INLINE xA #-}
+{-# INLINE _x #-}
 
--- | Coordinate @Y@ of affine BLS48581T curve.
-yA :: Fq8
-yA = fromList [ fromList [ fromList [ 0xeb53356c375b5dfa497216452f3024b918b4238059a577e6f3b39ebfc435faab0906235afa27748d90f7336d8ae5163c1599abf77eea6d659045012ab12c0ff323edd3fe4d2d7971
+-- | Coordinate @Y@ of BLS48581T curve.
+_y :: Fq8
+_y = fromList [ fromList [ fromList [ 0xeb53356c375b5dfa497216452f3024b918b4238059a577e6f3b39ebfc435faab0906235afa27748d90f7336d8ae5163c1599abf77eea6d659045012ab12c0ff323edd3fe4d2d7971
                                     , 0x284dc75979e0ff144da6531815fcadc2b75a422ba325e6fba01d72964732fcbf3afb096b243b1f192c5c3d1892ab24e1dd212fa097d760e2e588b423525ffc7b111471db936cd5665
                                     ]
                          , fromList [ 0xb36a201dd008523e421efb70367669ef2c2fc5030216d5b119d3a480d370514475f7d5c99d0e90411515536ca3295e5e2f0c1d35d51a652269cbc7c46fc3b8fde68332a526a2a8474
@@ -157,4 +161,14 @@ yA = fromList [ fromList [ fromList [ 0xeb53356c375b5dfa497216452f3024b918b42380
                                     ]
                          ]
               ]
-{-# INLINE yA #-}
+{-# INLINE _y #-}
+
+-- | Affine generator of BLS48581T curve.
+gA :: PA
+gA = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gA #-}
+
+-- | Projective generator of BLS48581T curve.
+gP :: PP
+gP = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gP #-}

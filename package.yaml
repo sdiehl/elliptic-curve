@@ -37,7 +37,6 @@ extra-source-files:
   - ChangeLog.md
 
 ghc-options:
-  - -fno-warn-orphans
   - -Wall
 
 library:

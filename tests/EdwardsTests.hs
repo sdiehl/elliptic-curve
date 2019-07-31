@@ -15,15 +15,18 @@ import GroupTests
 
 testEdwards :: TestTree
 testEdwards = testGroup "Edwards"
-  [ testGroup "Affine"
-    [ test  "Curve1174"  Curve1174.gA  Curve1174._h  Curve1174._q  Curve1174._r
-    , test "Curve41417" Curve41417.gA Curve41417._h Curve41417._q Curve41417._r
-    , test       "E222"       E222.gA       E222._h       E222._q       E222._r
-    , test       "E382"       E382.gA       E382._h       E382._q       E382._r
-    , test       "E521"       E521.gA       E521._h       E521._q       E521._r
-    , test      "Ed448"      Ed448.gA      Ed448._h      Ed448._q      Ed448._r
-    , test     "Ed3363"     Ed3363.gA     Ed3363._h     Ed3363._q     Ed3363._r
-    , test    "Ed25519"    Ed25519.gA    Ed25519._h    Ed25519._q    Ed25519._r
-    , test     "JubJub"     JubJub.gA     JubJub._h     JubJub._q     JubJub._r
-    ]
+  [ testEdwards'  "Curve1174"  Curve1174._h  Curve1174._q  Curve1174._r  Curve1174.gA  Curve1174.gP
+  , testEdwards' "Curve41417" Curve41417._h Curve41417._q Curve41417._r Curve41417.gA Curve41417.gP
+  , testEdwards'       "E222"       E222._h       E222._q       E222._r       E222.gA       E222.gP
+  , testEdwards'       "E382"       E382._h       E382._q       E382._r       E382.gA       E382.gP
+  , testEdwards'       "E521"       E521._h       E521._q       E521._r       E521.gA       E521.gP
+  , testEdwards'      "Ed448"      Ed448._h      Ed448._q      Ed448._r      Ed448.gA      Ed448.gP
+  , testEdwards'     "Ed3363"     Ed3363._h     Ed3363._q     Ed3363._r     Ed3363.gA     Ed3363.gP
+  , testEdwards'    "Ed25519"    Ed25519._h    Ed25519._q    Ed25519._r    Ed25519.gA    Ed25519.gP
+  , testEdwards'     "JubJub"     JubJub._h     JubJub._q     JubJub._r     JubJub.gA     JubJub.gP
   ]
+  where
+    testEdwards' curve h q r affine projective = testGroup curve
+      [ test "Affine" affine h q r
+      , test "Projective" projective h q r
+      ]

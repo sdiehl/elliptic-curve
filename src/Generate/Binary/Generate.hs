@@ -18,7 +18,7 @@ import Generate.Pretty
 prettyImports :: Doc
 prettyImports
   =    "module Generate.Binary.Parameters"
-  <$$> " " <+> align
+  <$$> indent 2
     (    "( curves"
     <$$> ") where"
     )
@@ -32,7 +32,7 @@ prettyCurves curves
   =    prettySection "Curves"
   <$$> "curves :: [Curve]"
   <$$> "curves ="
-  <$$> " " <+> align
+  <$$> indent 2
     (    "[ "
     <>   hcat (punctuate "\n, " (map prettyCurves' curves))
     <$$> "]"
@@ -47,12 +47,12 @@ prettyParameters curves
   <$$> vcat (punctuate prettyBreak (map prettyParameters' curves))
   where
     prettyParameters' :: Curve -> Doc
-    prettyParameters' (Curve Types{..} Parameters{..} Affine{..})
+    prettyParameters' (Curve Types{..} Parameters{..})
       =    pretty (toLower curve) <+> ":: Curve"
       <$$> pretty (toLower curve) <+> "= Curve"
-      <$$> " " <+> align
+      <$$> indent 2
         (    "{ types = Types"
-        <$$> " " <+> align
+        <$$> indent 2
           (    "{ curve   =" <+> prettyText curve
           <$$> ", field   =" <+> prettyField field
           <$$> ", field'  =" <+> prettyField field'
@@ -61,18 +61,14 @@ prettyParameters curves
           <$$> "}"
           )
         <$$> ", parameters = Parameters"
-        <$$> " " <+> align
+        <$$> indent 2
           (    "{ a =" <+> prettyElement a
           <$$> ", b =" <+> prettyElement b
           <$$> ", h =" <+> prettyInteger h
           <$$> ", p =" <+> prettyInteger p
           <$$> ", r =" <+> prettyInteger r
-          <$$> "}"
-          )
-        <$$> ", affine = Affine"
-        <$$> " " <+> align
-          (    "{ xA =" <+> prettyElement xA
-          <$$> ", yA =" <+> prettyElement yA
+          <$$> ", x =" <+> prettyElement x
+          <$$> ", y =" <+> prettyElement y
           <$$> "}"
           )
         <$$> "}"

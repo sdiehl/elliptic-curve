@@ -1,35 +1,36 @@
 module Curve.Binary.SECT409R1
-  ( AP
-  , BCurve(..)
+  ( BCurve(..)
   , BPoint
   , BACurve(..)
   , BAPoint
+  , BPCurve(..)
+  , BPPoint
   , Curve(..)
   , F2m
   , Fr
   , Group(..)
-  , Point(..)
+  , PA
+  , PP
   , _a
   , _b
   , _h
   , _p
   , _r
+  , _x
+  , _y
   , gA
-  , xA
-  , yA
+  , gP
   ) where
 
 import Protolude
 
-import BinaryField (BinaryField)
-import PrimeField (PrimeField)
+import BinaryField
+import PrimeField
 
-import Curve (Curve(..), Form(..))
-import Curve.Binary (BCurve(..), BPoint, BACurve(..), BAPoint, Point(..))
-import Group (Group(..))
+import Curve.Binary
 
 -------------------------------------------------------------------------------
--- SECT409R1 curve
+-- Types
 -------------------------------------------------------------------------------
 
 -- | SECT409R1 curve.
@@ -53,6 +54,30 @@ instance Curve 'Binary c SECT409R1 F2m => BCurve c SECT409R1 F2m where
   {-# INLINE p_ #-}
   r_ = const _r
   {-# INLINE r_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
+
+-- | Affine SECT409R1 curve point.
+type PA = BAPoint SECT409R1 F2m
+
+-- | Affine SECT409R1 curve is a binary affine curve.
+instance BACurve SECT409R1 F2m where
+  gA_ = gA
+  {-# INLINE gA_ #-}
+
+-- | Projective SECT409R1 point.
+type PP = BPPoint SECT409R1 F2m
+
+-- | Projective SECT409R1 curve is a binary projective curve.
+instance BPCurve SECT409R1 F2m where
+  gP_ = gP
+  {-# INLINE gP_ #-}
+
+-------------------------------------------------------------------------------
+-- Parameters
+-------------------------------------------------------------------------------
 
 -- | Coefficient @A@ of SECT409R1 curve.
 _a :: F2m
@@ -79,33 +104,22 @@ _r :: Integer
 _r = 0x10000000000000000000000000000000000000000000000000001e2aad6a612f33307be5fa47c3c9e052f838164cd37d9a21173
 {-# INLINE _r #-}
 
--------------------------------------------------------------------------------
--- Affine coordinates
--------------------------------------------------------------------------------
+-- | Coordinate @X@ of SECT409R1 curve.
+_x :: F2m
+_x = 0x15d4860d088ddb3496b0c6064756260441cde4af1771d4db01ffe5b34e59703dc255a868a1180515603aeab60794e54bb7996a7
+{-# INLINE _x #-}
 
--- | Affine SECT409R1 point.
-type AP = BAPoint SECT409R1 F2m
+-- | Coordinate @Y@ of SECT409R1 curve.
+_y :: F2m
+_y = 0x61b1cfab6be5f32bbfa78324ed106a7636b9c5a7bd198d0158aa4f5488d08f38514f1fdf4b4f40d2181b3681c364ba0273c706
+{-# INLINE _y #-}
 
--- | Affine SECT409R1 curve is a binary affine curve.
-instance BACurve SECT409R1 F2m where
-  gA_ = gA
-  {-# INLINE gA_ #-}
-  xA_ = const xA
-  {-# INLINE xA_ #-}
-  yA_ = const yA
-  {-# INLINE yA_ #-}
-
--- | Generator of affine SECT409R1 curve.
-gA :: AP
-gA = A xA yA
+-- | Affine generator of SECT409R1 curve.
+gA :: PA
+gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Coordinate @X@ of affine SECT409R1 curve.
-xA :: F2m
-xA = 0x15d4860d088ddb3496b0c6064756260441cde4af1771d4db01ffe5b34e59703dc255a868a1180515603aeab60794e54bb7996a7
-{-# INLINE xA #-}
-
--- | Coordinate @Y@ of affine SECT409R1 curve.
-yA :: F2m
-yA = 0x61b1cfab6be5f32bbfa78324ed106a7636b9c5a7bd198d0158aa4f5488d08f38514f1fdf4b4f40d2181b3681c364ba0273c706
-{-# INLINE yA #-}
+-- | Projective generator of SECT409R1 curve.
+gP :: PP
+gP = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gP #-}

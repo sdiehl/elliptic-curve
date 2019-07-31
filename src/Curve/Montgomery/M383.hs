@@ -1,6 +1,5 @@
 module Curve.Montgomery.M383
-  ( AP
-  , Curve(..)
+  ( Curve(..)
   , Fq
   , Fr
   , Group(..)
@@ -8,27 +7,25 @@ module Curve.Montgomery.M383
   , MPoint
   , MACurve(..)
   , MAPoint
-  , Point(..)
+  , PA
   , _a
   , _b
   , _h
   , _q
   , _r
+  , _x
+  , _y
   , gA
-  , xA
-  , yA
   ) where
 
 import Protolude
 
-import PrimeField (PrimeField)
+import PrimeField
 
-import Curve (Curve(..), Form(..))
-import Curve.Montgomery (MCurve(..), MPoint, MACurve(..), MAPoint, Point(..))
-import Group (Group(..))
+import Curve.Montgomery
 
 -------------------------------------------------------------------------------
--- M383 curve
+-- Types
 -------------------------------------------------------------------------------
 
 -- | M383 curve.
@@ -52,6 +49,22 @@ instance Curve 'Montgomery c M383 Fq => MCurve c M383 Fq where
   {-# INLINE q_ #-}
   r_ = const _r
   {-# INLINE r_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
+
+-- | Affine M383 curve point.
+type PA = MAPoint M383 Fq
+
+-- | Affine M383 curve is a Montgomery affine curve.
+instance MACurve M383 Fq where
+  gA_ = gA
+  {-# INLINE gA_ #-}
+
+-------------------------------------------------------------------------------
+-- Parameters
+-------------------------------------------------------------------------------
 
 -- | Coefficient @A@ of M383 curve.
 _a :: Fq
@@ -78,33 +91,17 @@ _r :: Integer
 _r = 0x10000000000000000000000000000000000000000000000006c79673ac36ba6e7a32576f7b1b249e46bbc225be9071d7
 {-# INLINE _r #-}
 
--------------------------------------------------------------------------------
--- Affine coordinates
--------------------------------------------------------------------------------
+-- | Coordinate @X@ of M383 curve.
+_x :: Fq
+_x = 0xc
+{-# INLINE _x #-}
 
--- | Affine M383 point.
-type AP = MAPoint M383 Fq
+-- | Coordinate @Y@ of M383 curve.
+_y :: Fq
+_y = 0x1ec7ed04aaf834af310e304b2da0f328e7c165f0e8988abd3992861290f617aa1f1b2e7d0b6e332e969991b62555e77e
+{-# INLINE _y #-}
 
--- | Affine M383 curve is a Montgomery affine curve.
-instance MACurve M383 Fq where
-  gA_ = gA
-  {-# INLINE gA_ #-}
-  xA_ = const xA
-  {-# INLINE xA_ #-}
-  yA_ = const yA
-  {-# INLINE yA_ #-}
-
--- | Generator of affine M383 curve.
-gA :: AP
-gA = A xA yA
+-- | Affine generator of M383 curve.
+gA :: PA
+gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
-
--- | Coordinate @X@ of affine M383 curve.
-xA :: Fq
-xA = 0xc
-{-# INLINE xA #-}
-
--- | Coordinate @Y@ of affine M383 curve.
-yA :: Fq
-yA = 0x1ec7ed04aaf834af310e304b2da0f328e7c165f0e8988abd3992861290f617aa1f1b2e7d0b6e332e969991b62555e77e
-{-# INLINE yA #-}

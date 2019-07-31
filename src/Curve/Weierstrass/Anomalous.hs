@@ -1,34 +1,35 @@
 module Curve.Weierstrass.Anomalous
-  ( AP
-  , Curve(..)
+  ( Curve(..)
   , Fq
   , Fr
   , Group(..)
-  , Point(..)
+  , PA
+  , PP
   , WCurve(..)
   , WPoint
   , WACurve(..)
   , WAPoint
+  , WPCurve(..)
+  , WPPoint
   , _a
   , _b
   , _h
   , _q
   , _r
+  , _x
+  , _y
   , gA
-  , xA
-  , yA
+  , gP
   ) where
 
 import Protolude
 
-import PrimeField (PrimeField)
+import PrimeField
 
-import Curve (Curve(..), Form(..))
-import Curve.Weierstrass (Point(..), WCurve(..), WPoint, WACurve(..), WAPoint)
-import Group (Group(..))
+import Curve.Weierstrass
 
 -------------------------------------------------------------------------------
--- Anomalous curve
+-- Types
 -------------------------------------------------------------------------------
 
 -- | Anomalous curve.
@@ -52,6 +53,30 @@ instance Curve 'Weierstrass c Anomalous Fq => WCurve c Anomalous Fq where
   {-# INLINE q_ #-}
   r_ = const _r
   {-# INLINE r_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
+
+-- | Affine Anomalous curve point.
+type PA = WAPoint Anomalous Fq
+
+-- | Affine Anomalous curve is a Weierstrass affine curve.
+instance WACurve Anomalous Fq where
+  gA_ = gA
+  {-# INLINE gA_ #-}
+
+-- | Projective Anomalous point.
+type PP = WPPoint Anomalous Fq
+
+-- | Projective Anomalous curve is a Weierstrass projective curve.
+instance WPCurve Anomalous Fq where
+  gP_ = gP
+  {-# INLINE gP_ #-}
+
+-------------------------------------------------------------------------------
+-- Parameters
+-------------------------------------------------------------------------------
 
 -- | Coefficient @A@ of Anomalous curve.
 _a :: Fq
@@ -78,33 +103,22 @@ _r :: Integer
 _r = 0xb0000000000000000000000953000000000000000000001f9d7
 {-# INLINE _r #-}
 
--------------------------------------------------------------------------------
--- Affine coordinates
--------------------------------------------------------------------------------
+-- | Coordinate @X@ of Anomalous curve.
+_x :: Fq
+_x = 0x101efb35fd1963c4871a2d17edaafa7e249807f58f8705126c6
+{-# INLINE _x #-}
 
--- | Affine Anomalous point.
-type AP = WAPoint Anomalous Fq
+-- | Coordinate @Y@ of Anomalous curve.
+_y :: Fq
+_y = 0x22389a3954375834304ba1d509a97de6c07148ea7f5951b20e7
+{-# INLINE _y #-}
 
--- | Affine Anomalous curve is a Weierstrass affine curve.
-instance WACurve Anomalous Fq where
-  gA_ = gA
-  {-# INLINE gA_ #-}
-  xA_ = const xA
-  {-# INLINE xA_ #-}
-  yA_ = const yA
-  {-# INLINE yA_ #-}
-
--- | Generator of affine Anomalous curve.
-gA :: AP
-gA = A xA yA
+-- | Affine generator of Anomalous curve.
+gA :: PA
+gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Coordinate @X@ of affine Anomalous curve.
-xA :: Fq
-xA = 0x101efb35fd1963c4871a2d17edaafa7e249807f58f8705126c6
-{-# INLINE xA #-}
-
--- | Coordinate @Y@ of affine Anomalous curve.
-yA :: Fq
-yA = 0x22389a3954375834304ba1d509a97de6c07148ea7f5951b20e7
-{-# INLINE yA #-}
+-- | Projective generator of Anomalous curve.
+gP :: PP
+gP = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gP #-}

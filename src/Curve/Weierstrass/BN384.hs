@@ -1,34 +1,35 @@
 module Curve.Weierstrass.BN384
-  ( AP
-  , Curve(..)
+  ( Curve(..)
   , Fq
   , Fr
   , Group(..)
-  , Point(..)
+  , PA
+  , PP
   , WCurve(..)
   , WPoint
   , WACurve(..)
   , WAPoint
+  , WPCurve(..)
+  , WPPoint
   , _a
   , _b
   , _h
   , _q
   , _r
+  , _x
+  , _y
   , gA
-  , xA
-  , yA
+  , gP
   ) where
 
 import Protolude
 
-import PrimeField (PrimeField)
+import PrimeField
 
-import Curve (Curve(..), Form(..))
-import Curve.Weierstrass (Point(..), WCurve(..), WPoint, WACurve(..), WAPoint)
-import Group (Group(..))
+import Curve.Weierstrass
 
 -------------------------------------------------------------------------------
--- BN384 curve
+-- Types
 -------------------------------------------------------------------------------
 
 -- | BN384 curve.
@@ -52,6 +53,30 @@ instance Curve 'Weierstrass c BN384 Fq => WCurve c BN384 Fq where
   {-# INLINE q_ #-}
   r_ = const _r
   {-# INLINE r_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
+
+-- | Affine BN384 curve point.
+type PA = WAPoint BN384 Fq
+
+-- | Affine BN384 curve is a Weierstrass affine curve.
+instance WACurve BN384 Fq where
+  gA_ = gA
+  {-# INLINE gA_ #-}
+
+-- | Projective BN384 point.
+type PP = WPPoint BN384 Fq
+
+-- | Projective BN384 curve is a Weierstrass projective curve.
+instance WPCurve BN384 Fq where
+  gP_ = gP
+  {-# INLINE gP_ #-}
+
+-------------------------------------------------------------------------------
+-- Parameters
+-------------------------------------------------------------------------------
 
 -- | Coefficient @A@ of BN384 curve.
 _a :: Fq
@@ -78,33 +103,22 @@ _r :: Integer
 _r = 0xfffffffffffffffffff2a96823d5920d2a127e3f6fbca023c8fbe29531892c795356487d8ac63e4f4db17384341a5775
 {-# INLINE _r #-}
 
--------------------------------------------------------------------------------
--- Affine coordinates
--------------------------------------------------------------------------------
+-- | Coordinate @X@ of BN384 curve.
+_x :: Fq
+_x = 0x1
+{-# INLINE _x #-}
 
--- | Affine BN384 point.
-type AP = WAPoint BN384 Fq
+-- | Coordinate @Y@ of BN384 curve.
+_y :: Fq
+_y = 0x2
+{-# INLINE _y #-}
 
--- | Affine BN384 curve is a Weierstrass affine curve.
-instance WACurve BN384 Fq where
-  gA_ = gA
-  {-# INLINE gA_ #-}
-  xA_ = const xA
-  {-# INLINE xA_ #-}
-  yA_ = const yA
-  {-# INLINE yA_ #-}
-
--- | Generator of affine BN384 curve.
-gA :: AP
-gA = A xA yA
+-- | Affine generator of BN384 curve.
+gA :: PA
+gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Coordinate @X@ of affine BN384 curve.
-xA :: Fq
-xA = 0x1
-{-# INLINE xA #-}
-
--- | Coordinate @Y@ of affine BN384 curve.
-yA :: Fq
-yA = 0x2
-{-# INLINE yA #-}
+-- | Projective generator of BN384 curve.
+gP :: PP
+gP = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gP #-}

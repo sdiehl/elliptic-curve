@@ -12,22 +12,14 @@ import GroupBenchmarks
 
 benchmarkMontgomery :: Benchmark
 benchmarkMontgomery = bgroup "Montgomery"
-  [ bgroup    "Curve448"
-    [ benchmark "Affine"    Curve448.gA
-    ]
-  , bgroup  "Curve25519"
-    [ benchmark "Affine"  Curve25519.gA
-    ]
-  , bgroup "Curve383187"
-    [ benchmark "Affine" Curve383187.gA
-    ]
-  , bgroup        "M221"
-    [ benchmark "Affine"        M221.gA
-    ]
-  , bgroup        "M383"
-    [ benchmark "Affine"        M383.gA
-    ]
-  , bgroup        "M511"
-    [ benchmark "Affine"        M511.gA
-    ]
+  [ benchmarkMontgomery'    "Curve448"    Curve448.gA
+  , benchmarkMontgomery'  "Curve25519"  Curve25519.gA
+  , benchmarkMontgomery' "Curve383187" Curve383187.gA
+  , benchmarkMontgomery'        "M221"        M221.gA
+  , benchmarkMontgomery'        "M383"        M383.gA
+  , benchmarkMontgomery'        "M511"        M511.gA
   ]
+  where
+    benchmarkMontgomery' curve affine = bgroup curve
+      [ benchmark "Affine" affine
+      ]

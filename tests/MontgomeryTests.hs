@@ -12,12 +12,14 @@ import GroupTests
 
 testMontgomery :: TestTree
 testMontgomery = testGroup "Montgomery"
-  [ testGroup "Affine"
-    [ test    "Curve448"    Curve448.gA    Curve448._h    Curve448._q    Curve448._r
-    , test  "Curve25519"  Curve25519.gA  Curve25519._h  Curve25519._q  Curve25519._r
-    , test "Curve383187" Curve383187.gA Curve383187._h Curve383187._q Curve383187._r
-    , test        "M221"        M221.gA        M221._h        M221._q        M221._r
-    , test        "M383"        M383.gA        M383._h        M383._q        M383._r
-    , test        "M511"        M511.gA        M511._h        M511._q        M511._r
-    ]
+  [ testMontgomery'    "Curve448"    Curve448._h    Curve448._q    Curve448._r    Curve448.gA
+  , testMontgomery'  "Curve25519"  Curve25519._h  Curve25519._q  Curve25519._r  Curve25519.gA
+  , testMontgomery' "Curve383187" Curve383187._h Curve383187._q Curve383187._r Curve383187.gA
+  , testMontgomery'        "M221"        M221._h        M221._q        M221._r        M221.gA
+  , testMontgomery'        "M383"        M383._h        M383._q        M383._r        M383.gA
+  , testMontgomery'        "M511"        M511._h        M511._q        M511._r        M511.gA
   ]
+  where
+    testMontgomery' curve h q r affine = testGroup curve
+      [ test "Affine" affine h q r
+      ]

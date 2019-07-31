@@ -1,34 +1,35 @@
 module Curve.Weierstrass.BrainpoolP512T1
-  ( AP
-  , Curve(..)
+  ( Curve(..)
   , Fq
   , Fr
   , Group(..)
-  , Point(..)
+  , PA
+  , PP
   , WCurve(..)
   , WPoint
   , WACurve(..)
   , WAPoint
+  , WPCurve(..)
+  , WPPoint
   , _a
   , _b
   , _h
   , _q
   , _r
+  , _x
+  , _y
   , gA
-  , xA
-  , yA
+  , gP
   ) where
 
 import Protolude
 
-import PrimeField (PrimeField)
+import PrimeField
 
-import Curve (Curve(..), Form(..))
-import Curve.Weierstrass (Point(..), WCurve(..), WPoint, WACurve(..), WAPoint)
-import Group (Group(..))
+import Curve.Weierstrass
 
 -------------------------------------------------------------------------------
--- BrainpoolP512T1 curve
+-- Types
 -------------------------------------------------------------------------------
 
 -- | BrainpoolP512T1 curve.
@@ -52,6 +53,30 @@ instance Curve 'Weierstrass c BrainpoolP512T1 Fq => WCurve c BrainpoolP512T1 Fq 
   {-# INLINE q_ #-}
   r_ = const _r
   {-# INLINE r_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
+
+-- | Affine BrainpoolP512T1 curve point.
+type PA = WAPoint BrainpoolP512T1 Fq
+
+-- | Affine BrainpoolP512T1 curve is a Weierstrass affine curve.
+instance WACurve BrainpoolP512T1 Fq where
+  gA_ = gA
+  {-# INLINE gA_ #-}
+
+-- | Projective BrainpoolP512T1 point.
+type PP = WPPoint BrainpoolP512T1 Fq
+
+-- | Projective BrainpoolP512T1 curve is a Weierstrass projective curve.
+instance WPCurve BrainpoolP512T1 Fq where
+  gP_ = gP
+  {-# INLINE gP_ #-}
+
+-------------------------------------------------------------------------------
+-- Parameters
+-------------------------------------------------------------------------------
 
 -- | Coefficient @A@ of BrainpoolP512T1 curve.
 _a :: Fq
@@ -78,33 +103,22 @@ _r :: Integer
 _r = 0xaadd9db8dbe9c48b3fd4e6ae33c9fc07cb308db3b3c9d20ed6639cca70330870553e5c414ca92619418661197fac10471db1d381085ddaddb58796829ca90069
 {-# INLINE _r #-}
 
--------------------------------------------------------------------------------
--- Affine coordinates
--------------------------------------------------------------------------------
+-- | Coordinate @X@ of BrainpoolP512T1 curve.
+_x :: Fq
+_x = 0x640ece5c12788717b9c1ba06cbc2a6feba85842458c56dde9db1758d39c0313d82ba51735cdb3ea499aa77a7d6943a64f7a3f25fe26f06b51baa2696fa9035da
+{-# INLINE _x #-}
 
--- | Affine BrainpoolP512T1 point.
-type AP = WAPoint BrainpoolP512T1 Fq
+-- | Coordinate @Y@ of BrainpoolP512T1 curve.
+_y :: Fq
+_y = 0x5b534bd595f5af0fa2c892376c84ace1bb4e3019b71634c01131159cae03cee9d9932184beef216bd71df2dadf86a627306ecff96dbb8bace198b61e00f8b332
+{-# INLINE _y #-}
 
--- | Affine BrainpoolP512T1 curve is a Weierstrass affine curve.
-instance WACurve BrainpoolP512T1 Fq where
-  gA_ = gA
-  {-# INLINE gA_ #-}
-  xA_ = const xA
-  {-# INLINE xA_ #-}
-  yA_ = const yA
-  {-# INLINE yA_ #-}
-
--- | Generator of affine BrainpoolP512T1 curve.
-gA :: AP
-gA = A xA yA
+-- | Affine generator of BrainpoolP512T1 curve.
+gA :: PA
+gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Coordinate @X@ of affine BrainpoolP512T1 curve.
-xA :: Fq
-xA = 0x640ece5c12788717b9c1ba06cbc2a6feba85842458c56dde9db1758d39c0313d82ba51735cdb3ea499aa77a7d6943a64f7a3f25fe26f06b51baa2696fa9035da
-{-# INLINE xA #-}
-
--- | Coordinate @Y@ of affine BrainpoolP512T1 curve.
-yA :: Fq
-yA = 0x5b534bd595f5af0fa2c892376c84ace1bb4e3019b71634c01131159cae03cee9d9932184beef216bd71df2dadf86a627306ecff96dbb8bace198b61e00f8b332
-{-# INLINE yA #-}
+-- | Projective generator of BrainpoolP512T1 curve.
+gP :: PP
+gP = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gP #-}

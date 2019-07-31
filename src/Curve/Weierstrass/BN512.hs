@@ -1,34 +1,35 @@
 module Curve.Weierstrass.BN512
-  ( AP
-  , Curve(..)
+  ( Curve(..)
   , Fq
   , Fr
   , Group(..)
-  , Point(..)
+  , PA
+  , PP
   , WCurve(..)
   , WPoint
   , WACurve(..)
   , WAPoint
+  , WPCurve(..)
+  , WPPoint
   , _a
   , _b
   , _h
   , _q
   , _r
+  , _x
+  , _y
   , gA
-  , xA
-  , yA
+  , gP
   ) where
 
 import Protolude
 
-import PrimeField (PrimeField)
+import PrimeField
 
-import Curve (Curve(..), Form(..))
-import Curve.Weierstrass (Point(..), WCurve(..), WPoint, WACurve(..), WAPoint)
-import Group (Group(..))
+import Curve.Weierstrass
 
 -------------------------------------------------------------------------------
--- BN512 curve
+-- Types
 -------------------------------------------------------------------------------
 
 -- | BN512 curve.
@@ -52,6 +53,30 @@ instance Curve 'Weierstrass c BN512 Fq => WCurve c BN512 Fq where
   {-# INLINE q_ #-}
   r_ = const _r
   {-# INLINE r_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
+
+-- | Affine BN512 curve point.
+type PA = WAPoint BN512 Fq
+
+-- | Affine BN512 curve is a Weierstrass affine curve.
+instance WACurve BN512 Fq where
+  gA_ = gA
+  {-# INLINE gA_ #-}
+
+-- | Projective BN512 point.
+type PP = WPPoint BN512 Fq
+
+-- | Projective BN512 curve is a Weierstrass projective curve.
+instance WPCurve BN512 Fq where
+  gP_ = gP
+  {-# INLINE gP_ #-}
+
+-------------------------------------------------------------------------------
+-- Parameters
+-------------------------------------------------------------------------------
 
 -- | Coefficient @A@ of BN512 curve.
 _a :: Fq
@@ -78,33 +103,22 @@ _r :: Integer
 _r = 0xfffffffffffffffffffffffffff9ec7f01c60ba1d8cb5307c0bbe3c111b0ef445146cf1eacbe98b8e48c65deab2679a34a10313e04f9a2b406a64a5f519a09ed
 {-# INLINE _r #-}
 
--------------------------------------------------------------------------------
--- Affine coordinates
--------------------------------------------------------------------------------
+-- | Coordinate @X@ of BN512 curve.
+_x :: Fq
+_x = 0x1
+{-# INLINE _x #-}
 
--- | Affine BN512 point.
-type AP = WAPoint BN512 Fq
+-- | Coordinate @Y@ of BN512 curve.
+_y :: Fq
+_y = 0x2
+{-# INLINE _y #-}
 
--- | Affine BN512 curve is a Weierstrass affine curve.
-instance WACurve BN512 Fq where
-  gA_ = gA
-  {-# INLINE gA_ #-}
-  xA_ = const xA
-  {-# INLINE xA_ #-}
-  yA_ = const yA
-  {-# INLINE yA_ #-}
-
--- | Generator of affine BN512 curve.
-gA :: AP
-gA = A xA yA
+-- | Affine generator of BN512 curve.
+gA :: PA
+gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Coordinate @X@ of affine BN512 curve.
-xA :: Fq
-xA = 0x1
-{-# INLINE xA #-}
-
--- | Coordinate @Y@ of affine BN512 curve.
-yA :: Fq
-yA = 0x2
-{-# INLINE yA #-}
+-- | Projective generator of BN512 curve.
+gP :: PP
+gP = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gP #-}

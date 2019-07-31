@@ -1,34 +1,35 @@
 module Curve.Weierstrass.BN254
-  ( AP
-  , Curve(..)
+  ( Curve(..)
   , Fq
   , Fr
   , Group(..)
-  , Point(..)
+  , PA
+  , PP
   , WCurve(..)
   , WPoint
   , WACurve(..)
   , WAPoint
+  , WPCurve(..)
+  , WPPoint
   , _a
   , _b
   , _h
   , _q
   , _r
+  , _x
+  , _y
   , gA
-  , xA
-  , yA
+  , gP
   ) where
 
 import Protolude
 
-import PrimeField (PrimeField)
+import PrimeField
 
-import Curve (Curve(..), Form(..))
-import Curve.Weierstrass (Point(..), WCurve(..), WPoint, WACurve(..), WAPoint)
-import Group (Group(..))
+import Curve.Weierstrass
 
 -------------------------------------------------------------------------------
--- BN254 curve
+-- Types
 -------------------------------------------------------------------------------
 
 -- | BN254 curve.
@@ -52,6 +53,30 @@ instance Curve 'Weierstrass c BN254 Fq => WCurve c BN254 Fq where
   {-# INLINE q_ #-}
   r_ = const _r
   {-# INLINE r_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
+
+-- | Affine BN254 curve point.
+type PA = WAPoint BN254 Fq
+
+-- | Affine BN254 curve is a Weierstrass affine curve.
+instance WACurve BN254 Fq where
+  gA_ = gA
+  {-# INLINE gA_ #-}
+
+-- | Projective BN254 point.
+type PP = WPPoint BN254 Fq
+
+-- | Projective BN254 curve is a Weierstrass projective curve.
+instance WPCurve BN254 Fq where
+  gP_ = gP
+  {-# INLINE gP_ #-}
+
+-------------------------------------------------------------------------------
+-- Parameters
+-------------------------------------------------------------------------------
 
 -- | Coefficient @A@ of BN254 curve.
 _a :: Fq
@@ -78,33 +103,22 @@ _r :: Integer
 _r = 0x30644e72e131a029b85045b68181585d2833e84879b9709143e1f593f0000001
 {-# INLINE _r #-}
 
--------------------------------------------------------------------------------
--- Affine coordinates
--------------------------------------------------------------------------------
+-- | Coordinate @X@ of BN254 curve.
+_x :: Fq
+_x = 0x1
+{-# INLINE _x #-}
 
--- | Affine BN254 point.
-type AP = WAPoint BN254 Fq
+-- | Coordinate @Y@ of BN254 curve.
+_y :: Fq
+_y = 0x2
+{-# INLINE _y #-}
 
--- | Affine BN254 curve is a Weierstrass affine curve.
-instance WACurve BN254 Fq where
-  gA_ = gA
-  {-# INLINE gA_ #-}
-  xA_ = const xA
-  {-# INLINE xA_ #-}
-  yA_ = const yA
-  {-# INLINE yA_ #-}
-
--- | Generator of affine BN254 curve.
-gA :: AP
-gA = A xA yA
+-- | Affine generator of BN254 curve.
+gA :: PA
+gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Coordinate @X@ of affine BN254 curve.
-xA :: Fq
-xA = 0x1
-{-# INLINE xA #-}
-
--- | Coordinate @Y@ of affine BN254 curve.
-yA :: Fq
-yA = 0x2
-{-# INLINE yA #-}
+-- | Projective generator of BN254 curve.
+gP :: PP
+gP = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gP #-}

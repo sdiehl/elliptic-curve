@@ -31,8 +31,8 @@ prettyField (BinaryField fp p)
   = "BinaryField" <+> prettyText fp <+> prettyInteger p
 prettyField (ExtensionField fq fp p s k)
   = align
-    (   "ExtensionField" <+> prettyText fq <+> prettyText fp <+> prettyText p
-    <+> prettyText s <+> prettyField' k
+    (   "ExtensionField" <+> prettyText fq <+> prettyText fp
+    <+> prettyText p <+> prettyText s <+> prettyField' k
     )
   where
     prettyField' :: Maybe Field -> Doc

@@ -1,34 +1,35 @@
 module Curve.Weierstrass.BrainpoolP256R1
-  ( AP
-  , Curve(..)
+  ( Curve(..)
   , Fq
   , Fr
   , Group(..)
-  , Point(..)
+  , PA
+  , PP
   , WCurve(..)
   , WPoint
   , WACurve(..)
   , WAPoint
+  , WPCurve(..)
+  , WPPoint
   , _a
   , _b
   , _h
   , _q
   , _r
+  , _x
+  , _y
   , gA
-  , xA
-  , yA
+  , gP
   ) where
 
 import Protolude
 
-import PrimeField (PrimeField)
+import PrimeField
 
-import Curve (Curve(..), Form(..))
-import Curve.Weierstrass (Point(..), WCurve(..), WPoint, WACurve(..), WAPoint)
-import Group (Group(..))
+import Curve.Weierstrass
 
 -------------------------------------------------------------------------------
--- BrainpoolP256R1 curve
+-- Types
 -------------------------------------------------------------------------------
 
 -- | BrainpoolP256R1 curve.
@@ -52,6 +53,30 @@ instance Curve 'Weierstrass c BrainpoolP256R1 Fq => WCurve c BrainpoolP256R1 Fq 
   {-# INLINE q_ #-}
   r_ = const _r
   {-# INLINE r_ #-}
+  x_ = const _x
+  {-# INLINE x_ #-}
+  y_ = const _y
+  {-# INLINE y_ #-}
+
+-- | Affine BrainpoolP256R1 curve point.
+type PA = WAPoint BrainpoolP256R1 Fq
+
+-- | Affine BrainpoolP256R1 curve is a Weierstrass affine curve.
+instance WACurve BrainpoolP256R1 Fq where
+  gA_ = gA
+  {-# INLINE gA_ #-}
+
+-- | Projective BrainpoolP256R1 point.
+type PP = WPPoint BrainpoolP256R1 Fq
+
+-- | Projective BrainpoolP256R1 curve is a Weierstrass projective curve.
+instance WPCurve BrainpoolP256R1 Fq where
+  gP_ = gP
+  {-# INLINE gP_ #-}
+
+-------------------------------------------------------------------------------
+-- Parameters
+-------------------------------------------------------------------------------
 
 -- | Coefficient @A@ of BrainpoolP256R1 curve.
 _a :: Fq
@@ -78,33 +103,22 @@ _r :: Integer
 _r = 0xa9fb57dba1eea9bc3e660a909d838d718c397aa3b561a6f7901e0e82974856a7
 {-# INLINE _r #-}
 
--------------------------------------------------------------------------------
--- Affine coordinates
--------------------------------------------------------------------------------
+-- | Coordinate @X@ of BrainpoolP256R1 curve.
+_x :: Fq
+_x = 0x8bd2aeb9cb7e57cb2c4b482ffc81b7afb9de27e1e3bd23c23a4453bd9ace3262
+{-# INLINE _x #-}
 
--- | Affine BrainpoolP256R1 point.
-type AP = WAPoint BrainpoolP256R1 Fq
+-- | Coordinate @Y@ of BrainpoolP256R1 curve.
+_y :: Fq
+_y = 0x547ef835c3dac4fd97f8461a14611dc9c27745132ded8e545c1d54c72f046997
+{-# INLINE _y #-}
 
--- | Affine BrainpoolP256R1 curve is a Weierstrass affine curve.
-instance WACurve BrainpoolP256R1 Fq where
-  gA_ = gA
-  {-# INLINE gA_ #-}
-  xA_ = const xA
-  {-# INLINE xA_ #-}
-  yA_ = const yA
-  {-# INLINE yA_ #-}
-
--- | Generator of affine BrainpoolP256R1 curve.
-gA :: AP
-gA = A xA yA
+-- | Affine generator of BrainpoolP256R1 curve.
+gA :: PA
+gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Coordinate @X@ of affine BrainpoolP256R1 curve.
-xA :: Fq
-xA = 0x8bd2aeb9cb7e57cb2c4b482ffc81b7afb9de27e1e3bd23c23a4453bd9ace3262
-{-# INLINE xA #-}
-
--- | Coordinate @Y@ of affine BrainpoolP256R1 curve.
-yA :: Fq
-yA = 0x547ef835c3dac4fd97f8461a14611dc9c27745132ded8e545c1d54c72f046997
-{-# INLINE yA #-}
+-- | Projective generator of BrainpoolP256R1 curve.
+gP :: PP
+gP = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gP #-}
