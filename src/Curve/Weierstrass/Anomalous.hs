@@ -19,6 +19,7 @@ module Curve.Weierstrass.Anomalous
   , _x
   , _y
   , gA
+  , gJ
   , gP
   ) where
 
@@ -65,6 +66,14 @@ type PA = WAPoint Anomalous Fq
 instance WACurve Anomalous Fq where
   gA_ = gA
   {-# INLINE gA_ #-}
+
+-- | Jacobian Anomalous point.
+type PJ = WJPoint Anomalous Fq
+
+-- | Jacobian Anomalous curve is a Weierstrass Jacobian curve.
+instance WJCurve Anomalous Fq where
+  gJ_ = gJ
+  {-# INLINE gJ_ #-}
 
 -- | Projective Anomalous point.
 type PP = WPPoint Anomalous Fq
@@ -113,12 +122,17 @@ _y :: Fq
 _y = 0x22389a3954375834304ba1d509a97de6c07148ea7f5951b20e7
 {-# INLINE _y #-}
 
--- | Affine generator of Anomalous curve.
+-- | Generator of affine Anomalous curve.
 gA :: PA
 gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Projective generator of Anomalous curve.
+-- | Generator of Jacobian Anomalous curve.
+gJ :: PJ
+gJ = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gJ #-}
+
+-- | Generator of projective Anomalous curve.
 gP :: PP
 gP = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gP #-}

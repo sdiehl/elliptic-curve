@@ -19,6 +19,7 @@ module Curve.Weierstrass.BN254T
   , _x
   , _y
   , gA
+  , gJ
   , gP
   ) where
 
@@ -70,6 +71,14 @@ type PA = WAPoint BN254T Fq2
 instance WACurve BN254T Fq2 where
   gA_ = gA
   {-# INLINE gA_ #-}
+
+-- | Jacobian BN254T point.
+type PJ = WJPoint BN254T Fq2
+
+-- | Jacobian BN254T curve is a Weierstrass Jacobian curve.
+instance WJCurve BN254T Fq2 where
+  gJ_ = gJ
+  {-# INLINE gJ_ #-}
 
 -- | Projective BN254T point.
 type PP = WPPoint BN254T Fq2
@@ -125,12 +134,17 @@ _y = fromList [ 0x12c85ea5db8c6deb4aab71808dcb408fe3d1e7690c43d37b4ce6cc0166fa7d
               ]
 {-# INLINE _y #-}
 
--- | Affine generator of BN254T curve.
+-- | Generator of affine BN254T curve.
 gA :: PA
 gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Projective generator of BN254T curve.
+-- | Generator of Jacobian BN254T curve.
+gJ :: PJ
+gJ = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gJ #-}
+
+-- | Generator of projective BN254T curve.
 gP :: PP
 gP = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gP #-}

@@ -19,6 +19,7 @@ module Curve.Weierstrass.BN224
   , _x
   , _y
   , gA
+  , gJ
   , gP
   ) where
 
@@ -65,6 +66,14 @@ type PA = WAPoint BN224 Fq
 instance WACurve BN224 Fq where
   gA_ = gA
   {-# INLINE gA_ #-}
+
+-- | Jacobian BN224 point.
+type PJ = WJPoint BN224 Fq
+
+-- | Jacobian BN224 curve is a Weierstrass Jacobian curve.
+instance WJCurve BN224 Fq where
+  gJ_ = gJ
+  {-# INLINE gJ_ #-}
 
 -- | Projective BN224 point.
 type PP = WPPoint BN224 Fq
@@ -113,12 +122,17 @@ _y :: Fq
 _y = 0x2
 {-# INLINE _y #-}
 
--- | Affine generator of BN224 curve.
+-- | Generator of affine BN224 curve.
 gA :: PA
 gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Projective generator of BN224 curve.
+-- | Generator of Jacobian BN224 curve.
+gJ :: PJ
+gJ = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gJ #-}
+
+-- | Generator of projective BN224 curve.
 gP :: PP
 gP = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gP #-}

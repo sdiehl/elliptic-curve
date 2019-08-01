@@ -113,12 +113,12 @@ _y :: Fq
 _y = 0x3b43f8472ca2fc2c9e8fcc5abd9dc308096c8707ffa6833b146bad709349702e
 {-# INLINE _y #-}
 
--- | Affine generator of JubJub curve.
+-- | Generator of affine JubJub curve.
 gA :: PA
 gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Projective generator of JubJub curve.
+-- | Generator of projective JubJub curve.
 gP :: PP
 gP = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gP #-}

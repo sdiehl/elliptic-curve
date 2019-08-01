@@ -114,12 +114,12 @@ _y :: F2m
 _y = 0x25e399f2903712ccf3ea9e3a1ad17fb0b3201b6af7ce1b05
 {-# INLINE _y #-}
 
--- | Affine generator of SECT193R1 curve.
+-- | Generator of affine SECT193R1 curve.
 gA :: PA
 gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Projective generator of SECT193R1 curve.
+-- | Generator of projective SECT193R1 curve.
 gP :: PP
 gP = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gP #-}

@@ -113,12 +113,12 @@ _y :: Fq
 _y = 0x13
 {-# INLINE _y #-}
 
--- | Affine generator of Ed448 curve.
+-- | Generator of affine Ed448 curve.
 gA :: PA
 gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Projective generator of Ed448 curve.
+-- | Generator of projective Ed448 curve.
 gP :: PP
 gP = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gP #-}

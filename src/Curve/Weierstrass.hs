@@ -7,9 +7,10 @@ module Curve.Weierstrass
   , WPoint
   , WACurve(..)
   , WAPoint
+  , WJPoint
+  , WJCurve(..)
   , WPPoint
   , WPCurve(..)
-  , dehom
   ) where
 
 import Protolude
@@ -42,6 +43,7 @@ class Curve 'Weierstrass c e k => WCurve c e k where
 
 -- | Weierstrass coordinates.
 data Coordinates = Affine
+                 | Jacobian
                  | Projective
 
 -------------------------------------------------------------------------------
@@ -144,6 +146,132 @@ instance (GaloisField k, WACurve e k) => Pretty (WAPoint e k) where
 -- Weierstrass affine points are random.
 instance (GaloisField k, WACurve e k) => Random (WAPoint e k) where
   random  = first (mul' gA_) . (random :: RandomGen g => g -> (Integer, g)) -- TODO
+  -- random g = case pointX x of
+  --   Just p -> (p, g')
+  --   _      -> random g'
+  --   where
+  --     (x, g') = random g
+  {-# INLINE random #-}
+  randomR = panic "not implemented."
+
+-------------------------------------------------------------------------------
+-- Jacobian coordinates
+-------------------------------------------------------------------------------
+
+-- | Weierstrass Jacobian points.
+type WJPoint = WPoint 'Jacobian
+
+-- | Weierstrass Jacobian curves @y^2 = x^3 + Ax + B@.
+class WCurve 'Jacobian e k => WJCurve e k where
+  {-# MINIMAL gJ_ #-}
+  gJ_ :: WJPoint e k -- ^ Curve generator.
+
+-- Weierstrass Jacobian curves are elliptic curves.
+instance (GaloisField k, WJCurve e k) => Curve 'Weierstrass 'Jacobian e k where
+
+  data instance Point 'Weierstrass 'Jacobian e k = J k k k -- ^ Jacobian point.
+    deriving (Generic, NFData, Read, Show)
+
+  char = q_
+  {-# INLINE char #-}
+
+  cof = h_
+  {-# INLINE cof #-}
+
+  disc _ = 4 * pow a 3 + 27 * pow b 2
+    where
+      a = a_ (witness :: WJPoint e k)
+      b = b_ (witness :: WJPoint e k)
+  {-# INLINE disc #-}
+
+  point x y = let p = J x y 1 in if def p then Just p else Nothing
+  {-# INLINE point #-}
+
+  pointX x = flip (J x) 1 <$> yX (witness :: WJPoint e k) x
+  {-# INLINE pointX #-}
+
+  yX _ x = sr (((pow x 2 + a) * x) + b)
+    where
+      a = a_ (witness :: WJPoint e k)
+      b = b_ (witness :: WJPoint e k)
+  {-# INLINE yX #-}
+
+-- Weierstrass Jacobian points are groups.
+instance (GaloisField k, WJCurve e k) => Group (WJPoint e k) where
+
+  -- | Addition formula add-2007-bl
+  add           p  (J  _  _  0) = p
+  add (J  _  _  0)           q  = q
+  add (J x1 y1 z1) (J x2 y2 z2) = J x3 y3 z3
+    where
+      z1z1 = pow z1 2
+      z2z2 = pow z2 2
+      u1   = x1 * z2z2
+      u2   = x2 * z1z1
+      s1   = y1 * z2 * z2z2
+      s2   = y2 * z1 * z1z1
+      h    = u2 - u1
+      i    = pow (2 * h) 2
+      j    = h * i
+      r    = 2 * (s2 - s1)
+      v    = u1 * i
+      x3   = pow r 2 - j - 2 * v
+      y3   = r * (v - x3) - 2 * s1 * j
+      z3   = (pow (z1+z2) 2 - z1z1 - z2z2) * h
+  {-# INLINE add #-}
+
+  -- | Doubling formula dbl-2007-bl
+  dbl (J  _  _  0) = J  1  1  0
+  dbl (J x1 y1 z1) = J x3 y3 z3
+    where
+      xx   = pow x1 2
+      yy   = pow y1 2
+      yyyy = pow yy 2
+      zz   = pow z1 2
+      s    = 2 * (pow (x1 + yy) 2 - xx - yyyy)
+      m    = 3 * xx + a_ (witness :: WJPoint e k) * pow zz 2
+      t    = pow m 2 - 2 * s
+      x3   = t
+      y3   = m * (s - t) - 8 * yyyy
+      z3   = pow (y1 + z1) 2 - yy - zz
+  {-# INLINE dbl #-}
+
+  def (J x y z) = pow y 2 == pow x 3 + pow zz 2 * (a * x + b * zz)
+    where
+      a  = a_ (witness :: WJPoint e k)
+      b  = b_ (witness :: WJPoint e k)
+      zz = pow z 2
+  {-# INLINE def #-}
+
+  gen = gJ_
+  {-# INLINE gen #-}
+
+  id = J 1 1 0
+  {-# INLINE id #-}
+
+  inv (J x y z) = J x (-y) z
+  {-# INLINE inv #-}
+
+  order = r_
+  {-# INLINE order #-}
+
+-- Weierstrass Jacobian points are arbitrary.
+instance (GaloisField k, WJCurve e k) => Arbitrary (WJPoint e k) where
+  arbitrary = mul' gJ_ <$> (arbitrary :: Gen Integer) -- TODO
+  -- arbitrary = suchThatMap arbitrary pointX
+
+-- Weierstrass Jacobian points are equatable.
+instance (GaloisField k, WJCurve e k) => Eq (WJPoint e k) where
+  J x1 y1 z1 == J x2 y2 z2 = z1 == 0 && z2 == 0
+    || x1 * pow z2 2 == x2 * pow z1 2 && y1 * pow z2 3 == y2 * pow z1 3
+
+-- Weierstrass Jacobian points are pretty.
+instance (GaloisField k, WJCurve e k) => Pretty (WJPoint e k) where
+  pretty (J x y z) = pretty (x, y, z)
+
+-- Weierstrass Jacobian points are random.
+instance (GaloisField k, WJCurve e k) => Random (WJPoint e k) where
+  random  = first (mul' gJ_) . (random :: RandomGen g => g -> (Integer, g)) -- TODO
   -- random g = case pointX x of
   --   Just p -> (p, g')
   --   _      -> random g'
@@ -262,8 +390,8 @@ instance (GaloisField k, WPCurve e k) => Arbitrary (WPPoint e k) where
 
 -- Weierstrass projective points are equatable.
 instance (GaloisField k, WPCurve e k) => Eq (WPPoint e k) where
-  p == p' = case (dehom p, dehom p') of
-    (P x y z, P x' y' z') -> x == x' && y == y' && z == z'
+  P x1 y1 z1 == P x2 y2 z2 = z1 == 0 && z2 == 0
+    || x1 * z2 == x2 * z1 && y1 * z2 == y2 * z1
 
 -- Weierstrass projective points are pretty.
 instance (GaloisField k, WPCurve e k) => Pretty (WPPoint e k) where
@@ -279,9 +407,3 @@ instance (GaloisField k, WPCurve e k) => Random (WPPoint e k) where
   --     (x, g') = random g
   {-# INLINE random #-}
   randomR = panic "not implemented."
-
--- | Dehomogenisation of Weierstrass projective points.
-dehom :: (GaloisField k, WPCurve e k) => WPPoint e k -> WPPoint e k
-dehom (P 0 _ 0) = P    0       1    0
-dehom (P x y 0) = P    1    (y / x) 0
-dehom (P x y z) = P (x / z) (y / z) 1

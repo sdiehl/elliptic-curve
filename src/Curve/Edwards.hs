@@ -9,7 +9,6 @@ module Curve.Edwards
   , EPPoint
   , Form(..)
   , Group(..)
-  , dehom
   ) where
 
 import Protolude
@@ -245,8 +244,8 @@ instance (GaloisField k, EPCurve e k) => Arbitrary (EPPoint e k) where
 
 -- Edwards projective points are equatable.
 instance (GaloisField k, EPCurve e k) => Eq (EPPoint e k) where
-  p == p' = case (dehom p, dehom p') of
-    (P x y z, P x' y' z') -> x == x' && y == y' && z == z'
+  P x1 y1 z1 == P x2 y2 z2 = z1 == 0 && z2 == 0
+    || x1 * z2 == x2 * z1 && y1 * z2 == y2 * z1
 
 -- Edwards projective points are pretty.
 instance (GaloisField k, EPCurve e k) => Pretty (EPPoint e k) where
@@ -261,9 +260,3 @@ instance (GaloisField k, EPCurve e k) => Random (EPPoint e k) where
       (x, g') = random g
   {-# INLINE random #-}
   randomR  = panic "not implemented."
-
--- | Dehomogenisation of Edwards projective points.
-dehom :: (GaloisField k, EPCurve e k) => EPPoint e k -> EPPoint e k
-dehom (P 0 _ 0) = P    0       1    0
-dehom (P x y 0) = P    1    (y / x) 0
-dehom (P x y z) = P (x / z) (y / z) 1

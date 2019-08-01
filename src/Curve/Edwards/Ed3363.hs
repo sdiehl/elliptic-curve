@@ -113,12 +113,12 @@ _y :: Fq
 _y = 0xc0dc616b56502e18e1c161d007853d1b14b46c3811c7ef435b6db5d5650ca0365db12bec68505fe8632
 {-# INLINE _y #-}
 
--- | Affine generator of Ed3363 curve.
+-- | Generator of affine Ed3363 curve.
 gA :: PA
 gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Projective generator of Ed3363 curve.
+-- | Generator of projective Ed3363 curve.
 gP :: PP
 gP = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gP #-}

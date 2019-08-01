@@ -19,6 +19,7 @@ module Curve.Weierstrass.BN384
   , _x
   , _y
   , gA
+  , gJ
   , gP
   ) where
 
@@ -65,6 +66,14 @@ type PA = WAPoint BN384 Fq
 instance WACurve BN384 Fq where
   gA_ = gA
   {-# INLINE gA_ #-}
+
+-- | Jacobian BN384 point.
+type PJ = WJPoint BN384 Fq
+
+-- | Jacobian BN384 curve is a Weierstrass Jacobian curve.
+instance WJCurve BN384 Fq where
+  gJ_ = gJ
+  {-# INLINE gJ_ #-}
 
 -- | Projective BN384 point.
 type PP = WPPoint BN384 Fq
@@ -113,12 +122,17 @@ _y :: Fq
 _y = 0x2
 {-# INLINE _y #-}
 
--- | Affine generator of BN384 curve.
+-- | Generator of affine BN384 curve.
 gA :: PA
 gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Projective generator of BN384 curve.
+-- | Generator of Jacobian BN384 curve.
+gJ :: PJ
+gJ = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gJ #-}
+
+-- | Generator of projective BN384 curve.
 gP :: PP
 gP = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gP #-}

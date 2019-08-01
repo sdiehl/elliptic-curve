@@ -19,6 +19,7 @@ module Curve.Weierstrass.BLS12381
   , _x
   , _y
   , gA
+  , gJ
   , gP
   ) where
 
@@ -65,6 +66,14 @@ type PA = WAPoint BLS12381 Fq
 instance WACurve BLS12381 Fq where
   gA_ = gA
   {-# INLINE gA_ #-}
+
+-- | Jacobian BLS12381 point.
+type PJ = WJPoint BLS12381 Fq
+
+-- | Jacobian BLS12381 curve is a Weierstrass Jacobian curve.
+instance WJCurve BLS12381 Fq where
+  gJ_ = gJ
+  {-# INLINE gJ_ #-}
 
 -- | Projective BLS12381 point.
 type PP = WPPoint BLS12381 Fq
@@ -113,12 +122,17 @@ _y :: Fq
 _y = 0x8b3f481e3aaa0f1a09e30ed741d8ae4fcf5e095d5d00af600db18cb2c04b3edd03cc744a2888ae40caa232946c5e7e1
 {-# INLINE _y #-}
 
--- | Affine generator of BLS12381 curve.
+-- | Generator of affine BLS12381 curve.
 gA :: PA
 gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Projective generator of BLS12381 curve.
+-- | Generator of Jacobian BLS12381 curve.
+gJ :: PJ
+gJ = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gJ #-}
+
+-- | Generator of projective BLS12381 curve.
 gP :: PP
 gP = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gP #-}

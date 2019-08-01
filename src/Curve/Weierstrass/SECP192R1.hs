@@ -19,6 +19,7 @@ module Curve.Weierstrass.SECP192R1
   , _x
   , _y
   , gA
+  , gJ
   , gP
   ) where
 
@@ -65,6 +66,14 @@ type PA = WAPoint SECP192R1 Fq
 instance WACurve SECP192R1 Fq where
   gA_ = gA
   {-# INLINE gA_ #-}
+
+-- | Jacobian SECP192R1 point.
+type PJ = WJPoint SECP192R1 Fq
+
+-- | Jacobian SECP192R1 curve is a Weierstrass Jacobian curve.
+instance WJCurve SECP192R1 Fq where
+  gJ_ = gJ
+  {-# INLINE gJ_ #-}
 
 -- | Projective SECP192R1 point.
 type PP = WPPoint SECP192R1 Fq
@@ -113,12 +122,17 @@ _y :: Fq
 _y = 0x7192b95ffc8da78631011ed6b24cdd573f977a11e794811
 {-# INLINE _y #-}
 
--- | Affine generator of SECP192R1 curve.
+-- | Generator of affine SECP192R1 curve.
 gA :: PA
 gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Projective generator of SECP192R1 curve.
+-- | Generator of Jacobian SECP192R1 curve.
+gJ :: PJ
+gJ = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gJ #-}
+
+-- | Generator of projective SECP192R1 curve.
 gP :: PP
 gP = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gP #-}

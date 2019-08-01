@@ -101,7 +101,7 @@ _y :: Fq
 _y = 0x1ec7ed04aaf834af310e304b2da0f328e7c165f0e8988abd3992861290f617aa1f1b2e7d0b6e332e969991b62555e77e
 {-# INLINE _y #-}
 
--- | Affine generator of M383 curve.
+-- | Generator of affine M383 curve.
 gA :: PA
 gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}

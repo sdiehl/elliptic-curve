@@ -113,12 +113,12 @@ _y :: Fq
 _y = 0x6666666666666666666666666666666666666666666666666666666666666658
 {-# INLINE _y #-}
 
--- | Affine generator of Ed25519 curve.
+-- | Generator of affine Ed25519 curve.
 gA :: PA
 gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Projective generator of Ed25519 curve.
+-- | Generator of projective Ed25519 curve.
 gP :: PP
 gP = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gP #-}

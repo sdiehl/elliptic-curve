@@ -19,6 +19,7 @@ module Curve.Weierstrass.BN256
   , _x
   , _y
   , gA
+  , gJ
   , gP
   ) where
 
@@ -65,6 +66,14 @@ type PA = WAPoint BN256 Fq
 instance WACurve BN256 Fq where
   gA_ = gA
   {-# INLINE gA_ #-}
+
+-- | Jacobian BN256 point.
+type PJ = WJPoint BN256 Fq
+
+-- | Jacobian BN256 curve is a Weierstrass Jacobian curve.
+instance WJCurve BN256 Fq where
+  gJ_ = gJ
+  {-# INLINE gJ_ #-}
 
 -- | Projective BN256 point.
 type PP = WPPoint BN256 Fq
@@ -113,12 +122,17 @@ _y :: Fq
 _y = 0x2
 {-# INLINE _y #-}
 
--- | Affine generator of BN256 curve.
+-- | Generator of affine BN256 curve.
 gA :: PA
 gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Projective generator of BN256 curve.
+-- | Generator of Jacobian BN256 curve.
+gJ :: PJ
+gJ = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gJ #-}
+
+-- | Generator of projective BN256 curve.
 gP :: PP
 gP = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gP #-}

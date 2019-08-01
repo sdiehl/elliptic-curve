@@ -113,12 +113,12 @@ _y :: Fq
 _y = 0xc
 {-# INLINE _y #-}
 
--- | Affine generator of E521 curve.
+-- | Generator of affine E521 curve.
 gA :: PA
 gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Projective generator of E521 curve.
+-- | Generator of projective E521 curve.
 gP :: PP
 gP = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gP #-}

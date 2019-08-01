@@ -114,12 +114,12 @@ _y :: F2m
 _y = 0xa52830277958ee84d1315ed31886
 {-# INLINE _y #-}
 
--- | Affine generator of SECT113R1 curve.
+-- | Generator of affine SECT113R1 curve.
 gA :: PA
 gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Projective generator of SECT113R1 curve.
+-- | Generator of projective SECT113R1 curve.
 gP :: PP
 gP = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gP #-}

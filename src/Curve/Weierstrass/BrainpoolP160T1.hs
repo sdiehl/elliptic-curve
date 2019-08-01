@@ -19,6 +19,7 @@ module Curve.Weierstrass.BrainpoolP160T1
   , _x
   , _y
   , gA
+  , gJ
   , gP
   ) where
 
@@ -65,6 +66,14 @@ type PA = WAPoint BrainpoolP160T1 Fq
 instance WACurve BrainpoolP160T1 Fq where
   gA_ = gA
   {-# INLINE gA_ #-}
+
+-- | Jacobian BrainpoolP160T1 point.
+type PJ = WJPoint BrainpoolP160T1 Fq
+
+-- | Jacobian BrainpoolP160T1 curve is a Weierstrass Jacobian curve.
+instance WJCurve BrainpoolP160T1 Fq where
+  gJ_ = gJ
+  {-# INLINE gJ_ #-}
 
 -- | Projective BrainpoolP160T1 point.
 type PP = WPPoint BrainpoolP160T1 Fq
@@ -113,12 +122,17 @@ _y :: Fq
 _y = 0xadd6718b7c7c1961f0991b842443772152c9e0ad
 {-# INLINE _y #-}
 
--- | Affine generator of BrainpoolP160T1 curve.
+-- | Generator of affine BrainpoolP160T1 curve.
 gA :: PA
 gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Projective generator of BrainpoolP160T1 curve.
+-- | Generator of Jacobian BrainpoolP160T1 curve.
+gJ :: PJ
+gJ = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gJ #-}
+
+-- | Generator of projective BrainpoolP160T1 curve.
 gP :: PP
 gP = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gP #-}

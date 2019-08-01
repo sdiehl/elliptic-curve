@@ -101,7 +101,7 @@ _y :: Fq
 _y = 0x1eebe07dc1871896732b12d5504a32370471965c7a11f2c89865f855ab3cbd7c224e3620c31af3370788457dd5ce46df
 {-# INLINE _y #-}
 
--- | Affine generator of Curve383187 curve.
+-- | Generator of affine Curve383187 curve.
 gA :: PA
 gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}

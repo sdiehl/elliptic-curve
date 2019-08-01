@@ -113,12 +113,12 @@ _y :: Fq
 _y = 0x1c
 {-# INLINE _y #-}
 
--- | Affine generator of E222 curve.
+-- | Generator of affine E222 curve.
 gA :: PA
 gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Projective generator of E222 curve.
+-- | Generator of projective E222 curve.
 gP :: PP
 gP = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gP #-}

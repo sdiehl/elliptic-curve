@@ -19,6 +19,7 @@ module Curve.Weierstrass.BN462
   , _x
   , _y
   , gA
+  , gJ
   , gP
   ) where
 
@@ -65,6 +66,14 @@ type PA = WAPoint BN462 Fq
 instance WACurve BN462 Fq where
   gA_ = gA
   {-# INLINE gA_ #-}
+
+-- | Jacobian BN462 point.
+type PJ = WJPoint BN462 Fq
+
+-- | Jacobian BN462 curve is a Weierstrass Jacobian curve.
+instance WJCurve BN462 Fq where
+  gJ_ = gJ
+  {-# INLINE gJ_ #-}
 
 -- | Projective BN462 point.
 type PP = WPPoint BN462 Fq
@@ -113,12 +122,17 @@ _y :: Fq
 _y = 0x118ea0460f7f7abb82b33676a7432a490eeda842cccfa7d788c659650426e6af77df11b8ae40eb80f475432c66600622ecaa8a5734d36fb03de
 {-# INLINE _y #-}
 
--- | Affine generator of BN462 curve.
+-- | Generator of affine BN462 curve.
 gA :: PA
 gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Projective generator of BN462 curve.
+-- | Generator of Jacobian BN462 curve.
+gJ :: PJ
+gJ = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gJ #-}
+
+-- | Generator of projective BN462 curve.
 gP :: PP
 gP = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gP #-}

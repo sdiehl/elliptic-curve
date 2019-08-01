@@ -38,6 +38,7 @@ prettyImports Types{..}
     <$$> ", _x"
     <$$> ", _y"
     <$$> ", gA"
+    <$$> ", gJ"
     <$$> ", gP"
     <$$> ") where"
     )
@@ -89,6 +90,16 @@ prettyTypes Types{..}
     <$$> prettyInline "gA_"
     )
   <>   prettyBreak
+  <$$> prettyDocumentation ("Jacobian" <+> pretty curve <+> "point")
+  <$$> "type PJ = WJPoint" <+> pretty curve <+> prettyField field
+  <>   prettyBreak
+  <$$> prettyDocumentation ("Jacobian" <+> curve' <+> "is a Weierstrass Jacobian curve")
+  <$$> "instance WJCurve" <+> pretty curve <+> prettyField field <+> "where"
+  <$$> indent 2
+    (    "gJ_ = gJ"
+    <$$> prettyInline "gJ_"
+    )
+  <>   prettyBreak
   <$$> prettyDocumentation ("Projective" <+> pretty curve <+> "point")
   <$$> "type PP = WPPoint" <+> pretty curve <+> prettyField field
   <>   prettyBreak
@@ -105,53 +116,58 @@ prettyTypes Types{..}
 prettyParameters :: Types -> Parameters -> Doc
 prettyParameters Types{..} Parameters{..}
   =    prettySection "Parameters"
-  <$$> prettyDocumentation ("Coefficient @A@" <+> curve')
+  <$$> prettyDocumentation ("Coefficient @A@ of" <+> curve')
   <$$> "_a ::" <+> prettyField field
   <$$> "_a =" <+> prettyElement a
   <$$> prettyInline "_a"
   <>   prettyBreak
-  <$$> prettyDocumentation ("Coefficient @B@" <+> curve')
+  <$$> prettyDocumentation ("Coefficient @B@ of" <+> curve')
   <$$> "_b ::" <+> prettyField field
   <$$> "_b =" <+> prettyElement b
   <$$> prettyInline "_b"
   <>   prettyBreak
-  <$$> prettyDocumentation ("Cofactor" <+> curve')
+  <$$> prettyDocumentation ("Cofactor of" <+> curve')
   <$$> "_h :: Integer"
   <$$> "_h =" <+> prettyInteger h
   <$$> prettyInline "_h"
   <>   prettyBreak
-  <$$> prettyDocumentation ("Characteristic" <+> curve')
+  <$$> prettyDocumentation ("Characteristic of" <+> curve')
   <$$> "_q :: Integer"
   <$$> "_q =" <+> prettyInteger q
   <$$> prettyInline "_q"
   <>   prettyBreak
-  <$$> prettyDocumentation ("Order" <+> curve')
+  <$$> prettyDocumentation ("Order of" <+> curve')
   <$$> "_r :: Integer"
   <$$> "_r =" <+> prettyInteger r
   <$$> prettyInline "_r"
   <>   prettyBreak
-  <$$> prettyDocumentation ("Coordinate @X@" <+> curve')
+  <$$> prettyDocumentation ("Coordinate @X@ of" <+> curve')
   <$$> "_x ::" <+> prettyField field
   <$$> "_x =" <+> prettyElement x
   <$$> prettyInline "_x"
   <>   prettyBreak
-  <$$> prettyDocumentation ("Coordinate @Y@" <+> curve')
+  <$$> prettyDocumentation ("Coordinate @Y@ of" <+> curve')
   <$$> "_y ::" <+> prettyField field
   <$$> "_y =" <+> prettyElement y
   <$$> prettyInline "_y"
   <>   prettyBreak
-  <$$> prettyDocumentation ("Affine generator" <+> curve')
+  <$$> prettyDocumentation ("Generator of affine" <+> curve')
   <$$> "gA :: PA"
   <$$> "gA = fromMaybe (panic" <+> dquotes "not well-defined." <> ") (point _x _y)"
   <$$> prettyInline "gA"
   <>   prettyBreak
-  <$$> prettyDocumentation ("Projective generator" <+> curve')
+  <$$> prettyDocumentation ("Generator of Jacobian" <+> curve')
+  <$$> "gJ :: PJ"
+  <$$> "gJ = fromMaybe (panic" <+> dquotes "not well-defined." <> ") (point _x _y)"
+  <$$> prettyInline "gJ"
+  <>   prettyBreak
+  <$$> prettyDocumentation ("Generator of projective" <+> curve')
   <$$> "gP :: PP"
   <$$> "gP = fromMaybe (panic" <+> dquotes "not well-defined." <> ") (point _x _y)"
   <$$> prettyInline "gP"
   where
     curve' :: Doc
-    curve' = "of" <+> pretty curve <+> "curve"
+    curve' = pretty curve <+> "curve"
 
 prettyCurve :: Curve -> Doc
 prettyCurve (Curve types parameters)

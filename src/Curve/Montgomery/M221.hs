@@ -101,7 +101,7 @@ _y :: Fq
 _y = 0xf7acdd2a4939571d1cef14eca37c228e61dbff10707dc6c08c5056d
 {-# INLINE _y #-}
 
--- | Affine generator of M221 curve.
+-- | Generator of affine M221 curve.
 gA :: PA
 gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}

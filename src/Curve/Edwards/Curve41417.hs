@@ -113,12 +113,12 @@ _y :: Fq
 _y = 0x22
 {-# INLINE _y #-}
 
--- | Affine generator of Curve41417 curve.
+-- | Generator of affine Curve41417 curve.
 gA :: PA
 gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Projective generator of Curve41417 curve.
+-- | Generator of projective Curve41417 curve.
 gP :: PP
 gP = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gP #-}

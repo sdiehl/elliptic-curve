@@ -19,6 +19,7 @@ module Curve.Weierstrass.BN512
   , _x
   , _y
   , gA
+  , gJ
   , gP
   ) where
 
@@ -65,6 +66,14 @@ type PA = WAPoint BN512 Fq
 instance WACurve BN512 Fq where
   gA_ = gA
   {-# INLINE gA_ #-}
+
+-- | Jacobian BN512 point.
+type PJ = WJPoint BN512 Fq
+
+-- | Jacobian BN512 curve is a Weierstrass Jacobian curve.
+instance WJCurve BN512 Fq where
+  gJ_ = gJ
+  {-# INLINE gJ_ #-}
 
 -- | Projective BN512 point.
 type PP = WPPoint BN512 Fq
@@ -113,12 +122,17 @@ _y :: Fq
 _y = 0x2
 {-# INLINE _y #-}
 
--- | Affine generator of BN512 curve.
+-- | Generator of affine BN512 curve.
 gA :: PA
 gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Projective generator of BN512 curve.
+-- | Generator of Jacobian BN512 curve.
+gJ :: PJ
+gJ = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gJ #-}
+
+-- | Generator of projective BN512 curve.
 gP :: PP
 gP = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gP #-}

@@ -113,12 +113,12 @@ _y :: Fq
 _y = 0x6b72f82d47fb7cc6656841169840e0c4fe2dee2af3f976ba4ccb1bf9b46360e
 {-# INLINE _y #-}
 
--- | Affine generator of Curve1174 curve.
+-- | Generator of affine Curve1174 curve.
 gA :: PA
 gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Projective generator of Curve1174 curve.
+-- | Generator of projective Curve1174 curve.
 gP :: PP
 gP = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gP #-}

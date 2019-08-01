@@ -19,6 +19,7 @@ module Curve.Weierstrass.ANSSIFRP256V1
   , _x
   , _y
   , gA
+  , gJ
   , gP
   ) where
 
@@ -65,6 +66,14 @@ type PA = WAPoint ANSSIFRP256V1 Fq
 instance WACurve ANSSIFRP256V1 Fq where
   gA_ = gA
   {-# INLINE gA_ #-}
+
+-- | Jacobian ANSSIFRP256V1 point.
+type PJ = WJPoint ANSSIFRP256V1 Fq
+
+-- | Jacobian ANSSIFRP256V1 curve is a Weierstrass Jacobian curve.
+instance WJCurve ANSSIFRP256V1 Fq where
+  gJ_ = gJ
+  {-# INLINE gJ_ #-}
 
 -- | Projective ANSSIFRP256V1 point.
 type PP = WPPoint ANSSIFRP256V1 Fq
@@ -113,12 +122,17 @@ _y :: Fq
 _y = 0x6142e0f7c8b204911f9271f0f3ecef8c2701c307e8e4c9e183115a1554062cfb
 {-# INLINE _y #-}
 
--- | Affine generator of ANSSIFRP256V1 curve.
+-- | Generator of affine ANSSIFRP256V1 curve.
 gA :: PA
 gA = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gA #-}
 
--- | Projective generator of ANSSIFRP256V1 curve.
+-- | Generator of Jacobian ANSSIFRP256V1 curve.
+gJ :: PJ
+gJ = fromMaybe (panic "not well-defined.") (point _x _y)
+{-# INLINE gJ #-}
+
+-- | Generator of projective ANSSIFRP256V1 curve.
 gP :: PP
 gP = fromMaybe (panic "not well-defined.") (point _x _y)
 {-# INLINE gP #-}
