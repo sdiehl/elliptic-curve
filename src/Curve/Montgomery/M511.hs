@@ -8,6 +8,7 @@ module Curve.Montgomery.M511
   , MACurve(..)
   , MAPoint
   , PA
+  , Point(..)
   , _a
   , _b
   , _h
@@ -16,7 +17,6 @@ module Curve.Montgomery.M511
   , _x
   , _y
   , gA
-  , pattern A
   ) where
 
 import Protolude
@@ -104,5 +104,5 @@ _y = 0x2fbdc0ad8530803d28fdbad354bb488d32399ac1cf8f6e01ee3f96389b90c809422b9429e
 
 -- | Generator of affine M511 curve.
 gA :: PA
-gA = fromMaybe (panic "not well-defined.") (point _x _y)
+gA = A _x _y
 {-# INLINE gA #-}

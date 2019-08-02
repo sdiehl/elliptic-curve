@@ -4,11 +4,15 @@ module Curve.Weierstrass.BrainpoolP224T1
   , Fr
   , Group(..)
   , PA
+  , PJ
   , PP
+  , Point(..)
   , WCurve(..)
   , WPoint
   , WACurve(..)
   , WAPoint
+  , WJCurve(..)
+  , WJPoint
   , WPCurve(..)
   , WPPoint
   , _a
@@ -18,12 +22,13 @@ module Curve.Weierstrass.BrainpoolP224T1
   , _r
   , _x
   , _y
+  , fromAtoJ
+  , fromAtoP
+  , fromJtoA
+  , fromPtoA
   , gA
   , gJ
   , gP
-  , pattern A
-  , pattern J
-  , pattern P
   ) where
 
 import Protolude
@@ -127,15 +132,15 @@ _y = 0x374e9f5143e568cd23f3f4d7c0d4b1e41c8cc0d1c6abd5f1a46db4c
 
 -- | Generator of affine BrainpoolP224T1 curve.
 gA :: PA
-gA = fromMaybe (panic "not well-defined.") (point _x _y)
+gA = A _x _y
 {-# INLINE gA #-}
 
 -- | Generator of Jacobian BrainpoolP224T1 curve.
 gJ :: PJ
-gJ = fromMaybe (panic "not well-defined.") (point _x _y)
+gJ = J _x _y 1
 {-# INLINE gJ #-}
 
 -- | Generator of projective BrainpoolP224T1 curve.
 gP :: PP
-gP = fromMaybe (panic "not well-defined.") (point _x _y)
+gP = P _x _y 1
 {-# INLINE gP #-}

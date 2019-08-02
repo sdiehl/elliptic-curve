@@ -4,11 +4,15 @@ module Curve.Weierstrass.SECP160R2
   , Fr
   , Group(..)
   , PA
+  , PJ
   , PP
+  , Point(..)
   , WCurve(..)
   , WPoint
   , WACurve(..)
   , WAPoint
+  , WJCurve(..)
+  , WJPoint
   , WPCurve(..)
   , WPPoint
   , _a
@@ -18,12 +22,13 @@ module Curve.Weierstrass.SECP160R2
   , _r
   , _x
   , _y
+  , fromAtoJ
+  , fromAtoP
+  , fromJtoA
+  , fromPtoA
   , gA
   , gJ
   , gP
-  , pattern A
-  , pattern J
-  , pattern P
   ) where
 
 import Protolude
@@ -127,15 +132,15 @@ _y = 0xfeaffef2e331f296e071fa0df9982cfea7d43f2e
 
 -- | Generator of affine SECP160R2 curve.
 gA :: PA
-gA = fromMaybe (panic "not well-defined.") (point _x _y)
+gA = A _x _y
 {-# INLINE gA #-}
 
 -- | Generator of Jacobian SECP160R2 curve.
 gJ :: PJ
-gJ = fromMaybe (panic "not well-defined.") (point _x _y)
+gJ = J _x _y 1
 {-# INLINE gJ #-}
 
 -- | Generator of projective SECP160R2 curve.
 gP :: PP
-gP = fromMaybe (panic "not well-defined.") (point _x _y)
+gP = P _x _y 1
 {-# INLINE gP #-}

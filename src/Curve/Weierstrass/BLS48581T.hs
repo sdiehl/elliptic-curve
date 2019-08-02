@@ -4,11 +4,15 @@ module Curve.Weierstrass.BLS48581T
   , Fr
   , Group(..)
   , PA
+  , PJ
   , PP
+  , Point(..)
   , WCurve(..)
   , WPoint
   , WACurve(..)
   , WAPoint
+  , WJCurve(..)
+  , WJPoint
   , WPCurve(..)
   , WPPoint
   , _a
@@ -18,12 +22,13 @@ module Curve.Weierstrass.BLS48581T
   , _r
   , _x
   , _y
+  , fromAtoJ
+  , fromAtoP
+  , fromJtoA
+  , fromPtoA
   , gA
   , gJ
   , gP
-  , pattern A
-  , pattern J
-  , pattern P
   ) where
 
 import Protolude
@@ -177,15 +182,15 @@ _y = fromList [ fromList [ fromList [ 0xeb53356c375b5dfa497216452f3024b918b42380
 
 -- | Generator of affine BLS48581T curve.
 gA :: PA
-gA = fromMaybe (panic "not well-defined.") (point _x _y)
+gA = A _x _y
 {-# INLINE gA #-}
 
 -- | Generator of Jacobian BLS48581T curve.
 gJ :: PJ
-gJ = fromMaybe (panic "not well-defined.") (point _x _y)
+gJ = J _x _y 1
 {-# INLINE gJ #-}
 
 -- | Generator of projective BLS48581T curve.
 gP :: PP
-gP = fromMaybe (panic "not well-defined.") (point _x _y)
+gP = P _x _y 1
 {-# INLINE gP #-}

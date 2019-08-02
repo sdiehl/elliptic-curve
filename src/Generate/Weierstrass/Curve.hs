@@ -23,11 +23,15 @@ prettyImports Types{..}
     <$$> ", Fr"
     <$$> ", Group(..)"
     <$$> ", PA"
+    <$$> ", PJ"
     <$$> ", PP"
+    <$$> ", Point(..)"
     <$$> ", WCurve(..)"
     <$$> ", WPoint"
     <$$> ", WACurve(..)"
     <$$> ", WAPoint"
+    <$$> ", WJCurve(..)"
+    <$$> ", WJPoint"
     <$$> ", WPCurve(..)"
     <$$> ", WPPoint"
     <$$> ", _a"
@@ -37,12 +41,13 @@ prettyImports Types{..}
     <$$> ", _r"
     <$$> ", _x"
     <$$> ", _y"
+    <$$> ", fromAtoJ"
+    <$$> ", fromAtoP"
+    <$$> ", fromJtoA"
+    <$$> ", fromPtoA"
     <$$> ", gA"
     <$$> ", gJ"
     <$$> ", gP"
-    <$$> ", pattern A"
-    <$$> ", pattern J"
-    <$$> ", pattern P"
     <$$> ") where"
     )
   <>   prettyBreak
@@ -156,17 +161,17 @@ prettyParameters Types{..} Parameters{..}
   <>   prettyBreak
   <$$> prettyDocumentation ("Generator of affine" <+> curve')
   <$$> "gA :: PA"
-  <$$> "gA = fromMaybe (panic" <+> dquotes "not well-defined." <> ") (point _x _y)"
+  <$$> "gA = A _x _y"
   <$$> prettyInline "gA"
   <>   prettyBreak
   <$$> prettyDocumentation ("Generator of Jacobian" <+> curve')
   <$$> "gJ :: PJ"
-  <$$> "gJ = fromMaybe (panic" <+> dquotes "not well-defined." <> ") (point _x _y)"
+  <$$> "gJ = J _x _y 1"
   <$$> prettyInline "gJ"
   <>   prettyBreak
   <$$> prettyDocumentation ("Generator of projective" <+> curve')
   <$$> "gP :: PP"
-  <$$> "gP = fromMaybe (panic" <+> dquotes "not well-defined." <> ") (point _x _y)"
+  <$$> "gP = P _x _y 1"
   <$$> prettyInline "gP"
   where
     curve' :: Doc

@@ -1,5 +1,5 @@
 module Group.Field.BN254TF
-  ( Element
+  ( Element(..)
   , FGroup(..)
   , Fq
   , Fq2
@@ -11,7 +11,6 @@ module Group.Field.BN254TF
   , _q
   , _r
   , _x
-  , pattern F
   ) where
 
 import Protolude
@@ -57,7 +56,7 @@ type P = Element Fq12
 
 -- | Generator of BN254TF group.
 _g :: P
-_g = fromMaybe (panic "not well-defined.") (element _x)
+_g = F _x
 {-# INLINE _g #-}
 
 -- | Characteristic of BN254TF group.

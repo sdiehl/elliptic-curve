@@ -11,6 +11,7 @@ module Curve.Edwards.E521
   , Group(..)
   , PA
   , PP
+  , Point(..)
   , _a
   , _d
   , _h
@@ -18,10 +19,10 @@ module Curve.Edwards.E521
   , _r
   , _x
   , _y
+  , fromAtoP
+  , fromPtoA
   , gA
   , gP
-  , pattern A
-  , pattern P
   ) where
 
 import Protolude
@@ -117,10 +118,10 @@ _y = 0xc
 
 -- | Generator of affine E521 curve.
 gA :: PA
-gA = fromMaybe (panic "not well-defined.") (point _x _y)
+gA = A _x _y
 {-# INLINE gA #-}
 
 -- | Generator of projective E521 curve.
 gP :: PP
-gP = fromMaybe (panic "not well-defined.") (point _x _y)
+gP = P _x _y 1
 {-# INLINE gP #-}

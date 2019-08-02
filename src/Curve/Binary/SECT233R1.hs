@@ -11,6 +11,7 @@ module Curve.Binary.SECT233R1
   , Group(..)
   , PA
   , PP
+  , Point(..)
   , _a
   , _b
   , _h
@@ -18,10 +19,10 @@ module Curve.Binary.SECT233R1
   , _r
   , _x
   , _y
+  , fromAtoP
+  , fromPtoA
   , gA
   , gP
-  , pattern A
-  , pattern P
   ) where
 
 import Protolude
@@ -118,10 +119,10 @@ _y = 0x1006a08a41903350678e58528bebf8a0beff867a7ca36716f7e01f81052
 
 -- | Generator of affine SECT233R1 curve.
 gA :: PA
-gA = fromMaybe (panic "not well-defined.") (point _x _y)
+gA = A _x _y
 {-# INLINE gA #-}
 
 -- | Generator of projective SECT233R1 curve.
 gP :: PP
-gP = fromMaybe (panic "not well-defined.") (point _x _y)
+gP = P _x _y 1
 {-# INLINE gP #-}

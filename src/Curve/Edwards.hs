@@ -9,8 +9,9 @@ module Curve.Edwards
   , EPPoint
   , Form(..)
   , Group(..)
-  , pattern A
-  , pattern P
+  , Point(..)
+  , fromAtoP
+  , fromPtoA
   ) where
 
 import Protolude
@@ -57,14 +58,10 @@ class ECurve 'Affine e k => EACurve e k where
   {-# MINIMAL gA_ #-}
   gA_ :: EAPoint e k -- ^ Curve generator.
 
--- | Edwards affine points patterns.
-pattern A :: EACurve e k => k -> k -> EAPoint e k
-pattern A x y <- A' x y
-
 -- Edwards affine curves are elliptic curves.
 instance EACurve e k => Curve 'Edwards 'Affine e k where
 
-  data instance Point 'Edwards 'Affine e k = A' k k -- ^ Affine point.
+  data instance Point 'Edwards 'Affine e k = A k k -- ^ Affine point.
     deriving (Eq, Generic, NFData, Read, Show)
 
   char = q_
@@ -78,23 +75,23 @@ instance EACurve e k => Curve 'Edwards 'Affine e k where
       d = d_ (witness :: EAPoint e k)
   {-# INLINE disc #-}
 
-  point x y = let p = A' x y in if def p then Just p else Nothing
+  point x y = let p = A x y in if def p then Just p else Nothing
   {-# INLINE point #-}
 
-  pointX x = A' x <$> yX (witness :: EAPoint e k) x
+  pointX x = A x <$> yX (witness :: EAPoint e k) x
   {-# INLINE pointX #-}
 
   yX _ x = sr ((1 - a * xx) / (1 - d * xx))
     where
       a  = a_ (witness :: EAPoint e k)
       d  = d_ (witness :: EAPoint e k)
-      xx = pow x 2
+      xx = x * x
   {-# INLINE yX #-}
 
 -- Edwards affine points are groups.
 instance EACurve e k => Group (EAPoint e k) where
 
-  add (A' x1 y1) (A' x2 y2) = A' x3 y3
+  add (A x1 y1) (A x2 y2) = A x3 y3
     where
       a    = a_ (witness :: EAPoint e k)
       d    = d_ (witness :: EAPoint e k)
@@ -110,21 +107,21 @@ instance EACurve e k => Group (EAPoint e k) where
   dbl = join add
   {-# INLINE dbl #-}
 
-  def (A' x y) = a * xx + yy == 1 + d * xx * yy
+  def (A x y) = a * xx + yy == 1 + d * xx * yy
     where
       a  = a_ (witness :: EAPoint e k)
       d  = d_ (witness :: EAPoint e k)
-      xx = pow x 2
-      yy = pow y 2
+      xx = x * x
+      yy = y * y
   {-# INLINE def #-}
 
   gen = gA_
   {-# INLINE gen #-}
 
-  id = A' 0 1
+  id = A 0 1
   {-# INLINE id #-}
 
-  inv (A' x y) = A' (-x) y
+  inv (A x y) = A (-x) y
   {-# INLINE inv #-}
 
   order = r_
@@ -136,7 +133,7 @@ instance EACurve e k => Arbitrary (EAPoint e k) where
 
 -- Edwards affine points are pretty.
 instance EACurve e k => Pretty (EAPoint e k) where
-  pretty (A' x y) = pretty (x, y)
+  pretty (A x y) = pretty (x, y)
 
 -- Edwards affine points are random.
 instance EACurve e k => Random (EAPoint e k) where
@@ -160,14 +157,10 @@ class ECurve 'Projective e k => EPCurve e k where
   {-# MINIMAL gP_ #-}
   gP_ :: EPPoint e k -- ^ Curve generator.
 
--- | Edwards projective points patterns.
-pattern P :: EPCurve e k => k -> k -> k -> EPPoint e k
-pattern P x y z <- P' x y z
-
 -- Edwards projective curves are elliptic curves.
 instance EPCurve e k => Curve 'Edwards 'Projective e k where
 
-  data instance Point 'Edwards 'Projective e k = P' k k k -- ^ Projective point.
+  data instance Point 'Edwards 'Projective e k = P k k k -- ^ Projective point.
     deriving (Generic, NFData, Read, Show)
 
   char = q_
@@ -181,27 +174,27 @@ instance EPCurve e k => Curve 'Edwards 'Projective e k where
       d = d_ (witness :: EPPoint e k)
   {-# INLINE disc #-}
 
-  point x y = let p = P' x y 1 in if def p then Just p else Nothing
+  point x y = let p = P x y 1 in if def p then Just p else Nothing
   {-# INLINE point #-}
 
-  pointX x = flip (P' x) 1 <$> yX (witness :: EPPoint e k) x
+  pointX x = flip (P x) 1 <$> yX (witness :: EPPoint e k) x
   {-# INLINE pointX #-}
 
   yX _ x = sr ((1 - a * xx) / (1 - d * xx))
     where
       a  = a_ (witness :: EPPoint e k)
       d  = d_ (witness :: EPPoint e k)
-      xx = pow x 2
+      xx = x * x
   {-# INLINE yX #-}
 
 -- Edwards projective points are groups.
 instance EPCurve e k => Group (EPPoint e k) where
 
-  -- | Addition formula add-2008-bbjlp
-  add (P' x1 y1 z1) (P' x2 y2 z2) = P' x3 y3 z3
+  -- Addition formula add-2008-bbjlp
+  add (P x1 y1 z1) (P x2 y2 z2) = P x3 y3 z3
     where
       a  = z1 * z2
-      b  = pow a 2
+      b  = a * a
       c  = x1 * x2
       d  = y1 * y2
       e  = d_ (witness :: EPPoint e k) * c * d
@@ -212,37 +205,38 @@ instance EPCurve e k => Group (EPPoint e k) where
       z3 = f * g
   {-# INLINE add #-}
 
-  -- | Doubling formula dbl-2008-bbjlp
-  dbl (P' x1 y1 z1) = P' x3 y3 z3
+  -- Doubling formula dbl-2008-bbjlp
+  dbl (P x1 y1 z1) = P x3 y3 z3
     where
-      b  = pow (x1 + y1) 2
-      c  = pow x1 2
-      d  = pow y1 2
+      xy = x1 + y1
+      b  = xy * xy
+      c  = x1 * x1
+      d  = y1 * y1
       e  = a_ (witness :: EPPoint e k) * c
       f  = e + d
-      h  = pow z1 2
+      h  = z1 * z1
       j  = f - 2 * h
       x3 = (b - c - d) * j
       y3 = f * (e - d)
       z3 = f * j
   {-# INLINE dbl #-}
 
-  def (P' x y z) = a * xx * zz + yy * zz == pow zz 2 + d * xx * yy
+  def (P x y z) = (a * xx + yy - zz) * zz == d * xx * yy
     where
       a  = a_ (witness :: EPPoint e k)
       d  = d_ (witness :: EPPoint e k)
-      xx = pow x 2
-      yy = pow y 2
-      zz = pow z 2
+      xx = x * x
+      yy = y * y
+      zz = z * z
   {-# INLINE def #-}
 
   gen = gP_
   {-# INLINE gen #-}
 
-  id = P' 0 1 1
+  id = P 0 1 1
   {-# INLINE id #-}
 
-  inv (P' x y z) = P' (-x) y z
+  inv (P x y z) = P (-x) y z
   {-# INLINE inv #-}
 
   order = r_
@@ -254,12 +248,12 @@ instance EPCurve e k => Arbitrary (EPPoint e k) where
 
 -- Edwards projective points are equatable.
 instance EPCurve e k => Eq (EPPoint e k) where
-  P' x1 y1 z1 == P' x2 y2 z2 = z1 == 0 && z2 == 0
+  P x1 y1 z1 == P x2 y2 z2 = z1 == 0 && z2 == 0
     || x1 * z2 == x2 * z1 && y1 * z2 == y2 * z1
 
 -- Edwards projective points are pretty.
 instance EPCurve e k => Pretty (EPPoint e k) where
-  pretty (P' x y z) = pretty (x, y, z)
+  pretty (P x y z) = pretty (x, y, z)
 
 -- Edwards projective points are random.
 instance EPCurve e k => Random (EPPoint e k) where
@@ -270,3 +264,17 @@ instance EPCurve e k => Random (EPPoint e k) where
       (x, g') = random g
   {-# INLINE random #-}
   randomR  = panic "not implemented."
+
+-------------------------------------------------------------------------------
+-- Coordinate transformations
+-------------------------------------------------------------------------------
+
+-- | Transform from affine coordinates to projective coordinates.
+fromAtoP :: (EACurve e k, EPCurve e k) => EAPoint e k -> EPPoint e k
+fromAtoP (A x y) = P x y 1
+{-# INLINE fromAtoP #-}
+
+-- | Transform from projective coordinates to affine coordinates.
+fromPtoA :: (EACurve e k, EPCurve e k) => EPPoint e k -> EAPoint e k
+fromPtoA (P x y z) = A (x / z) (y / z)
+{-# INLINE fromPtoA #-}

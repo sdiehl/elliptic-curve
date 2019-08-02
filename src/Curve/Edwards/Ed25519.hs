@@ -11,6 +11,7 @@ module Curve.Edwards.Ed25519
   , Group(..)
   , PA
   , PP
+  , Point(..)
   , _a
   , _d
   , _h
@@ -18,10 +19,10 @@ module Curve.Edwards.Ed25519
   , _r
   , _x
   , _y
+  , fromAtoP
+  , fromPtoA
   , gA
   , gP
-  , pattern A
-  , pattern P
   ) where
 
 import Protolude
@@ -117,10 +118,10 @@ _y = 0x6666666666666666666666666666666666666666666666666666666666666658
 
 -- | Generator of affine Ed25519 curve.
 gA :: PA
-gA = fromMaybe (panic "not well-defined.") (point _x _y)
+gA = A _x _y
 {-# INLINE gA #-}
 
 -- | Generator of projective Ed25519 curve.
 gP :: PP
-gP = fromMaybe (panic "not well-defined.") (point _x _y)
+gP = P _x _y 1
 {-# INLINE gP #-}

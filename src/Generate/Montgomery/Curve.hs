@@ -27,6 +27,7 @@ prettyImports Types{..}
     <$$> ", MACurve(..)"
     <$$> ", MAPoint"
     <$$> ", PA"
+    <$$> ", Point(..)"
     <$$> ", _a"
     <$$> ", _b"
     <$$> ", _h"
@@ -35,7 +36,6 @@ prettyImports Types{..}
     <$$> ", _x"
     <$$> ", _y"
     <$$> ", gA"
-    <$$> ", pattern A"
     <$$> ") where"
     )
   <>   prettyBreak
@@ -129,7 +129,7 @@ prettyParameters Types{..} Parameters{..}
   <>   prettyBreak
   <$$> prettyDocumentation ("Generator of affine" <+> curve')
   <$$> "gA :: PA"
-  <$$> "gA = fromMaybe (panic" <+> dquotes "not well-defined." <> ") (point _x _y)"
+  <$$> "gA = A _x _y"
   <$$> prettyInline "gA"
   where
     curve' :: Doc

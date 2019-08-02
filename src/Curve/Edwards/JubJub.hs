@@ -11,6 +11,7 @@ module Curve.Edwards.JubJub
   , Group(..)
   , PA
   , PP
+  , Point(..)
   , _a
   , _d
   , _h
@@ -18,10 +19,10 @@ module Curve.Edwards.JubJub
   , _r
   , _x
   , _y
+  , fromAtoP
+  , fromPtoA
   , gA
   , gP
-  , pattern A
-  , pattern P
   ) where
 
 import Protolude
@@ -117,10 +118,10 @@ _y = 0x3b43f8472ca2fc2c9e8fcc5abd9dc308096c8707ffa6833b146bad709349702e
 
 -- | Generator of affine JubJub curve.
 gA :: PA
-gA = fromMaybe (panic "not well-defined.") (point _x _y)
+gA = A _x _y
 {-# INLINE gA #-}
 
 -- | Generator of projective JubJub curve.
 gP :: PP
-gP = fromMaybe (panic "not well-defined.") (point _x _y)
+gP = P _x _y 1
 {-# INLINE gP #-}

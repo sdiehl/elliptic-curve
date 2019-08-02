@@ -18,6 +18,7 @@ default-extensions:
   - RankNTypes
   - DataKinds
   - DeriveAnyClass
+  - DeriveFunctor
   - DeriveGeneric
   - MultiParamTypeClasses
   - PatternSynonyms

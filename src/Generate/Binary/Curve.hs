@@ -30,6 +30,7 @@ prettyImports Types{..}
     <$$> ", Group(..)"
     <$$> ", PA"
     <$$> ", PP"
+    <$$> ", Point(..)"
     <$$> ", _a"
     <$$> ", _b"
     <$$> ", _h"
@@ -37,10 +38,10 @@ prettyImports Types{..}
     <$$> ", _r"
     <$$> ", _x"
     <$$> ", _y"
+    <$$> ", fromAtoP"
+    <$$> ", fromPtoA"
     <$$> ", gA"
     <$$> ", gP"
-    <$$> ", pattern A"
-    <$$> ", pattern P"
     <$$> ") where"
     )
   <>   prettyBreak
@@ -144,12 +145,12 @@ prettyParameters Types{..} Parameters{..}
   <>   prettyBreak
   <$$> prettyDocumentation ("Generator of affine" <+> curve')
   <$$> "gA :: PA"
-  <$$> "gA = fromMaybe (panic" <+> dquotes "not well-defined." <> ") (point _x _y)"
+  <$$> "gA = A _x _y"
   <$$> prettyInline "gA"
   <>   prettyBreak
   <$$> prettyDocumentation ("Generator of projective" <+> curve')
   <$$> "gP :: PP"
-  <$$> "gP = fromMaybe (panic" <+> dquotes "not well-defined." <> ") (point _x _y)"
+  <$$> "gP = P _x _y 1"
   <$$> prettyInline "gP"
   where
     curve' :: Doc
