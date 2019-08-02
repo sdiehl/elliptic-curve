@@ -40,14 +40,16 @@ class (GaloisField k, Group (Point f c e k)) => Curve f c e k where
   yX :: Point f c e k -> k -> Maybe k
 
 -- Elliptic curves are monoids.
-instance (GaloisField k, Curve f c e k) => Monoid (Point f c e k) where
+instance Curve f c e k => Monoid (Point f c e k) where
 
   mempty = id
+  {-# INLINE mempty #-}
 
 -- Elliptic curves are semigroups.
-instance (GaloisField k, Curve f c e k) => Semigroup (Point f c e k) where
+instance Curve f c e k => Semigroup (Point f c e k) where
 
   p <> q = if p == q then dbl p else add p q
+  {-# INLINE (<>) #-}
 
 -- | Curve forms.
 data Form = Binary

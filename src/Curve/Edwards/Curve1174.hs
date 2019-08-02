@@ -20,6 +20,8 @@ module Curve.Edwards.Curve1174
   , _y
   , gA
   , gP
+  , pattern A
+  , pattern P
   ) where
 
 import Protolude

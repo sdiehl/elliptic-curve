@@ -39,6 +39,8 @@ prettyImports Types{..}
     <$$> ", _y"
     <$$> ", gA"
     <$$> ", gP"
+    <$$> ", pattern A"
+    <$$> ", pattern P"
     <$$> ") where"
     )
   <>   prettyBreak

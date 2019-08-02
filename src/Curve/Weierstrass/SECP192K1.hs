@@ -21,6 +21,9 @@ module Curve.Weierstrass.SECP192K1
   , gA
   , gJ
   , gP
+  , pattern A
+  , pattern J
+  , pattern P
   ) where
 
 import Protolude

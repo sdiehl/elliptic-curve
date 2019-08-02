@@ -20,6 +20,8 @@ module Curve.Edwards.E521
   , _y
   , gA
   , gP
+  , pattern A
+  , pattern P
   ) where
 
 import Protolude

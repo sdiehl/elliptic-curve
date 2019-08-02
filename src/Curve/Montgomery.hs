@@ -7,6 +7,7 @@ module Curve.Montgomery
   , MPoint
   , MACurve(..)
   , MAPoint
+  , pattern A
   ) where
 
 import Protolude
@@ -27,7 +28,7 @@ import Group (Group(..))
 type MPoint = Point 'Montgomery
 
 -- | Montgomery curves.
-class Curve 'Montgomery c e k => MCurve c e k where
+class (GaloisField k, Curve 'Montgomery c e k) => MCurve c e k where
   {-# MINIMAL a_, b_, h_, q_, r_, x_, y_ #-}
   a_ :: MPoint c e k -> k       -- ^ Coefficient @A@.
   b_ :: MPoint c e k -> k       -- ^ Coefficient @B@.
@@ -52,11 +53,15 @@ class MCurve 'Affine e k => MACurve e k where
   {-# MINIMAL gA_ #-}
   gA_ :: MAPoint e k -- ^ Curve generator.
 
--- Montgomery affine curves are elliptic curves.
-instance (GaloisField k, MACurve e k) => Curve 'Montgomery 'Affine e k where
+-- | Montgomery affine points patterns.
+pattern A :: MACurve e k => k -> k -> MAPoint e k
+pattern A x y <- A' x y
 
-  data instance Point 'Montgomery 'Affine e k = A k k -- ^ Affine point.
-                                              | O     -- ^ Infinite point.
+-- Montgomery affine curves are elliptic curves.
+instance MACurve e k => Curve 'Montgomery 'Affine e k where
+
+  data instance Point 'Montgomery 'Affine e k = A' k k -- ^ Affine point.
+                                              | O      -- ^ Infinite point.
     deriving (Eq, Generic, NFData, Read, Show)
 
   char = q_
@@ -71,10 +76,10 @@ instance (GaloisField k, MACurve e k) => Curve 'Montgomery 'Affine e k where
       b = b_ (witness :: MAPoint e k)
   {-# INLINE disc #-}
 
-  point x y = let p = A x y in if def p then Just p else Nothing
+  point x y = let p = A' x y in if def p then Just p else Nothing
   {-# INLINE point #-}
 
-  pointX x = A x <$> yX (witness :: MAPoint e k) x
+  pointX x = A' x <$> yX (witness :: MAPoint e k) x
   {-# INLINE pointX #-}
 
   yX _ x
@@ -86,13 +91,13 @@ instance (GaloisField k, MACurve e k) => Curve 'Montgomery 'Affine e k where
   {-# INLINE yX #-}
 
 -- Montgomery affine points are groups.
-instance (GaloisField k, MACurve e k) => Group (MAPoint e k) where
+instance MACurve e k => Group (MAPoint e k) where
 
   add p O       = p
   add O q       = q
-  add (A x1 y1) (A x2 y2)
+  add (A' x1 y1) (A' x2 y2)
     | x1 == x2  = O
-    | otherwise = A x3 y3
+    | otherwise = A' x3 y3
     where
       a  = a_ (witness :: MAPoint e k)
       b  = b_ (witness :: MAPoint e k)
@@ -102,8 +107,8 @@ instance (GaloisField k, MACurve e k) => Group (MAPoint e k) where
   {-# INLINE add #-}
 
   dbl O         = O
-  dbl (A x y)
-    | y /= 0    = A x' y'
+  dbl (A' x y)
+    | y /= 0    = A' x' y'
     | otherwise = O
     where
       a  = a_ (witness :: MAPoint e k)
@@ -113,8 +118,8 @@ instance (GaloisField k, MACurve e k) => Group (MAPoint e k) where
       y' = l * (x - x') - y
   {-# INLINE dbl #-}
 
-  def O       = True
-  def (A x y) = b * pow y 2 == (((x + a) * x) + 1) * x
+  def O        = True
+  def (A' x y) = b * pow y 2 == (((x + a) * x) + 1) * x
     where
       a = a_ (witness :: MAPoint e k)
       b = b_ (witness :: MAPoint e k)
@@ -126,24 +131,24 @@ instance (GaloisField k, MACurve e k) => Group (MAPoint e k) where
   id = O
   {-# INLINE id #-}
 
-  inv O       = O
-  inv (A x y) = A x (-y)
+  inv O        = O
+  inv (A' x y) = A' x (-y)
   {-# INLINE inv #-}
 
   order = r_
   {-# INLINE order #-}
 
 -- Montgomery affine points are arbitrary.
-instance (GaloisField k, MACurve e k) => Arbitrary (MAPoint e k) where
+instance MACurve e k => Arbitrary (MAPoint e k) where
   arbitrary = suchThatMap arbitrary pointX
 
 -- Montgomery affine points are pretty.
-instance (GaloisField k, MACurve e k) => Pretty (MAPoint e k) where
-  pretty (A x y) = pretty (x, y)
-  pretty O       = "O"
+instance MACurve e k => Pretty (MAPoint e k) where
+  pretty (A' x y) = pretty (x, y)
+  pretty O        = "O"
 
 -- Montgomery affine points are random.
-instance (GaloisField k, MACurve e k) => Random (MAPoint e k) where
+instance MACurve e k => Random (MAPoint e k) where
   random g = case pointX x of
     Just p -> (p, g')
     _      -> random g'

@@ -21,6 +21,9 @@ module Curve.Weierstrass.BLS48581T
   , gA
   , gJ
   , gP
+  , pattern A
+  , pattern J
+  , pattern P
   ) where
 
 import Protolude

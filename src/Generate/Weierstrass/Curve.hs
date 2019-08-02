@@ -40,6 +40,9 @@ prettyImports Types{..}
     <$$> ", gA"
     <$$> ", gJ"
     <$$> ", gP"
+    <$$> ", pattern A"
+    <$$> ", pattern J"
+    <$$> ", pattern P"
     <$$> ") where"
     )
   <>   prettyBreak

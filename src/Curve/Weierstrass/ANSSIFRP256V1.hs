@@ -21,6 +21,9 @@ module Curve.Weierstrass.ANSSIFRP256V1
   , gA
   , gJ
   , gP
+  , pattern A
+  , pattern J
+  , pattern P
   ) where
 
 import Protolude

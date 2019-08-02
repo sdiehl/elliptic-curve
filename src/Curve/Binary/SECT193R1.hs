@@ -20,6 +20,8 @@ module Curve.Binary.SECT193R1
   , _y
   , gA
   , gP
+  , pattern A
+  , pattern P
   ) where
 
 import Protolude

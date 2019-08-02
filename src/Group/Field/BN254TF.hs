@@ -1,5 +1,5 @@
 module Group.Field.BN254TF
-  ( Element(..)
+  ( Element
   , FGroup(..)
   , Fq
   , Fq2
@@ -11,6 +11,7 @@ module Group.Field.BN254TF
   , _q
   , _r
   , _x
+  , pattern F
   ) where
 
 import Protolude
@@ -19,8 +20,8 @@ import ExtensionField
 
 import Curve.Weierstrass.BN254 (Fq)
 import Curve.Weierstrass.BN254T (Fq2)
-import Group (Group(..))
-import Group.Field (FGroup(..), Element(..))
+import Group
+import Group.Field
 
 -------------------------------------------------------------------------------
 -- Types
@@ -56,7 +57,7 @@ type P = Element Fq12
 
 -- | Generator of BN254TF group.
 _g :: P
-_g = F _x
+_g = fromMaybe (panic "not well-defined.") (element _x)
 {-# INLINE _g #-}
 
 -- | Characteristic of BN254TF group.

@@ -20,6 +20,7 @@ default-extensions:
   - DeriveAnyClass
   - DeriveGeneric
   - MultiParamTypeClasses
+  - PatternSynonyms
   - PolyKinds
   - TypeFamilyDependencies
 

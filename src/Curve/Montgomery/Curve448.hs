@@ -16,6 +16,7 @@ module Curve.Montgomery.Curve448
   , _x
   , _y
   , gA
+  , pattern A
   ) where
 
 import Protolude
