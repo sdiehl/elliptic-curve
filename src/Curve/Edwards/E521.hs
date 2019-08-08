@@ -45,7 +45,7 @@ type Fq = PrimeField 0x1ffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 type Fr = PrimeField 0x7ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd15b6c64746fc85f736b8af5e7ec53f04fbd8c4569a8f1f4540ea2435f5180d6b
 
 -- | E521 curve is an Edwards curve.
-instance Curve 'Edwards c E521 Fq => ECurve c E521 Fq where
+instance Curve 'Edwards c E521 Fq Fr => ECurve c E521 Fq Fr where
   a_ = const _a
   {-# INLINE a_ #-}
   d_ = const _d
@@ -62,18 +62,18 @@ instance Curve 'Edwards c E521 Fq => ECurve c E521 Fq where
   {-# INLINE y_ #-}
 
 -- | Affine E521 curve point.
-type PA = EAPoint E521 Fq
+type PA = EAPoint E521 Fq Fr
 
 -- | Affine E521 curve is an Edwards affine curve.
-instance EACurve E521 Fq where
+instance EACurve E521 Fq Fr where
   gA_ = gA
   {-# INLINE gA_ #-}
 
 -- | Projective E521 point.
-type PP = EPPoint E521 Fq
+type PP = EPPoint E521 Fq Fr
 
 -- | Projective E521 curve is an Edwards projective curve.
-instance EPCurve E521 Fq where
+instance EPCurve E521 Fq Fr where
   gP_ = gP
   {-# INLINE gP_ #-}
 

@@ -58,7 +58,7 @@ prettyTypes Types{..}
   <>   prettyBreak
   <$$> prettyDocumentation (curve' <+> "is a Montgomery curve")
   <$$> "instance Curve 'Montgomery c" <+> pretty curve <+> prettyField field
-  <+>  "=> MCurve c" <+> pretty curve <+> prettyField field <+> "where"
+  <+>  "Fr => MCurve c" <+> pretty curve <+> prettyField field <+> "Fr where"
   <$$> indent 2
     (    "a_ = const _a"
     <$$> prettyInline "a_"
@@ -77,10 +77,10 @@ prettyTypes Types{..}
     )
   <>   prettyBreak
   <$$> prettyDocumentation ("Affine" <+> curve' <+> "point")
-  <$$> "type PA = MAPoint" <+> pretty curve <+> prettyField field
+  <$$> "type PA = MAPoint" <+> pretty curve <+> prettyField field <+> "Fr"
   <>   prettyBreak
   <$$> prettyDocumentation ("Affine" <+> curve' <+> "is a Montgomery affine curve")
-  <$$> "instance MACurve" <+> pretty curve <+> prettyField field <+> "where"
+  <$$> "instance MACurve" <+> pretty curve <+> prettyField field <+> "Fr where"
   <$$> indent 2
     (    "gA_ = gA"
     <$$> prettyInline "gA_"

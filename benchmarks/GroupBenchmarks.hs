@@ -5,4 +5,4 @@ import GHC.Base
 import Group
 
 benchmark :: Group g => String -> g -> Benchmark
-benchmark = (. nf (flip mul' 3)) . bench
+benchmark = (. whnf (flip mul' 3)) . bench

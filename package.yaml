@@ -39,7 +39,7 @@ extra-source-files:
   - ChangeLog.md
 
 ghc-options:
-  - -O1
+  - -O2
   - -Wall
 
 library:

@@ -51,7 +51,7 @@ type Fq = PrimeField 0x2370fb049d410fbe4e761a9886e502417d023f40180000017e8060000
 type Fr = PrimeField 0x2370fb049d410fbe4e761a9886e502411dc1af70120000017e80600000000001
 
 -- | BN254A curve is a Weierstrass curve.
-instance Curve 'Weierstrass c BN254A Fq => WCurve c BN254A Fq where
+instance Curve 'Weierstrass c BN254A Fq Fr => WCurve c BN254A Fq Fr where
   a_ = const _a
   {-# INLINE a_ #-}
   b_ = const _b
@@ -68,26 +68,26 @@ instance Curve 'Weierstrass c BN254A Fq => WCurve c BN254A Fq where
   {-# INLINE y_ #-}
 
 -- | Affine BN254A curve point.
-type PA = WAPoint BN254A Fq
+type PA = WAPoint BN254A Fq Fr
 
 -- | Affine BN254A curve is a Weierstrass affine curve.
-instance WACurve BN254A Fq where
+instance WACurve BN254A Fq Fr where
   gA_ = gA
   {-# INLINE gA_ #-}
 
 -- | Jacobian BN254A point.
-type PJ = WJPoint BN254A Fq
+type PJ = WJPoint BN254A Fq Fr
 
 -- | Jacobian BN254A curve is a Weierstrass Jacobian curve.
-instance WJCurve BN254A Fq where
+instance WJCurve BN254A Fq Fr where
   gJ_ = gJ
   {-# INLINE gJ_ #-}
 
 -- | Projective BN254A point.
-type PP = WPPoint BN254A Fq
+type PP = WPPoint BN254A Fq Fr
 
 -- | Projective BN254A curve is a Weierstrass projective curve.
-instance WPCurve BN254A Fq where
+instance WPCurve BN254A Fq Fr where
   gP_ = gP
   {-# INLINE gP_ #-}
 

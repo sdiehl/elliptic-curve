@@ -70,7 +70,7 @@ prettyTypes Types{..}
   <>   prettyBreak
   <$$> prettyDocumentation (curve' <+> "is a Weierstrass curve")
   <$$> "instance Curve 'Weierstrass c" <+> pretty curve <+> prettyField field
-  <+>  "=> WCurve c" <+> pretty curve <+> prettyField field <+> "where"
+  <+>  "Fr => WCurve c" <+> pretty curve <+> prettyField field <+> "Fr where"
   <$$> indent 2
     (    "a_ = const _a"
     <$$> prettyInline "a_"
@@ -89,30 +89,30 @@ prettyTypes Types{..}
     )
   <>   prettyBreak
   <$$> prettyDocumentation ("Affine" <+> curve' <+> "point")
-  <$$> "type PA = WAPoint" <+> pretty curve <+> prettyField field
+  <$$> "type PA = WAPoint" <+> pretty curve <+> prettyField field <+> "Fr"
   <>   prettyBreak
   <$$> prettyDocumentation ("Affine" <+> curve' <+> "is a Weierstrass affine curve")
-  <$$> "instance WACurve" <+> pretty curve <+> prettyField field <+> "where"
+  <$$> "instance WACurve" <+> pretty curve <+> prettyField field <+> "Fr where"
   <$$> indent 2
     (    "gA_ = gA"
     <$$> prettyInline "gA_"
     )
   <>   prettyBreak
   <$$> prettyDocumentation ("Jacobian" <+> pretty curve <+> "point")
-  <$$> "type PJ = WJPoint" <+> pretty curve <+> prettyField field
+  <$$> "type PJ = WJPoint" <+> pretty curve <+> prettyField field <+> "Fr"
   <>   prettyBreak
   <$$> prettyDocumentation ("Jacobian" <+> curve' <+> "is a Weierstrass Jacobian curve")
-  <$$> "instance WJCurve" <+> pretty curve <+> prettyField field <+> "where"
+  <$$> "instance WJCurve" <+> pretty curve <+> prettyField field <+> "Fr where"
   <$$> indent 2
     (    "gJ_ = gJ"
     <$$> prettyInline "gJ_"
     )
   <>   prettyBreak
   <$$> prettyDocumentation ("Projective" <+> pretty curve <+> "point")
-  <$$> "type PP = WPPoint" <+> pretty curve <+> prettyField field
+  <$$> "type PP = WPPoint" <+> pretty curve <+> prettyField field <+> "Fr"
   <>   prettyBreak
   <$$> prettyDocumentation ("Projective" <+> curve' <+> "is a Weierstrass projective curve")
-  <$$> "instance WPCurve" <+> pretty curve <+> prettyField field <+> "where"
+  <$$> "instance WPCurve" <+> pretty curve <+> prettyField field <+> "Fr where"
   <$$> indent 2
     (    "gP_ = gP"
     <$$> prettyInline "gP_"

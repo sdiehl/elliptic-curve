@@ -45,7 +45,7 @@ type Fq = PrimeField 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 type Fr = PrimeField 0x200000000000000000000000000000000000000000071415fa9850c0bd6b87f93baa7b2f95973e9fa805
 
 -- | Ed3363 curve is an Edwards curve.
-instance Curve 'Edwards c Ed3363 Fq => ECurve c Ed3363 Fq where
+instance Curve 'Edwards c Ed3363 Fq Fr => ECurve c Ed3363 Fq Fr where
   a_ = const _a
   {-# INLINE a_ #-}
   d_ = const _d
@@ -62,18 +62,18 @@ instance Curve 'Edwards c Ed3363 Fq => ECurve c Ed3363 Fq where
   {-# INLINE y_ #-}
 
 -- | Affine Ed3363 curve point.
-type PA = EAPoint Ed3363 Fq
+type PA = EAPoint Ed3363 Fq Fr
 
 -- | Affine Ed3363 curve is an Edwards affine curve.
-instance EACurve Ed3363 Fq where
+instance EACurve Ed3363 Fq Fr where
   gA_ = gA
   {-# INLINE gA_ #-}
 
 -- | Projective Ed3363 point.
-type PP = EPPoint Ed3363 Fq
+type PP = EPPoint Ed3363 Fq Fr
 
 -- | Projective Ed3363 curve is an Edwards projective curve.
-instance EPCurve Ed3363 Fq where
+instance EPCurve Ed3363 Fq Fr where
   gP_ = gP
   {-# INLINE gP_ #-}
 

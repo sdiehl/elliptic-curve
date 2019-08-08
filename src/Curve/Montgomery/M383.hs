@@ -39,7 +39,7 @@ type Fq = PrimeField 0x7ffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 type Fr = PrimeField 0x10000000000000000000000000000000000000000000000006c79673ac36ba6e7a32576f7b1b249e46bbc225be9071d7
 
 -- | M383 curve is a Montgomery curve.
-instance Curve 'Montgomery c M383 Fq => MCurve c M383 Fq where
+instance Curve 'Montgomery c M383 Fq Fr => MCurve c M383 Fq Fr where
   a_ = const _a
   {-# INLINE a_ #-}
   b_ = const _b
@@ -56,10 +56,10 @@ instance Curve 'Montgomery c M383 Fq => MCurve c M383 Fq where
   {-# INLINE y_ #-}
 
 -- | Affine M383 curve point.
-type PA = MAPoint M383 Fq
+type PA = MAPoint M383 Fq Fr
 
 -- | Affine M383 curve is a Montgomery affine curve.
-instance MACurve M383 Fq where
+instance MACurve M383 Fq Fr where
   gA_ = gA
   {-# INLINE gA_ #-}
 

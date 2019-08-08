@@ -64,7 +64,7 @@ prettyTypes Types{..}
   <>   prettyBreak
   <$$> prettyDocumentation (curve' <+> "is a binary curve")
   <$$> "instance Curve 'Binary c" <+> pretty curve <+> prettyField field
-  <+>  "=> BCurve c" <+> pretty curve <+> prettyField field <+> "where"
+  <+>  "Fr => BCurve c" <+> pretty curve <+> prettyField field <+> "Fr where"
   <$$> indent 2
     (    "a_ = const _a"
     <$$> prettyInline "a_"
@@ -83,20 +83,20 @@ prettyTypes Types{..}
     )
   <>   prettyBreak
   <$$> prettyDocumentation ("Affine" <+> curve' <+> "point")
-  <$$> "type PA = BAPoint" <+> pretty curve <+> prettyField field
+  <$$> "type PA = BAPoint" <+> pretty curve <+> prettyField field <+> "Fr"
   <>   prettyBreak
   <$$> prettyDocumentation ("Affine" <+> curve' <+> "is a binary affine curve")
-  <$$> "instance BACurve" <+> pretty curve <+> prettyField field <+> "where"
+  <$$> "instance BACurve" <+> pretty curve <+> prettyField field <+> "Fr where"
   <$$> indent 2
     (    "gA_ = gA"
     <$$> prettyInline "gA_"
     )
   <>   prettyBreak
   <$$> prettyDocumentation ("Projective" <+> pretty curve <+> "point")
-  <$$> "type PP = BPPoint" <+> pretty curve <+> prettyField field
+  <$$> "type PP = BPPoint" <+> pretty curve <+> prettyField field <+> "Fr"
   <>   prettyBreak
   <$$> prettyDocumentation ("Projective" <+> curve' <+> "is a binary projective curve")
-  <$$> "instance BPCurve" <+> pretty curve <+> prettyField field <+> "where"
+  <$$> "instance BPCurve" <+> pretty curve <+> prettyField field <+> "Fr where"
   <$$> indent 2
     (    "gP_ = gP"
     <$$> prettyInline "gP_"

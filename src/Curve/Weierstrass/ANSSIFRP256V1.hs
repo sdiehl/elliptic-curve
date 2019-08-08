@@ -51,7 +51,7 @@ type Fq = PrimeField 0xf1fd178c0b3ad58f10126de8ce42435b3961adbcabc8ca6de8fcf353d
 type Fr = PrimeField 0xf1fd178c0b3ad58f10126de8ce42435b53dc67e140d2bf941ffdd459c6d655e1
 
 -- | ANSSIFRP256V1 curve is a Weierstrass curve.
-instance Curve 'Weierstrass c ANSSIFRP256V1 Fq => WCurve c ANSSIFRP256V1 Fq where
+instance Curve 'Weierstrass c ANSSIFRP256V1 Fq Fr => WCurve c ANSSIFRP256V1 Fq Fr where
   a_ = const _a
   {-# INLINE a_ #-}
   b_ = const _b
@@ -68,26 +68,26 @@ instance Curve 'Weierstrass c ANSSIFRP256V1 Fq => WCurve c ANSSIFRP256V1 Fq wher
   {-# INLINE y_ #-}
 
 -- | Affine ANSSIFRP256V1 curve point.
-type PA = WAPoint ANSSIFRP256V1 Fq
+type PA = WAPoint ANSSIFRP256V1 Fq Fr
 
 -- | Affine ANSSIFRP256V1 curve is a Weierstrass affine curve.
-instance WACurve ANSSIFRP256V1 Fq where
+instance WACurve ANSSIFRP256V1 Fq Fr where
   gA_ = gA
   {-# INLINE gA_ #-}
 
 -- | Jacobian ANSSIFRP256V1 point.
-type PJ = WJPoint ANSSIFRP256V1 Fq
+type PJ = WJPoint ANSSIFRP256V1 Fq Fr
 
 -- | Jacobian ANSSIFRP256V1 curve is a Weierstrass Jacobian curve.
-instance WJCurve ANSSIFRP256V1 Fq where
+instance WJCurve ANSSIFRP256V1 Fq Fr where
   gJ_ = gJ
   {-# INLINE gJ_ #-}
 
 -- | Projective ANSSIFRP256V1 point.
-type PP = WPPoint ANSSIFRP256V1 Fq
+type PP = WPPoint ANSSIFRP256V1 Fq Fr
 
 -- | Projective ANSSIFRP256V1 curve is a Weierstrass projective curve.
-instance WPCurve ANSSIFRP256V1 Fq where
+instance WPCurve ANSSIFRP256V1 Fq Fr where
   gP_ = gP
   {-# INLINE gP_ #-}
 

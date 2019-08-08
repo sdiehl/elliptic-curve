@@ -51,7 +51,7 @@ type Fq = PrimeField 0xfffffffffffffffffffffffffffffffeffffffffffffffff
 type Fr = PrimeField 0xffffffffffffffffffffffff99def836146bc9b1b4d22831
 
 -- | SECP192R1 curve is a Weierstrass curve.
-instance Curve 'Weierstrass c SECP192R1 Fq => WCurve c SECP192R1 Fq where
+instance Curve 'Weierstrass c SECP192R1 Fq Fr => WCurve c SECP192R1 Fq Fr where
   a_ = const _a
   {-# INLINE a_ #-}
   b_ = const _b
@@ -68,26 +68,26 @@ instance Curve 'Weierstrass c SECP192R1 Fq => WCurve c SECP192R1 Fq where
   {-# INLINE y_ #-}
 
 -- | Affine SECP192R1 curve point.
-type PA = WAPoint SECP192R1 Fq
+type PA = WAPoint SECP192R1 Fq Fr
 
 -- | Affine SECP192R1 curve is a Weierstrass affine curve.
-instance WACurve SECP192R1 Fq where
+instance WACurve SECP192R1 Fq Fr where
   gA_ = gA
   {-# INLINE gA_ #-}
 
 -- | Jacobian SECP192R1 point.
-type PJ = WJPoint SECP192R1 Fq
+type PJ = WJPoint SECP192R1 Fq Fr
 
 -- | Jacobian SECP192R1 curve is a Weierstrass Jacobian curve.
-instance WJCurve SECP192R1 Fq where
+instance WJCurve SECP192R1 Fq Fr where
   gJ_ = gJ
   {-# INLINE gJ_ #-}
 
 -- | Projective SECP192R1 point.
-type PP = WPPoint SECP192R1 Fq
+type PP = WPPoint SECP192R1 Fq Fr
 
 -- | Projective SECP192R1 curve is a Weierstrass projective curve.
-instance WPCurve SECP192R1 Fq where
+instance WPCurve SECP192R1 Fq Fr where
   gP_ = gP
   {-# INLINE gP_ #-}
 

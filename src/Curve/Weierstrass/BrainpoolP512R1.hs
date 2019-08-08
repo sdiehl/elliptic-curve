@@ -51,7 +51,7 @@ type Fq = PrimeField 0xaadd9db8dbe9c48b3fd4e6ae33c9fc07cb308db3b3c9d20ed6639cca7
 type Fr = PrimeField 0xaadd9db8dbe9c48b3fd4e6ae33c9fc07cb308db3b3c9d20ed6639cca70330870553e5c414ca92619418661197fac10471db1d381085ddaddb58796829ca90069
 
 -- | BrainpoolP512R1 curve is a Weierstrass curve.
-instance Curve 'Weierstrass c BrainpoolP512R1 Fq => WCurve c BrainpoolP512R1 Fq where
+instance Curve 'Weierstrass c BrainpoolP512R1 Fq Fr => WCurve c BrainpoolP512R1 Fq Fr where
   a_ = const _a
   {-# INLINE a_ #-}
   b_ = const _b
@@ -68,26 +68,26 @@ instance Curve 'Weierstrass c BrainpoolP512R1 Fq => WCurve c BrainpoolP512R1 Fq 
   {-# INLINE y_ #-}
 
 -- | Affine BrainpoolP512R1 curve point.
-type PA = WAPoint BrainpoolP512R1 Fq
+type PA = WAPoint BrainpoolP512R1 Fq Fr
 
 -- | Affine BrainpoolP512R1 curve is a Weierstrass affine curve.
-instance WACurve BrainpoolP512R1 Fq where
+instance WACurve BrainpoolP512R1 Fq Fr where
   gA_ = gA
   {-# INLINE gA_ #-}
 
 -- | Jacobian BrainpoolP512R1 point.
-type PJ = WJPoint BrainpoolP512R1 Fq
+type PJ = WJPoint BrainpoolP512R1 Fq Fr
 
 -- | Jacobian BrainpoolP512R1 curve is a Weierstrass Jacobian curve.
-instance WJCurve BrainpoolP512R1 Fq where
+instance WJCurve BrainpoolP512R1 Fq Fr where
   gJ_ = gJ
   {-# INLINE gJ_ #-}
 
 -- | Projective BrainpoolP512R1 point.
-type PP = WPPoint BrainpoolP512R1 Fq
+type PP = WPPoint BrainpoolP512R1 Fq Fr
 
 -- | Projective BrainpoolP512R1 curve is a Weierstrass projective curve.
-instance WPCurve BrainpoolP512R1 Fq where
+instance WPCurve BrainpoolP512R1 Fq Fr where
   gP_ = gP
   {-# INLINE gP_ #-}
 

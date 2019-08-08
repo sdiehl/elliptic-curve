@@ -45,7 +45,7 @@ type Fq = PrimeField 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff0
 type Fr = PrimeField 0xe7db4ea6533afa906673b0101343b00a6682093ccc81082d0970e5ed6f72cb7
 
 -- | JubJub curve is an Edwards curve.
-instance Curve 'Edwards c JubJub Fq => ECurve c JubJub Fq where
+instance Curve 'Edwards c JubJub Fq Fr => ECurve c JubJub Fq Fr where
   a_ = const _a
   {-# INLINE a_ #-}
   d_ = const _d
@@ -62,18 +62,18 @@ instance Curve 'Edwards c JubJub Fq => ECurve c JubJub Fq where
   {-# INLINE y_ #-}
 
 -- | Affine JubJub curve point.
-type PA = EAPoint JubJub Fq
+type PA = EAPoint JubJub Fq Fr
 
 -- | Affine JubJub curve is an Edwards affine curve.
-instance EACurve JubJub Fq where
+instance EACurve JubJub Fq Fr where
   gA_ = gA
   {-# INLINE gA_ #-}
 
 -- | Projective JubJub point.
-type PP = EPPoint JubJub Fq
+type PP = EPPoint JubJub Fq Fr
 
 -- | Projective JubJub curve is an Edwards projective curve.
-instance EPCurve JubJub Fq where
+instance EPCurve JubJub Fq Fr where
   gP_ = gP
   {-# INLINE gP_ #-}
 

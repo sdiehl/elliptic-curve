@@ -5,7 +5,6 @@ module Group
 import Protolude
 
 import Control.Monad.Random (MonadRandom, Random, getRandom)
-import PrimeField (PrimeField, toInt)
 import Test.Tasty.QuickCheck (Arbitrary)
 import Text.PrettyPrint.Leijen.Text (Pretty)
 
@@ -36,12 +35,7 @@ class (Arbitrary g, Eq g, Generic g,
   -- | Element inversion.
   inv :: g -> g
 
-  -- | Element multiplication by coefficient.
-  mul :: KnownNat r => g -> PrimeField r -> g
-  mul = (. toInt) . mul'
-  {-# INLINE mul #-}
-
-  -- | Element multiplication by integer.
+  -- | Element multiplication.
   mul' :: g -> Integer -> g
   mul' p n
     | n < 0     = inv (mul' p (-n))

@@ -51,7 +51,7 @@ type Fq = PrimeField 0xfffffffffffffffffffffffffffffffeffffac73
 type Fr = PrimeField 0x100000000000000000001b8fa16dfab9aca16b6b3
 
 -- | SECP160K1 curve is a Weierstrass curve.
-instance Curve 'Weierstrass c SECP160K1 Fq => WCurve c SECP160K1 Fq where
+instance Curve 'Weierstrass c SECP160K1 Fq Fr => WCurve c SECP160K1 Fq Fr where
   a_ = const _a
   {-# INLINE a_ #-}
   b_ = const _b
@@ -68,26 +68,26 @@ instance Curve 'Weierstrass c SECP160K1 Fq => WCurve c SECP160K1 Fq where
   {-# INLINE y_ #-}
 
 -- | Affine SECP160K1 curve point.
-type PA = WAPoint SECP160K1 Fq
+type PA = WAPoint SECP160K1 Fq Fr
 
 -- | Affine SECP160K1 curve is a Weierstrass affine curve.
-instance WACurve SECP160K1 Fq where
+instance WACurve SECP160K1 Fq Fr where
   gA_ = gA
   {-# INLINE gA_ #-}
 
 -- | Jacobian SECP160K1 point.
-type PJ = WJPoint SECP160K1 Fq
+type PJ = WJPoint SECP160K1 Fq Fr
 
 -- | Jacobian SECP160K1 curve is a Weierstrass Jacobian curve.
-instance WJCurve SECP160K1 Fq where
+instance WJCurve SECP160K1 Fq Fr where
   gJ_ = gJ
   {-# INLINE gJ_ #-}
 
 -- | Projective SECP160K1 point.
-type PP = WPPoint SECP160K1 Fq
+type PP = WPPoint SECP160K1 Fq Fr
 
 -- | Projective SECP160K1 curve is a Weierstrass projective curve.
-instance WPCurve SECP160K1 Fq where
+instance WPCurve SECP160K1 Fq Fr where
   gP_ = gP
   {-# INLINE gP_ #-}
 

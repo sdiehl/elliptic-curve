@@ -45,7 +45,7 @@ type Fq = PrimeField 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffff8b
 type Fr = PrimeField 0xffffffffffffffffffffffffffff70cbc95e932f802f31423598cbf
 
 -- | E222 curve is an Edwards curve.
-instance Curve 'Edwards c E222 Fq => ECurve c E222 Fq where
+instance Curve 'Edwards c E222 Fq Fr => ECurve c E222 Fq Fr where
   a_ = const _a
   {-# INLINE a_ #-}
   d_ = const _d
@@ -62,18 +62,18 @@ instance Curve 'Edwards c E222 Fq => ECurve c E222 Fq where
   {-# INLINE y_ #-}
 
 -- | Affine E222 curve point.
-type PA = EAPoint E222 Fq
+type PA = EAPoint E222 Fq Fr
 
 -- | Affine E222 curve is an Edwards affine curve.
-instance EACurve E222 Fq where
+instance EACurve E222 Fq Fr where
   gA_ = gA
   {-# INLINE gA_ #-}
 
 -- | Projective E222 point.
-type PP = EPPoint E222 Fq
+type PP = EPPoint E222 Fq Fr
 
 -- | Projective E222 curve is an Edwards projective curve.
-instance EPCurve E222 Fq where
+instance EPCurve E222 Fq Fr where
   gP_ = gP
   {-# INLINE gP_ #-}
 

@@ -64,7 +64,7 @@ type Fq8 = ExtensionField Fq4 PolynomialW
 type Fr = PrimeField 0x2386f8a925e2885e233a9ccc1615c0d6c635387a3f0b3cbe003fad6bc972c2e6e741969d34c4c92016a85c7cd0562303c4ccbe599467c24da118a5fe6fcd671c01
 
 -- | BLS48581T curve is a Weierstrass curve.
-instance Curve 'Weierstrass c BLS48581T Fq8 => WCurve c BLS48581T Fq8 where
+instance Curve 'Weierstrass c BLS48581T Fq8 Fr => WCurve c BLS48581T Fq8 Fr where
   a_ = const _a
   {-# INLINE a_ #-}
   b_ = const _b
@@ -81,26 +81,26 @@ instance Curve 'Weierstrass c BLS48581T Fq8 => WCurve c BLS48581T Fq8 where
   {-# INLINE y_ #-}
 
 -- | Affine BLS48581T curve point.
-type PA = WAPoint BLS48581T Fq8
+type PA = WAPoint BLS48581T Fq8 Fr
 
 -- | Affine BLS48581T curve is a Weierstrass affine curve.
-instance WACurve BLS48581T Fq8 where
+instance WACurve BLS48581T Fq8 Fr where
   gA_ = gA
   {-# INLINE gA_ #-}
 
 -- | Jacobian BLS48581T point.
-type PJ = WJPoint BLS48581T Fq8
+type PJ = WJPoint BLS48581T Fq8 Fr
 
 -- | Jacobian BLS48581T curve is a Weierstrass Jacobian curve.
-instance WJCurve BLS48581T Fq8 where
+instance WJCurve BLS48581T Fq8 Fr where
   gJ_ = gJ
   {-# INLINE gJ_ #-}
 
 -- | Projective BLS48581T point.
-type PP = WPPoint BLS48581T Fq8
+type PP = WPPoint BLS48581T Fq8 Fr
 
 -- | Projective BLS48581T curve is a Weierstrass projective curve.
-instance WPCurve BLS48581T Fq8 where
+instance WPCurve BLS48581T Fq8 Fr where
   gP_ = gP
   {-# INLINE gP_ #-}
 

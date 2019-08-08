@@ -51,7 +51,7 @@ type Fq = PrimeField 0xfffffffffffffffffffffffffff9ec7f01c60ba1d8cb5307c0bbe3c11
 type Fr = PrimeField 0xfffffffffffffffffffffffffff9ec7f01c60ba1d8cb5307c0bbe3c111b0ef445146cf1eacbe98b8e48c65deab2679a34a10313e04f9a2b406a64a5f519a09ed
 
 -- | BN512 curve is a Weierstrass curve.
-instance Curve 'Weierstrass c BN512 Fq => WCurve c BN512 Fq where
+instance Curve 'Weierstrass c BN512 Fq Fr => WCurve c BN512 Fq Fr where
   a_ = const _a
   {-# INLINE a_ #-}
   b_ = const _b
@@ -68,26 +68,26 @@ instance Curve 'Weierstrass c BN512 Fq => WCurve c BN512 Fq where
   {-# INLINE y_ #-}
 
 -- | Affine BN512 curve point.
-type PA = WAPoint BN512 Fq
+type PA = WAPoint BN512 Fq Fr
 
 -- | Affine BN512 curve is a Weierstrass affine curve.
-instance WACurve BN512 Fq where
+instance WACurve BN512 Fq Fr where
   gA_ = gA
   {-# INLINE gA_ #-}
 
 -- | Jacobian BN512 point.
-type PJ = WJPoint BN512 Fq
+type PJ = WJPoint BN512 Fq Fr
 
 -- | Jacobian BN512 curve is a Weierstrass Jacobian curve.
-instance WJCurve BN512 Fq where
+instance WJCurve BN512 Fq Fr where
   gJ_ = gJ
   {-# INLINE gJ_ #-}
 
 -- | Projective BN512 point.
-type PP = WPPoint BN512 Fq
+type PP = WPPoint BN512 Fq Fr
 
 -- | Projective BN512 curve is a Weierstrass projective curve.
-instance WPCurve BN512 Fq where
+instance WPCurve BN512 Fq Fr where
   gP_ = gP
   {-# INLINE gP_ #-}
 

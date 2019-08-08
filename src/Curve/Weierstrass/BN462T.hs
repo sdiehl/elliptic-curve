@@ -56,7 +56,7 @@ type Fq2 = ExtensionField Fq PolynomialU
 type Fr = PrimeField 0x240480360120023ffffffffff6ff0cf6b7d9bfca0000000000d812908ee1c201f7fffffffff6ff66fc7bf717f7c0000000002401b007e010800d
 
 -- | BN462T curve is a Weierstrass curve.
-instance Curve 'Weierstrass c BN462T Fq2 => WCurve c BN462T Fq2 where
+instance Curve 'Weierstrass c BN462T Fq2 Fr => WCurve c BN462T Fq2 Fr where
   a_ = const _a
   {-# INLINE a_ #-}
   b_ = const _b
@@ -73,26 +73,26 @@ instance Curve 'Weierstrass c BN462T Fq2 => WCurve c BN462T Fq2 where
   {-# INLINE y_ #-}
 
 -- | Affine BN462T curve point.
-type PA = WAPoint BN462T Fq2
+type PA = WAPoint BN462T Fq2 Fr
 
 -- | Affine BN462T curve is a Weierstrass affine curve.
-instance WACurve BN462T Fq2 where
+instance WACurve BN462T Fq2 Fr where
   gA_ = gA
   {-# INLINE gA_ #-}
 
 -- | Jacobian BN462T point.
-type PJ = WJPoint BN462T Fq2
+type PJ = WJPoint BN462T Fq2 Fr
 
 -- | Jacobian BN462T curve is a Weierstrass Jacobian curve.
-instance WJCurve BN462T Fq2 where
+instance WJCurve BN462T Fq2 Fr where
   gJ_ = gJ
   {-# INLINE gJ_ #-}
 
 -- | Projective BN462T point.
-type PP = WPPoint BN462T Fq2
+type PP = WPPoint BN462T Fq2 Fr
 
 -- | Projective BN462T curve is a Weierstrass projective curve.
-instance WPCurve BN462T Fq2 where
+instance WPCurve BN462T Fq2 Fr where
   gP_ = gP
   {-# INLINE gP_ #-}
 

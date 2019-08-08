@@ -51,7 +51,7 @@ type Fq = PrimeField 0xb0000000000000000000000953000000000000000000001f9d7
 type Fr = PrimeField 0xb0000000000000000000000953000000000000000000001f9d7
 
 -- | Anomalous curve is a Weierstrass curve.
-instance Curve 'Weierstrass c Anomalous Fq => WCurve c Anomalous Fq where
+instance Curve 'Weierstrass c Anomalous Fq Fr => WCurve c Anomalous Fq Fr where
   a_ = const _a
   {-# INLINE a_ #-}
   b_ = const _b
@@ -68,26 +68,26 @@ instance Curve 'Weierstrass c Anomalous Fq => WCurve c Anomalous Fq where
   {-# INLINE y_ #-}
 
 -- | Affine Anomalous curve point.
-type PA = WAPoint Anomalous Fq
+type PA = WAPoint Anomalous Fq Fr
 
 -- | Affine Anomalous curve is a Weierstrass affine curve.
-instance WACurve Anomalous Fq where
+instance WACurve Anomalous Fq Fr where
   gA_ = gA
   {-# INLINE gA_ #-}
 
 -- | Jacobian Anomalous point.
-type PJ = WJPoint Anomalous Fq
+type PJ = WJPoint Anomalous Fq Fr
 
 -- | Jacobian Anomalous curve is a Weierstrass Jacobian curve.
-instance WJCurve Anomalous Fq where
+instance WJCurve Anomalous Fq Fr where
   gJ_ = gJ
   {-# INLINE gJ_ #-}
 
 -- | Projective Anomalous point.
-type PP = WPPoint Anomalous Fq
+type PP = WPPoint Anomalous Fq Fr
 
 -- | Projective Anomalous curve is a Weierstrass projective curve.
-instance WPCurve Anomalous Fq where
+instance WPCurve Anomalous Fq Fr where
   gP_ = gP
   {-# INLINE gP_ #-}
 

@@ -46,7 +46,7 @@ type F2m = BinaryField 0x2000000000000000000000000000000000000000400000000000000
 type Fr = PrimeField 0x8000000000000000000000000000069d5bb915bcd46efb1ad5f173abdf
 
 -- | SECT233K1 curve is a binary curve.
-instance Curve 'Binary c SECT233K1 F2m => BCurve c SECT233K1 F2m where
+instance Curve 'Binary c SECT233K1 F2m Fr => BCurve c SECT233K1 F2m Fr where
   a_ = const _a
   {-# INLINE a_ #-}
   b_ = const _b
@@ -63,18 +63,18 @@ instance Curve 'Binary c SECT233K1 F2m => BCurve c SECT233K1 F2m where
   {-# INLINE y_ #-}
 
 -- | Affine SECT233K1 curve point.
-type PA = BAPoint SECT233K1 F2m
+type PA = BAPoint SECT233K1 F2m Fr
 
 -- | Affine SECT233K1 curve is a binary affine curve.
-instance BACurve SECT233K1 F2m where
+instance BACurve SECT233K1 F2m Fr where
   gA_ = gA
   {-# INLINE gA_ #-}
 
 -- | Projective SECT233K1 point.
-type PP = BPPoint SECT233K1 F2m
+type PP = BPPoint SECT233K1 F2m Fr
 
 -- | Projective SECT233K1 curve is a binary projective curve.
-instance BPCurve SECT233K1 F2m where
+instance BPCurve SECT233K1 F2m Fr where
   gP_ = gP
   {-# INLINE gP_ #-}
 

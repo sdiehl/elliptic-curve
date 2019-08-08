@@ -64,7 +64,7 @@ prettyTypes Types{..}
   <>   prettyBreak
   <$$> prettyDocumentation (curve' <+> "is an Edwards curve")
   <$$> "instance Curve 'Edwards c" <+> pretty curve <+> prettyField field
-  <+>  "=> ECurve c" <+> pretty curve <+> prettyField field <+> "where"
+  <+>  "Fr => ECurve c" <+> pretty curve <+> prettyField field <+> "Fr where"
   <$$> indent 2
     (    "a_ = const _a"
     <$$> prettyInline "a_"
@@ -83,20 +83,20 @@ prettyTypes Types{..}
     )
   <>   prettyBreak
   <$$> prettyDocumentation ("Affine" <+> curve' <+> "point")
-  <$$> "type PA = EAPoint" <+> pretty curve <+> prettyField field
+  <$$> "type PA = EAPoint" <+> pretty curve <+> prettyField field <+> "Fr"
   <>   prettyBreak
   <$$> prettyDocumentation ("Affine" <+> curve' <+> "is an Edwards affine curve")
-  <$$> "instance EACurve" <+> pretty curve <+> prettyField field <+> "where"
+  <$$> "instance EACurve" <+> pretty curve <+> prettyField field <+> "Fr where"
   <$$> indent 2
     (    "gA_ = gA"
     <$$> prettyInline "gA_"
     )
   <>   prettyBreak
   <$$> prettyDocumentation ("Projective" <+> pretty curve <+> "point")
-  <$$> "type PP = EPPoint" <+> pretty curve <+> prettyField field
+  <$$> "type PP = EPPoint" <+> pretty curve <+> prettyField field <+> "Fr"
   <>   prettyBreak
   <$$> prettyDocumentation ("Projective" <+> curve' <+> "is an Edwards projective curve")
-  <$$> "instance EPCurve" <+> pretty curve <+> prettyField field <+> "where"
+  <$$> "instance EPCurve" <+> pretty curve <+> prettyField field <+> "Fr where"
   <$$> indent 2
     (    "gP_ = gP"
     <$$> prettyInline "gP_"

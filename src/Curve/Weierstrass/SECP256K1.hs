@@ -51,7 +51,7 @@ type Fq = PrimeField 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffef
 type Fr = PrimeField 0xfffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141
 
 -- | SECP256K1 curve is a Weierstrass curve.
-instance Curve 'Weierstrass c SECP256K1 Fq => WCurve c SECP256K1 Fq where
+instance Curve 'Weierstrass c SECP256K1 Fq Fr => WCurve c SECP256K1 Fq Fr where
   a_ = const _a
   {-# INLINE a_ #-}
   b_ = const _b
@@ -68,26 +68,26 @@ instance Curve 'Weierstrass c SECP256K1 Fq => WCurve c SECP256K1 Fq where
   {-# INLINE y_ #-}
 
 -- | Affine SECP256K1 curve point.
-type PA = WAPoint SECP256K1 Fq
+type PA = WAPoint SECP256K1 Fq Fr
 
 -- | Affine SECP256K1 curve is a Weierstrass affine curve.
-instance WACurve SECP256K1 Fq where
+instance WACurve SECP256K1 Fq Fr where
   gA_ = gA
   {-# INLINE gA_ #-}
 
 -- | Jacobian SECP256K1 point.
-type PJ = WJPoint SECP256K1 Fq
+type PJ = WJPoint SECP256K1 Fq Fr
 
 -- | Jacobian SECP256K1 curve is a Weierstrass Jacobian curve.
-instance WJCurve SECP256K1 Fq where
+instance WJCurve SECP256K1 Fq Fr where
   gJ_ = gJ
   {-# INLINE gJ_ #-}
 
 -- | Projective SECP256K1 point.
-type PP = WPPoint SECP256K1 Fq
+type PP = WPPoint SECP256K1 Fq Fr
 
 -- | Projective SECP256K1 curve is a Weierstrass projective curve.
-instance WPCurve SECP256K1 Fq where
+instance WPCurve SECP256K1 Fq Fr where
   gP_ = gP
   {-# INLINE gP_ #-}
 
