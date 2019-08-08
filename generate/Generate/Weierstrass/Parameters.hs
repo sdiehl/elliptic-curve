@@ -126,7 +126,7 @@ bls12381t :: Curve
 bls12381t = Curve
   { types = Types
     { curve   = "BLS12381T"
-    , field   = ExtensionField "Fq2" "Fq" "PolynomialU" "x * x + 1" Nothing
+    , field   = ExtensionField "Fq2" "Fq" "PolynomialU" "X2 + 1" Nothing
     , field'  = PrimeField "Fr" 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
     , imports = Just "import Curve.Weierstrass.BLS12381 (Fq)"
     }
@@ -171,9 +171,9 @@ bls48581t :: Curve
 bls48581t = Curve
   { types = Types
     { curve   = "BLS48581T"
-    , field   = ExtensionField "Fq8" "Fq4" "PolynomialW" "x * x + t x" (Just
-                ( ExtensionField "Fq4" "Fq2" "PolynomialV" "x * x + 1 + t x" (Just
-                  ( ExtensionField "Fq2" "Fq" "PolynomialU" "x * x + 1" Nothing
+    , field   = ExtensionField "Fq8" "Fq4" "PolynomialW" "X2 + Y X" (Just
+                ( ExtensionField "Fq4" "Fq2" "PolynomialV" "X2 + 1 + Y X" (Just
+                  ( ExtensionField "Fq2" "Fq" "PolynomialU" "X2 + 1" Nothing
                   ))
                 ))
     , field'  = PrimeField "Fr" 0x2386f8a925e2885e233a9ccc1615c0d6c635387a3f0b3cbe003fad6bc972c2e6e741969d34c4c92016a85c7cd0562303c4ccbe599467c24da118a5fe6fcd671c01
@@ -269,7 +269,7 @@ bn254t :: Curve
 bn254t = Curve
   { types = Types
     { curve   = "BN254T"
-    , field   = ExtensionField "Fq2" "Fq" "PolynomialU" "x * x + 1" Nothing
+    , field   = ExtensionField "Fq2" "Fq" "PolynomialU" "X2 + 1" Nothing
     , field'  = PrimeField "Fr" 0x30644e72e131a029b85045b68181585d2833e84879b9709143e1f593f0000001
     , imports = Just "import Curve.Weierstrass.BN254 (Fq)"
     }
@@ -314,7 +314,7 @@ bn254at :: Curve
 bn254at = Curve
   { types = Types
     { curve   = "BN254AT"
-    , field   = ExtensionField "Fq2" "Fq" "PolynomialU" "x * x + 5" Nothing
+    , field   = ExtensionField "Fq2" "Fq" "PolynomialU" "X2 + 5" Nothing
     , field'  = PrimeField "Fr" 0x2370fb049d410fbe4e761a9886e502411dc1af70120000017e80600000000001
     , imports = Just "import Curve.Weierstrass.BN254A (Fq)"
     }
@@ -359,7 +359,7 @@ bn254bt :: Curve
 bn254bt = Curve
   { types = Types
     { curve   = "BN254BT"
-    , field   = ExtensionField "Fq2" "Fq" "PolynomialU" "x * x + 1" Nothing
+    , field   = ExtensionField "Fq2" "Fq" "PolynomialU" "X2 + 1" Nothing
     , field'  = PrimeField "Fr" 0x2523648240000001ba344d8000000007ff9f800000000010a10000000000000d
     , imports = Just "import Curve.Weierstrass.BN254B (Fq)"
     }
@@ -442,7 +442,7 @@ bn462t :: Curve
 bn462t = Curve
   { types = Types
     { curve   = "BN462T"
-    , field   = ExtensionField "Fq2" "Fq" "PolynomialU" "x * x + 1" Nothing
+    , field   = ExtensionField "Fq2" "Fq" "PolynomialU" "X2 + 1" Nothing
     , field'  = PrimeField "Fr" 0x240480360120023ffffffffff6ff0cf6b7d9bfca0000000000d812908ee1c201f7fffffffff6ff66fc7bf717f7c0000000002401b007e010800d
     , imports = Just "import Curve.Weierstrass.BN462 (Fq)"
     }

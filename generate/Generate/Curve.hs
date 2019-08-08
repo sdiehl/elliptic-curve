@@ -20,7 +20,7 @@ prettyElement :: Element -> Doc
 prettyElement (BF n)
   = prettyInteger n
 prettyElement (EF ns)
-  = "fromList" <+> align
+  = "toField" <+> align
     (    (if null ns then "[" else "[ ")
     <>   hcat (punctuate "\n, " (map prettyElement ns))
     <$$> "]"

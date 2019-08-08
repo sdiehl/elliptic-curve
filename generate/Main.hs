@@ -1,7 +1,4 @@
-module Generate
-  ( generateCurve
-  , generateGenerate
-  ) where
+module Main where
 
 import Protolude
 
@@ -66,7 +63,7 @@ generateWeierstrassCurve = map generateWeierstrassCurve' Weierstrass.curves
 generateCurve' :: Show doc => Text -> (types -> Text)
   -> (curve -> types) -> (curve -> doc) -> curve -> (FilePath, Text)
 generateCurve' form curve types pretty = (,)
-  <$> unpack . (<> ".hs") . (<>) ("Curve/" <> form <> "/") . curve . types
+  <$> unpack . (<> ".hs") . (<>) ("../src/Curve/" <> form <> "/") . curve . types
   <*> show . pretty
 
 -------------------------------------------------------------------------------
@@ -98,3 +95,10 @@ generateWeierstrassGenerate = generateGenerate'
 
 generateGenerate' :: Show doc => (curve -> doc) -> curve -> Text
 generateGenerate' = (.) show
+
+-------------------------------------------------------------------------------
+-- Main generator
+-------------------------------------------------------------------------------
+
+main :: IO ()
+main = generateGenerate >> generateCurve
