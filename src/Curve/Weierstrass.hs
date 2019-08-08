@@ -20,10 +20,7 @@ module Curve.Weierstrass
 
 import Protolude
 
-import Control.Monad.Random (Random(..))
 import GaloisField (GaloisField(..))
-import PrimeField (PrimeField)
-import Test.Tasty.QuickCheck (Arbitrary(..), suchThatMap)
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
 import Curve (Curve(..), Form(..))
@@ -37,8 +34,7 @@ import Group (Group(..))
 type WPoint = Point 'Weierstrass
 
 -- | Weierstrass curves.
-class (GaloisField q, GaloisField r, Curve 'Weierstrass c e q r)
-  => WCurve c e q r where
+class (GaloisField q, GaloisField r, Curve 'Weierstrass c e q r) => WCurve c e q r where
   {-# MINIMAL a_, b_, h_, q_, r_, x_, y_ #-}
   a_ :: WPoint c e q r -> q       -- ^ Coefficient @A@.
   b_ :: WPoint c e q r -> q       -- ^ Coefficient @B@.
@@ -66,10 +62,9 @@ class WCurve 'Affine e q r => WACurve e q r where
   gA_ :: WAPoint e q r -- ^ Curve generator.
 
 -- Weierstrass affine curves are elliptic curves.
-instance (KnownNat p, WACurve e q (PrimeField p))
-  => Curve 'Weierstrass 'Affine e q (PrimeField p) where
+instance WACurve e q r => Curve 'Weierstrass 'Affine e q r where
 
-  data instance Point 'Weierstrass 'Affine e q (PrimeField p)
+  data instance Point 'Weierstrass 'Affine e q r
     = A q q -- ^ Affine point.
     | O     -- ^ Infinite point.
     deriving (Eq, Generic, NFData, Read, Show)
@@ -82,25 +77,24 @@ instance (KnownNat p, WACurve e q (PrimeField p))
 
   disc _ = 4 * a * a * a + 27 * b * b
     where
-      a = a_ (witness :: WAPoint e q (PrimeField p))
-      b = b_ (witness :: WAPoint e q (PrimeField p))
+      a = a_ (witness :: WAPoint e q r)
+      b = b_ (witness :: WAPoint e q r)
   {-# INLINE disc #-}
 
   point x y = let p = A x y in if def p then Just p else Nothing
   {-# INLINE point #-}
 
-  pointX x = A x <$> yX (witness :: WAPoint e q (PrimeField p)) x
+  pointX x = A x <$> yX (witness :: WAPoint e q r) x
   {-# INLINE pointX #-}
 
   yX _ x = sr (((x * x + a) * x) + b)
     where
-      a = a_ (witness :: WAPoint e q (PrimeField p))
-      b = b_ (witness :: WAPoint e q (PrimeField p))
+      a = a_ (witness :: WAPoint e q r)
+      b = b_ (witness :: WAPoint e q r)
   {-# INLINE yX #-}
 
 -- Weierstrass affine points are groups.
-instance (KnownNat p, WACurve e q (PrimeField p))
-  => Group (WAPoint e q (PrimeField p)) where
+instance WACurve e q r => Group (WAPoint e q r) where
 
   add p O       = p
   add O q       = q
@@ -118,7 +112,7 @@ instance (KnownNat p, WACurve e q (PrimeField p))
     | y == 0    = O
     | otherwise = A x' y'
     where
-      l  = (3 * x * x + a_ (witness :: WAPoint e q (PrimeField p))) / (2 * y)
+      l  = (3 * x * x + a_ (witness :: WAPoint e q r)) / (2 * y)
       x' = l * l - 2 * x
       y' = l * (x - x') - y
   {-# INLINE dbl #-}
@@ -126,8 +120,8 @@ instance (KnownNat p, WACurve e q (PrimeField p))
   def O       = True
   def (A x y) = y * y == (x * x + a) * x + b
     where
-      a = a_ (witness :: WAPoint e q (PrimeField p))
-      b = b_ (witness :: WAPoint e q (PrimeField p))
+      a = a_ (witness :: WAPoint e q r)
+      b = b_ (witness :: WAPoint e q r)
   {-# INLINE def #-}
 
   gen = gA_
@@ -143,25 +137,10 @@ instance (KnownNat p, WACurve e q (PrimeField p))
   order = r_
   {-# INLINE order #-}
 
--- Weierstrass affine points are arbitrary.
-instance (KnownNat p, WACurve e q (PrimeField p))
-  => Arbitrary (WAPoint e q (PrimeField p)) where
-  arbitrary = suchThatMap arbitrary pointX
-
 -- Weierstrass affine points are pretty.
-instance (KnownNat p, WACurve e q (PrimeField p))
-  => Pretty (WAPoint e q (PrimeField p)) where
+instance WACurve e q r => Pretty (WAPoint e q r) where
   pretty (A x y) = pretty (x, y)
   pretty O       = "O"
-
--- Weierstrass affine points are random.
-instance (KnownNat p, WACurve e q (PrimeField p))
-  => Random (WAPoint e q (PrimeField p)) where
-  random g = let (x, g') = random g in case pointX x of
-    Just p -> (p, g')
-    _      -> random g'
-  {-# INLINE random #-}
-  randomR  = panic "not implemented."
 
 -------------------------------------------------------------------------------
 -- Jacobian coordinates
@@ -176,10 +155,9 @@ class WCurve 'Jacobian e q r => WJCurve e q r where
   gJ_ :: WJPoint e q r -- ^ Curve generator.
 
 -- Weierstrass Jacobian curves are elliptic curves.
-instance (KnownNat p, WJCurve e q (PrimeField p))
-  => Curve 'Weierstrass 'Jacobian e q (PrimeField p) where
+instance WJCurve e q r => Curve 'Weierstrass 'Jacobian e q r where
 
-  data instance Point 'Weierstrass 'Jacobian e q (PrimeField p)
+  data instance Point 'Weierstrass 'Jacobian e q r
     = J q q q -- ^ Jacobian point.
     deriving (Generic, NFData, Read, Show)
 
@@ -191,25 +169,24 @@ instance (KnownNat p, WJCurve e q (PrimeField p))
 
   disc _ = 4 * a * a * a + 27 * b * b
     where
-      a = a_ (witness :: WJPoint e q (PrimeField p))
-      b = b_ (witness :: WJPoint e q (PrimeField p))
+      a = a_ (witness :: WJPoint e q r)
+      b = b_ (witness :: WJPoint e q r)
   {-# INLINE disc #-}
 
   point x y = let p = J x y 1 in if def p then Just p else Nothing
   {-# INLINE point #-}
 
-  pointX x = flip (J x) 1 <$> yX (witness :: WJPoint e q (PrimeField p)) x
+  pointX x = flip (J x) 1 <$> yX (witness :: WJPoint e q r) x
   {-# INLINE pointX #-}
 
   yX _ x = sr (((x * x + a) * x) + b)
     where
-      a = a_ (witness :: WJPoint e q (PrimeField p))
-      b = b_ (witness :: WJPoint e q (PrimeField p))
+      a = a_ (witness :: WJPoint e q r)
+      b = b_ (witness :: WJPoint e q r)
   {-# INLINE yX #-}
 
 -- Weierstrass Jacobian points are groups.
-instance (KnownNat p, WJCurve e q (PrimeField p))
-  => Group (WJPoint e q (PrimeField p)) where
+instance WJCurve e q r => Group (WJPoint e q r) where
 
   -- Addition formula add-2007-bl
   add  p           (J  _  _  0) = p
@@ -245,7 +222,7 @@ instance (KnownNat p, WJCurve e q (PrimeField p))
       xy   = x1 + yy
       yz   = y1 + z1
       s    = 2 * (xy * xy - xx - yyyy)
-      m    = 3 * xx + a_ (witness :: WJPoint e q (PrimeField p)) * zz * zz
+      m    = 3 * xx + a_ (witness :: WJPoint e q r) * zz * zz
       t    = m * m - 2 * s
       x3   = t
       y3   = m * (s - t) - 8 * yyyy
@@ -254,8 +231,8 @@ instance (KnownNat p, WJCurve e q (PrimeField p))
 
   def (J x y z) = y * y == x * x * x + zz * zz * (a * x + b * zz)
     where
-      a  = a_ (witness :: WJPoint e q (PrimeField p))
-      b  = b_ (witness :: WJPoint e q (PrimeField p))
+      a  = a_ (witness :: WJPoint e q r)
+      b  = b_ (witness :: WJPoint e q r)
       zz = z * z
   {-# INLINE def #-}
 
@@ -271,14 +248,8 @@ instance (KnownNat p, WJCurve e q (PrimeField p))
   order = r_
   {-# INLINE order #-}
 
--- Weierstrass Jacobian points are arbitrary.
-instance (KnownNat p, WJCurve e q (PrimeField p))
-  => Arbitrary (WJPoint e q (PrimeField p)) where
-  arbitrary = suchThatMap arbitrary pointX
-
 -- Weierstrass Jacobian points are equatable.
-instance (KnownNat p, WJCurve e q (PrimeField p))
-  => Eq (WJPoint e q (PrimeField p)) where
+instance WJCurve e q r => Eq (WJPoint e q r) where
   J x1 y1 z1 == J x2 y2 z2 = z1 == 0 && z2 == 0
     || x1 * zz2 == x2 * zz1 && y1 * z2 * zz2 == y2 * z1 * zz1
     where
@@ -286,18 +257,8 @@ instance (KnownNat p, WJCurve e q (PrimeField p))
       zz2 = z2 * z2
 
 -- Weierstrass Jacobian points are pretty.
-instance (KnownNat p, WJCurve e q (PrimeField p))
-  => Pretty (WJPoint e q (PrimeField p)) where
+instance WJCurve e q r => Pretty (WJPoint e q r) where
   pretty (J x y z) = pretty (x, y, z)
-
--- Weierstrass Jacobian points are random.
-instance (KnownNat p, WJCurve e q (PrimeField p))
-  => Random (WJPoint e q (PrimeField p)) where
-  random g = let (x, g') = random g in case pointX x of
-    Just p -> (p, g')
-    _      -> random g'
-  {-# INLINE random #-}
-  randomR  = panic "not implemented."
 
 -------------------------------------------------------------------------------
 -- Projective coordinates
@@ -312,10 +273,9 @@ class WCurve 'Projective e q r => WPCurve e q r where
   gP_ :: WPPoint e q r -- ^ Curve generator.
 
 -- Weierstrass projective curves are elliptic curves.
-instance (KnownNat p, WPCurve e q (PrimeField p))
-  => Curve 'Weierstrass 'Projective e q (PrimeField p) where
+instance WPCurve e q r => Curve 'Weierstrass 'Projective e q r where
 
-  data instance Point 'Weierstrass 'Projective e q (PrimeField p)
+  data instance Point 'Weierstrass 'Projective e q r
     = P q q q -- ^ Projective point.
     deriving (Generic, NFData, Read, Show)
 
@@ -327,25 +287,24 @@ instance (KnownNat p, WPCurve e q (PrimeField p))
 
   disc _ = 4 * a * a * a + 27 * b * b
     where
-      a = a_ (witness :: WPPoint e q (PrimeField p))
-      b = b_ (witness :: WPPoint e q (PrimeField p))
+      a = a_ (witness :: WPPoint e q r)
+      b = b_ (witness :: WPPoint e q r)
   {-# INLINE disc #-}
 
   point x y = let p = P x y 1 in if def p then Just p else Nothing
   {-# INLINE point #-}
 
-  pointX x = flip (P x) 1 <$> yX (witness :: WPPoint e q (PrimeField p)) x
+  pointX x = flip (P x) 1 <$> yX (witness :: WPPoint e q r) x
   {-# INLINE pointX #-}
 
   yX _ x = sr (((x * x + a) * x) + b)
     where
-      a = a_ (witness :: WPPoint e q (PrimeField p))
-      b = b_ (witness :: WPPoint e q (PrimeField p))
+      a = a_ (witness :: WPPoint e q r)
+      b = b_ (witness :: WPPoint e q r)
   {-# INLINE yX #-}
 
 -- Weierstrass projective points are groups.
-instance (KnownNat p, WPCurve e q (PrimeField p))
-  => Group (WPPoint e q (PrimeField p)) where
+instance WPCurve e q r => Group (WPPoint e q r) where
 
   -- Addition formula add-1998-cmo-2
   add  p           (P  _  _  0) = p
@@ -373,7 +332,7 @@ instance (KnownNat p, WPCurve e q (PrimeField p))
     where
       xx  = x1 * x1
       zz  = z1 * z1
-      w   = a_ (witness :: WPPoint e q (PrimeField p)) * zz + 3 * xx
+      w   = a_ (witness :: WPPoint e q r) * zz + 3 * xx
       s   = 2 * y1 * z1
       ss  = s * s
       sss = s * ss
@@ -389,8 +348,8 @@ instance (KnownNat p, WPCurve e q (PrimeField p))
 
   def (P x y z) = (x * x + a * zz) * x == (y * y - b * zz) * z
     where
-      a  = a_ (witness :: WPPoint e q (PrimeField p))
-      b  = b_ (witness :: WPPoint e q (PrimeField p))
+      a  = a_ (witness :: WPPoint e q r)
+      b  = b_ (witness :: WPPoint e q r)
       zz = z * z
   {-# INLINE def #-}
 
@@ -406,52 +365,33 @@ instance (KnownNat p, WPCurve e q (PrimeField p))
   order = r_
   {-# INLINE order #-}
 
--- Weierstrass projective points are arbitrary.
-instance (KnownNat p, WPCurve e q (PrimeField p))
-  => Arbitrary (WPPoint e q (PrimeField p)) where
-  arbitrary = suchThatMap arbitrary pointX
-
 -- Weierstrass projective points are equatable.
-instance (KnownNat p, WPCurve e q (PrimeField p))
-  => Eq (WPPoint e q (PrimeField p)) where
+instance WPCurve e q r => Eq (WPPoint e q r) where
   P x1 y1 z1 == P x2 y2 z2 = z1 == 0 && z2 == 0
     || x1 * z2 == x2 * z1 && y1 * z2 == y2 * z1
 
 -- Weierstrass projective points are pretty.
-instance (KnownNat p, WPCurve e q (PrimeField p))
-  => Pretty (WPPoint e q (PrimeField p)) where
+instance WPCurve e q r => Pretty (WPPoint e q r) where
   pretty (P x y z) = pretty (x, y, z)
-
--- Weierstrass projective points are random.
-instance (KnownNat p, WPCurve e q (PrimeField p))
-  => Random (WPPoint e q (PrimeField p)) where
-  random g = let (x, g') = random g in case pointX x of
-    Just p -> (p, g')
-    _      -> random g'
-  {-# INLINE random #-}
-  randomR  = panic "not implemented."
 
 -------------------------------------------------------------------------------
 -- Coordinate transformations
 -------------------------------------------------------------------------------
 
 -- | Transform from affine coordinates to Jacobian coordinates.
-fromAtoJ :: (KnownNat p, WACurve e q (PrimeField p), WJCurve e q (PrimeField p))
-  => WAPoint e q (PrimeField p) -> WJPoint e q (PrimeField p)
+fromAtoJ :: (WACurve e q r, WJCurve e q r) => WAPoint e q r -> WJPoint e q r
 fromAtoJ (A x y) = J x y 1
 fromAtoJ _       = J 1 1 0
 {-# INLINE fromAtoJ #-}
 
 -- | Transform from affine coordinates to projective coordinates.
-fromAtoP :: (KnownNat p, WACurve e q (PrimeField p), WPCurve e q (PrimeField p))
-  => WAPoint e q (PrimeField p) -> WPPoint e q (PrimeField p)
+fromAtoP :: (WACurve e q r, WPCurve e q r) => WAPoint e q r -> WPPoint e q r
 fromAtoP (A x y) = P x y 1
 fromAtoP _       = P 0 1 0
 {-# INLINE fromAtoP #-}
 
 -- | Transform from Jacobian coordinates to affine coordinates.
-fromJtoA :: (KnownNat p, WACurve e q (PrimeField p), WJCurve e q (PrimeField p))
-  => WJPoint e q (PrimeField p) -> WAPoint e q (PrimeField p)
+fromJtoA :: (WACurve e q r, WJCurve e q r) => WJPoint e q r -> WAPoint e q r
 fromJtoA (J _ _ 0) = O
 fromJtoA (J x y z) = A (x / zz) (y / zz)
   where
@@ -459,8 +399,7 @@ fromJtoA (J x y z) = A (x / zz) (y / zz)
 {-# INLINE fromJtoA #-}
 
 -- | Transform from projective coordinates to affine coordinates.
-fromPtoA :: (KnownNat p, WACurve e q (PrimeField p), WPCurve e q (PrimeField p))
-  => WPPoint e q (PrimeField p) -> WAPoint e q (PrimeField p)
+fromPtoA :: (WACurve e q r, WPCurve e q r) => WPPoint e q r -> WAPoint e q r
 fromPtoA (P _ _ 0) = O
 fromPtoA (P x y z) = A (x / z) (y / z)
 {-# INLINE fromPtoA #-}

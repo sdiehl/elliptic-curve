@@ -16,10 +16,7 @@ module Curve.Edwards
 
 import Protolude
 
-import Control.Monad.Random (Random(..))
 import GaloisField (GaloisField(..))
-import PrimeField (PrimeField)
-import Test.Tasty.QuickCheck (Arbitrary(..), suchThatMap)
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
 import Curve (Curve(..), Form(..))
@@ -33,8 +30,7 @@ import Group (Group(..))
 type EPoint = Point 'Edwards
 
 -- | Edwards curves.
-class (GaloisField q, GaloisField r, Curve 'Edwards c e q r)
-  => ECurve c e q r where
+class (GaloisField q, GaloisField r, Curve 'Edwards c e q r) => ECurve c e q r where
   {-# MINIMAL a_, d_, h_, q_, r_, x_, y_ #-}
   a_ :: EPoint c e q r -> q       -- ^ Coefficient @A@.
   d_ :: EPoint c e q r -> q       -- ^ Coefficient @D@.
@@ -61,10 +57,9 @@ class ECurve 'Affine e q r => EACurve e q r where
   gA_ :: EAPoint e q r -- ^ Curve generator.
 
 -- Edwards affine curves are elliptic curves.
-instance (KnownNat p, EACurve e q (PrimeField p))
-  => Curve 'Edwards 'Affine e q (PrimeField p) where
+instance EACurve e q r => Curve 'Edwards 'Affine e q r where
 
-  data instance Point 'Edwards 'Affine e q (PrimeField p)
+  data instance Point 'Edwards 'Affine e q r
     = A q q -- ^ Affine point.
     deriving (Eq, Generic, NFData, Read, Show)
 
@@ -76,30 +71,29 @@ instance (KnownNat p, EACurve e q (PrimeField p))
 
   disc _ = d * (1 - d)
     where
-      d = d_ (witness :: EAPoint e q (PrimeField p))
+      d = d_ (witness :: EAPoint e q r)
   {-# INLINE disc #-}
 
   point x y = let p = A x y in if def p then Just p else Nothing
   {-# INLINE point #-}
 
-  pointX x = A x <$> yX (witness :: EAPoint e q (PrimeField p)) x
+  pointX x = A x <$> yX (witness :: EAPoint e q r) x
   {-# INLINE pointX #-}
 
   yX _ x = sr ((1 - a * xx) / (1 - d * xx))
     where
-      a  = a_ (witness :: EAPoint e q (PrimeField p))
-      d  = d_ (witness :: EAPoint e q (PrimeField p))
+      a  = a_ (witness :: EAPoint e q r)
+      d  = d_ (witness :: EAPoint e q r)
       xx = x * x
   {-# INLINE yX #-}
 
 -- Edwards affine points are groups.
-instance (KnownNat p, EACurve e q (PrimeField p))
-  => Group (EAPoint e q (PrimeField p)) where
+instance EACurve e q r => Group (EAPoint e q r) where
 
   add (A x1 y1) (A x2 y2) = A x3 y3
     where
-      a    = a_ (witness :: EAPoint e q (PrimeField p))
-      d    = d_ (witness :: EAPoint e q (PrimeField p))
+      a    = a_ (witness :: EAPoint e q r)
+      d    = d_ (witness :: EAPoint e q r)
       x1x2 = x1 * x2
       y1y2 = y1 * y2
       x1y2 = x1 * y2
@@ -114,8 +108,8 @@ instance (KnownNat p, EACurve e q (PrimeField p))
 
   def (A x y) = a * xx + yy == 1 + d * xx * yy
     where
-      a  = a_ (witness :: EAPoint e q (PrimeField p))
-      d  = d_ (witness :: EAPoint e q (PrimeField p))
+      a  = a_ (witness :: EAPoint e q r)
+      d  = d_ (witness :: EAPoint e q r)
       xx = x * x
       yy = y * y
   {-# INLINE def #-}
@@ -132,24 +126,9 @@ instance (KnownNat p, EACurve e q (PrimeField p))
   order = r_
   {-# INLINE order #-}
 
--- Edwards affine points are arbitrary.
-instance (KnownNat p, EACurve e q (PrimeField p))
-  => Arbitrary (EAPoint e q (PrimeField p)) where
-  arbitrary = suchThatMap arbitrary pointX
-
 -- Edwards affine points are pretty.
-instance (KnownNat p, EACurve e q (PrimeField p))
-  => Pretty (EAPoint e q (PrimeField p)) where
+instance EACurve e q r => Pretty (EAPoint e q r) where
   pretty (A x y) = pretty (x, y)
-
--- Edwards affine points are random.
-instance (KnownNat p, EACurve e q (PrimeField p)) 
-  => Random (EAPoint e q (PrimeField p)) where
-  random g = let (x, g') = random g in case pointX x of
-    Just p -> (p, g')
-    _      -> random g'
-  {-# INLINE random #-}
-  randomR = panic "not implemented."
 
 -------------------------------------------------------------------------------
 -- Projective coordinates
@@ -164,10 +143,9 @@ class ECurve 'Projective e q r => EPCurve e q r where
   gP_ :: EPPoint e q r -- ^ Curve generator.
 
 -- Edwards projective curves are elliptic curves.
-instance (KnownNat p, EPCurve e q (PrimeField p))
-  => Curve 'Edwards 'Projective e q (PrimeField p) where
+instance EPCurve e q r => Curve 'Edwards 'Projective e q r where
 
-  data instance Point 'Edwards 'Projective e q (PrimeField p)
+  data instance Point 'Edwards 'Projective e q r
     = P q q q -- ^ Projective point.
     deriving (Generic, NFData, Read, Show)
 
@@ -179,25 +157,24 @@ instance (KnownNat p, EPCurve e q (PrimeField p))
 
   disc _ = d * (1 - d)
     where
-      d = d_ (witness :: EPPoint e q (PrimeField p))
+      d = d_ (witness :: EPPoint e q r)
   {-# INLINE disc #-}
 
   point x y = let p = P x y 1 in if def p then Just p else Nothing
   {-# INLINE point #-}
 
-  pointX x = flip (P x) 1 <$> yX (witness :: EPPoint e q (PrimeField p)) x
+  pointX x = flip (P x) 1 <$> yX (witness :: EPPoint e q r) x
   {-# INLINE pointX #-}
 
   yX _ x = sr ((1 - a * xx) / (1 - d * xx))
     where
-      a  = a_ (witness :: EPPoint e q (PrimeField p))
-      d  = d_ (witness :: EPPoint e q (PrimeField p))
+      a  = a_ (witness :: EPPoint e q r)
+      d  = d_ (witness :: EPPoint e q r)
       xx = x * x
   {-# INLINE yX #-}
 
 -- Edwards projective points are groups.
-instance (KnownNat p, EPCurve e q (PrimeField p))
-  => Group (EPPoint e q (PrimeField p)) where
+instance EPCurve e q r => Group (EPPoint e q r) where
 
   -- Addition formula add-2008-bbjlp
   add (P x1 y1 z1) (P x2 y2 z2) = P x3 y3 z3
@@ -206,18 +183,18 @@ instance (KnownNat p, EPCurve e q (PrimeField p))
       b  = a * a
       c  = x1 * x2
       d  = y1 * y2
-      e  = d_ (witness :: EPPoint e q (PrimeField p)) * c * d
+      e  = d_ (witness :: EPPoint e q r) * c * d
       f  = b - e
       g  = b + e
       x3 = a * f * ((x1 + y1) * (x2 + y2) - c - d)
-      y3 = a * g * (d - a_ (witness :: EPPoint e q (PrimeField p)) * c)
+      y3 = a * g * (d - a_ (witness :: EPPoint e q r) * c)
       z3 = f * g
   {-# INLINE add #-}
 
   -- Doubling formula dbl-2008-bbjlp
   dbl (P x1 y1 z1) = P x3 y3 z3
     where
-      a  = a_ (witness :: EPPoint e q (PrimeField p))
+      a  = a_ (witness :: EPPoint e q r)
       xy = x1 + y1
       b  = xy * xy
       c  = x1 * x1
@@ -233,8 +210,8 @@ instance (KnownNat p, EPCurve e q (PrimeField p))
 
   def (P x y z) = (a * xx + yy - zz) * zz == d * xx * yy
     where
-      a  = a_ (witness :: EPPoint e q (PrimeField p))
-      d  = d_ (witness :: EPPoint e q (PrimeField p))
+      a  = a_ (witness :: EPPoint e q r)
+      d  = d_ (witness :: EPPoint e q r)
       xx = x * x
       yy = y * y
       zz = z * z
@@ -252,43 +229,25 @@ instance (KnownNat p, EPCurve e q (PrimeField p))
   order = r_
   {-# INLINE order #-}
 
--- Edwards projective points are arbitrary.
-instance (KnownNat p, EPCurve e q (PrimeField p))
-  => Arbitrary (EPPoint e q (PrimeField p)) where
-  arbitrary = suchThatMap arbitrary pointX
-
 -- Edwards projective points are equatable.
-instance (KnownNat p, EPCurve e q (PrimeField p))
-  => Eq (EPPoint e q (PrimeField p)) where
+instance EPCurve e q r => Eq (EPPoint e q r) where
   P x1 y1 z1 == P x2 y2 z2 = z1 == 0 && z2 == 0
     || x1 * z2 == x2 * z1 && y1 * z2 == y2 * z1
 
 -- Edwards projective points are pretty.
-instance (KnownNat p, EPCurve e q (PrimeField p))
-  => Pretty (EPPoint e q (PrimeField p)) where
+instance EPCurve e q r => Pretty (EPPoint e q r) where
   pretty (P x y z) = pretty (x, y, z)
-
--- Edwards projective points are random.
-instance (KnownNat p, EPCurve e q (PrimeField p))
-  => Random (EPPoint e q (PrimeField p)) where
-  random g = let (x, g') = random g in case pointX x of
-    Just p -> (p, g')
-    _      -> random g'
-  {-# INLINE random #-}
-  randomR = panic "not implemented."
 
 -------------------------------------------------------------------------------
 -- Coordinate transformations
 -------------------------------------------------------------------------------
 
 -- | Transform from affine coordinates to projective coordinates.
-fromAtoP :: (KnownNat p, EACurve e q (PrimeField p), EPCurve e q (PrimeField p))
-  => EAPoint e q (PrimeField p) -> EPPoint e q (PrimeField p)
+fromAtoP :: (EACurve e q r, EPCurve e q r) => EAPoint e q r -> EPPoint e q r
 fromAtoP (A x y) = P x y 1
 {-# INLINE fromAtoP #-}
 
 -- | Transform from projective coordinates to affine coordinates.
-fromPtoA :: (KnownNat p, EACurve e q (PrimeField p), EPCurve e q (PrimeField p))
-  => EPPoint e q (PrimeField p) -> EAPoint e q (PrimeField p)
+fromPtoA :: (EACurve e q r, EPCurve e q r) => EPPoint e q r -> EAPoint e q r
 fromPtoA (P x y z) = A (x / z) (y / z)
 {-# INLINE fromPtoA #-}

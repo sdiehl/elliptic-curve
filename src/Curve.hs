@@ -6,13 +6,15 @@ module Curve
 
 import Protolude
 
+import Control.Monad.Random (Random(..))
 import GaloisField (GaloisField)
 import PrimeField (PrimeField, toInt)
+import Test.Tasty.QuickCheck (Arbitrary(..), suchThatMap)
 
 import Group (Group(..))
 
 -------------------------------------------------------------------------------
--- Elliptic curve
+-- Types
 -------------------------------------------------------------------------------
 
 -- | Elliptic curves.
@@ -46,20 +48,36 @@ class (GaloisField q, GaloisField r, Group (Point f c e q r))
   -- | Y coordinate from X coordinate.
   yX :: Point f c e q r -> q -> Maybe q
 
--- Elliptic curves are monoids.
-instance Curve f c e q r => Monoid (Point f c e q r) where
-
-  mempty = id
-  {-# INLINE mempty #-}
-
--- Elliptic curves are semigroups.
-instance Curve f c e q r => Semigroup (Point f c e q r) where
-
-  p <> q = if p == q then dbl p else add p q
-  {-# INLINE (<>) #-}
-
 -- | Curve forms.
 data Form = Binary
           | Edwards
           | Montgomery
           | Weierstrass
+
+-------------------------------------------------------------------------------
+-- Instances
+-------------------------------------------------------------------------------
+
+-- Elliptic curve points are monoids.
+instance Curve f c e q r => Monoid (Point f c e q r) where
+
+  mempty = id
+  {-# INLINE mempty #-}
+
+-- Elliptic curve points are semigroups.
+instance Curve f c e q r => Semigroup (Point f c e q r) where
+
+  p <> q = if p == q then dbl p else add p q
+  {-# INLINE (<>) #-}
+
+-- Elliptic curve points are arbitrary.
+instance Curve f c e q r => Arbitrary (Point f c e q r) where
+  arbitrary = suchThatMap arbitrary pointX
+
+-- Elliptic curve points are random.
+instance Curve f c e q r => Random (Point f c e q r) where
+  random g = let (x, g') = random g in case pointX x of
+    Just p -> (p, g')
+    _      -> random g'
+  {-# INLINE random #-}
+  randomR = panic "not implemented."

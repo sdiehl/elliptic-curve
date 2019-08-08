@@ -75,8 +75,7 @@ curveParameters g h q r = testGroup "Curve parameters"
     hasse h r (GaloisField.order (witness :: q)) @?= True
   ]
 
-test :: Curve f c e q r
-  => TestName -> Point f c e q r -> Integer -> Integer -> Integer -> TestTree
+test :: Curve f c e q r => TestName -> Point f c e q r -> Integer -> Integer -> Integer -> TestTree
 test s g h q r = testGroup s [groupAxioms g, curveParameters g h q r]
 
 fieldParameters :: forall k . FGroup k
@@ -96,6 +95,5 @@ fieldParameters g q r = testGroup "Group parameters"
     mul' g r @?= mempty
   ]
 
-test' :: FGroup k
-  => TestName -> Element k -> Integer -> Integer -> TestTree
+test' :: FGroup k => TestName -> Element k -> Integer -> Integer -> TestTree
 test' s g q r = testGroup s [groupAxioms g, fieldParameters g q r]
