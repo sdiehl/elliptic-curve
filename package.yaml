@@ -1,5 +1,5 @@
 name:        elliptic-curve
-version:     0.1.0
+version:     0.2.0
 synopsis:    Elliptic curve library
 description: An extensible library of elliptic curves used in cryptography research
 maintainer:  Adjoint Inc (info@adjoint.io)
@@ -136,6 +136,28 @@ library:
 
 internal-libraries:
   elliptic-curve-generate:
+    other-modules:
+      - Generate.Binary.Curve
+      - Generate.Binary.Generate
+      - Generate.Binary.Parameters
+      - Generate.Binary.Types
+      - Generate.Curve
+      - Generate.Edwards.Curve
+      - Generate.Edwards.Generate
+      - Generate.Edwards.Parameters
+      - Generate.Edwards.Types
+      - Generate.Generate
+      - Generate.Montgomery.Curve
+      - Generate.Montgomery.Generate
+      - Generate.Montgomery.Parameters
+      - Generate.Montgomery.Types
+      - Generate.Pretty
+      - Generate.Types
+      - Generate.Weierstrass.Curve
+      - Generate.Weierstrass.Generate
+      - Generate.Weierstrass.Parameters
+      - Generate.Weierstrass.Types
+      - Main
     source-dirs:
       - generate
 
