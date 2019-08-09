@@ -55,8 +55,7 @@ class ECurve 'Affine e q r => EACurve e q r where
 -- Edwards affine curves are elliptic curves.
 instance EACurve e q r => Curve 'Edwards 'Affine e q r where
 
-  data instance Point 'Edwards 'Affine e q r
-    = A q q -- ^ Affine point.
+  data instance Point 'Edwards 'Affine e q r = A q q -- ^ Affine point.
     deriving (Eq, Generic, NFData, Read, Show)
 
   char = q_
@@ -148,8 +147,7 @@ class ECurve 'Projective e q r => EPCurve e q r where
 -- Edwards projective curves are elliptic curves.
 instance EPCurve e q r => Curve 'Edwards 'Projective e q r where
 
-  data instance Point 'Edwards 'Projective e q r
-    = P q q q -- ^ Projective point.
+  data instance Point 'Edwards 'Projective e q r = P q q q -- ^ Projective point.
     deriving (Generic, NFData, Read, Show)
 
   char = q_
@@ -188,7 +186,7 @@ instance EPCurve e q r => Group (EPPoint e q r) where
   -- Addition formula add-2008-bbjlp
   add (P x1 y1 z1) (P x2 y2 z2) = P x3 y3 z3
     where
-      a' = d_ (witness :: EPPoint e q r)
+      a' = a_ (witness :: EPPoint e q r)
       d' = d_ (witness :: EPPoint e q r)
       a  = z1 * z2
       b  = a * a

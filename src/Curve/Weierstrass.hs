@@ -57,9 +57,8 @@ class WCurve 'Affine e q r => WACurve e q r where
 -- Weierstrass affine curves are elliptic curves.
 instance WACurve e q r => Curve 'Weierstrass 'Affine e q r where
 
-  data instance Point 'Weierstrass 'Affine e q r
-    = A q q -- ^ Affine point.
-    | O     -- ^ Infinite point.
+  data instance Point 'Weierstrass 'Affine e q r = A q q -- ^ Affine point.
+                                                 | O     -- ^ Infinite point.
     deriving (Eq, Generic, NFData, Read, Show)
 
   char = q_
@@ -158,8 +157,7 @@ class WCurve 'Jacobian e q r => WJCurve e q r where
 -- Weierstrass Jacobian curves are elliptic curves.
 instance WJCurve e q r => Curve 'Weierstrass 'Jacobian e q r where
 
-  data instance Point 'Weierstrass 'Jacobian e q r
-    = J q q q -- ^ Jacobian point.
+  data instance Point 'Weierstrass 'Jacobian e q r = J q q q -- ^ Jacobian point.
     deriving (Generic, NFData, Read, Show)
 
   char = q_
@@ -287,8 +285,7 @@ class WCurve 'Projective e q r => WPCurve e q r where
 -- Weierstrass projective curves are elliptic curves.
 instance WPCurve e q r => Curve 'Weierstrass 'Projective e q r where
 
-  data instance Point 'Weierstrass 'Projective e q r
-    = P q q q -- ^ Projective point.
+  data instance Point 'Weierstrass 'Projective e q r = P q q q -- ^ Projective point.
     deriving (Generic, NFData, Read, Show)
 
   char = q_

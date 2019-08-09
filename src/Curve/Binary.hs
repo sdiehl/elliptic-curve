@@ -55,9 +55,8 @@ class BCurve 'Affine e q r => BACurve e q r where
 -- Binary affine curves are elliptic curves.
 instance BACurve e q r => Curve 'Binary 'Affine e q r where
 
-  data instance Point 'Binary 'Affine e q r
-    = A q q -- ^ Affine point.
-    | O     -- ^ Infinite point.
+  data instance Point 'Binary 'Affine e q r = A q q -- ^ Affine point.
+                                            | O     -- ^ Infinite point.
     deriving (Eq, Generic, NFData, Read, Show)
 
   char = const 2
@@ -157,8 +156,7 @@ class BCurve 'Projective e q r => BPCurve e q r where
 -- Binary projective curves are elliptic curves.
 instance BPCurve e q r => Curve 'Binary 'Projective e q r where
 
-  data instance Point 'Binary 'Projective e q r
-    = P q q q -- ^ Projective point.
+  data instance Point 'Binary 'Projective e q r = P q q q -- ^ Projective point.
     deriving (Generic, NFData, Read, Show)
 
   char = const 2
