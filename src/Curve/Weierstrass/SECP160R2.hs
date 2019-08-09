@@ -22,10 +22,6 @@ module Curve.Weierstrass.SECP160R2
   , _r
   , _x
   , _y
-  , fromAtoJ
-  , fromAtoP
-  , fromJtoA
-  , fromPtoA
   , gA
   , gJ
   , gP

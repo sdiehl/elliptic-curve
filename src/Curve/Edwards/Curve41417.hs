@@ -19,8 +19,6 @@ module Curve.Edwards.Curve41417
   , _r
   , _x
   , _y
-  , fromAtoP
-  , fromPtoA
   , gA
   , gP
   ) where

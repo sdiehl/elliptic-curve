@@ -22,10 +22,6 @@ module Curve.Weierstrass.BN254A
   , _r
   , _x
   , _y
-  , fromAtoJ
-  , fromAtoP
-  , fromJtoA
-  , fromPtoA
   , gA
   , gJ
   , gP

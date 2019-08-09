@@ -22,10 +22,6 @@ module Curve.Weierstrass.SECP192K1
   , _r
   , _x
   , _y
-  , fromAtoJ
-  , fromAtoP
-  , fromJtoA
-  , fromPtoA
   , gA
   , gJ
   , gP

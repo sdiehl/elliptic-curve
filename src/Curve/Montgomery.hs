@@ -1,3 +1,5 @@
+{-# OPTIONS -fno-warn-orphans #-}
+
 module Curve.Montgomery
   ( Coordinates(..)
   , Curve(..)
@@ -15,7 +17,7 @@ import Protolude
 import GaloisField (GaloisField(..))
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
-import Curve (Curve(..), Form(..))
+import Curve (Coordinates(..), Curve(..), Form(..))
 import Group (Group(..))
 
 -------------------------------------------------------------------------------
@@ -36,9 +38,6 @@ class (GaloisField q, GaloisField r, Curve 'Montgomery c e q r) => MCurve c e q 
   x_ :: MPoint c e q r -> q       -- ^ Coordinate @X@.
   y_ :: MPoint c e q r -> q       -- ^ Coordinate @Y@.
 
--- | Montgomery coordinates.
-data Coordinates = Affine
-
 -------------------------------------------------------------------------------
 -- Affine coordinates
 -------------------------------------------------------------------------------
@@ -54,9 +53,8 @@ class MCurve 'Affine e q r => MACurve e q r where
 -- Montgomery affine curves are elliptic curves.
 instance MACurve e q r => Curve 'Montgomery 'Affine e q r where
 
-  data instance Point 'Montgomery 'Affine e q r
-    = A q q -- ^ Affine point.
-    | O     -- ^ Infinite point.
+  data instance Point 'Montgomery 'Affine e q r = A q q -- ^ Affine point.
+                                                | O     -- ^ Infinite point.
     deriving (Eq, Generic, NFData, Read, Show)
 
   char = q_
@@ -71,11 +69,17 @@ instance MACurve e q r => Curve 'Montgomery 'Affine e q r where
       b = b_ (witness :: MAPoint e q r)
   {-# INLINE disc #-}
 
+  fromA = identity
+  {-# INLINE fromA #-}
+
   point x y = let p = A x y in if def p then Just p else Nothing
   {-# INLINE point #-}
 
   pointX x = A x <$> yX (witness :: MAPoint e q r) x
   {-# INLINE pointX #-}
+
+  toA = identity
+  {-# INLINE toA #-}
 
   yX _ x = sr ((((x + a) * x) + 1) * x / b)
     where

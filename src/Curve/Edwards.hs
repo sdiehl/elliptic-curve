@@ -1,3 +1,5 @@
+{-# OPTIONS -fno-warn-orphans #-}
+
 module Curve.Edwards
   ( Coordinates(..)
   , Curve(..)
@@ -10,8 +12,6 @@ module Curve.Edwards
   , Form(..)
   , Group(..)
   , Point(..)
-  , fromAtoP
-  , fromPtoA
   ) where
 
 import Protolude
@@ -19,7 +19,7 @@ import Protolude
 import GaloisField (GaloisField(..))
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
-import Curve (Curve(..), Form(..))
+import Curve (Coordinates(..), Curve(..), Form(..))
 import Group (Group(..))
 
 -------------------------------------------------------------------------------
@@ -39,10 +39,6 @@ class (GaloisField q, GaloisField r, Curve 'Edwards c e q r) => ECurve c e q r w
   r_ :: EPoint c e q r -> Integer -- ^ Curve order.
   x_ :: EPoint c e q r -> q       -- ^ Coordinate @X@.
   y_ :: EPoint c e q r -> q       -- ^ Coordinate @Y@.
-
--- | Edwards coordinates.
-data Coordinates = Affine
-                 | Projective
 
 -------------------------------------------------------------------------------
 -- Affine coordinates
@@ -74,11 +70,17 @@ instance EACurve e q r => Curve 'Edwards 'Affine e q r where
       d = d_ (witness :: EAPoint e q r)
   {-# INLINE disc #-}
 
+  fromA = identity
+  {-# INLINE fromA #-}
+
   point x y = let p = A x y in if def p then Just p else Nothing
   {-# INLINE point #-}
 
   pointX x = A x <$> yX (witness :: EAPoint e q r) x
   {-# INLINE pointX #-}
+
+  toA = identity
+  {-# INLINE toA #-}
 
   yX _ x = sr ((1 - a * xx) / (1 - d * xx))
     where
@@ -161,11 +163,17 @@ instance EPCurve e q r => Curve 'Edwards 'Projective e q r where
       d = d_ (witness :: EPPoint e q r)
   {-# INLINE disc #-}
 
+  fromA (A x y) = P x y 1
+  {-# INLINE fromA #-}
+
   point x y = let p = P x y 1 in if def p then Just p else Nothing
   {-# INLINE point #-}
 
   pointX x = flip (P x) 1 <$> yX (witness :: EPPoint e q r) x
   {-# INLINE pointX #-}
+
+  toA (P x y z) = A (x / z) (y / z)
+  {-# INLINE toA #-}
 
   yX _ x = sr ((1 - a * xx) / (1 - d * xx))
     where
@@ -242,17 +250,3 @@ instance EPCurve e q r => Eq (EPPoint e q r) where
 instance EPCurve e q r => Pretty (EPPoint e q r) where
 
   pretty (P x y z) = pretty (x, y, z)
-
--------------------------------------------------------------------------------
--- Coordinate transformations
--------------------------------------------------------------------------------
-
--- | Transform from affine coordinates to projective coordinates.
-fromAtoP :: (EACurve e q r, EPCurve e q r) => EAPoint e q r -> EPPoint e q r
-fromAtoP (A x y) = P x y 1
-{-# INLINE fromAtoP #-}
-
--- | Transform from projective coordinates to affine coordinates.
-fromPtoA :: (EACurve e q r, EPCurve e q r) => EPPoint e q r -> EAPoint e q r
-fromPtoA (P x y z) = A (x / z) (y / z)
-{-# INLINE fromPtoA #-}

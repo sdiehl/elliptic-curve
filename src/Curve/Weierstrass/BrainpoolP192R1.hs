@@ -22,10 +22,6 @@ module Curve.Weierstrass.BrainpoolP192R1
   , _r
   , _x
   , _y
-  , fromAtoJ
-  , fromAtoP
-  , fromJtoA
-  , fromPtoA
   , gA
   , gJ
   , gP

@@ -19,8 +19,6 @@ module Curve.Binary.SECT113R2
   , _r
   , _x
   , _y
-  , fromAtoP
-  , fromPtoA
   , gA
   , gP
   ) where

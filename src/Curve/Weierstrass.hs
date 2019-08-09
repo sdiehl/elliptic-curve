@@ -1,3 +1,5 @@
+{-# OPTIONS -fno-warn-orphans #-}
+
 module Curve.Weierstrass
   ( Coordinates(..)
   , Curve(..)
@@ -12,10 +14,6 @@ module Curve.Weierstrass
   , WJPoint
   , WPCurve(..)
   , WPPoint
-  , fromAtoJ
-  , fromAtoP
-  , fromJtoA
-  , fromPtoA
   ) where
 
 import Protolude
@@ -23,7 +21,7 @@ import Protolude
 import GaloisField (GaloisField(..))
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
-import Curve (Curve(..), Form(..))
+import Curve (Coordinates(..), Curve(..), Form(..))
 import Group (Group(..))
 
 -------------------------------------------------------------------------------
@@ -43,11 +41,6 @@ class (GaloisField q, GaloisField r, Curve 'Weierstrass c e q r) => WCurve c e q
   r_ :: WPoint c e q r -> Integer -- ^ Curve order.
   x_ :: WPoint c e q r -> q       -- ^ Coordinate @X@.
   y_ :: WPoint c e q r -> q       -- ^ Coordinate @Y@.
-
--- | Weierstrass coordinates.
-data Coordinates = Affine
-                 | Jacobian
-                 | Projective
 
 -------------------------------------------------------------------------------
 -- Affine coordinates
@@ -81,11 +74,17 @@ instance WACurve e q r => Curve 'Weierstrass 'Affine e q r where
       b = b_ (witness :: WAPoint e q r)
   {-# INLINE disc #-}
 
+  fromA = identity
+  {-# INLINE fromA #-}
+
   point x y = let p = A x y in if def p then Just p else Nothing
   {-# INLINE point #-}
 
   pointX x = A x <$> yX (witness :: WAPoint e q r) x
   {-# INLINE pointX #-}
+
+  toA = identity
+  {-# INLINE toA #-}
 
   yX _ x = sr (((x * x + a) * x) + b)
     where
@@ -175,11 +174,19 @@ instance WJCurve e q r => Curve 'Weierstrass 'Jacobian e q r where
       b = b_ (witness :: WJPoint e q r)
   {-# INLINE disc #-}
 
+  fromA (A x y) = J x y 1
+  fromA _       = J 1 1 0
+  {-# INLINE fromA #-}
+
   point x y = let p = J x y 1 in if def p then Just p else Nothing
   {-# INLINE point #-}
 
   pointX x = flip (J x) 1 <$> yX (witness :: WJPoint e q r) x
   {-# INLINE pointX #-}
+
+  toA (J _ _ 0) = O
+  toA (J x y z) = let zz = z * z in A (x / zz) (y / (z * zz))
+  {-# INLINE toA #-}
 
   yX _ x = sr (((x * x + a) * x) + b)
     where
@@ -296,11 +303,19 @@ instance WPCurve e q r => Curve 'Weierstrass 'Projective e q r where
       b = b_ (witness :: WPPoint e q r)
   {-# INLINE disc #-}
 
+  fromA (A x y) = P x y 1
+  fromA _       = P 0 1 0
+  {-# INLINE fromA #-}
+
   point x y = let p = P x y 1 in if def p then Just p else Nothing
   {-# INLINE point #-}
 
   pointX x = flip (P x) 1 <$> yX (witness :: WPPoint e q r) x
   {-# INLINE pointX #-}
+
+  toA (P _ _ 0) = O
+  toA (P x y z) = A (x / z) (y / z)
+  {-# INLINE toA #-}
 
   yX _ x = sr (((x * x + a) * x) + b)
     where
@@ -380,33 +395,3 @@ instance WPCurve e q r => Eq (WPPoint e q r) where
 instance WPCurve e q r => Pretty (WPPoint e q r) where
 
   pretty (P x y z) = pretty (x, y, z)
-
--------------------------------------------------------------------------------
--- Coordinate transformations
--------------------------------------------------------------------------------
-
--- | Transform from affine coordinates to Jacobian coordinates.
-fromAtoJ :: (WACurve e q r, WJCurve e q r) => WAPoint e q r -> WJPoint e q r
-fromAtoJ (A x y) = J x y 1
-fromAtoJ _       = J 1 1 0
-{-# INLINE fromAtoJ #-}
-
--- | Transform from affine coordinates to projective coordinates.
-fromAtoP :: (WACurve e q r, WPCurve e q r) => WAPoint e q r -> WPPoint e q r
-fromAtoP (A x y) = P x y 1
-fromAtoP _       = P 0 1 0
-{-# INLINE fromAtoP #-}
-
--- | Transform from Jacobian coordinates to affine coordinates.
-fromJtoA :: (WACurve e q r, WJCurve e q r) => WJPoint e q r -> WAPoint e q r
-fromJtoA (J _ _ 0) = O
-fromJtoA (J x y z) = A (x / zz) (y / (z * zz))
-  where
-    zz = z * z
-{-# INLINE fromJtoA #-}
-
--- | Transform from projective coordinates to affine coordinates.
-fromPtoA :: (WACurve e q r, WPCurve e q r) => WPPoint e q r -> WAPoint e q r
-fromPtoA (P _ _ 0) = O
-fromPtoA (P x y z) = A (x / z) (y / z)
-{-# INLINE fromPtoA #-}

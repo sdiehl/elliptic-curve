@@ -1,3 +1,5 @@
+{-# OPTIONS -fno-warn-orphans #-}
+
 module Curve.Binary
   ( BCurve(..)
   , BPoint
@@ -10,8 +12,6 @@ module Curve.Binary
   , Form(..)
   , Group(..)
   , Point(..)
-  , fromAtoP
-  , fromPtoA
   ) where
 
 import Protolude
@@ -19,7 +19,7 @@ import Protolude
 import GaloisField (GaloisField(..))
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
-import Curve (Curve(..), Form(..))
+import Curve (Coordinates(..), Curve(..), Form(..))
 import Group (Group(..))
 
 -------------------------------------------------------------------------------
@@ -39,10 +39,6 @@ class (GaloisField q, GaloisField r, Curve 'Binary c e q r) => BCurve c e q r wh
   r_ :: BPoint c e q r -> Integer -- ^ Curve order.
   x_ :: BPoint c e q r -> q       -- ^ Coordinate @X@.
   y_ :: BPoint c e q r -> q       -- ^ Coordinate @Y@.
-
--- | Binary coordinates.
-data Coordinates = Affine
-                 | Projective
 
 -------------------------------------------------------------------------------
 -- Affine coordinates
@@ -73,11 +69,17 @@ instance BACurve e q r => Curve 'Binary 'Affine e q r where
   disc _ = b_ (witness :: BAPoint e q r)
   {-# INLINE disc #-}
 
+  fromA = identity
+  {-# INLINE fromA #-}
+
   point x y = let p = A x y in if def p then Just p else Nothing
   {-# INLINE point #-}
 
   pointX x = A x <$> yX (witness :: BAPoint e q r) x
   {-# INLINE pointX #-}
+
+  toA = identity
+  {-# INLINE toA #-}
 
   yX _ x = quad 1 x ((x + a) * x * x + b)
     where
@@ -168,11 +170,19 @@ instance BPCurve e q r => Curve 'Binary 'Projective e q r where
   disc _ = b_ (witness :: BPPoint e q r)
   {-# INLINE disc #-}
 
+  fromA (A x y) = P x y 1
+  fromA _       = P 0 1 0
+  {-# INLINE fromA #-}
+
   point x y = let p = P x y 1 in if def p then Just p else Nothing
   {-# INLINE point #-}
 
   pointX x = flip (P x) 1 <$> yX (witness :: BPPoint e q r) x
   {-# INLINE pointX #-}
+
+  toA (P _ _ 0) = O
+  toA (P x y z) = A (x / z) (y / z)
+  {-# INLINE toA #-}
 
   yX _ x = quad 1 x ((x + a) * x * x + b)
     where
@@ -248,19 +258,3 @@ instance BPCurve e q r => Eq (BPPoint e q r) where
 instance BPCurve e q r => Pretty (BPPoint e q r) where
 
   pretty (P x y z) = pretty (x, y, z)
-
--------------------------------------------------------------------------------
--- Coordinate transformations
--------------------------------------------------------------------------------
-
--- | Transform from affine coordinates to projective coordinates.
-fromAtoP :: (BACurve e q r, BPCurve e q r) => BAPoint e q r -> BPPoint e q r
-fromAtoP (A x y) = P x y 1
-fromAtoP _       = P 0 1 0
-{-# INLINE fromAtoP #-}
-
--- | Transform from projective coordinates to affine coordinates.
-fromPtoA :: (BACurve e q r, BPCurve e q r) => BPPoint e q r -> BAPoint e q r
-fromPtoA (P _ _ 0) = O
-fromPtoA (P x y z) = A (x / z) (y / z)
-{-# INLINE fromPtoA #-}
