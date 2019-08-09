@@ -1,74 +1,92 @@
 module Curve.Montgomery.Curve25519
-  ( Fp
-  , P
-  , _a
-  , _b
-  , _g
-  , _h
-  , _n
-  , _p
+  ( module Curve.Montgomery
+  , module Curve.Montgomery.Curve25519
   ) where
 
 import Protolude
 
-import PrimeField (PrimeField)
+import PrimeField
 
-import Curve.Montgomery (Point(..), MCurve(..), MPoint)
+import Curve.Montgomery
 
 -------------------------------------------------------------------------------
 -- Types
 -------------------------------------------------------------------------------
 
--- | Curve25519 curve
+-- | Curve25519 curve.
 data Curve25519
 
--- | Field of Curve25519 curve
-type Fp = PrimeField 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffed
+-- | Field of points of Curve25519 curve.
+type Fq = PrimeField 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffed
 
--- | Curve25519 curve is a Montgomery curve
-instance MCurve Curve25519 Fp where
+-- | Field of coefficients of Curve25519 curve.
+type Fr = PrimeField 0x1000000000000000000000000000000014def9dea2f79cd65812631a5cf5d3ed
+
+-- | Curve25519 curve is a Montgomery curve.
+instance Curve 'Montgomery c Curve25519 Fq Fr => MCurve c Curve25519 Fq Fr where
   a_ = const _a
-  {-# INLINE a_ #-}
+  {-# INLINABLE a_ #-}
   b_ = const _b
-  {-# INLINE b_ #-}
-  g_ = _g
-  {-# INLINE g_ #-}
+  {-# INLINABLE b_ #-}
+  h_ = const _h
+  {-# INLINABLE h_ #-}
+  q_ = const _q
+  {-# INLINABLE q_ #-}
+  r_ = const _r
+  {-# INLINABLE r_ #-}
+  x_ = const _x
+  {-# INLINABLE x_ #-}
+  y_ = const _y
+  {-# INLINABLE y_ #-}
 
--- | Point of Curve25519 curve
-type P = MPoint Curve25519 Fp
+-- | Affine Curve25519 curve point.
+type PA = MAPoint Curve25519 Fq Fr
+
+-- | Affine Curve25519 curve is a Montgomery affine curve.
+instance MACurve Curve25519 Fq Fr where
+  gA_ = gA
+  {-# INLINABLE gA_ #-}
 
 -------------------------------------------------------------------------------
 -- Parameters
 -------------------------------------------------------------------------------
 
--- | Coefficient @A@ of Curve25519 curve
-_a :: Fp
+-- | Coefficient @A@ of Curve25519 curve.
+_a :: Fq
 _a = 0x76d06
-{-# INLINE _a #-}
+{-# INLINABLE _a #-}
 
--- | Coefficient @B@ of Curve25519 curve
-_b :: Fp
-_b = 1
-{-# INLINE _b #-}
+-- | Coefficient @B@ of Curve25519 curve.
+_b :: Fq
+_b = 0x1
+{-# INLINABLE _b #-}
 
--- | Generator of Curve25519 curve
-_g :: P
-_g = A
-     9
-     0x20ae19a1b8a086b4e01edd2c7748d14c923d4d7e6d7c61b229e9c5a27eced3d9
-{-# INLINE _g #-}
-
--- | Cofactor of Curve25519 curve
+-- | Cofactor of Curve25519 curve.
 _h :: Integer
-_h = 8
-{-# INLINE _h #-}
+_h = 0x8
+{-# INLINABLE _h #-}
 
--- | Order of Curve25519 curve
-_n :: Integer
-_n = 0x1000000000000000000000000000000014def9dea2f79cd65812631a5cf5d3ed
-{-# INLINE _n #-}
+-- | Characteristic of Curve25519 curve.
+_q :: Integer
+_q = 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffed
+{-# INLINABLE _q #-}
 
--- | Characteristic of Curve25519 curve
-_p :: Integer
-_p = 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffed
-{-# INLINE _p #-}
+-- | Order of Curve25519 curve.
+_r :: Integer
+_r = 0x1000000000000000000000000000000014def9dea2f79cd65812631a5cf5d3ed
+{-# INLINABLE _r #-}
+
+-- | Coordinate @X@ of Curve25519 curve.
+_x :: Fq
+_x = 0x9
+{-# INLINABLE _x #-}
+
+-- | Coordinate @Y@ of Curve25519 curve.
+_y :: Fq
+_y = 0x20ae19a1b8a086b4e01edd2c7748d14c923d4d7e6d7c61b229e9c5a27eced3d9
+{-# INLINABLE _y #-}
+
+-- | Generator of affine Curve25519 curve.
+gA :: PA
+gA = A _x _y
+{-# INLINABLE gA #-}

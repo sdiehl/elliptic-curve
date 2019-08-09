@@ -1,14 +1,13 @@
 module WeierstrassTests where
 
-import Test.Tasty
+import Protolude
 
-import CurveTests
 import qualified Curve.Weierstrass.Anomalous       as Anomalous
 import qualified Curve.Weierstrass.ANSSIFRP256V1   as ANSSIFRP256V1
-import qualified Curve.Weierstrass.BLS12_381       as BLS12_381
-import qualified Curve.Weierstrass.BLS12_381T      as BLS12_381T
-import qualified Curve.Weierstrass.BLS48_581       as BLS48_581
-import qualified Curve.Weierstrass.BLS48_581T      as BLS48_581T
+import qualified Curve.Weierstrass.BLS12381        as BLS12381
+import qualified Curve.Weierstrass.BLS12381T       as BLS12381T
+import qualified Curve.Weierstrass.BLS48581        as BLS48581
+import qualified Curve.Weierstrass.BLS48581T       as BLS48581T
 import qualified Curve.Weierstrass.BN224           as BN224
 import qualified Curve.Weierstrass.BN254           as BN254
 import qualified Curve.Weierstrass.BN254T          as BN254T
@@ -50,54 +49,64 @@ import qualified Curve.Weierstrass.SECP256K1       as SECP256K1
 import qualified Curve.Weierstrass.SECP256R1       as SECP256R1
 import qualified Curve.Weierstrass.SECP384R1       as SECP384R1
 import qualified Curve.Weierstrass.SECP521R1       as SECP521R1
+import Test.Tasty
+import Test.Tasty.QuickCheck
+
+import GroupTests
 
 testWeierstrass :: TestTree
 testWeierstrass = testGroup "Weierstrass"
-  [ test        "Anomalous"       Anomalous._g       Anomalous._h       Anomalous._n       Anomalous._p
-  , test   "ANSSI-FRP256V1"   ANSSIFRP256V1._g   ANSSIFRP256V1._h   ANSSIFRP256V1._n   ANSSIFRP256V1._p
-  , test        "BLS12-381"       BLS12_381._g       BLS12_381._h       BLS12_381._n       BLS12_381._p
-  , test       "BLS12-381T"      BLS12_381T._g      BLS12_381T._h      BLS12_381T._n      BLS12_381T._p
-  , test        "BLS48-581"       BLS48_581._g       BLS48_581._h       BLS48_581._n       BLS48_581._p
-  , test       "BLS48-581T"      BLS48_581T._g      BLS48_581T._h      BLS48_581T._n      BLS48_581T._p
-  , test            "BN224"           BN224._g           BN224._h           BN224._n           BN224._p
-  , test            "BN254"           BN254._g           BN254._h           BN254._n           BN254._p
-  , test           "BN254T"          BN254T._g          BN254T._h          BN254T._n          BN254T._p
-  , test           "BN254A"          BN254A._g          BN254A._h          BN254A._n          BN254A._p
-  , test          "BN254AT"         BN254AT._g         BN254AT._h         BN254AT._n         BN254AT._p
-  , test           "BN254B"          BN254B._g          BN254B._h          BN254B._n          BN254B._p
-  , test          "BN254BT"         BN254BT._g         BN254BT._h         BN254BT._n         BN254BT._p
-  , test            "BN256"           BN256._g           BN256._h           BN256._n           BN256._p
-  , test            "BN384"           BN384._g           BN384._h           BN384._n           BN384._p
-  , test            "BN462"           BN462._g           BN462._h           BN462._n           BN462._p
-  , test           "BN462T"          BN462T._g          BN462T._h          BN462T._n          BN462T._p
-  , test            "BN512"           BN512._g           BN512._h           BN512._n           BN512._p
-  , test "Brainpool-P160R1" BrainpoolP160R1._g BrainpoolP160R1._h BrainpoolP160R1._n BrainpoolP160R1._p
-  , test "Brainpool-P160T1" BrainpoolP160T1._g BrainpoolP160T1._h BrainpoolP160T1._n BrainpoolP160T1._p
-  , test "Brainpool-P192R1" BrainpoolP192R1._g BrainpoolP192R1._h BrainpoolP192R1._n BrainpoolP192R1._p
-  , test "Brainpool-P192T1" BrainpoolP192T1._g BrainpoolP192T1._h BrainpoolP192T1._n BrainpoolP192T1._p
-  , test "Brainpool-P224R1" BrainpoolP224R1._g BrainpoolP224R1._h BrainpoolP224R1._n BrainpoolP224R1._p
-  , test "Brainpool-P224T1" BrainpoolP224T1._g BrainpoolP224T1._h BrainpoolP224T1._n BrainpoolP224T1._p
-  , test "Brainpool-P256R1" BrainpoolP256R1._g BrainpoolP256R1._h BrainpoolP256R1._n BrainpoolP256R1._p
-  , test "Brainpool-P256T1" BrainpoolP256T1._g BrainpoolP256T1._h BrainpoolP256T1._n BrainpoolP256T1._p
-  , test "Brainpool-P320R1" BrainpoolP320R1._g BrainpoolP320R1._h BrainpoolP320R1._n BrainpoolP320R1._p
-  , test "Brainpool-P320T1" BrainpoolP320T1._g BrainpoolP320T1._h BrainpoolP320T1._n BrainpoolP320T1._p
-  , test "Brainpool-P384R1" BrainpoolP384R1._g BrainpoolP384R1._h BrainpoolP384R1._n BrainpoolP384R1._p
-  , test "Brainpool-P384T1" BrainpoolP384T1._g BrainpoolP384T1._h BrainpoolP384T1._n BrainpoolP384T1._p
-  , test "Brainpool-P512R1" BrainpoolP512R1._g BrainpoolP512R1._h BrainpoolP512R1._n BrainpoolP512R1._p
-  , test "Brainpool-P512T1" BrainpoolP512T1._g BrainpoolP512T1._h BrainpoolP512T1._n BrainpoolP512T1._p
-  , test        "SECP112R1"       SECP112R1._g       SECP112R1._h       SECP112R1._n       SECP112R1._p
-  , test        "SECP112R2"       SECP112R2._g       SECP112R2._h       SECP112R2._n       SECP112R2._p
-  , test        "SECP128R1"       SECP128R1._g       SECP128R1._h       SECP128R1._n       SECP128R1._p
-  , test        "SECP128R2"       SECP128R2._g       SECP128R2._h       SECP128R2._n       SECP128R2._p
-  , test        "SECP160K1"       SECP160K1._g       SECP160K1._h       SECP160K1._n       SECP160K1._p
-  , test        "SECP160R1"       SECP160R1._g       SECP160R1._h       SECP160R1._n       SECP160R1._p
-  , test        "SECP160R2"       SECP160R2._g       SECP160R2._h       SECP160R2._n       SECP160R2._p
-  , test        "SECP192K1"       SECP192K1._g       SECP192K1._h       SECP192K1._n       SECP192K1._p
-  , test        "SECP192R1"       SECP192R1._g       SECP192R1._h       SECP192R1._n       SECP192R1._p
-  , test        "SECP224K1"       SECP224K1._g       SECP224K1._h       SECP224K1._n       SECP224K1._p
-  , test        "SECP224R1"       SECP224R1._g       SECP224R1._h       SECP224R1._n       SECP224R1._p
-  , test        "SECP256K1"       SECP256K1._g       SECP256K1._h       SECP256K1._n       SECP256K1._p
-  , test        "SECP256R1"       SECP256R1._g       SECP256R1._h       SECP256R1._n       SECP256R1._p
-  , test        "SECP384R1"       SECP384R1._g       SECP384R1._h       SECP384R1._n       SECP384R1._p
-  , test        "SECP521R1"       SECP521R1._g       SECP521R1._h       SECP521R1._n       SECP521R1._p
+  [ testWeierstrass' 100       "Anomalous"       Anomalous._h       Anomalous._q       Anomalous._r       Anomalous.gA       Anomalous.gJ       Anomalous.gP
+  , testWeierstrass' 100   "ANSSIFRP256V1"   ANSSIFRP256V1._h   ANSSIFRP256V1._q   ANSSIFRP256V1._r   ANSSIFRP256V1.gA   ANSSIFRP256V1.gJ   ANSSIFRP256V1.gP
+  , testWeierstrass' 100        "BLS12381"        BLS12381._h        BLS12381._q        BLS12381._r        BLS12381.gA        BLS12381.gJ        BLS12381.gP
+  , testWeierstrass'  10       "BLS12381T"       BLS12381T._h       BLS12381T._q       BLS12381T._r       BLS12381T.gA       BLS12381T.gJ       BLS12381T.gP
+  , testWeierstrass' 100        "BLS48581"        BLS48581._h        BLS48581._q        BLS48581._r        BLS48581.gA        BLS48581.gJ        BLS48581.gP
+  , testWeierstrass'   0       "BLS48581T"       BLS48581T._h       BLS48581T._q       BLS48581T._r       BLS48581T.gA       BLS48581T.gJ       BLS48581T.gP
+  , testWeierstrass' 100           "BN224"           BN224._h           BN224._q           BN224._r           BN224.gA           BN224.gJ           BN224.gP
+  , testWeierstrass' 100           "BN254"           BN254._h           BN254._q           BN254._r           BN254.gA           BN254.gJ           BN254.gP
+  , testWeierstrass'  10          "BN254T"          BN254T._h          BN254T._q          BN254T._r          BN254T.gA          BN254T.gJ          BN254T.gP
+  , testWeierstrass' 100          "BN254A"          BN254A._h          BN254A._q          BN254A._r          BN254A.gA          BN254A.gJ          BN254A.gP
+  , testWeierstrass'  10         "BN254AT"         BN254AT._h         BN254AT._q         BN254AT._r         BN254AT.gA         BN254AT.gJ         BN254AT.gP
+  , testWeierstrass' 100          "BN254B"          BN254B._h          BN254B._q          BN254B._r          BN254B.gA          BN254B.gJ          BN254B.gP
+  , testWeierstrass'  10         "BN254BT"         BN254BT._h         BN254BT._q         BN254BT._r         BN254BT.gA         BN254BT.gJ         BN254BT.gP
+  , testWeierstrass' 100           "BN256"           BN256._h           BN256._q           BN256._r           BN256.gA           BN256.gJ           BN256.gP
+  , testWeierstrass' 100           "BN384"           BN384._h           BN384._q           BN384._r           BN384.gA           BN384.gJ           BN384.gP
+  , testWeierstrass' 100           "BN462"           BN462._h           BN462._q           BN462._r           BN462.gA           BN462.gJ           BN462.gP
+  , testWeierstrass'  10          "BN462T"          BN462T._h          BN462T._q          BN462T._r          BN462T.gA          BN462T.gJ          BN462T.gP
+  , testWeierstrass' 100           "BN512"           BN512._h           BN512._q           BN512._r           BN512.gA           BN512.gJ           BN512.gP
+  , testWeierstrass' 100 "BrainpoolP160R1" BrainpoolP160R1._h BrainpoolP160R1._q BrainpoolP160R1._r BrainpoolP160R1.gA BrainpoolP160R1.gJ BrainpoolP160R1.gP
+  , testWeierstrass' 100 "BrainpoolP160T1" BrainpoolP160T1._h BrainpoolP160T1._q BrainpoolP160T1._r BrainpoolP160T1.gA BrainpoolP160T1.gJ BrainpoolP160T1.gP
+  , testWeierstrass' 100 "BrainpoolP192R1" BrainpoolP192R1._h BrainpoolP192R1._q BrainpoolP192R1._r BrainpoolP192R1.gA BrainpoolP192R1.gJ BrainpoolP192R1.gP
+  , testWeierstrass' 100 "BrainpoolP192T1" BrainpoolP192T1._h BrainpoolP192T1._q BrainpoolP192T1._r BrainpoolP192T1.gA BrainpoolP192T1.gJ BrainpoolP192T1.gP
+  , testWeierstrass' 100 "BrainpoolP224R1" BrainpoolP224R1._h BrainpoolP224R1._q BrainpoolP224R1._r BrainpoolP224R1.gA BrainpoolP224R1.gJ BrainpoolP224R1.gP
+  , testWeierstrass' 100 "BrainpoolP224T1" BrainpoolP224T1._h BrainpoolP224T1._q BrainpoolP224T1._r BrainpoolP224T1.gA BrainpoolP224T1.gJ BrainpoolP224T1.gP
+  , testWeierstrass' 100 "BrainpoolP256R1" BrainpoolP256R1._h BrainpoolP256R1._q BrainpoolP256R1._r BrainpoolP256R1.gA BrainpoolP256R1.gJ BrainpoolP256R1.gP
+  , testWeierstrass' 100 "BrainpoolP256T1" BrainpoolP256T1._h BrainpoolP256T1._q BrainpoolP256T1._r BrainpoolP256T1.gA BrainpoolP256T1.gJ BrainpoolP256T1.gP
+  , testWeierstrass' 100 "BrainpoolP320R1" BrainpoolP320R1._h BrainpoolP320R1._q BrainpoolP320R1._r BrainpoolP320R1.gA BrainpoolP320R1.gJ BrainpoolP320R1.gP
+  , testWeierstrass' 100 "BrainpoolP320T1" BrainpoolP320T1._h BrainpoolP320T1._q BrainpoolP320T1._r BrainpoolP320T1.gA BrainpoolP320T1.gJ BrainpoolP320T1.gP
+  , testWeierstrass' 100 "BrainpoolP384R1" BrainpoolP384R1._h BrainpoolP384R1._q BrainpoolP384R1._r BrainpoolP384R1.gA BrainpoolP384R1.gJ BrainpoolP384R1.gP
+  , testWeierstrass' 100 "BrainpoolP384T1" BrainpoolP384T1._h BrainpoolP384T1._q BrainpoolP384T1._r BrainpoolP384T1.gA BrainpoolP384T1.gJ BrainpoolP384T1.gP
+  , testWeierstrass' 100 "BrainpoolP512R1" BrainpoolP512R1._h BrainpoolP512R1._q BrainpoolP512R1._r BrainpoolP512R1.gA BrainpoolP512R1.gJ BrainpoolP512R1.gP
+  , testWeierstrass' 100 "BrainpoolP512T1" BrainpoolP512T1._h BrainpoolP512T1._q BrainpoolP512T1._r BrainpoolP512T1.gA BrainpoolP512T1.gJ BrainpoolP512T1.gP
+  , testWeierstrass' 100       "SECP112R1"       SECP112R1._h       SECP112R1._q       SECP112R1._r       SECP112R1.gA       SECP112R1.gJ       SECP112R1.gP
+  , testWeierstrass' 100       "SECP112R2"       SECP112R2._h       SECP112R2._q       SECP112R2._r       SECP112R2.gA       SECP112R2.gJ       SECP112R2.gP
+  , testWeierstrass' 100       "SECP128R1"       SECP128R1._h       SECP128R1._q       SECP128R1._r       SECP128R1.gA       SECP128R1.gJ       SECP128R1.gP
+  , testWeierstrass' 100       "SECP128R2"       SECP128R2._h       SECP128R2._q       SECP128R2._r       SECP128R2.gA       SECP128R2.gJ       SECP128R2.gP
+  , testWeierstrass' 100       "SECP160K1"       SECP160K1._h       SECP160K1._q       SECP160K1._r       SECP160K1.gA       SECP160K1.gJ       SECP160K1.gP
+  , testWeierstrass' 100       "SECP160R1"       SECP160R1._h       SECP160R1._q       SECP160R1._r       SECP160R1.gA       SECP160R1.gJ       SECP160R1.gP
+  , testWeierstrass' 100       "SECP160R2"       SECP160R2._h       SECP160R2._q       SECP160R2._r       SECP160R2.gA       SECP160R2.gJ       SECP160R2.gP
+  , testWeierstrass' 100       "SECP192K1"       SECP192K1._h       SECP192K1._q       SECP192K1._r       SECP192K1.gA       SECP192K1.gJ       SECP192K1.gP
+  , testWeierstrass' 100       "SECP192R1"       SECP192R1._h       SECP192R1._q       SECP192R1._r       SECP192R1.gA       SECP192R1.gJ       SECP192R1.gP
+  , testWeierstrass' 100       "SECP224K1"       SECP224K1._h       SECP224K1._q       SECP224K1._r       SECP224K1.gA       SECP224K1.gJ       SECP224K1.gP
+  , testWeierstrass' 100       "SECP224R1"       SECP224R1._h       SECP224R1._q       SECP224R1._r       SECP224R1.gA       SECP224R1.gJ       SECP224R1.gP
+  , testWeierstrass' 100       "SECP256K1"       SECP256K1._h       SECP256K1._q       SECP256K1._r       SECP256K1.gA       SECP256K1.gJ       SECP256K1.gP
+  , testWeierstrass' 100       "SECP256R1"       SECP256R1._h       SECP256R1._q       SECP256R1._r       SECP256R1.gA       SECP256R1.gJ       SECP256R1.gP
+  , testWeierstrass' 100       "SECP384R1"       SECP384R1._h       SECP384R1._q       SECP384R1._r       SECP384R1.gA       SECP384R1.gJ       SECP384R1.gP
+  , testWeierstrass' 100       "SECP521R1"       SECP521R1._h       SECP521R1._q       SECP521R1._r       SECP521R1.gA       SECP521R1.gJ       SECP521R1.gP
   ]
+  where
+    testWeierstrass' n c h q r a j p = localOption (QuickCheckTests n) $ testGroup c
+      [ test "Affine" a h q r
+      , test "Jacobian" j h q r
+      , test "Projective" p h q r
+      ]

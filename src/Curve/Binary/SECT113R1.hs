@@ -1,74 +1,106 @@
 module Curve.Binary.SECT113R1
-  ( F2m
-  , P
-  , _a
-  , _b
-  , _f
-  , _g
-  , _h
-  , _n
+  ( module Curve.Binary
+  , module Curve.Binary.SECT113R1
   ) where
 
 import Protolude
 
-import BinaryField (BinaryField)
+import BinaryField
+import PrimeField
 
-import Curve.Binary (BCurve(..), BPoint, Point(..))
+import Curve.Binary
 
 -------------------------------------------------------------------------------
 -- Types
 -------------------------------------------------------------------------------
 
--- | SECT113R1 curve
+-- | SECT113R1 curve.
 data SECT113R1
 
--- | Field of SECT113R1 curve
+-- | Field of points of SECT113R1 curve.
 type F2m = BinaryField 0x20000000000000000000000000201
 
--- | SECT113R1 curve is a binary curve
-instance BCurve SECT113R1 F2m where
-  a_ = const _a
-  {-# INLINE a_ #-}
-  b_ = const _b
-  {-# INLINE b_ #-}
-  g_ = _g
-  {-# INLINE g_ #-}
+-- | Field of coefficients of SECT113R1 curve.
+type Fr = PrimeField 0x100000000000000d9ccec8a39e56f
 
--- | Point of SECT113R1 curve
-type P = BPoint SECT113R1 F2m
+-- | SECT113R1 curve is a binary curve.
+instance Curve 'Binary c SECT113R1 F2m Fr => BCurve c SECT113R1 F2m Fr where
+  a_ = const _a
+  {-# INLINABLE a_ #-}
+  b_ = const _b
+  {-# INLINABLE b_ #-}
+  h_ = const _h
+  {-# INLINABLE h_ #-}
+  p_ = const _p
+  {-# INLINABLE p_ #-}
+  r_ = const _r
+  {-# INLINABLE r_ #-}
+  x_ = const _x
+  {-# INLINABLE x_ #-}
+  y_ = const _y
+  {-# INLINABLE y_ #-}
+
+-- | Affine SECT113R1 curve point.
+type PA = BAPoint SECT113R1 F2m Fr
+
+-- | Affine SECT113R1 curve is a binary affine curve.
+instance BACurve SECT113R1 F2m Fr where
+  gA_ = gA
+  {-# INLINABLE gA_ #-}
+
+-- | Projective SECT113R1 point.
+type PP = BPPoint SECT113R1 F2m Fr
+
+-- | Projective SECT113R1 curve is a binary projective curve.
+instance BPCurve SECT113R1 F2m Fr where
+  gP_ = gP
+  {-# INLINABLE gP_ #-}
 
 -------------------------------------------------------------------------------
 -- Parameters
 -------------------------------------------------------------------------------
 
--- | Coefficient @A@ of SECT113R1 curve
+-- | Coefficient @A@ of SECT113R1 curve.
 _a :: F2m
 _a = 0x3088250ca6e7c7fe649ce85820f7
-{-# INLINE _a #-}
+{-# INLINABLE _a #-}
 
--- | Coefficient @B@ of SECT113R1 curve
+-- | Coefficient @B@ of SECT113R1 curve.
 _b :: F2m
 _b = 0xe8bee4d3e2260744188be0e9c723
-{-# INLINE _b #-}
+{-# INLINABLE _b #-}
 
--- | Polynomial of SECT113R1 curve
-_f :: Integer
-_f = 0x20000000000000000000000000201
-{-# INLINE _f #-}
-
--- | Generator of SECT113R1 curve
-_g :: P
-_g = A
-     0x9d73616f35f4ab1407d73562c10f
-     0xa52830277958ee84d1315ed31886
-{-# INLINE _g #-}
-
--- | Cofactor of SECT113R1 curve
+-- | Cofactor of SECT113R1 curve.
 _h :: Integer
-_h = 2
-{-# INLINE _h #-}
+_h = 0x2
+{-# INLINABLE _h #-}
 
--- | Order of SECT113R1 curve
-_n :: Integer
-_n = 0x100000000000000d9ccec8a39e56f
-{-# INLINE _n #-}
+-- | Polynomial of SECT113R1 curve.
+_p :: Integer
+_p = 0x20000000000000000000000000201
+{-# INLINABLE _p #-}
+
+-- | Order of SECT113R1 curve.
+_r :: Integer
+_r = 0x100000000000000d9ccec8a39e56f
+{-# INLINABLE _r #-}
+
+-- | Coordinate @X@ of SECT113R1 curve.
+_x :: F2m
+_x = 0x9d73616f35f4ab1407d73562c10f
+{-# INLINABLE _x #-}
+
+-- | Coordinate @Y@ of SECT113R1 curve.
+_y :: F2m
+_y = 0xa52830277958ee84d1315ed31886
+{-# INLINABLE _y #-}
+
+-- | Generator of affine SECT113R1 curve.
+gA :: PA
+gA = A _x _y
+{-# INLINABLE gA #-}
+
+-- | Generator of projective SECT113R1 curve.
+gP :: PP
+gP = P _x _y 1
+{-# INLINABLE gP #-}

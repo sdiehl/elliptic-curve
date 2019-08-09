@@ -1,74 +1,118 @@
 module Curve.Weierstrass.BN384
-  ( Fp
-  , P
-  , _a
-  , _b
-  , _g
-  , _h
-  , _n
-  , _p
+  ( module Curve.Weierstrass
+  , module Curve.Weierstrass.BN384
   ) where
 
 import Protolude
 
-import PrimeField (PrimeField)
+import PrimeField
 
-import Curve.Weierstrass (Point(..), WCurve(..), WPoint)
+import Curve.Weierstrass
 
 -------------------------------------------------------------------------------
 -- Types
 -------------------------------------------------------------------------------
 
--- | BN384 curve
+-- | BN384 curve.
 data BN384
 
--- | Field of BN384 curve
-type Fp = PrimeField 0xfffffffffffffffffff2a96823d5920d2a127e3f6fbca024c8fbe29531892c79534f9d306328261550a7cabd7cccd10b
+-- | Field of points of BN384 curve.
+type Fq = PrimeField 0xfffffffffffffffffff2a96823d5920d2a127e3f6fbca024c8fbe29531892c79534f9d306328261550a7cabd7cccd10b
 
--- | BN384 curve is a Weierstrass curve
-instance WCurve BN384 Fp where
+-- | Field of coefficients of BN384 curve.
+type Fr = PrimeField 0xfffffffffffffffffff2a96823d5920d2a127e3f6fbca023c8fbe29531892c795356487d8ac63e4f4db17384341a5775
+
+-- | BN384 curve is a Weierstrass curve.
+instance Curve 'Weierstrass c BN384 Fq Fr => WCurve c BN384 Fq Fr where
   a_ = const _a
-  {-# INLINE a_ #-}
+  {-# INLINABLE a_ #-}
   b_ = const _b
-  {-# INLINE b_ #-}
-  g_ = _g
-  {-# INLINE g_ #-}
+  {-# INLINABLE b_ #-}
+  h_ = const _h
+  {-# INLINABLE h_ #-}
+  q_ = const _q
+  {-# INLINABLE q_ #-}
+  r_ = const _r
+  {-# INLINABLE r_ #-}
+  x_ = const _x
+  {-# INLINABLE x_ #-}
+  y_ = const _y
+  {-# INLINABLE y_ #-}
 
--- | Point of BN384 curve
-type P = WPoint BN384 Fp
+-- | Affine BN384 curve point.
+type PA = WAPoint BN384 Fq Fr
+
+-- | Affine BN384 curve is a Weierstrass affine curve.
+instance WACurve BN384 Fq Fr where
+  gA_ = gA
+  {-# INLINABLE gA_ #-}
+
+-- | Jacobian BN384 point.
+type PJ = WJPoint BN384 Fq Fr
+
+-- | Jacobian BN384 curve is a Weierstrass Jacobian curve.
+instance WJCurve BN384 Fq Fr where
+  gJ_ = gJ
+  {-# INLINABLE gJ_ #-}
+
+-- | Projective BN384 point.
+type PP = WPPoint BN384 Fq Fr
+
+-- | Projective BN384 curve is a Weierstrass projective curve.
+instance WPCurve BN384 Fq Fr where
+  gP_ = gP
+  {-# INLINABLE gP_ #-}
 
 -------------------------------------------------------------------------------
 -- Parameters
 -------------------------------------------------------------------------------
 
--- | Coefficient @A@ of BN384 curve
-_a :: Fp
-_a = 0
-{-# INLINE _a #-}
+-- | Coefficient @A@ of BN384 curve.
+_a :: Fq
+_a = 0x0
+{-# INLINABLE _a #-}
 
--- | Coefficient @B@ of BN384 curve
-_b :: Fp
-_b = 3
-{-# INLINE _b #-}
+-- | Coefficient @B@ of BN384 curve.
+_b :: Fq
+_b = 0x3
+{-# INLINABLE _b #-}
 
--- | Generator of BN384 curve
-_g :: P
-_g = A
-     1
-     2
-{-# INLINE _g #-}
-
--- | Cofactor of BN384 curve
+-- | Cofactor of BN384 curve.
 _h :: Integer
-_h = 1
-{-# INLINE _h #-}
+_h = 0x1
+{-# INLINABLE _h #-}
 
--- | Order of BN384 curve
-_n :: Integer
-_n = 0xfffffffffffffffffff2a96823d5920d2a127e3f6fbca023c8fbe29531892c795356487d8ac63e4f4db17384341a5775
-{-# INLINE _n #-}
+-- | Characteristic of BN384 curve.
+_q :: Integer
+_q = 0xfffffffffffffffffff2a96823d5920d2a127e3f6fbca024c8fbe29531892c79534f9d306328261550a7cabd7cccd10b
+{-# INLINABLE _q #-}
 
--- | Characteristic of BN384 curve
-_p :: Integer
-_p = 0xfffffffffffffffffff2a96823d5920d2a127e3f6fbca024c8fbe29531892c79534f9d306328261550a7cabd7cccd10b
-{-# INLINE _p #-}
+-- | Order of BN384 curve.
+_r :: Integer
+_r = 0xfffffffffffffffffff2a96823d5920d2a127e3f6fbca023c8fbe29531892c795356487d8ac63e4f4db17384341a5775
+{-# INLINABLE _r #-}
+
+-- | Coordinate @X@ of BN384 curve.
+_x :: Fq
+_x = 0x1
+{-# INLINABLE _x #-}
+
+-- | Coordinate @Y@ of BN384 curve.
+_y :: Fq
+_y = 0x2
+{-# INLINABLE _y #-}
+
+-- | Generator of affine BN384 curve.
+gA :: PA
+gA = A _x _y
+{-# INLINABLE gA #-}
+
+-- | Generator of Jacobian BN384 curve.
+gJ :: PJ
+gJ = J _x _y 1
+{-# INLINABLE gJ #-}
+
+-- | Generator of projective BN384 curve.
+gP :: PP
+gP = P _x _y 1
+{-# INLINABLE gP #-}

@@ -1,74 +1,105 @@
 module Curve.Edwards.E521
-  ( Fp
-  , P
-  , _a
-  , _d
-  , _g
-  , _h
-  , _n
-  , _p
+  ( module Curve.Edwards
+  , module Curve.Edwards.E521
   ) where
 
 import Protolude
 
-import PrimeField (PrimeField)
+import PrimeField
 
-import Curve.Edwards (ECurve(..), EPoint, Point(..))
+import Curve.Edwards
 
 -------------------------------------------------------------------------------
 -- Types
 -------------------------------------------------------------------------------
 
--- | E-521 curve
+-- | E521 curve.
 data E521
 
--- | Field of E-521 curve
-type Fp = PrimeField 0x1ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+-- | Field of points of E521 curve.
+type Fq = PrimeField 0x1ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 
--- | E-521 curve is an Edwards curve
-instance ECurve E521 Fp where
+-- | Field of coefficients of E521 curve.
+type Fr = PrimeField 0x7ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd15b6c64746fc85f736b8af5e7ec53f04fbd8c4569a8f1f4540ea2435f5180d6b
+
+-- | E521 curve is an Edwards curve.
+instance Curve 'Edwards c E521 Fq Fr => ECurve c E521 Fq Fr where
   a_ = const _a
-  {-# INLINE a_ #-}
+  {-# INLINABLE a_ #-}
   d_ = const _d
-  {-# INLINE d_ #-}
-  g_ = _g
-  {-# INLINE g_ #-}
+  {-# INLINABLE d_ #-}
+  h_ = const _h
+  {-# INLINABLE h_ #-}
+  q_ = const _q
+  {-# INLINABLE q_ #-}
+  r_ = const _r
+  {-# INLINABLE r_ #-}
+  x_ = const _x
+  {-# INLINABLE x_ #-}
+  y_ = const _y
+  {-# INLINABLE y_ #-}
 
--- | Point of E-521 curve
-type P = EPoint E521 Fp
+-- | Affine E521 curve point.
+type PA = EAPoint E521 Fq Fr
+
+-- | Affine E521 curve is an Edwards affine curve.
+instance EACurve E521 Fq Fr where
+  gA_ = gA
+  {-# INLINABLE gA_ #-}
+
+-- | Projective E521 point.
+type PP = EPPoint E521 Fq Fr
+
+-- | Projective E521 curve is an Edwards projective curve.
+instance EPCurve E521 Fq Fr where
+  gP_ = gP
+  {-# INLINABLE gP_ #-}
 
 -------------------------------------------------------------------------------
 -- Parameters
 -------------------------------------------------------------------------------
 
--- | Coefficient @A@ of E-521 curve
-_a :: Fp
-_a = 1
-{-# INLINE _a #-}
+-- | Coefficient @A@ of E521 curve.
+_a :: Fq
+_a = 0x1
+{-# INLINABLE _a #-}
 
--- | Coefficient @D@ of E-521 curve
-_d :: Fp
+-- | Coefficient @D@ of E521 curve.
+_d :: Fq
 _d = 0x1fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffa4331
-{-# INLINE _d #-}
+{-# INLINABLE _d #-}
 
--- | Generator of E-521 curve
-_g :: P
-_g = A
-     0x752cb45c48648b189df90cb2296b2878a3bfd9f42fc6c818ec8bf3c9c0c6203913f6ecc5ccc72434b1ae949d568fc99c6059d0fb13364838aa302a940a2f19ba6c
-     0xc
-{-# INLINE _g #-}
-
--- | Cofactor of E-521 curve
+-- | Cofactor of E521 curve.
 _h :: Integer
-_h = 4
-{-# INLINE _h #-}
+_h = 0x4
+{-# INLINABLE _h #-}
 
--- | Order of E-521 curve
-_n :: Integer
-_n = 0x7ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd15b6c64746fc85f736b8af5e7ec53f04fbd8c4569a8f1f4540ea2435f5180d6b
-{-# INLINE _n #-}
+-- | Characteristic of E521 curve.
+_q :: Integer
+_q = 0x1ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+{-# INLINABLE _q #-}
 
--- | Characteristic of E-521 curve
-_p :: Integer
-_p = 0x1ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-{-# INLINE _p #-}
+-- | Order of E521 curve.
+_r :: Integer
+_r = 0x7ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd15b6c64746fc85f736b8af5e7ec53f04fbd8c4569a8f1f4540ea2435f5180d6b
+{-# INLINABLE _r #-}
+
+-- | Coordinate @X@ of E521 curve.
+_x :: Fq
+_x = 0x752cb45c48648b189df90cb2296b2878a3bfd9f42fc6c818ec8bf3c9c0c6203913f6ecc5ccc72434b1ae949d568fc99c6059d0fb13364838aa302a940a2f19ba6c
+{-# INLINABLE _x #-}
+
+-- | Coordinate @Y@ of E521 curve.
+_y :: Fq
+_y = 0xc
+{-# INLINABLE _y #-}
+
+-- | Generator of affine E521 curve.
+gA :: PA
+gA = A _x _y
+{-# INLINABLE gA #-}
+
+-- | Generator of projective E521 curve.
+gP :: PP
+gP = P _x _y 1
+{-# INLINABLE gP #-}

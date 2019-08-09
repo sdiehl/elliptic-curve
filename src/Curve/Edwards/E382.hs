@@ -1,74 +1,105 @@
 module Curve.Edwards.E382
-  ( Fp
-  , P
-  , _a
-  , _d
-  , _g
-  , _h
-  , _n
-  , _p
+  ( module Curve.Edwards
+  , module Curve.Edwards.E382
   ) where
 
 import Protolude
 
-import PrimeField (PrimeField)
+import PrimeField
 
-import Curve.Edwards (ECurve(..), EPoint, Point(..))
+import Curve.Edwards
 
 -------------------------------------------------------------------------------
 -- Types
 -------------------------------------------------------------------------------
 
--- | E-382 curve
+-- | E382 curve.
 data E382
 
--- | Field of E-382 curve
-type Fp = PrimeField 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff97
+-- | Field of points of E382 curve.
+type Fq = PrimeField 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff97
 
--- | E-382 curve is an Edwards curve
-instance ECurve E382 Fp where
+-- | Field of coefficients of E382 curve.
+type Fr = PrimeField 0xfffffffffffffffffffffffffffffffffffffffffffffffd5fb21f21e95eee17c5e69281b102d2773e27e13fd3c9719
+
+-- | E382 curve is an Edwards curve.
+instance Curve 'Edwards c E382 Fq Fr => ECurve c E382 Fq Fr where
   a_ = const _a
-  {-# INLINE a_ #-}
+  {-# INLINABLE a_ #-}
   d_ = const _d
-  {-# INLINE d_ #-}
-  g_ = _g
-  {-# INLINE g_ #-}
+  {-# INLINABLE d_ #-}
+  h_ = const _h
+  {-# INLINABLE h_ #-}
+  q_ = const _q
+  {-# INLINABLE q_ #-}
+  r_ = const _r
+  {-# INLINABLE r_ #-}
+  x_ = const _x
+  {-# INLINABLE x_ #-}
+  y_ = const _y
+  {-# INLINABLE y_ #-}
 
--- | Point of E-382 curve
-type P = EPoint E382 Fp
+-- | Affine E382 curve point.
+type PA = EAPoint E382 Fq Fr
+
+-- | Affine E382 curve is an Edwards affine curve.
+instance EACurve E382 Fq Fr where
+  gA_ = gA
+  {-# INLINABLE gA_ #-}
+
+-- | Projective E382 point.
+type PP = EPPoint E382 Fq Fr
+
+-- | Projective E382 curve is an Edwards projective curve.
+instance EPCurve E382 Fq Fr where
+  gP_ = gP
+  {-# INLINABLE gP_ #-}
 
 -------------------------------------------------------------------------------
 -- Parameters
 -------------------------------------------------------------------------------
 
--- | Coefficient @A@ of E-382 curve
-_a :: Fp
-_a = 1
-{-# INLINE _a #-}
+-- | Coefficient @A@ of E382 curve.
+_a :: Fq
+_a = 0x1
+{-# INLINABLE _a #-}
 
--- | Coefficient @D@ of E-382 curve
-_d :: Fp
+-- | Coefficient @D@ of E382 curve.
+_d :: Fq
 _d = 0x3ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffef8e1
-{-# INLINE _d #-}
+{-# INLINABLE _d #-}
 
--- | Generator of E-382 curve
-_g :: P
-_g = A
-     0x196f8dd0eab20391e5f05be96e8d20ae68f840032b0b64352923bab85364841193517dbce8105398ebc0cc9470f79603
-     0x11
-{-# INLINE _g #-}
-
--- | Cofactor of E-382 curve
+-- | Cofactor of E382 curve.
 _h :: Integer
-_h = 4
-{-# INLINE _h #-}
+_h = 0x4
+{-# INLINABLE _h #-}
 
--- | Order of E-382 curve
-_n :: Integer
-_n = 0xfffffffffffffffffffffffffffffffffffffffffffffffd5fb21f21e95eee17c5e69281b102d2773e27e13fd3c9719
-{-# INLINE _n #-}
+-- | Characteristic of E382 curve.
+_q :: Integer
+_q = 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff97
+{-# INLINABLE _q #-}
 
--- | Characteristic of E-382 curve
-_p :: Integer
-_p = 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff97
-{-# INLINE _p #-}
+-- | Order of E382 curve.
+_r :: Integer
+_r = 0xfffffffffffffffffffffffffffffffffffffffffffffffd5fb21f21e95eee17c5e69281b102d2773e27e13fd3c9719
+{-# INLINABLE _r #-}
+
+-- | Coordinate @X@ of E382 curve.
+_x :: Fq
+_x = 0x196f8dd0eab20391e5f05be96e8d20ae68f840032b0b64352923bab85364841193517dbce8105398ebc0cc9470f79603
+{-# INLINABLE _x #-}
+
+-- | Coordinate @Y@ of E382 curve.
+_y :: Fq
+_y = 0x11
+{-# INLINABLE _y #-}
+
+-- | Generator of affine E382 curve.
+gA :: PA
+gA = A _x _y
+{-# INLINABLE gA #-}
+
+-- | Generator of projective E382 curve.
+gP :: PP
+gP = P _x _y 1
+{-# INLINABLE gP #-}

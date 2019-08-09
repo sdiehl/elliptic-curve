@@ -1,74 +1,118 @@
 module Curve.Weierstrass.SECP112R2
-  ( Fp
-  , P
-  , _a
-  , _b
-  , _g
-  , _h
-  , _n
-  , _p
+  ( module Curve.Weierstrass
+  , module Curve.Weierstrass.SECP112R2
   ) where
 
 import Protolude
 
-import PrimeField (PrimeField)
+import PrimeField
 
-import Curve.Weierstrass (Point(..), WCurve(..), WPoint)
+import Curve.Weierstrass
 
 -------------------------------------------------------------------------------
 -- Types
 -------------------------------------------------------------------------------
 
--- | SECP112R2 curve
+-- | SECP112R2 curve.
 data SECP112R2
 
--- | Field of SECP112R2 curve
-type Fp = PrimeField 0xdb7c2abf62e35e668076bead208b
+-- | Field of points of SECP112R2 curve.
+type Fq = PrimeField 0xdb7c2abf62e35e668076bead208b
 
--- | SECP112R2 curve is a Weierstrass curve
-instance WCurve SECP112R2 Fp where
+-- | Field of coefficients of SECP112R2 curve.
+type Fr = PrimeField 0x36df0aafd8b8d7597ca10520d04b
+
+-- | SECP112R2 curve is a Weierstrass curve.
+instance Curve 'Weierstrass c SECP112R2 Fq Fr => WCurve c SECP112R2 Fq Fr where
   a_ = const _a
-  {-# INLINE a_ #-}
+  {-# INLINABLE a_ #-}
   b_ = const _b
-  {-# INLINE b_ #-}
-  g_ = _g
-  {-# INLINE g_ #-}
+  {-# INLINABLE b_ #-}
+  h_ = const _h
+  {-# INLINABLE h_ #-}
+  q_ = const _q
+  {-# INLINABLE q_ #-}
+  r_ = const _r
+  {-# INLINABLE r_ #-}
+  x_ = const _x
+  {-# INLINABLE x_ #-}
+  y_ = const _y
+  {-# INLINABLE y_ #-}
 
--- | Point of SECP112R2 curve
-type P = WPoint SECP112R2 Fp
+-- | Affine SECP112R2 curve point.
+type PA = WAPoint SECP112R2 Fq Fr
+
+-- | Affine SECP112R2 curve is a Weierstrass affine curve.
+instance WACurve SECP112R2 Fq Fr where
+  gA_ = gA
+  {-# INLINABLE gA_ #-}
+
+-- | Jacobian SECP112R2 point.
+type PJ = WJPoint SECP112R2 Fq Fr
+
+-- | Jacobian SECP112R2 curve is a Weierstrass Jacobian curve.
+instance WJCurve SECP112R2 Fq Fr where
+  gJ_ = gJ
+  {-# INLINABLE gJ_ #-}
+
+-- | Projective SECP112R2 point.
+type PP = WPPoint SECP112R2 Fq Fr
+
+-- | Projective SECP112R2 curve is a Weierstrass projective curve.
+instance WPCurve SECP112R2 Fq Fr where
+  gP_ = gP
+  {-# INLINABLE gP_ #-}
 
 -------------------------------------------------------------------------------
 -- Parameters
 -------------------------------------------------------------------------------
 
--- | Coefficient @A@ of SECP112R2 curve
-_a :: Fp
+-- | Coefficient @A@ of SECP112R2 curve.
+_a :: Fq
 _a = 0x6127c24c05f38a0aaaf65c0ef02c
-{-# INLINE _a #-}
+{-# INLINABLE _a #-}
 
--- | Coefficient @B@ of SECP112R2 curve
-_b :: Fp
+-- | Coefficient @B@ of SECP112R2 curve.
+_b :: Fq
 _b = 0x51def1815db5ed74fcc34c85d709
-{-# INLINE _b #-}
+{-# INLINABLE _b #-}
 
--- | Generator of SECP112R2 curve
-_g :: P
-_g = A
-     0x4ba30ab5e892b4e1649dd0928643
-     0xadcd46f5882e3747def36e956e97
-{-# INLINE _g #-}
-
--- | Cofactor of SECP112R2 curve
+-- | Cofactor of SECP112R2 curve.
 _h :: Integer
-_h = 4
-{-# INLINE _h #-}
+_h = 0x4
+{-# INLINABLE _h #-}
 
--- | Order of SECP112R2 curve
-_n :: Integer
-_n = 0x36df0aafd8b8d7597ca10520d04b
-{-# INLINE _n #-}
+-- | Characteristic of SECP112R2 curve.
+_q :: Integer
+_q = 0xdb7c2abf62e35e668076bead208b
+{-# INLINABLE _q #-}
 
--- | Characteristic of SECP112R2 curve
-_p :: Integer
-_p = 0xdb7c2abf62e35e668076bead208b
-{-# INLINE _p #-}
+-- | Order of SECP112R2 curve.
+_r :: Integer
+_r = 0x36df0aafd8b8d7597ca10520d04b
+{-# INLINABLE _r #-}
+
+-- | Coordinate @X@ of SECP112R2 curve.
+_x :: Fq
+_x = 0x4ba30ab5e892b4e1649dd0928643
+{-# INLINABLE _x #-}
+
+-- | Coordinate @Y@ of SECP112R2 curve.
+_y :: Fq
+_y = 0xadcd46f5882e3747def36e956e97
+{-# INLINABLE _y #-}
+
+-- | Generator of affine SECP112R2 curve.
+gA :: PA
+gA = A _x _y
+{-# INLINABLE gA #-}
+
+-- | Generator of Jacobian SECP112R2 curve.
+gJ :: PJ
+gJ = J _x _y 1
+{-# INLINABLE gJ #-}
+
+-- | Generator of projective SECP112R2 curve.
+gP :: PP
+gP = P _x _y 1
+{-# INLINABLE gP #-}

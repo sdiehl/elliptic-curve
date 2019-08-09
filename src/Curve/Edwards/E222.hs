@@ -1,74 +1,105 @@
 module Curve.Edwards.E222
-  ( Fp
-  , P
-  , _a
-  , _d
-  , _g
-  , _h
-  , _n
-  , _p
+  ( module Curve.Edwards
+  , module Curve.Edwards.E222
   ) where
 
 import Protolude
 
-import PrimeField (PrimeField)
+import PrimeField
 
-import Curve.Edwards (ECurve(..), EPoint, Point(..))
+import Curve.Edwards
 
 -------------------------------------------------------------------------------
 -- Types
 -------------------------------------------------------------------------------
 
--- | E-222 curve
+-- | E222 curve.
 data E222
 
--- | Field of E-222 curve
-type Fp = PrimeField 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffff8b
+-- | Field of points of E222 curve.
+type Fq = PrimeField 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffff8b
 
--- | E-222 curve is an Edwards curve
-instance ECurve E222 Fp where
+-- | Field of coefficients of E222 curve.
+type Fr = PrimeField 0xffffffffffffffffffffffffffff70cbc95e932f802f31423598cbf
+
+-- | E222 curve is an Edwards curve.
+instance Curve 'Edwards c E222 Fq Fr => ECurve c E222 Fq Fr where
   a_ = const _a
-  {-# INLINE a_ #-}
+  {-# INLINABLE a_ #-}
   d_ = const _d
-  {-# INLINE d_ #-}
-  g_ = _g
-  {-# INLINE g_ #-}
+  {-# INLINABLE d_ #-}
+  h_ = const _h
+  {-# INLINABLE h_ #-}
+  q_ = const _q
+  {-# INLINABLE q_ #-}
+  r_ = const _r
+  {-# INLINABLE r_ #-}
+  x_ = const _x
+  {-# INLINABLE x_ #-}
+  y_ = const _y
+  {-# INLINABLE y_ #-}
 
--- | Point of E-222 curve
-type P = EPoint E222 Fp
+-- | Affine E222 curve point.
+type PA = EAPoint E222 Fq Fr
+
+-- | Affine E222 curve is an Edwards affine curve.
+instance EACurve E222 Fq Fr where
+  gA_ = gA
+  {-# INLINABLE gA_ #-}
+
+-- | Projective E222 point.
+type PP = EPPoint E222 Fq Fr
+
+-- | Projective E222 curve is an Edwards projective curve.
+instance EPCurve E222 Fq Fr where
+  gP_ = gP
+  {-# INLINABLE gP_ #-}
 
 -------------------------------------------------------------------------------
 -- Parameters
 -------------------------------------------------------------------------------
 
--- | Coefficient @A@ of E-222 curve
-_a :: Fp
-_a = 1
-{-# INLINE _a #-}
+-- | Coefficient @A@ of E222 curve.
+_a :: Fq
+_a = 0x1
+{-# INLINABLE _a #-}
 
--- | Coefficient @D@ of E-222 curve
-_d :: Fp
+-- | Coefficient @D@ of E222 curve.
+_d :: Fq
 _d = 0x27166
-{-# INLINE _d #-}
+{-# INLINABLE _d #-}
 
--- | Generator of E-222 curve
-_g :: P
-_g = A
-     0x19b12bb156a389e55c9768c303316d07c23adab3736eb2bc3eb54e51
-     0x1c
-{-# INLINE _g #-}
-
--- | Cofactor of E-222 curve
+-- | Cofactor of E222 curve.
 _h :: Integer
-_h = 4
-{-# INLINE _h #-}
+_h = 0x4
+{-# INLINABLE _h #-}
 
--- | Order of E-222 curve
-_n :: Integer
-_n = 0xffffffffffffffffffffffffffff70cbc95e932f802f31423598cbf
-{-# INLINE _n #-}
+-- | Characteristic of E222 curve.
+_q :: Integer
+_q = 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffff8b
+{-# INLINABLE _q #-}
 
--- | Characteristic of E-222 curve
-_p :: Integer
-_p = 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffff8b
-{-# INLINE _p #-}
+-- | Order of E222 curve.
+_r :: Integer
+_r = 0xffffffffffffffffffffffffffff70cbc95e932f802f31423598cbf
+{-# INLINABLE _r #-}
+
+-- | Coordinate @X@ of E222 curve.
+_x :: Fq
+_x = 0x19b12bb156a389e55c9768c303316d07c23adab3736eb2bc3eb54e51
+{-# INLINABLE _x #-}
+
+-- | Coordinate @Y@ of E222 curve.
+_y :: Fq
+_y = 0x1c
+{-# INLINABLE _y #-}
+
+-- | Generator of affine E222 curve.
+gA :: PA
+gA = A _x _y
+{-# INLINABLE gA #-}
+
+-- | Generator of projective E222 curve.
+gP :: PP
+gP = P _x _y 1
+{-# INLINABLE gP #-}

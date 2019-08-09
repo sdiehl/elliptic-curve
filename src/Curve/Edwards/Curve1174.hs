@@ -1,74 +1,105 @@
 module Curve.Edwards.Curve1174
-  ( Fp
-  , P
-  , _a
-  , _d
-  , _g
-  , _h
-  , _n
-  , _p
+  ( module Curve.Edwards
+  , module Curve.Edwards.Curve1174
   ) where
 
 import Protolude
 
-import PrimeField (PrimeField)
+import PrimeField
 
-import Curve.Edwards (ECurve(..), EPoint, Point(..))
+import Curve.Edwards
 
 -------------------------------------------------------------------------------
 -- Types
 -------------------------------------------------------------------------------
 
--- | Curve1174 curve
+-- | Curve1174 curve.
 data Curve1174
 
--- | Field of Curve1174 curve
-type Fp = PrimeField 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7
+-- | Field of points of Curve1174 curve.
+type Fq = PrimeField 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7
 
--- | Curve1174 curve is an Edwards curve
-instance ECurve Curve1174 Fp where
+-- | Field of coefficients of Curve1174 curve.
+type Fr = PrimeField 0x1fffffffffffffffffffffffffffffff77965c4dfd307348944d45fd166c971
+
+-- | Curve1174 curve is an Edwards curve.
+instance Curve 'Edwards c Curve1174 Fq Fr => ECurve c Curve1174 Fq Fr where
   a_ = const _a
-  {-# INLINE a_ #-}
+  {-# INLINABLE a_ #-}
   d_ = const _d
-  {-# INLINE d_ #-}
-  g_ = _g
-  {-# INLINE g_ #-}
+  {-# INLINABLE d_ #-}
+  h_ = const _h
+  {-# INLINABLE h_ #-}
+  q_ = const _q
+  {-# INLINABLE q_ #-}
+  r_ = const _r
+  {-# INLINABLE r_ #-}
+  x_ = const _x
+  {-# INLINABLE x_ #-}
+  y_ = const _y
+  {-# INLINABLE y_ #-}
 
--- | Point of Curve1174 curve
-type P = EPoint Curve1174 Fp
+-- | Affine Curve1174 curve point.
+type PA = EAPoint Curve1174 Fq Fr
+
+-- | Affine Curve1174 curve is an Edwards affine curve.
+instance EACurve Curve1174 Fq Fr where
+  gA_ = gA
+  {-# INLINABLE gA_ #-}
+
+-- | Projective Curve1174 point.
+type PP = EPPoint Curve1174 Fq Fr
+
+-- | Projective Curve1174 curve is an Edwards projective curve.
+instance EPCurve Curve1174 Fq Fr where
+  gP_ = gP
+  {-# INLINABLE gP_ #-}
 
 -------------------------------------------------------------------------------
 -- Parameters
 -------------------------------------------------------------------------------
 
--- | Coefficient @A@ of Curve1174 curve
-_a :: Fp
-_a = 1
-{-# INLINE _a #-}
+-- | Coefficient @A@ of Curve1174 curve.
+_a :: Fq
+_a = 0x1
+{-# INLINABLE _a #-}
 
--- | Coefficient @D@ of Curve1174 curve
-_d :: Fp
+-- | Coefficient @D@ of Curve1174 curve.
+_d :: Fq
 _d = 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffb61
-{-# INLINE _d #-}
+{-# INLINABLE _d #-}
 
--- | Generator of Curve1174 curve
-_g :: P
-_g = A
-     0x37fbb0cea308c479343aee7c029a190c021d96a492ecd6516123f27bce29eda
-     0x6b72f82d47fb7cc6656841169840e0c4fe2dee2af3f976ba4ccb1bf9b46360e
-{-# INLINE _g #-}
-
--- | Cofactor of Curve1174 curve
+-- | Cofactor of Curve1174 curve.
 _h :: Integer
-_h = 4
-{-# INLINE _h #-}
+_h = 0x4
+{-# INLINABLE _h #-}
 
--- | Order of Curve1174 curve
-_n :: Integer
-_n = 0x1fffffffffffffffffffffffffffffff77965c4dfd307348944d45fd166c971
-{-# INLINE _n #-}
+-- | Characteristic of Curve1174 curve.
+_q :: Integer
+_q = 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7
+{-# INLINABLE _q #-}
 
--- | Characteristic of Curve1174 curve
-_p :: Integer
-_p = 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7
-{-# INLINE _p #-}
+-- | Order of Curve1174 curve.
+_r :: Integer
+_r = 0x1fffffffffffffffffffffffffffffff77965c4dfd307348944d45fd166c971
+{-# INLINABLE _r #-}
+
+-- | Coordinate @X@ of Curve1174 curve.
+_x :: Fq
+_x = 0x37fbb0cea308c479343aee7c029a190c021d96a492ecd6516123f27bce29eda
+{-# INLINABLE _x #-}
+
+-- | Coordinate @Y@ of Curve1174 curve.
+_y :: Fq
+_y = 0x6b72f82d47fb7cc6656841169840e0c4fe2dee2af3f976ba4ccb1bf9b46360e
+{-# INLINABLE _y #-}
+
+-- | Generator of affine Curve1174 curve.
+gA :: PA
+gA = A _x _y
+{-# INLINABLE gA #-}
+
+-- | Generator of projective Curve1174 curve.
+gP :: PP
+gP = P _x _y 1
+{-# INLINABLE gP #-}

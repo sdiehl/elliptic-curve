@@ -1,74 +1,105 @@
 module Curve.Edwards.Ed3363
-  ( Fp
-  , P
-  , _a
-  , _d
-  , _g
-  , _h
-  , _n
-  , _p
+  ( module Curve.Edwards
+  , module Curve.Edwards.Ed3363
   ) where
 
 import Protolude
 
-import PrimeField (PrimeField)
+import PrimeField
 
-import Curve.Edwards (ECurve(..), EPoint, Point(..))
+import Curve.Edwards
 
 -------------------------------------------------------------------------------
 -- Types
 -------------------------------------------------------------------------------
 
--- | Ed3363 curve
+-- | Ed3363 curve.
 data Ed3363
 
--- | Field of Ed3363 curve
-type Fp = PrimeField 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd
+-- | Field of points of Ed3363 curve.
+type Fq = PrimeField 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd
 
--- | Ed3363 curve is an Edwards curve
-instance ECurve Ed3363 Fp where
+-- | Field of coefficients of Ed3363 curve.
+type Fr = PrimeField 0x200000000000000000000000000000000000000000071415fa9850c0bd6b87f93baa7b2f95973e9fa805
+
+-- | Ed3363 curve is an Edwards curve.
+instance Curve 'Edwards c Ed3363 Fq Fr => ECurve c Ed3363 Fq Fr where
   a_ = const _a
-  {-# INLINE a_ #-}
+  {-# INLINABLE a_ #-}
   d_ = const _d
-  {-# INLINE d_ #-}
-  g_ = _g
-  {-# INLINE g_ #-}
+  {-# INLINABLE d_ #-}
+  h_ = const _h
+  {-# INLINABLE h_ #-}
+  q_ = const _q
+  {-# INLINABLE q_ #-}
+  r_ = const _r
+  {-# INLINABLE r_ #-}
+  x_ = const _x
+  {-# INLINABLE x_ #-}
+  y_ = const _y
+  {-# INLINABLE y_ #-}
 
--- | Point of Ed3363 curve
-type P = EPoint Ed3363 Fp
+-- | Affine Ed3363 curve point.
+type PA = EAPoint Ed3363 Fq Fr
+
+-- | Affine Ed3363 curve is an Edwards affine curve.
+instance EACurve Ed3363 Fq Fr where
+  gA_ = gA
+  {-# INLINABLE gA_ #-}
+
+-- | Projective Ed3363 point.
+type PP = EPPoint Ed3363 Fq Fr
+
+-- | Projective Ed3363 curve is an Edwards projective curve.
+instance EPCurve Ed3363 Fq Fr where
+  gP_ = gP
+  {-# INLINABLE gP_ #-}
 
 -------------------------------------------------------------------------------
 -- Parameters
 -------------------------------------------------------------------------------
 
--- | Coefficient @A@ of Ed3363 curve
-_a :: Fp
-_a = 1
-{-# INLINE _a #-}
+-- | Coefficient @A@ of Ed3363 curve.
+_a :: Fq
+_a = 0x1
+{-# INLINABLE _a #-}
 
--- | Coefficient @D@ of Ed3363 curve
-_d :: Fp
+-- | Coefficient @D@ of Ed3363 curve.
+_d :: Fq
 _d = 0x2b67
-{-# INLINE _d #-}
+{-# INLINABLE _d #-}
 
--- | Generator of Ed3363 curve
-_g :: P
-_g = A
-     0xc
-     0xc0dc616b56502e18e1c161d007853d1b14b46c3811c7ef435b6db5d5650ca0365db12bec68505fe8632
-{-# INLINE _g #-}
-
--- | Cofactor of Ed3363 curve
+-- | Cofactor of Ed3363 curve.
 _h :: Integer
-_h = 8
-{-# INLINE _h #-}
+_h = 0x8
+{-# INLINABLE _h #-}
 
--- | Order of Ed3363 curve
-_n :: Integer
-_n = 0x200000000000000000000000000000000000000000071415fa9850c0bd6b87f93baa7b2f95973e9fa805
-{-# INLINE _n #-}
+-- | Characteristic of Ed3363 curve.
+_q :: Integer
+_q = 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd
+{-# INLINABLE _q #-}
 
--- | Characteristic of Ed3363 curve
-_p :: Integer
-_p = 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd
-{-# INLINE _p #-}
+-- | Order of Ed3363 curve.
+_r :: Integer
+_r = 0x200000000000000000000000000000000000000000071415fa9850c0bd6b87f93baa7b2f95973e9fa805
+{-# INLINABLE _r #-}
+
+-- | Coordinate @X@ of Ed3363 curve.
+_x :: Fq
+_x = 0xc
+{-# INLINABLE _x #-}
+
+-- | Coordinate @Y@ of Ed3363 curve.
+_y :: Fq
+_y = 0xc0dc616b56502e18e1c161d007853d1b14b46c3811c7ef435b6db5d5650ca0365db12bec68505fe8632
+{-# INLINABLE _y #-}
+
+-- | Generator of affine Ed3363 curve.
+gA :: PA
+gA = A _x _y
+{-# INLINABLE gA #-}
+
+-- | Generator of projective Ed3363 curve.
+gP :: PP
+gP = P _x _y 1
+{-# INLINABLE gP #-}

@@ -1,74 +1,105 @@
 module Curve.Edwards.Ed448
-  ( Fp
-  , P
-  , _a
-  , _d
-  , _g
-  , _h
-  , _n
-  , _p
+  ( module Curve.Edwards
+  , module Curve.Edwards.Ed448
   ) where
 
 import Protolude
 
-import PrimeField (PrimeField)
+import PrimeField
 
-import Curve.Edwards (ECurve(..), EPoint, Point(..))
+import Curve.Edwards
 
 -------------------------------------------------------------------------------
 -- Types
 -------------------------------------------------------------------------------
 
--- | Ed448 curve
+-- | Ed448 curve.
 data Ed448
 
--- | Field of Ed448 curve
-type Fp = PrimeField 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+-- | Field of points of Ed448 curve.
+type Fq = PrimeField 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 
--- | Ed448 curve is an Edwards curve
-instance ECurve Ed448 Fp where
+-- | Field of coefficients of Ed448 curve.
+type Fr = PrimeField 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffff7cca23e9c44edb49aed63690216cc2728dc58f552378c292ab5844f3
+
+-- | Ed448 curve is an Edwards curve.
+instance Curve 'Edwards c Ed448 Fq Fr => ECurve c Ed448 Fq Fr where
   a_ = const _a
-  {-# INLINE a_ #-}
+  {-# INLINABLE a_ #-}
   d_ = const _d
-  {-# INLINE d_ #-}
-  g_ = _g
-  {-# INLINE g_ #-}
+  {-# INLINABLE d_ #-}
+  h_ = const _h
+  {-# INLINABLE h_ #-}
+  q_ = const _q
+  {-# INLINABLE q_ #-}
+  r_ = const _r
+  {-# INLINABLE r_ #-}
+  x_ = const _x
+  {-# INLINABLE x_ #-}
+  y_ = const _y
+  {-# INLINABLE y_ #-}
 
--- | Point of Ed448 curve
-type P = EPoint Ed448 Fp
+-- | Affine Ed448 curve point.
+type PA = EAPoint Ed448 Fq Fr
+
+-- | Affine Ed448 curve is an Edwards affine curve.
+instance EACurve Ed448 Fq Fr where
+  gA_ = gA
+  {-# INLINABLE gA_ #-}
+
+-- | Projective Ed448 point.
+type PP = EPPoint Ed448 Fq Fr
+
+-- | Projective Ed448 curve is an Edwards projective curve.
+instance EPCurve Ed448 Fq Fr where
+  gP_ = gP
+  {-# INLINABLE gP_ #-}
 
 -------------------------------------------------------------------------------
 -- Parameters
 -------------------------------------------------------------------------------
 
--- | Coefficient @A@ of Ed448 curve
-_a :: Fp
-_a = 1
-{-# INLINE _a #-}
+-- | Coefficient @A@ of Ed448 curve.
+_a :: Fq
+_a = 0x1
+{-# INLINABLE _a #-}
 
--- | Coefficient @D@ of Ed448 curve
-_d :: Fp
+-- | Coefficient @D@ of Ed448 curve.
+_d :: Fq
 _d = 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffffffffffffffffffffffffffffffffffffffffffffffff6756
-{-# INLINE _d #-}
+{-# INLINABLE _d #-}
 
--- | Generator of Ed448 curve
-_g :: P
-_g = A
-     0x297ea0ea2692ff1b4faff46098453a6a26adf733245f065c3c59d0709cecfa96147eaaf3932d94c63d96c170033f4ba0c7f0de840aed939f
-     0x13
-{-# INLINE _g #-}
-
--- | Cofactor of Ed448 curve
+-- | Cofactor of Ed448 curve.
 _h :: Integer
-_h = 4
-{-# INLINE _h #-}
+_h = 0x4
+{-# INLINABLE _h #-}
 
--- | Order of Ed448 curve
-_n :: Integer
-_n = 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffff7cca23e9c44edb49aed63690216cc2728dc58f552378c292ab5844f3
-{-# INLINE _n #-}
+-- | Characteristic of Ed448 curve.
+_q :: Integer
+_q = 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+{-# INLINABLE _q #-}
 
--- | Characteristic of Ed448 curve
-_p :: Integer
-_p = 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-{-# INLINE _p #-}
+-- | Order of Ed448 curve.
+_r :: Integer
+_r = 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffff7cca23e9c44edb49aed63690216cc2728dc58f552378c292ab5844f3
+{-# INLINABLE _r #-}
+
+-- | Coordinate @X@ of Ed448 curve.
+_x :: Fq
+_x = 0x297ea0ea2692ff1b4faff46098453a6a26adf733245f065c3c59d0709cecfa96147eaaf3932d94c63d96c170033f4ba0c7f0de840aed939f
+{-# INLINABLE _x #-}
+
+-- | Coordinate @Y@ of Ed448 curve.
+_y :: Fq
+_y = 0x13
+{-# INLINABLE _y #-}
+
+-- | Generator of affine Ed448 curve.
+gA :: PA
+gA = A _x _y
+{-# INLINABLE gA #-}
+
+-- | Generator of projective Ed448 curve.
+gP :: PP
+gP = P _x _y 1
+{-# INLINABLE gP #-}
