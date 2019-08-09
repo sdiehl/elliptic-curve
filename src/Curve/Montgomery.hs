@@ -133,5 +133,6 @@ instance MACurve e q r => Group (MAPoint e q r) where
 
 -- Montgomery affine points are pretty.
 instance MACurve e q r => Pretty (MAPoint e q r) where
+
   pretty (A x y) = pretty (x, y)
   pretty O       = "O"

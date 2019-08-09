@@ -72,12 +72,15 @@ instance Curve f c e q r => Semigroup (Point f c e q r) where
 
 -- Elliptic curve points are arbitrary.
 instance Curve f c e q r => Arbitrary (Point f c e q r) where
+
   arbitrary = suchThatMap arbitrary pointX
 
 -- Elliptic curve points are random.
 instance Curve f c e q r => Random (Point f c e q r) where
+
   random g = let (x, g') = random g in case pointX x of
     Just p -> (p, g')
     _      -> random g'
   {-# INLINE random #-}
+
   randomR = panic "not implemented."

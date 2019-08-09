@@ -136,6 +136,7 @@ instance BACurve e q r => Group (BAPoint e q r) where
 
 -- Binary affine points are pretty.
 instance BACurve e q r => Pretty (BAPoint e q r) where
+
   pretty (A x y) = pretty (x, y)
   pretty O       = "O"
 
@@ -187,6 +188,7 @@ instance BPCurve e q r => Group (BPPoint e q r) where
   add (P  _  _  0)  q           = q
   add (P x1 y1 z1) (P x2 y2 z2) = P x3 y3 z3
     where
+      a'   = a_ (witness :: BPPoint e q r)
       y1z2 = y1 * z2
       x1z2 = x1 * z2
       a    = y1z2 + z1 * y2
@@ -195,7 +197,7 @@ instance BPCurve e q r => Group (BPPoint e q r) where
       c    = b * b
       d    = z1 * z2
       e    = b * c
-      f    = (a * ab + a_ (witness :: BPPoint e q r) * c) * d + e
+      f    = (a * ab + a' * c) * d + e
       x3   = b * f
       y3   = c * (a * x1z2 + b * y1z2) + ab * f
       z3   = e * d
@@ -205,12 +207,13 @@ instance BPCurve e q r => Group (BPPoint e q r) where
   dbl (P  _  _  0) = P  0  1  0
   dbl (P x1 y1 z1) = P x3 y3 z3
     where
+      a' = a_ (witness :: BPPoint e q r)
       a  = x1 * x1
       b  = a + y1 * z1
       c  = x1 * z1
       bc = b + c
       d  = c * c
-      e  = b * bc + a_ (witness :: BPPoint e q r) * d
+      e  = b * bc + a' * d
       x3 = c * e
       y3 = bc * e + a * a * c
       z3 = c * d
@@ -237,11 +240,13 @@ instance BPCurve e q r => Group (BPPoint e q r) where
 
 -- Binary projective points are equatable.
 instance BPCurve e q r => Eq (BPPoint e q r) where
+
   P x1 y1 z1 == P x2 y2 z2 = z1 == 0 && z2 == 0
     || x1 * z2 == x2 * z1 && y1 * z2 == y2 * z1
 
 -- Binary projective points are pretty.
 instance BPCurve e q r => Pretty (BPPoint e q r) where
+
   pretty (P x y z) = pretty (x, y, z)
 
 -------------------------------------------------------------------------------

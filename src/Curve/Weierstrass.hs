@@ -112,7 +112,8 @@ instance WACurve e q r => Group (WAPoint e q r) where
     | y == 0    = O
     | otherwise = A x' y'
     where
-      l  = (3 * x * x + a_ (witness :: WAPoint e q r)) / (2 * y)
+      a  = a_ (witness :: WAPoint e q r)
+      l  = (3 * x * x + a) / (2 * y)
       x' = l * l - 2 * x
       y' = l * (x - x') - y
   {-# INLINE dbl #-}
@@ -139,6 +140,7 @@ instance WACurve e q r => Group (WAPoint e q r) where
 
 -- Weierstrass affine points are pretty.
 instance WACurve e q r => Pretty (WAPoint e q r) where
+
   pretty (A x y) = pretty (x, y)
   pretty O       = "O"
 
@@ -215,6 +217,7 @@ instance WJCurve e q r => Group (WJPoint e q r) where
   dbl (J  _  _  0) = J  1  1  0
   dbl (J x1 y1 z1) = J x3 y3 z3
     where
+      a    = a_ (witness :: WJPoint e q r)
       xx   = x1 * x1
       yy   = y1 * y1
       yyyy = yy * yy
@@ -222,7 +225,7 @@ instance WJCurve e q r => Group (WJPoint e q r) where
       xy   = x1 + yy
       yz   = y1 + z1
       s    = 2 * (xy * xy - xx - yyyy)
-      m    = 3 * xx + a_ (witness :: WJPoint e q r) * zz * zz
+      m    = 3 * xx + a * zz * zz
       t    = m * m - 2 * s
       x3   = t
       y3   = m * (s - t) - 8 * yyyy
@@ -250,6 +253,7 @@ instance WJCurve e q r => Group (WJPoint e q r) where
 
 -- Weierstrass Jacobian points are equatable.
 instance WJCurve e q r => Eq (WJPoint e q r) where
+
   J x1 y1 z1 == J x2 y2 z2 = z1 == 0 && z2 == 0
     || x1 * zz2 == x2 * zz1 && y1 * z2 * zz2 == y2 * z1 * zz1
     where
@@ -258,6 +262,7 @@ instance WJCurve e q r => Eq (WJPoint e q r) where
 
 -- Weierstrass Jacobian points are pretty.
 instance WJCurve e q r => Pretty (WJPoint e q r) where
+
   pretty (J x y z) = pretty (x, y, z)
 
 -------------------------------------------------------------------------------
@@ -367,11 +372,13 @@ instance WPCurve e q r => Group (WPPoint e q r) where
 
 -- Weierstrass projective points are equatable.
 instance WPCurve e q r => Eq (WPPoint e q r) where
+
   P x1 y1 z1 == P x2 y2 z2 = z1 == 0 && z2 == 0
     || x1 * z2 == x2 * z1 && y1 * z2 == y2 * z1
 
 -- Weierstrass projective points are pretty.
 instance WPCurve e q r => Pretty (WPPoint e q r) where
+
   pretty (P x y z) = pretty (x, y, z)
 
 -------------------------------------------------------------------------------
@@ -393,7 +400,7 @@ fromAtoP _       = P 0 1 0
 -- | Transform from Jacobian coordinates to affine coordinates.
 fromJtoA :: (WACurve e q r, WJCurve e q r) => WJPoint e q r -> WAPoint e q r
 fromJtoA (J _ _ 0) = O
-fromJtoA (J x y z) = A (x / zz) (y / zz)
+fromJtoA (J x y z) = A (x / zz) (y / (z * zz))
   where
     zz = z * z
 {-# INLINE fromJtoA #-}

@@ -128,6 +128,7 @@ instance EACurve e q r => Group (EAPoint e q r) where
 
 -- Edwards affine points are pretty.
 instance EACurve e q r => Pretty (EAPoint e q r) where
+
   pretty (A x y) = pretty (x, y)
 
 -------------------------------------------------------------------------------
@@ -179,15 +180,17 @@ instance EPCurve e q r => Group (EPPoint e q r) where
   -- Addition formula add-2008-bbjlp
   add (P x1 y1 z1) (P x2 y2 z2) = P x3 y3 z3
     where
+      a' = d_ (witness :: EPPoint e q r)
+      d' = d_ (witness :: EPPoint e q r)
       a  = z1 * z2
       b  = a * a
       c  = x1 * x2
       d  = y1 * y2
-      e  = d_ (witness :: EPPoint e q r) * c * d
+      e  = d' * c * d
       f  = b - e
       g  = b + e
       x3 = a * f * ((x1 + y1) * (x2 + y2) - c - d)
-      y3 = a * g * (d - a_ (witness :: EPPoint e q r) * c)
+      y3 = a * g * (d - a' * c)
       z3 = f * g
   {-# INLINE add #-}
 
@@ -231,11 +234,13 @@ instance EPCurve e q r => Group (EPPoint e q r) where
 
 -- Edwards projective points are equatable.
 instance EPCurve e q r => Eq (EPPoint e q r) where
+
   P x1 y1 z1 == P x2 y2 z2 = z1 == 0 && z2 == 0
     || x1 * z2 == x2 * z1 && y1 * z2 == y2 * z1
 
 -- Edwards projective points are pretty.
 instance EPCurve e q r => Pretty (EPPoint e q r) where
+
   pretty (P x y z) = pretty (x, y, z)
 
 -------------------------------------------------------------------------------
