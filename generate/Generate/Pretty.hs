@@ -1,11 +1,5 @@
 module Generate.Pretty
-  ( prettyBreak
-  , prettyDocumentation
-  , prettyInline
-  , prettyInteger
-  , prettyLine
-  , prettySection
-  , prettyText
+  ( module Generate.Pretty
   ) where
 
 import Protolude
@@ -27,7 +21,7 @@ prettyDocumentation
 
 prettyInline :: Doc -> Doc
 prettyInline
-  = braces . enclose "-# INLINE " " #-"
+  = braces . enclose "-# INLINABLE " " #-"
 
 prettyInteger :: Integer -> Doc
 prettyInteger

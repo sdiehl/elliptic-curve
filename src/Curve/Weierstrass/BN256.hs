@@ -1,30 +1,6 @@
 module Curve.Weierstrass.BN256
-  ( Curve(..)
-  , Fq
-  , Fr
-  , Group(..)
-  , PA
-  , PJ
-  , PP
-  , Point(..)
-  , WCurve(..)
-  , WPoint
-  , WACurve(..)
-  , WAPoint
-  , WJCurve(..)
-  , WJPoint
-  , WPCurve(..)
-  , WPPoint
-  , _a
-  , _b
-  , _h
-  , _q
-  , _r
-  , _x
-  , _y
-  , gA
-  , gJ
-  , gP
+  ( module Curve.Weierstrass
+  , module Curve.Weierstrass.BN256
   ) where
 
 import Protolude
@@ -49,19 +25,19 @@ type Fr = PrimeField 0xfffffffffffcf0cd46e5f25eee71a49e0cdc65fb1299921af62d536cd
 -- | BN256 curve is a Weierstrass curve.
 instance Curve 'Weierstrass c BN256 Fq Fr => WCurve c BN256 Fq Fr where
   a_ = const _a
-  {-# INLINE a_ #-}
+  {-# INLINABLE a_ #-}
   b_ = const _b
-  {-# INLINE b_ #-}
+  {-# INLINABLE b_ #-}
   h_ = const _h
-  {-# INLINE h_ #-}
+  {-# INLINABLE h_ #-}
   q_ = const _q
-  {-# INLINE q_ #-}
+  {-# INLINABLE q_ #-}
   r_ = const _r
-  {-# INLINE r_ #-}
+  {-# INLINABLE r_ #-}
   x_ = const _x
-  {-# INLINE x_ #-}
+  {-# INLINABLE x_ #-}
   y_ = const _y
-  {-# INLINE y_ #-}
+  {-# INLINABLE y_ #-}
 
 -- | Affine BN256 curve point.
 type PA = WAPoint BN256 Fq Fr
@@ -69,7 +45,7 @@ type PA = WAPoint BN256 Fq Fr
 -- | Affine BN256 curve is a Weierstrass affine curve.
 instance WACurve BN256 Fq Fr where
   gA_ = gA
-  {-# INLINE gA_ #-}
+  {-# INLINABLE gA_ #-}
 
 -- | Jacobian BN256 point.
 type PJ = WJPoint BN256 Fq Fr
@@ -77,7 +53,7 @@ type PJ = WJPoint BN256 Fq Fr
 -- | Jacobian BN256 curve is a Weierstrass Jacobian curve.
 instance WJCurve BN256 Fq Fr where
   gJ_ = gJ
-  {-# INLINE gJ_ #-}
+  {-# INLINABLE gJ_ #-}
 
 -- | Projective BN256 point.
 type PP = WPPoint BN256 Fq Fr
@@ -85,7 +61,7 @@ type PP = WPPoint BN256 Fq Fr
 -- | Projective BN256 curve is a Weierstrass projective curve.
 instance WPCurve BN256 Fq Fr where
   gP_ = gP
-  {-# INLINE gP_ #-}
+  {-# INLINABLE gP_ #-}
 
 -------------------------------------------------------------------------------
 -- Parameters
@@ -94,49 +70,49 @@ instance WPCurve BN256 Fq Fr where
 -- | Coefficient @A@ of BN256 curve.
 _a :: Fq
 _a = 0x0
-{-# INLINE _a #-}
+{-# INLINABLE _a #-}
 
 -- | Coefficient @B@ of BN256 curve.
 _b :: Fq
 _b = 0x3
-{-# INLINE _b #-}
+{-# INLINABLE _b #-}
 
 -- | Cofactor of BN256 curve.
 _h :: Integer
 _h = 0x1
-{-# INLINE _h #-}
+{-# INLINABLE _h #-}
 
 -- | Characteristic of BN256 curve.
 _q :: Integer
 _q = 0xfffffffffffcf0cd46e5f25eee71a49f0cdc65fb12980a82d3292ddbaed33013
-{-# INLINE _q #-}
+{-# INLINABLE _q #-}
 
 -- | Order of BN256 curve.
 _r :: Integer
 _r = 0xfffffffffffcf0cd46e5f25eee71a49e0cdc65fb1299921af62d536cd10b500d
-{-# INLINE _r #-}
+{-# INLINABLE _r #-}
 
 -- | Coordinate @X@ of BN256 curve.
 _x :: Fq
 _x = 0x1
-{-# INLINE _x #-}
+{-# INLINABLE _x #-}
 
 -- | Coordinate @Y@ of BN256 curve.
 _y :: Fq
 _y = 0x2
-{-# INLINE _y #-}
+{-# INLINABLE _y #-}
 
 -- | Generator of affine BN256 curve.
 gA :: PA
 gA = A _x _y
-{-# INLINE gA #-}
+{-# INLINABLE gA #-}
 
 -- | Generator of Jacobian BN256 curve.
 gJ :: PJ
 gJ = J _x _y 1
-{-# INLINE gJ #-}
+{-# INLINABLE gJ #-}
 
 -- | Generator of projective BN256 curve.
 gP :: PP
 gP = P _x _y 1
-{-# INLINE gP #-}
+{-# INLINABLE gP #-}

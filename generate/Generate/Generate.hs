@@ -1,6 +1,5 @@
 module Generate.Generate
-  ( prettyElement
-  , prettyField
+  ( module Generate.Generate
   ) where
 
 import Protolude

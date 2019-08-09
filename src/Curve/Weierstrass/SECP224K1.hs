@@ -1,30 +1,6 @@
 module Curve.Weierstrass.SECP224K1
-  ( Curve(..)
-  , Fq
-  , Fr
-  , Group(..)
-  , PA
-  , PJ
-  , PP
-  , Point(..)
-  , WCurve(..)
-  , WPoint
-  , WACurve(..)
-  , WAPoint
-  , WJCurve(..)
-  , WJPoint
-  , WPCurve(..)
-  , WPPoint
-  , _a
-  , _b
-  , _h
-  , _q
-  , _r
-  , _x
-  , _y
-  , gA
-  , gJ
-  , gP
+  ( module Curve.Weierstrass
+  , module Curve.Weierstrass.SECP224K1
   ) where
 
 import Protolude
@@ -49,19 +25,19 @@ type Fr = PrimeField 0x10000000000000000000000000001dce8d2ec6184caf0a971769fb1f7
 -- | SECP224K1 curve is a Weierstrass curve.
 instance Curve 'Weierstrass c SECP224K1 Fq Fr => WCurve c SECP224K1 Fq Fr where
   a_ = const _a
-  {-# INLINE a_ #-}
+  {-# INLINABLE a_ #-}
   b_ = const _b
-  {-# INLINE b_ #-}
+  {-# INLINABLE b_ #-}
   h_ = const _h
-  {-# INLINE h_ #-}
+  {-# INLINABLE h_ #-}
   q_ = const _q
-  {-# INLINE q_ #-}
+  {-# INLINABLE q_ #-}
   r_ = const _r
-  {-# INLINE r_ #-}
+  {-# INLINABLE r_ #-}
   x_ = const _x
-  {-# INLINE x_ #-}
+  {-# INLINABLE x_ #-}
   y_ = const _y
-  {-# INLINE y_ #-}
+  {-# INLINABLE y_ #-}
 
 -- | Affine SECP224K1 curve point.
 type PA = WAPoint SECP224K1 Fq Fr
@@ -69,7 +45,7 @@ type PA = WAPoint SECP224K1 Fq Fr
 -- | Affine SECP224K1 curve is a Weierstrass affine curve.
 instance WACurve SECP224K1 Fq Fr where
   gA_ = gA
-  {-# INLINE gA_ #-}
+  {-# INLINABLE gA_ #-}
 
 -- | Jacobian SECP224K1 point.
 type PJ = WJPoint SECP224K1 Fq Fr
@@ -77,7 +53,7 @@ type PJ = WJPoint SECP224K1 Fq Fr
 -- | Jacobian SECP224K1 curve is a Weierstrass Jacobian curve.
 instance WJCurve SECP224K1 Fq Fr where
   gJ_ = gJ
-  {-# INLINE gJ_ #-}
+  {-# INLINABLE gJ_ #-}
 
 -- | Projective SECP224K1 point.
 type PP = WPPoint SECP224K1 Fq Fr
@@ -85,7 +61,7 @@ type PP = WPPoint SECP224K1 Fq Fr
 -- | Projective SECP224K1 curve is a Weierstrass projective curve.
 instance WPCurve SECP224K1 Fq Fr where
   gP_ = gP
-  {-# INLINE gP_ #-}
+  {-# INLINABLE gP_ #-}
 
 -------------------------------------------------------------------------------
 -- Parameters
@@ -94,49 +70,49 @@ instance WPCurve SECP224K1 Fq Fr where
 -- | Coefficient @A@ of SECP224K1 curve.
 _a :: Fq
 _a = 0x0
-{-# INLINE _a #-}
+{-# INLINABLE _a #-}
 
 -- | Coefficient @B@ of SECP224K1 curve.
 _b :: Fq
 _b = 0x5
-{-# INLINE _b #-}
+{-# INLINABLE _b #-}
 
 -- | Cofactor of SECP224K1 curve.
 _h :: Integer
 _h = 0x1
-{-# INLINE _h #-}
+{-# INLINABLE _h #-}
 
 -- | Characteristic of SECP224K1 curve.
 _q :: Integer
 _q = 0xfffffffffffffffffffffffffffffffffffffffffffffffeffffe56d
-{-# INLINE _q #-}
+{-# INLINABLE _q #-}
 
 -- | Order of SECP224K1 curve.
 _r :: Integer
 _r = 0x10000000000000000000000000001dce8d2ec6184caf0a971769fb1f7
-{-# INLINE _r #-}
+{-# INLINABLE _r #-}
 
 -- | Coordinate @X@ of SECP224K1 curve.
 _x :: Fq
 _x = 0xa1455b334df099df30fc28a169a467e9e47075a90f7e650eb6b7a45c
-{-# INLINE _x #-}
+{-# INLINABLE _x #-}
 
 -- | Coordinate @Y@ of SECP224K1 curve.
 _y :: Fq
 _y = 0x7e089fed7fba344282cafbd6f7e319f7c0b0bd59e2ca4bdb556d61a5
-{-# INLINE _y #-}
+{-# INLINABLE _y #-}
 
 -- | Generator of affine SECP224K1 curve.
 gA :: PA
 gA = A _x _y
-{-# INLINE gA #-}
+{-# INLINABLE gA #-}
 
 -- | Generator of Jacobian SECP224K1 curve.
 gJ :: PJ
 gJ = J _x _y 1
-{-# INLINE gJ #-}
+{-# INLINABLE gJ #-}
 
 -- | Generator of projective SECP224K1 curve.
 gP :: PP
 gP = P _x _y 1
-{-# INLINE gP #-}
+{-# INLINABLE gP #-}

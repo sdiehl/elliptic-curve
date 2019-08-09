@@ -1,26 +1,6 @@
 module Curve.Binary.SECT163R2
-  ( BCurve(..)
-  , BPoint
-  , BACurve(..)
-  , BAPoint
-  , BPCurve(..)
-  , BPPoint
-  , Curve(..)
-  , F2m
-  , Fr
-  , Group(..)
-  , PA
-  , PP
-  , Point(..)
-  , _a
-  , _b
-  , _h
-  , _p
-  , _r
-  , _x
-  , _y
-  , gA
-  , gP
+  ( module Curve.Binary
+  , module Curve.Binary.SECT163R2
   ) where
 
 import Protolude
@@ -46,19 +26,19 @@ type Fr = PrimeField 0x40000000000000000000292fe77e70c12a4234c33
 -- | SECT163R2 curve is a binary curve.
 instance Curve 'Binary c SECT163R2 F2m Fr => BCurve c SECT163R2 F2m Fr where
   a_ = const _a
-  {-# INLINE a_ #-}
+  {-# INLINABLE a_ #-}
   b_ = const _b
-  {-# INLINE b_ #-}
+  {-# INLINABLE b_ #-}
   h_ = const _h
-  {-# INLINE h_ #-}
+  {-# INLINABLE h_ #-}
   p_ = const _p
-  {-# INLINE p_ #-}
+  {-# INLINABLE p_ #-}
   r_ = const _r
-  {-# INLINE r_ #-}
+  {-# INLINABLE r_ #-}
   x_ = const _x
-  {-# INLINE x_ #-}
+  {-# INLINABLE x_ #-}
   y_ = const _y
-  {-# INLINE y_ #-}
+  {-# INLINABLE y_ #-}
 
 -- | Affine SECT163R2 curve point.
 type PA = BAPoint SECT163R2 F2m Fr
@@ -66,7 +46,7 @@ type PA = BAPoint SECT163R2 F2m Fr
 -- | Affine SECT163R2 curve is a binary affine curve.
 instance BACurve SECT163R2 F2m Fr where
   gA_ = gA
-  {-# INLINE gA_ #-}
+  {-# INLINABLE gA_ #-}
 
 -- | Projective SECT163R2 point.
 type PP = BPPoint SECT163R2 F2m Fr
@@ -74,7 +54,7 @@ type PP = BPPoint SECT163R2 F2m Fr
 -- | Projective SECT163R2 curve is a binary projective curve.
 instance BPCurve SECT163R2 F2m Fr where
   gP_ = gP
-  {-# INLINE gP_ #-}
+  {-# INLINABLE gP_ #-}
 
 -------------------------------------------------------------------------------
 -- Parameters
@@ -83,44 +63,44 @@ instance BPCurve SECT163R2 F2m Fr where
 -- | Coefficient @A@ of SECT163R2 curve.
 _a :: F2m
 _a = 0x1
-{-# INLINE _a #-}
+{-# INLINABLE _a #-}
 
 -- | Coefficient @B@ of SECT163R2 curve.
 _b :: F2m
 _b = 0x20a601907b8c953ca1481eb10512f78744a3205fd
-{-# INLINE _b #-}
+{-# INLINABLE _b #-}
 
 -- | Cofactor of SECT163R2 curve.
 _h :: Integer
 _h = 0x2
-{-# INLINE _h #-}
+{-# INLINABLE _h #-}
 
 -- | Polynomial of SECT163R2 curve.
 _p :: Integer
 _p = 0x800000000000000000000000000000000000000c9
-{-# INLINE _p #-}
+{-# INLINABLE _p #-}
 
 -- | Order of SECT163R2 curve.
 _r :: Integer
 _r = 0x40000000000000000000292fe77e70c12a4234c33
-{-# INLINE _r #-}
+{-# INLINABLE _r #-}
 
 -- | Coordinate @X@ of SECT163R2 curve.
 _x :: F2m
 _x = 0x3f0eba16286a2d57ea0991168d4994637e8343e36
-{-# INLINE _x #-}
+{-# INLINABLE _x #-}
 
 -- | Coordinate @Y@ of SECT163R2 curve.
 _y :: F2m
 _y = 0xd51fbc6c71a0094fa2cdd545b11c5c0c797324f1
-{-# INLINE _y #-}
+{-# INLINABLE _y #-}
 
 -- | Generator of affine SECT163R2 curve.
 gA :: PA
 gA = A _x _y
-{-# INLINE gA #-}
+{-# INLINABLE gA #-}
 
 -- | Generator of projective SECT163R2 curve.
 gP :: PP
 gP = P _x _y 1
-{-# INLINE gP #-}
+{-# INLINABLE gP #-}

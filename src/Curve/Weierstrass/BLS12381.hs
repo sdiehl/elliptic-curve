@@ -1,30 +1,6 @@
 module Curve.Weierstrass.BLS12381
-  ( Curve(..)
-  , Fq
-  , Fr
-  , Group(..)
-  , PA
-  , PJ
-  , PP
-  , Point(..)
-  , WCurve(..)
-  , WPoint
-  , WACurve(..)
-  , WAPoint
-  , WJCurve(..)
-  , WJPoint
-  , WPCurve(..)
-  , WPPoint
-  , _a
-  , _b
-  , _h
-  , _q
-  , _r
-  , _x
-  , _y
-  , gA
-  , gJ
-  , gP
+  ( module Curve.Weierstrass
+  , module Curve.Weierstrass.BLS12381
   ) where
 
 import Protolude
@@ -49,19 +25,19 @@ type Fr = PrimeField 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff0
 -- | BLS12381 curve is a Weierstrass curve.
 instance Curve 'Weierstrass c BLS12381 Fq Fr => WCurve c BLS12381 Fq Fr where
   a_ = const _a
-  {-# INLINE a_ #-}
+  {-# INLINABLE a_ #-}
   b_ = const _b
-  {-# INLINE b_ #-}
+  {-# INLINABLE b_ #-}
   h_ = const _h
-  {-# INLINE h_ #-}
+  {-# INLINABLE h_ #-}
   q_ = const _q
-  {-# INLINE q_ #-}
+  {-# INLINABLE q_ #-}
   r_ = const _r
-  {-# INLINE r_ #-}
+  {-# INLINABLE r_ #-}
   x_ = const _x
-  {-# INLINE x_ #-}
+  {-# INLINABLE x_ #-}
   y_ = const _y
-  {-# INLINE y_ #-}
+  {-# INLINABLE y_ #-}
 
 -- | Affine BLS12381 curve point.
 type PA = WAPoint BLS12381 Fq Fr
@@ -69,7 +45,7 @@ type PA = WAPoint BLS12381 Fq Fr
 -- | Affine BLS12381 curve is a Weierstrass affine curve.
 instance WACurve BLS12381 Fq Fr where
   gA_ = gA
-  {-# INLINE gA_ #-}
+  {-# INLINABLE gA_ #-}
 
 -- | Jacobian BLS12381 point.
 type PJ = WJPoint BLS12381 Fq Fr
@@ -77,7 +53,7 @@ type PJ = WJPoint BLS12381 Fq Fr
 -- | Jacobian BLS12381 curve is a Weierstrass Jacobian curve.
 instance WJCurve BLS12381 Fq Fr where
   gJ_ = gJ
-  {-# INLINE gJ_ #-}
+  {-# INLINABLE gJ_ #-}
 
 -- | Projective BLS12381 point.
 type PP = WPPoint BLS12381 Fq Fr
@@ -85,7 +61,7 @@ type PP = WPPoint BLS12381 Fq Fr
 -- | Projective BLS12381 curve is a Weierstrass projective curve.
 instance WPCurve BLS12381 Fq Fr where
   gP_ = gP
-  {-# INLINE gP_ #-}
+  {-# INLINABLE gP_ #-}
 
 -------------------------------------------------------------------------------
 -- Parameters
@@ -94,49 +70,49 @@ instance WPCurve BLS12381 Fq Fr where
 -- | Coefficient @A@ of BLS12381 curve.
 _a :: Fq
 _a = 0x0
-{-# INLINE _a #-}
+{-# INLINABLE _a #-}
 
 -- | Coefficient @B@ of BLS12381 curve.
 _b :: Fq
 _b = 0x4
-{-# INLINE _b #-}
+{-# INLINABLE _b #-}
 
 -- | Cofactor of BLS12381 curve.
 _h :: Integer
 _h = 0x396c8c005555e1568c00aaab0000aaab
-{-# INLINE _h #-}
+{-# INLINABLE _h #-}
 
 -- | Characteristic of BLS12381 curve.
 _q :: Integer
 _q = 0x1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab
-{-# INLINE _q #-}
+{-# INLINABLE _q #-}
 
 -- | Order of BLS12381 curve.
 _r :: Integer
 _r = 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
-{-# INLINE _r #-}
+{-# INLINABLE _r #-}
 
 -- | Coordinate @X@ of BLS12381 curve.
 _x :: Fq
 _x = 0x17f1d3a73197d7942695638c4fa9ac0fc3688c4f9774b905a14e3a3f171bac586c55e83ff97a1aeffb3af00adb22c6bb
-{-# INLINE _x #-}
+{-# INLINABLE _x #-}
 
 -- | Coordinate @Y@ of BLS12381 curve.
 _y :: Fq
 _y = 0x8b3f481e3aaa0f1a09e30ed741d8ae4fcf5e095d5d00af600db18cb2c04b3edd03cc744a2888ae40caa232946c5e7e1
-{-# INLINE _y #-}
+{-# INLINABLE _y #-}
 
 -- | Generator of affine BLS12381 curve.
 gA :: PA
 gA = A _x _y
-{-# INLINE gA #-}
+{-# INLINABLE gA #-}
 
 -- | Generator of Jacobian BLS12381 curve.
 gJ :: PJ
 gJ = J _x _y 1
-{-# INLINE gJ #-}
+{-# INLINABLE gJ #-}
 
 -- | Generator of projective BLS12381 curve.
 gP :: PP
 gP = P _x _y 1
-{-# INLINE gP #-}
+{-# INLINABLE gP #-}

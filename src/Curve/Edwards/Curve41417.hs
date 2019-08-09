@@ -1,26 +1,6 @@
 module Curve.Edwards.Curve41417
-  ( Curve(..)
-  , ECurve(..)
-  , EPoint
-  , EACurve(..)
-  , EAPoint
-  , EPCurve(..)
-  , EPPoint
-  , Fq
-  , Fr
-  , Group(..)
-  , PA
-  , PP
-  , Point(..)
-  , _a
-  , _d
-  , _h
-  , _q
-  , _r
-  , _x
-  , _y
-  , gA
-  , gP
+  ( module Curve.Edwards
+  , module Curve.Edwards.Curve41417
   ) where
 
 import Protolude
@@ -45,19 +25,19 @@ type Fr = PrimeField 0x7ffffffffffffffffffffffffffffffffffffffffffffffffffeb3cc9
 -- | Curve41417 curve is an Edwards curve.
 instance Curve 'Edwards c Curve41417 Fq Fr => ECurve c Curve41417 Fq Fr where
   a_ = const _a
-  {-# INLINE a_ #-}
+  {-# INLINABLE a_ #-}
   d_ = const _d
-  {-# INLINE d_ #-}
+  {-# INLINABLE d_ #-}
   h_ = const _h
-  {-# INLINE h_ #-}
+  {-# INLINABLE h_ #-}
   q_ = const _q
-  {-# INLINE q_ #-}
+  {-# INLINABLE q_ #-}
   r_ = const _r
-  {-# INLINE r_ #-}
+  {-# INLINABLE r_ #-}
   x_ = const _x
-  {-# INLINE x_ #-}
+  {-# INLINABLE x_ #-}
   y_ = const _y
-  {-# INLINE y_ #-}
+  {-# INLINABLE y_ #-}
 
 -- | Affine Curve41417 curve point.
 type PA = EAPoint Curve41417 Fq Fr
@@ -65,7 +45,7 @@ type PA = EAPoint Curve41417 Fq Fr
 -- | Affine Curve41417 curve is an Edwards affine curve.
 instance EACurve Curve41417 Fq Fr where
   gA_ = gA
-  {-# INLINE gA_ #-}
+  {-# INLINABLE gA_ #-}
 
 -- | Projective Curve41417 point.
 type PP = EPPoint Curve41417 Fq Fr
@@ -73,7 +53,7 @@ type PP = EPPoint Curve41417 Fq Fr
 -- | Projective Curve41417 curve is an Edwards projective curve.
 instance EPCurve Curve41417 Fq Fr where
   gP_ = gP
-  {-# INLINE gP_ #-}
+  {-# INLINABLE gP_ #-}
 
 -------------------------------------------------------------------------------
 -- Parameters
@@ -82,44 +62,44 @@ instance EPCurve Curve41417 Fq Fr where
 -- | Coefficient @A@ of Curve41417 curve.
 _a :: Fq
 _a = 0x1
-{-# INLINE _a #-}
+{-# INLINABLE _a #-}
 
 -- | Coefficient @D@ of Curve41417 curve.
 _d :: Fq
 _d = 0xe21
-{-# INLINE _d #-}
+{-# INLINABLE _d #-}
 
 -- | Cofactor of Curve41417 curve.
 _h :: Integer
 _h = 0x8
-{-# INLINE _h #-}
+{-# INLINABLE _h #-}
 
 -- | Characteristic of Curve41417 curve.
 _q :: Integer
 _q = 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffef
-{-# INLINE _q #-}
+{-# INLINABLE _q #-}
 
 -- | Order of Curve41417 curve.
 _r :: Integer
 _r = 0x7ffffffffffffffffffffffffffffffffffffffffffffffffffeb3cc92414cf706022b36f1c0338ad63cf181b0e71a5e106af79
-{-# INLINE _r #-}
+{-# INLINABLE _r #-}
 
 -- | Coordinate @X@ of Curve41417 curve.
 _x :: Fq
 _x = 0x1a334905141443300218c0631c326e5fcd46369f44c03ec7f57ff35498a4ab4d6d6ba111301a73faa8537c64c4fd3812f3cbc595
-{-# INLINE _x #-}
+{-# INLINABLE _x #-}
 
 -- | Coordinate @Y@ of Curve41417 curve.
 _y :: Fq
 _y = 0x22
-{-# INLINE _y #-}
+{-# INLINABLE _y #-}
 
 -- | Generator of affine Curve41417 curve.
 gA :: PA
 gA = A _x _y
-{-# INLINE gA #-}
+{-# INLINABLE gA #-}
 
 -- | Generator of projective Curve41417 curve.
 gP :: PP
 gP = P _x _y 1
-{-# INLINE gP #-}
+{-# INLINABLE gP #-}

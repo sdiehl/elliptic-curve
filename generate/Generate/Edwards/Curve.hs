@@ -18,28 +18,8 @@ prettyImports :: Types -> Doc
 prettyImports Types{..}
   =    "module Curve.Edwards." <> pretty curve
   <$$> indent 2
-    (    "( Curve(..)"
-    <$$> ", ECurve(..)"
-    <$$> ", EPoint"
-    <$$> ", EACurve(..)"
-    <$$> ", EAPoint"
-    <$$> ", EPCurve(..)"
-    <$$> ", EPPoint"
-    <$$> "," <+> prettyField field
-    <$$> ", Fr"
-    <$$> ", Group(..)"
-    <$$> ", PA"
-    <$$> ", PP"
-    <$$> ", Point(..)"
-    <$$> ", _a"
-    <$$> ", _d"
-    <$$> ", _h"
-    <$$> ", _q"
-    <$$> ", _r"
-    <$$> ", _x"
-    <$$> ", _y"
-    <$$> ", gA"
-    <$$> ", gP"
+    (    "( module Curve.Edwards"
+    <$$> ", module Curve.Edwards." <> pretty curve
     <$$> ") where"
     )
   <>   prettyBreak

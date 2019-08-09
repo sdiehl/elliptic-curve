@@ -1,17 +1,9 @@
 {-# OPTIONS -fno-warn-orphans #-}
 
 module Curve.Binary
-  ( BCurve(..)
-  , BPoint
-  , BACurve(..)
-  , BAPoint
-  , BPCurve(..)
-  , BPPoint
-  , Coordinates(..)
-  , Curve(..)
-  , Form(..)
-  , Group(..)
-  , Point(..)
+  ( module Curve
+  , module Curve.Binary
+  , module Group
   ) where
 
 import Protolude
@@ -60,31 +52,31 @@ instance BACurve e q r => Curve 'Binary 'Affine e q r where
     deriving (Eq, Generic, NFData, Read, Show)
 
   char = const 2
-  {-# INLINE char #-}
+  {-# INLINABLE char #-}
 
   cof = h_
-  {-# INLINE cof #-}
+  {-# INLINABLE cof #-}
 
   disc _ = b_ (witness :: BAPoint e q r)
-  {-# INLINE disc #-}
+  {-# INLINABLE disc #-}
 
   fromA = identity
-  {-# INLINE fromA #-}
+  {-# INLINABLE fromA #-}
 
   point x y = let p = A x y in if def p then Just p else Nothing
-  {-# INLINE point #-}
+  {-# INLINABLE point #-}
 
   pointX x = A x <$> yX (witness :: BAPoint e q r) x
-  {-# INLINE pointX #-}
+  {-# INLINABLE pointX #-}
 
   toA = identity
-  {-# INLINE toA #-}
+  {-# INLINABLE toA #-}
 
   yX _ x = quad 1 x ((x + a) * x * x + b)
     where
       a = a_ (witness :: BAPoint e q r)
       b = b_ (witness :: BAPoint e q r)
-  {-# INLINE yX #-}
+  {-# INLINABLE yX #-}
 
 -- Binary affine points are groups.
 instance BACurve e q r => Group (BAPoint e q r) where
@@ -101,7 +93,7 @@ instance BACurve e q r => Group (BAPoint e q r) where
       l  = yy / xx
       x3 = l * (l + 1) + xx + a
       y3 = l * (x1 + x3) + x3 + y1
-  {-# INLINE add #-}
+  {-# INLINABLE add #-}
 
   dbl O         = O
   dbl (A x y)
@@ -113,27 +105,27 @@ instance BACurve e q r => Group (BAPoint e q r) where
       l' = l + 1
       x' = l * l' + a
       y' = x * x + l' * x'
-  {-# INLINE dbl #-}
+  {-# INLINABLE dbl #-}
 
   def O       = True
   def (A x y) = ((x + a) * x + y) * x + b + y * y == 0
     where
       a = a_ (witness :: BAPoint e q r)
       b = b_ (witness :: BAPoint e q r)
-  {-# INLINE def #-}
+  {-# INLINABLE def #-}
 
   gen = gA_
-  {-# INLINE gen #-}
+  {-# INLINABLE gen #-}
 
   id = O
-  {-# INLINE id #-}
+  {-# INLINABLE id #-}
 
   inv O       = O
   inv (A x y) = A x (x + y)
-  {-# INLINE inv #-}
+  {-# INLINABLE inv #-}
 
   order = r_
-  {-# INLINE order #-}
+  {-# INLINABLE order #-}
 
 -- Binary affine points are pretty.
 instance BACurve e q r => Pretty (BAPoint e q r) where
@@ -160,33 +152,33 @@ instance BPCurve e q r => Curve 'Binary 'Projective e q r where
     deriving (Generic, NFData, Read, Show)
 
   char = const 2
-  {-# INLINE char #-}
+  {-# INLINABLE char #-}
 
   cof = h_
-  {-# INLINE cof #-}
+  {-# INLINABLE cof #-}
 
   disc _ = b_ (witness :: BPPoint e q r)
-  {-# INLINE disc #-}
+  {-# INLINABLE disc #-}
 
   fromA (A x y) = P x y 1
   fromA _       = P 0 1 0
-  {-# INLINE fromA #-}
+  {-# INLINABLE fromA #-}
 
   point x y = let p = P x y 1 in if def p then Just p else Nothing
-  {-# INLINE point #-}
+  {-# INLINABLE point #-}
 
   pointX x = flip (P x) 1 <$> yX (witness :: BPPoint e q r) x
-  {-# INLINE pointX #-}
+  {-# INLINABLE pointX #-}
 
   toA (P _ _ 0) = O
   toA (P x y z) = A (x / z) (y / z)
-  {-# INLINE toA #-}
+  {-# INLINABLE toA #-}
 
   yX _ x = quad 1 x ((x + a) * x * x + b)
     where
       a = a_ (witness :: BPPoint e q r)
       b = b_ (witness :: BPPoint e q r)
-  {-# INLINE yX #-}
+  {-# INLINABLE yX #-}
 
 -- Binary projective points are groups.
 instance BPCurve e q r => Group (BPPoint e q r) where
@@ -209,7 +201,7 @@ instance BPCurve e q r => Group (BPPoint e q r) where
       x3   = b * f
       y3   = c * (a * x1z2 + b * y1z2) + ab * f
       z3   = e * d
-  {-# INLINE add #-}
+  {-# INLINABLE add #-}
 
   -- Doubling formula dbl-2008-bl
   dbl (P  _  _  0) = P  0  1  0
@@ -225,26 +217,26 @@ instance BPCurve e q r => Group (BPPoint e q r) where
       x3 = c * e
       y3 = bc * e + a * a * c
       z3 = c * d
-  {-# INLINE dbl #-}
+  {-# INLINABLE dbl #-}
 
   def (P x y z) = ((x + a * z) * x + yz) * x + y * yz + b * z * z * z == 0
     where
       a  = a_ (witness :: BPPoint e q r)
       b  = b_ (witness :: BPPoint e q r)
       yz = y * z
-  {-# INLINE def #-}
+  {-# INLINABLE def #-}
 
   gen = gP_
-  {-# INLINE gen #-}
+  {-# INLINABLE gen #-}
 
   id = P 0 1 0
-  {-# INLINE id #-}
+  {-# INLINABLE id #-}
 
   inv (P x y z) = P x (x + y) z
-  {-# INLINE inv #-}
+  {-# INLINABLE inv #-}
 
   order = r_
-  {-# INLINE order #-}
+  {-# INLINABLE order #-}
 
 -- Binary projective points are equatable.
 instance BPCurve e q r => Eq (BPPoint e q r) where

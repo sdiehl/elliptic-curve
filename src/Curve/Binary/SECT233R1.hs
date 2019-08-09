@@ -1,26 +1,6 @@
 module Curve.Binary.SECT233R1
-  ( BCurve(..)
-  , BPoint
-  , BACurve(..)
-  , BAPoint
-  , BPCurve(..)
-  , BPPoint
-  , Curve(..)
-  , F2m
-  , Fr
-  , Group(..)
-  , PA
-  , PP
-  , Point(..)
-  , _a
-  , _b
-  , _h
-  , _p
-  , _r
-  , _x
-  , _y
-  , gA
-  , gP
+  ( module Curve.Binary
+  , module Curve.Binary.SECT233R1
   ) where
 
 import Protolude
@@ -46,19 +26,19 @@ type Fr = PrimeField 0x1000000000000000000000000000013e974e72f8a6922031d2603cfe0
 -- | SECT233R1 curve is a binary curve.
 instance Curve 'Binary c SECT233R1 F2m Fr => BCurve c SECT233R1 F2m Fr where
   a_ = const _a
-  {-# INLINE a_ #-}
+  {-# INLINABLE a_ #-}
   b_ = const _b
-  {-# INLINE b_ #-}
+  {-# INLINABLE b_ #-}
   h_ = const _h
-  {-# INLINE h_ #-}
+  {-# INLINABLE h_ #-}
   p_ = const _p
-  {-# INLINE p_ #-}
+  {-# INLINABLE p_ #-}
   r_ = const _r
-  {-# INLINE r_ #-}
+  {-# INLINABLE r_ #-}
   x_ = const _x
-  {-# INLINE x_ #-}
+  {-# INLINABLE x_ #-}
   y_ = const _y
-  {-# INLINE y_ #-}
+  {-# INLINABLE y_ #-}
 
 -- | Affine SECT233R1 curve point.
 type PA = BAPoint SECT233R1 F2m Fr
@@ -66,7 +46,7 @@ type PA = BAPoint SECT233R1 F2m Fr
 -- | Affine SECT233R1 curve is a binary affine curve.
 instance BACurve SECT233R1 F2m Fr where
   gA_ = gA
-  {-# INLINE gA_ #-}
+  {-# INLINABLE gA_ #-}
 
 -- | Projective SECT233R1 point.
 type PP = BPPoint SECT233R1 F2m Fr
@@ -74,7 +54,7 @@ type PP = BPPoint SECT233R1 F2m Fr
 -- | Projective SECT233R1 curve is a binary projective curve.
 instance BPCurve SECT233R1 F2m Fr where
   gP_ = gP
-  {-# INLINE gP_ #-}
+  {-# INLINABLE gP_ #-}
 
 -------------------------------------------------------------------------------
 -- Parameters
@@ -83,44 +63,44 @@ instance BPCurve SECT233R1 F2m Fr where
 -- | Coefficient @A@ of SECT233R1 curve.
 _a :: F2m
 _a = 0x1
-{-# INLINE _a #-}
+{-# INLINABLE _a #-}
 
 -- | Coefficient @B@ of SECT233R1 curve.
 _b :: F2m
 _b = 0x66647ede6c332c7f8c0923bb58213b333b20e9ce4281fe115f7d8f90ad
-{-# INLINE _b #-}
+{-# INLINABLE _b #-}
 
 -- | Cofactor of SECT233R1 curve.
 _h :: Integer
 _h = 0x2
-{-# INLINE _h #-}
+{-# INLINABLE _h #-}
 
 -- | Polynomial of SECT233R1 curve.
 _p :: Integer
 _p = 0x20000000000000000000000000000000000000004000000000000000001
-{-# INLINE _p #-}
+{-# INLINABLE _p #-}
 
 -- | Order of SECT233R1 curve.
 _r :: Integer
 _r = 0x1000000000000000000000000000013e974e72f8a6922031d2603cfe0d7
-{-# INLINE _r #-}
+{-# INLINABLE _r #-}
 
 -- | Coordinate @X@ of SECT233R1 curve.
 _x :: F2m
 _x = 0xfac9dfcbac8313bb2139f1bb755fef65bc391f8b36f8f8eb7371fd558b
-{-# INLINE _x #-}
+{-# INLINABLE _x #-}
 
 -- | Coordinate @Y@ of SECT233R1 curve.
 _y :: F2m
 _y = 0x1006a08a41903350678e58528bebf8a0beff867a7ca36716f7e01f81052
-{-# INLINE _y #-}
+{-# INLINABLE _y #-}
 
 -- | Generator of affine SECT233R1 curve.
 gA :: PA
 gA = A _x _y
-{-# INLINE gA #-}
+{-# INLINABLE gA #-}
 
 -- | Generator of projective SECT233R1 curve.
 gP :: PP
 gP = P _x _y 1
-{-# INLINE gP #-}
+{-# INLINABLE gP #-}

@@ -1,7 +1,5 @@
 module Generate.Types
-  ( Element(..)
-  , Field(..)
-  , Types(..)
+  ( module Generate.Types
   ) where
 
 import Protolude

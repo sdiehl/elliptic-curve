@@ -1,30 +1,6 @@
 module Curve.Weierstrass.BN254B
-  ( Curve(..)
-  , Fq
-  , Fr
-  , Group(..)
-  , PA
-  , PJ
-  , PP
-  , Point(..)
-  , WCurve(..)
-  , WPoint
-  , WACurve(..)
-  , WAPoint
-  , WJCurve(..)
-  , WJPoint
-  , WPCurve(..)
-  , WPPoint
-  , _a
-  , _b
-  , _h
-  , _q
-  , _r
-  , _x
-  , _y
-  , gA
-  , gJ
-  , gP
+  ( module Curve.Weierstrass
+  , module Curve.Weierstrass.BN254B
   ) where
 
 import Protolude
@@ -49,19 +25,19 @@ type Fr = PrimeField 0x2523648240000001ba344d8000000007ff9f800000000010a10000000
 -- | BN254B curve is a Weierstrass curve.
 instance Curve 'Weierstrass c BN254B Fq Fr => WCurve c BN254B Fq Fr where
   a_ = const _a
-  {-# INLINE a_ #-}
+  {-# INLINABLE a_ #-}
   b_ = const _b
-  {-# INLINE b_ #-}
+  {-# INLINABLE b_ #-}
   h_ = const _h
-  {-# INLINE h_ #-}
+  {-# INLINABLE h_ #-}
   q_ = const _q
-  {-# INLINE q_ #-}
+  {-# INLINABLE q_ #-}
   r_ = const _r
-  {-# INLINE r_ #-}
+  {-# INLINABLE r_ #-}
   x_ = const _x
-  {-# INLINE x_ #-}
+  {-# INLINABLE x_ #-}
   y_ = const _y
-  {-# INLINE y_ #-}
+  {-# INLINABLE y_ #-}
 
 -- | Affine BN254B curve point.
 type PA = WAPoint BN254B Fq Fr
@@ -69,7 +45,7 @@ type PA = WAPoint BN254B Fq Fr
 -- | Affine BN254B curve is a Weierstrass affine curve.
 instance WACurve BN254B Fq Fr where
   gA_ = gA
-  {-# INLINE gA_ #-}
+  {-# INLINABLE gA_ #-}
 
 -- | Jacobian BN254B point.
 type PJ = WJPoint BN254B Fq Fr
@@ -77,7 +53,7 @@ type PJ = WJPoint BN254B Fq Fr
 -- | Jacobian BN254B curve is a Weierstrass Jacobian curve.
 instance WJCurve BN254B Fq Fr where
   gJ_ = gJ
-  {-# INLINE gJ_ #-}
+  {-# INLINABLE gJ_ #-}
 
 -- | Projective BN254B point.
 type PP = WPPoint BN254B Fq Fr
@@ -85,7 +61,7 @@ type PP = WPPoint BN254B Fq Fr
 -- | Projective BN254B curve is a Weierstrass projective curve.
 instance WPCurve BN254B Fq Fr where
   gP_ = gP
-  {-# INLINE gP_ #-}
+  {-# INLINABLE gP_ #-}
 
 -------------------------------------------------------------------------------
 -- Parameters
@@ -94,49 +70,49 @@ instance WPCurve BN254B Fq Fr where
 -- | Coefficient @A@ of BN254B curve.
 _a :: Fq
 _a = 0x0
-{-# INLINE _a #-}
+{-# INLINABLE _a #-}
 
 -- | Coefficient @B@ of BN254B curve.
 _b :: Fq
 _b = 0x2
-{-# INLINE _b #-}
+{-# INLINABLE _b #-}
 
 -- | Cofactor of BN254B curve.
 _h :: Integer
 _h = 0x1
-{-# INLINE _h #-}
+{-# INLINABLE _h #-}
 
 -- | Characteristic of BN254B curve.
 _q :: Integer
 _q = 0x2523648240000001ba344d80000000086121000000000013a700000000000013
-{-# INLINE _q #-}
+{-# INLINABLE _q #-}
 
 -- | Order of BN254B curve.
 _r :: Integer
 _r = 0x2523648240000001ba344d8000000007ff9f800000000010a10000000000000d
-{-# INLINE _r #-}
+{-# INLINABLE _r #-}
 
 -- | Coordinate @X@ of BN254B curve.
 _x :: Fq
 _x = 0x2523648240000001ba344d80000000086121000000000013a700000000000012
-{-# INLINE _x #-}
+{-# INLINABLE _x #-}
 
 -- | Coordinate @Y@ of BN254B curve.
 _y :: Fq
 _y = 0x1
-{-# INLINE _y #-}
+{-# INLINABLE _y #-}
 
 -- | Generator of affine BN254B curve.
 gA :: PA
 gA = A _x _y
-{-# INLINE gA #-}
+{-# INLINABLE gA #-}
 
 -- | Generator of Jacobian BN254B curve.
 gJ :: PJ
 gJ = J _x _y 1
-{-# INLINE gJ #-}
+{-# INLINABLE gJ #-}
 
 -- | Generator of projective BN254B curve.
 gP :: PP
 gP = P _x _y 1
-{-# INLINE gP #-}
+{-# INLINABLE gP #-}

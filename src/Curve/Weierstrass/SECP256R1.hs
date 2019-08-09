@@ -1,30 +1,6 @@
 module Curve.Weierstrass.SECP256R1
-  ( Curve(..)
-  , Fq
-  , Fr
-  , Group(..)
-  , PA
-  , PJ
-  , PP
-  , Point(..)
-  , WCurve(..)
-  , WPoint
-  , WACurve(..)
-  , WAPoint
-  , WJCurve(..)
-  , WJPoint
-  , WPCurve(..)
-  , WPPoint
-  , _a
-  , _b
-  , _h
-  , _q
-  , _r
-  , _x
-  , _y
-  , gA
-  , gJ
-  , gP
+  ( module Curve.Weierstrass
+  , module Curve.Weierstrass.SECP256R1
   ) where
 
 import Protolude
@@ -49,19 +25,19 @@ type Fr = PrimeField 0xffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2f
 -- | SECP256R1 curve is a Weierstrass curve.
 instance Curve 'Weierstrass c SECP256R1 Fq Fr => WCurve c SECP256R1 Fq Fr where
   a_ = const _a
-  {-# INLINE a_ #-}
+  {-# INLINABLE a_ #-}
   b_ = const _b
-  {-# INLINE b_ #-}
+  {-# INLINABLE b_ #-}
   h_ = const _h
-  {-# INLINE h_ #-}
+  {-# INLINABLE h_ #-}
   q_ = const _q
-  {-# INLINE q_ #-}
+  {-# INLINABLE q_ #-}
   r_ = const _r
-  {-# INLINE r_ #-}
+  {-# INLINABLE r_ #-}
   x_ = const _x
-  {-# INLINE x_ #-}
+  {-# INLINABLE x_ #-}
   y_ = const _y
-  {-# INLINE y_ #-}
+  {-# INLINABLE y_ #-}
 
 -- | Affine SECP256R1 curve point.
 type PA = WAPoint SECP256R1 Fq Fr
@@ -69,7 +45,7 @@ type PA = WAPoint SECP256R1 Fq Fr
 -- | Affine SECP256R1 curve is a Weierstrass affine curve.
 instance WACurve SECP256R1 Fq Fr where
   gA_ = gA
-  {-# INLINE gA_ #-}
+  {-# INLINABLE gA_ #-}
 
 -- | Jacobian SECP256R1 point.
 type PJ = WJPoint SECP256R1 Fq Fr
@@ -77,7 +53,7 @@ type PJ = WJPoint SECP256R1 Fq Fr
 -- | Jacobian SECP256R1 curve is a Weierstrass Jacobian curve.
 instance WJCurve SECP256R1 Fq Fr where
   gJ_ = gJ
-  {-# INLINE gJ_ #-}
+  {-# INLINABLE gJ_ #-}
 
 -- | Projective SECP256R1 point.
 type PP = WPPoint SECP256R1 Fq Fr
@@ -85,7 +61,7 @@ type PP = WPPoint SECP256R1 Fq Fr
 -- | Projective SECP256R1 curve is a Weierstrass projective curve.
 instance WPCurve SECP256R1 Fq Fr where
   gP_ = gP
-  {-# INLINE gP_ #-}
+  {-# INLINABLE gP_ #-}
 
 -------------------------------------------------------------------------------
 -- Parameters
@@ -94,49 +70,49 @@ instance WPCurve SECP256R1 Fq Fr where
 -- | Coefficient @A@ of SECP256R1 curve.
 _a :: Fq
 _a = 0xffffffff00000001000000000000000000000000fffffffffffffffffffffffc
-{-# INLINE _a #-}
+{-# INLINABLE _a #-}
 
 -- | Coefficient @B@ of SECP256R1 curve.
 _b :: Fq
 _b = 0x5ac635d8aa3a93e7b3ebbd55769886bc651d06b0cc53b0f63bce3c3e27d2604b
-{-# INLINE _b #-}
+{-# INLINABLE _b #-}
 
 -- | Cofactor of SECP256R1 curve.
 _h :: Integer
 _h = 0x1
-{-# INLINE _h #-}
+{-# INLINABLE _h #-}
 
 -- | Characteristic of SECP256R1 curve.
 _q :: Integer
 _q = 0xffffffff00000001000000000000000000000000ffffffffffffffffffffffff
-{-# INLINE _q #-}
+{-# INLINABLE _q #-}
 
 -- | Order of SECP256R1 curve.
 _r :: Integer
 _r = 0xffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632551
-{-# INLINE _r #-}
+{-# INLINABLE _r #-}
 
 -- | Coordinate @X@ of SECP256R1 curve.
 _x :: Fq
 _x = 0x6b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c296
-{-# INLINE _x #-}
+{-# INLINABLE _x #-}
 
 -- | Coordinate @Y@ of SECP256R1 curve.
 _y :: Fq
 _y = 0x4fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5
-{-# INLINE _y #-}
+{-# INLINABLE _y #-}
 
 -- | Generator of affine SECP256R1 curve.
 gA :: PA
 gA = A _x _y
-{-# INLINE gA #-}
+{-# INLINABLE gA #-}
 
 -- | Generator of Jacobian SECP256R1 curve.
 gJ :: PJ
 gJ = J _x _y 1
-{-# INLINE gJ #-}
+{-# INLINABLE gJ #-}
 
 -- | Generator of projective SECP256R1 curve.
 gP :: PP
 gP = P _x _y 1
-{-# INLINE gP #-}
+{-# INLINABLE gP #-}

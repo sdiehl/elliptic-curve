@@ -1,9 +1,6 @@
 module Generate.Binary.Types
-  ( Curve(..)
-  , Element(..)
-  , Field(..)
-  , Parameters(..)
-  , Types(..)
+  ( module Generate.Binary.Types
+  , module Generate.Types
   ) where
 
 import Protolude

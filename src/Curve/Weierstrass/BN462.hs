@@ -1,30 +1,6 @@
 module Curve.Weierstrass.BN462
-  ( Curve(..)
-  , Fq
-  , Fr
-  , Group(..)
-  , PA
-  , PJ
-  , PP
-  , Point(..)
-  , WCurve(..)
-  , WPoint
-  , WACurve(..)
-  , WAPoint
-  , WJCurve(..)
-  , WJPoint
-  , WPCurve(..)
-  , WPPoint
-  , _a
-  , _b
-  , _h
-  , _q
-  , _r
-  , _x
-  , _y
-  , gA
-  , gJ
-  , gP
+  ( module Curve.Weierstrass
+  , module Curve.Weierstrass.BN462
   ) where
 
 import Protolude
@@ -49,19 +25,19 @@ type Fr = PrimeField 0x240480360120023ffffffffff6ff0cf6b7d9bfca0000000000d812908
 -- | BN462 curve is a Weierstrass curve.
 instance Curve 'Weierstrass c BN462 Fq Fr => WCurve c BN462 Fq Fr where
   a_ = const _a
-  {-# INLINE a_ #-}
+  {-# INLINABLE a_ #-}
   b_ = const _b
-  {-# INLINE b_ #-}
+  {-# INLINABLE b_ #-}
   h_ = const _h
-  {-# INLINE h_ #-}
+  {-# INLINABLE h_ #-}
   q_ = const _q
-  {-# INLINE q_ #-}
+  {-# INLINABLE q_ #-}
   r_ = const _r
-  {-# INLINE r_ #-}
+  {-# INLINABLE r_ #-}
   x_ = const _x
-  {-# INLINE x_ #-}
+  {-# INLINABLE x_ #-}
   y_ = const _y
-  {-# INLINE y_ #-}
+  {-# INLINABLE y_ #-}
 
 -- | Affine BN462 curve point.
 type PA = WAPoint BN462 Fq Fr
@@ -69,7 +45,7 @@ type PA = WAPoint BN462 Fq Fr
 -- | Affine BN462 curve is a Weierstrass affine curve.
 instance WACurve BN462 Fq Fr where
   gA_ = gA
-  {-# INLINE gA_ #-}
+  {-# INLINABLE gA_ #-}
 
 -- | Jacobian BN462 point.
 type PJ = WJPoint BN462 Fq Fr
@@ -77,7 +53,7 @@ type PJ = WJPoint BN462 Fq Fr
 -- | Jacobian BN462 curve is a Weierstrass Jacobian curve.
 instance WJCurve BN462 Fq Fr where
   gJ_ = gJ
-  {-# INLINE gJ_ #-}
+  {-# INLINABLE gJ_ #-}
 
 -- | Projective BN462 point.
 type PP = WPPoint BN462 Fq Fr
@@ -85,7 +61,7 @@ type PP = WPPoint BN462 Fq Fr
 -- | Projective BN462 curve is a Weierstrass projective curve.
 instance WPCurve BN462 Fq Fr where
   gP_ = gP
-  {-# INLINE gP_ #-}
+  {-# INLINABLE gP_ #-}
 
 -------------------------------------------------------------------------------
 -- Parameters
@@ -94,49 +70,49 @@ instance WPCurve BN462 Fq Fr where
 -- | Coefficient @A@ of BN462 curve.
 _a :: Fq
 _a = 0x0
-{-# INLINE _a #-}
+{-# INLINABLE _a #-}
 
 -- | Coefficient @B@ of BN462 curve.
 _b :: Fq
 _b = 0x5
-{-# INLINE _b #-}
+{-# INLINABLE _b #-}
 
 -- | Cofactor of BN462 curve.
 _h :: Integer
 _h = 0x1
-{-# INLINE _h #-}
+{-# INLINABLE _h #-}
 
 -- | Characteristic of BN462 curve.
 _q :: Integer
 _q = 0x240480360120023ffffffffff6ff0cf6b7d9bfca0000000000d812908f41c8020ffffffffff6ff66fc6ff687f640000000002401b00840138013
-{-# INLINE _q #-}
+{-# INLINABLE _q #-}
 
 -- | Order of BN462 curve.
 _r :: Integer
 _r = 0x240480360120023ffffffffff6ff0cf6b7d9bfca0000000000d812908ee1c201f7fffffffff6ff66fc7bf717f7c0000000002401b007e010800d
-{-# INLINE _r #-}
+{-# INLINABLE _r #-}
 
 -- | Coordinate @X@ of BN462 curve.
 _x :: Fq
 _x = 0x21a6d67ef250191fadba34a0a30160b9ac9264b6f95f63b3edbec3cf4b2e689db1bbb4e69a416a0b1e79239c0372e5cd70113c98d91f36b6980d
-{-# INLINE _x #-}
+{-# INLINABLE _x #-}
 
 -- | Coordinate @Y@ of BN462 curve.
 _y :: Fq
 _y = 0x118ea0460f7f7abb82b33676a7432a490eeda842cccfa7d788c659650426e6af77df11b8ae40eb80f475432c66600622ecaa8a5734d36fb03de
-{-# INLINE _y #-}
+{-# INLINABLE _y #-}
 
 -- | Generator of affine BN462 curve.
 gA :: PA
 gA = A _x _y
-{-# INLINE gA #-}
+{-# INLINABLE gA #-}
 
 -- | Generator of Jacobian BN462 curve.
 gJ :: PJ
 gJ = J _x _y 1
-{-# INLINE gJ #-}
+{-# INLINABLE gJ #-}
 
 -- | Generator of projective BN462 curve.
 gP :: PP
 gP = P _x _y 1
-{-# INLINE gP #-}
+{-# INLINABLE gP #-}

@@ -45,7 +45,7 @@ class (Arbitrary g, Eq g, Generic g,
     | otherwise = add p p'
     where
       p' = mul' (dbl p) (div n 2)
-  {-# INLINE mul' #-}
+  {-# INLINABLE mul' #-}
 
   -- | Curve order.
   order :: g -> Integer
@@ -53,4 +53,4 @@ class (Arbitrary g, Eq g, Generic g,
   -- | Random element.
   rnd :: MonadRandom m => m g
   rnd = getRandom
-  {-# INLINE rnd #-}
+  {-# INLINABLE rnd #-}

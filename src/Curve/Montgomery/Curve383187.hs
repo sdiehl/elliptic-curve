@@ -1,22 +1,6 @@
 module Curve.Montgomery.Curve383187
-  ( Curve(..)
-  , Fq
-  , Fr
-  , Group(..)
-  , MCurve(..)
-  , MPoint
-  , MACurve(..)
-  , MAPoint
-  , PA
-  , Point(..)
-  , _a
-  , _b
-  , _h
-  , _q
-  , _r
-  , _x
-  , _y
-  , gA
+  ( module Curve.Montgomery
+  , module Curve.Montgomery.Curve383187
   ) where
 
 import Protolude
@@ -41,19 +25,19 @@ type Fr = PrimeField 0x1000000000000000000000000000000000000000000000000e85a8528
 -- | Curve383187 curve is a Montgomery curve.
 instance Curve 'Montgomery c Curve383187 Fq Fr => MCurve c Curve383187 Fq Fr where
   a_ = const _a
-  {-# INLINE a_ #-}
+  {-# INLINABLE a_ #-}
   b_ = const _b
-  {-# INLINE b_ #-}
+  {-# INLINABLE b_ #-}
   h_ = const _h
-  {-# INLINE h_ #-}
+  {-# INLINABLE h_ #-}
   q_ = const _q
-  {-# INLINE q_ #-}
+  {-# INLINABLE q_ #-}
   r_ = const _r
-  {-# INLINE r_ #-}
+  {-# INLINABLE r_ #-}
   x_ = const _x
-  {-# INLINE x_ #-}
+  {-# INLINABLE x_ #-}
   y_ = const _y
-  {-# INLINE y_ #-}
+  {-# INLINABLE y_ #-}
 
 -- | Affine Curve383187 curve point.
 type PA = MAPoint Curve383187 Fq Fr
@@ -61,7 +45,7 @@ type PA = MAPoint Curve383187 Fq Fr
 -- | Affine Curve383187 curve is a Montgomery affine curve.
 instance MACurve Curve383187 Fq Fr where
   gA_ = gA
-  {-# INLINE gA_ #-}
+  {-# INLINABLE gA_ #-}
 
 -------------------------------------------------------------------------------
 -- Parameters
@@ -70,39 +54,39 @@ instance MACurve Curve383187 Fq Fr where
 -- | Coefficient @A@ of Curve383187 curve.
 _a :: Fq
 _a = 0x38251
-{-# INLINE _a #-}
+{-# INLINABLE _a #-}
 
 -- | Coefficient @B@ of Curve383187 curve.
 _b :: Fq
 _b = 0x1
-{-# INLINE _b #-}
+{-# INLINABLE _b #-}
 
 -- | Cofactor of Curve383187 curve.
 _h :: Integer
 _h = 0x8
-{-# INLINE _h #-}
+{-# INLINABLE _h #-}
 
 -- | Characteristic of Curve383187 curve.
 _q :: Integer
 _q = 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff45
-{-# INLINE _q #-}
+{-# INLINABLE _q #-}
 
 -- | Order of Curve383187 curve.
 _r :: Integer
 _r = 0x1000000000000000000000000000000000000000000000000e85a85287a1488acd41ae84b2b7030446f72088b00a0e21
-{-# INLINE _r #-}
+{-# INLINABLE _r #-}
 
 -- | Coordinate @X@ of Curve383187 curve.
 _x :: Fq
 _x = 0x5
-{-# INLINE _x #-}
+{-# INLINABLE _x #-}
 
 -- | Coordinate @Y@ of Curve383187 curve.
 _y :: Fq
 _y = 0x1eebe07dc1871896732b12d5504a32370471965c7a11f2c89865f855ab3cbd7c224e3620c31af3370788457dd5ce46df
-{-# INLINE _y #-}
+{-# INLINABLE _y #-}
 
 -- | Generator of affine Curve383187 curve.
 gA :: PA
 gA = A _x _y
-{-# INLINE gA #-}
+{-# INLINABLE gA #-}

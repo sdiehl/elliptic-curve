@@ -1,6 +1,6 @@
 module Group.Field
-  ( Element(..)
-  , FGroup(..)
+  ( module Group
+  , module Group.Field
   ) where
 
 import Protolude
@@ -36,40 +36,40 @@ newtype Element k = F k
 instance FGroup k => Group (Element k) where
 
   add = (<>)
-  {-# INLINE add #-}
+  {-# INLINABLE add #-}
 
   dbl = join (<>)
-  {-# INLINE dbl #-}
+  {-# INLINABLE dbl #-}
 
   def (F x) = x /= 0
-  {-# INLINE def #-}
+  {-# INLINABLE def #-}
 
   gen = g_
-  {-# INLINE gen #-}
+  {-# INLINABLE gen #-}
 
   id = mempty
-  {-# INLINE id #-}
+  {-# INLINABLE id #-}
 
   inv (F x) = F (recip x)
-  {-# INLINE inv #-}
+  {-# INLINABLE inv #-}
 
   mul' (F x) n = F (pow x n)
-  {-# INLINE mul' #-}
+  {-# INLINABLE mul' #-}
 
   order = r_
-  {-# INLINE order #-}
+  {-# INLINABLE order #-}
 
 -- Field elements are monoids.
 instance FGroup k => Monoid (Element k) where
 
   mempty = F 1
-  {-# INLINE mempty #-}
+  {-# INLINABLE mempty #-}
 
 -- Field elements are semigroups.
 instance FGroup k => Semigroup (Element k) where
 
   F x <> F y = F (x * y)
-  {-# INLINE (<>) #-}
+  {-# INLINABLE (<>) #-}
 
 -------------------------------------------------------------------------------
 -- Instances
@@ -77,19 +77,24 @@ instance FGroup k => Semigroup (Element k) where
 
 -- Field elements are arbitrary.
 instance FGroup k => Arbitrary (Element k) where
+
   arbitrary = suchThatMap arbitrary defX
     where
       defX 0 = Nothing
       defX x = Just (F x)
+  {-# INLINABLE arbitrary #-}
 
 -- Field elements are pretty.
 instance FGroup k => Pretty (Element k) where
+
   pretty (F x) = pretty x
 
 -- Field elements are random.
 instance FGroup k => Random (Element k) where
+
   random g = case random g of
     (0, g') -> random g'
     (x, g') -> (F x, g')
-  {-# INLINE random #-}
+  {-# INLINABLE random #-}
+
   randomR  = panic "not implemented."

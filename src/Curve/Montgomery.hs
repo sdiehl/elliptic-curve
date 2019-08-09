@@ -1,15 +1,9 @@
 {-# OPTIONS -fno-warn-orphans #-}
 
 module Curve.Montgomery
-  ( Coordinates(..)
-  , Curve(..)
-  , Form(..)
-  , Group(..)
-  , MCurve(..)
-  , MPoint
-  , MACurve(..)
-  , MAPoint
-  , Point(..)
+  ( module Curve
+  , module Curve.Montgomery
+  , module Group
   ) where
 
 import Protolude
@@ -58,34 +52,34 @@ instance MACurve e q r => Curve 'Montgomery 'Affine e q r where
     deriving (Eq, Generic, NFData, Read, Show)
 
   char = q_
-  {-# INLINE char #-}
+  {-# INLINABLE char #-}
 
   cof = h_
-  {-# INLINE cof #-}
+  {-# INLINABLE cof #-}
 
   disc _ = b * (a * a - 4)
     where
       a = a_ (witness :: MAPoint e q r)
       b = b_ (witness :: MAPoint e q r)
-  {-# INLINE disc #-}
+  {-# INLINABLE disc #-}
 
   fromA = identity
-  {-# INLINE fromA #-}
+  {-# INLINABLE fromA #-}
 
   point x y = let p = A x y in if def p then Just p else Nothing
-  {-# INLINE point #-}
+  {-# INLINABLE point #-}
 
   pointX x = A x <$> yX (witness :: MAPoint e q r) x
-  {-# INLINE pointX #-}
+  {-# INLINABLE pointX #-}
 
   toA = identity
-  {-# INLINE toA #-}
+  {-# INLINABLE toA #-}
 
   yX _ x = sr ((((x + a) * x) + 1) * x / b)
     where
       a = a_ (witness :: MAPoint e q r)
       b = b_ (witness :: MAPoint e q r)
-  {-# INLINE yX #-}
+  {-# INLINABLE yX #-}
 
 -- Montgomery affine points are groups.
 instance MACurve e q r => Group (MAPoint e q r) where
@@ -101,7 +95,7 @@ instance MACurve e q r => Group (MAPoint e q r) where
       l  = (y2 - y1) / (x2 - x1)
       x3 = b * l * l - a - x1 - x2
       y3 = l * (x1 - x3) - y1
-  {-# INLINE add #-}
+  {-# INLINABLE add #-}
 
   dbl O         = O
   dbl (A x y)
@@ -113,27 +107,27 @@ instance MACurve e q r => Group (MAPoint e q r) where
       l  = (x * (3 * x + 2 * a) + 1) / (2 * b * y)
       x' = b * l * l - a - 2 * x
       y' = l * (x - x') - y
-  {-# INLINE dbl #-}
+  {-# INLINABLE dbl #-}
 
   def O       = True
   def (A x y) = b * y * y == (((x + a) * x) + 1) * x
     where
       a = a_ (witness :: MAPoint e q r)
       b = b_ (witness :: MAPoint e q r)
-  {-# INLINE def #-}
+  {-# INLINABLE def #-}
 
   gen = gA_
-  {-# INLINE gen #-}
+  {-# INLINABLE gen #-}
 
   id = O
-  {-# INLINE id #-}
+  {-# INLINABLE id #-}
 
   inv O       = O
   inv (A x y) = A x (-y)
-  {-# INLINE inv #-}
+  {-# INLINABLE inv #-}
 
   order = r_
-  {-# INLINE order #-}
+  {-# INLINABLE order #-}
 
 -- Montgomery affine points are pretty.
 instance MACurve e q r => Pretty (MAPoint e q r) where

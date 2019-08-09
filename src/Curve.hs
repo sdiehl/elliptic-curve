@@ -1,8 +1,6 @@
 module Curve
-  ( Coordinates(..)
-  , Curve(..)
-  , Form(..)
-  , Group(..)
+  ( module Curve
+  , module Group
   ) where
 
 import Protolude
@@ -42,7 +40,7 @@ class (GaloisField q, GaloisField r, Group (Point f c e q r))
   -- | Curve point multiplication.
   mul :: r ~ PrimeField p => Point f c e q r -> r -> Point f c e q r
   mul = (. toInt) . mul'
-  {-# INLINE mul #-}
+  {-# INLINABLE mul #-}
 
   -- | Get point from X and Y coordinates.
   point :: q -> q -> Maybe (Point f c e q r)
@@ -80,19 +78,19 @@ data Coordinates = Affine
 instance Curve f c e q r => Monoid (Point f c e q r) where
 
   mempty = id
-  {-# INLINE mempty #-}
+  {-# INLINABLE mempty #-}
 
 -- Elliptic curve points are semigroups.
 instance Curve f c e q r => Semigroup (Point f c e q r) where
 
   p <> q = if p == q then dbl p else add p q
-  {-# INLINE (<>) #-}
+  {-# INLINABLE (<>) #-}
 
 -- Elliptic curve points are arbitrary.
 instance Curve f c e q r => Arbitrary (Point f c e q r) where
 
   arbitrary = suchThatMap arbitrary pointX
-  {-# INLINE arbitrary #-}
+  {-# INLINABLE arbitrary #-}
 
 -- Elliptic curve points are random.
 instance Curve f c e q r => Random (Point f c e q r) where
@@ -100,6 +98,6 @@ instance Curve f c e q r => Random (Point f c e q r) where
   random g = let (x, g') = random g in case pointX x of
     Just p -> (p, g')
     _      -> random g'
-  {-# INLINE random #-}
+  {-# INLINABLE random #-}
 
   randomR = panic "not implemented."

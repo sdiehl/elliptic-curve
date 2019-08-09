@@ -1,26 +1,6 @@
 module Curve.Binary.SECT283R1
-  ( BCurve(..)
-  , BPoint
-  , BACurve(..)
-  , BAPoint
-  , BPCurve(..)
-  , BPPoint
-  , Curve(..)
-  , F2m
-  , Fr
-  , Group(..)
-  , PA
-  , PP
-  , Point(..)
-  , _a
-  , _b
-  , _h
-  , _p
-  , _r
-  , _x
-  , _y
-  , gA
-  , gP
+  ( module Curve.Binary
+  , module Curve.Binary.SECT283R1
   ) where
 
 import Protolude
@@ -46,19 +26,19 @@ type Fr = PrimeField 0x3ffffffffffffffffffffffffffffffffffef90399660fc938a90165b
 -- | SECT283R1 curve is a binary curve.
 instance Curve 'Binary c SECT283R1 F2m Fr => BCurve c SECT283R1 F2m Fr where
   a_ = const _a
-  {-# INLINE a_ #-}
+  {-# INLINABLE a_ #-}
   b_ = const _b
-  {-# INLINE b_ #-}
+  {-# INLINABLE b_ #-}
   h_ = const _h
-  {-# INLINE h_ #-}
+  {-# INLINABLE h_ #-}
   p_ = const _p
-  {-# INLINE p_ #-}
+  {-# INLINABLE p_ #-}
   r_ = const _r
-  {-# INLINE r_ #-}
+  {-# INLINABLE r_ #-}
   x_ = const _x
-  {-# INLINE x_ #-}
+  {-# INLINABLE x_ #-}
   y_ = const _y
-  {-# INLINE y_ #-}
+  {-# INLINABLE y_ #-}
 
 -- | Affine SECT283R1 curve point.
 type PA = BAPoint SECT283R1 F2m Fr
@@ -66,7 +46,7 @@ type PA = BAPoint SECT283R1 F2m Fr
 -- | Affine SECT283R1 curve is a binary affine curve.
 instance BACurve SECT283R1 F2m Fr where
   gA_ = gA
-  {-# INLINE gA_ #-}
+  {-# INLINABLE gA_ #-}
 
 -- | Projective SECT283R1 point.
 type PP = BPPoint SECT283R1 F2m Fr
@@ -74,7 +54,7 @@ type PP = BPPoint SECT283R1 F2m Fr
 -- | Projective SECT283R1 curve is a binary projective curve.
 instance BPCurve SECT283R1 F2m Fr where
   gP_ = gP
-  {-# INLINE gP_ #-}
+  {-# INLINABLE gP_ #-}
 
 -------------------------------------------------------------------------------
 -- Parameters
@@ -83,44 +63,44 @@ instance BPCurve SECT283R1 F2m Fr where
 -- | Coefficient @A@ of SECT283R1 curve.
 _a :: F2m
 _a = 0x1
-{-# INLINE _a #-}
+{-# INLINABLE _a #-}
 
 -- | Coefficient @B@ of SECT283R1 curve.
 _b :: F2m
 _b = 0x27b680ac8b8596da5a4af8a19a0303fca97fd7645309fa2a581485af6263e313b79a2f5
-{-# INLINE _b #-}
+{-# INLINABLE _b #-}
 
 -- | Cofactor of SECT283R1 curve.
 _h :: Integer
 _h = 0x2
-{-# INLINE _h #-}
+{-# INLINABLE _h #-}
 
 -- | Polynomial of SECT283R1 curve.
 _p :: Integer
 _p = 0x800000000000000000000000000000000000000000000000000000000000000000010a1
-{-# INLINE _p #-}
+{-# INLINABLE _p #-}
 
 -- | Order of SECT283R1 curve.
 _r :: Integer
 _r = 0x3ffffffffffffffffffffffffffffffffffef90399660fc938a90165b042a7cefadb307
-{-# INLINE _r #-}
+{-# INLINABLE _r #-}
 
 -- | Coordinate @X@ of SECT283R1 curve.
 _x :: F2m
 _x = 0x5f939258db7dd90e1934f8c70b0dfec2eed25b8557eac9c80e2e198f8cdbecd86b12053
-{-# INLINE _x #-}
+{-# INLINABLE _x #-}
 
 -- | Coordinate @Y@ of SECT283R1 curve.
 _y :: F2m
 _y = 0x3676854fe24141cb98fe6d4b20d02b4516ff702350eddb0826779c813f0df45be8112f4
-{-# INLINE _y #-}
+{-# INLINABLE _y #-}
 
 -- | Generator of affine SECT283R1 curve.
 gA :: PA
 gA = A _x _y
-{-# INLINE gA #-}
+{-# INLINABLE gA #-}
 
 -- | Generator of projective SECT283R1 curve.
 gP :: PP
 gP = P _x _y 1
-{-# INLINE gP #-}
+{-# INLINABLE gP #-}

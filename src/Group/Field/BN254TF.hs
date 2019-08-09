@@ -1,23 +1,13 @@
 module Group.Field.BN254TF
-  ( Element(..)
-  , FGroup(..)
-  , Fq
-  , Fq2
-  , Fq6
-  , Fq12
-  , Group(..)
-  , P
-  , _g
-  , _q
-  , _r
-  , _x
+  ( module Group
+  , module Group.Field
+  , module Group.Field.BN254TF
   ) where
 
 import Protolude
 
 import ExtensionField
 
-import Curve.Weierstrass.BN254 (Fq)
 import Curve.Weierstrass.BN254T (Fq2)
 import Group
 import Group.Field
@@ -39,13 +29,13 @@ type Fq12 = ExtensionField Fq6 PolynomialW
 -- | BN254TF group is a field group.
 instance FGroup Fq12 where
   g_ = _g
-  {-# INLINE g_ #-}
+  {-# INLINABLE g_ #-}
   q_ = const _q
-  {-# INLINE q_ #-}
+  {-# INLINABLE q_ #-}
   r_ = const _r
-  {-# INLINE r_ #-}
+  {-# INLINABLE r_ #-}
   x_ = _x
-  {-# INLINE x_ #-}
+  {-# INLINABLE x_ #-}
 
 -- | Element of BN254TF group.
 type P = Element Fq12
@@ -57,17 +47,17 @@ type P = Element Fq12
 -- | Generator of BN254TF group.
 _g :: P
 _g = F _x
-{-# INLINE _g #-}
+{-# INLINABLE _g #-}
 
 -- | Characteristic of BN254TF group.
 _q :: Integer
 _q = 0x30644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd47
-{-# INLINE _q #-}
+{-# INLINABLE _q #-}
 
 -- | Order of BN254TF group.
 _r :: Integer
 _r = 0x30644e72e131a029b85045b68181585d2833e84879b9709143e1f593f0000001
-{-# INLINE _r #-}
+{-# INLINABLE _r #-}
 
 -- | Element @X@ of BN254TF group.
 _x :: Fq12
@@ -92,3 +82,4 @@ _x = toField [ toField [ toField [ 0x12c70e90e12b7874510cd1707e8856f71bf7f61d726
                                  ]
                        ]
              ]
+{-# INLINABLE _x #-}

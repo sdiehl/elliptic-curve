@@ -1,30 +1,6 @@
 module Curve.Weierstrass.SECP112R1
-  ( Curve(..)
-  , Fq
-  , Fr
-  , Group(..)
-  , PA
-  , PJ
-  , PP
-  , Point(..)
-  , WCurve(..)
-  , WPoint
-  , WACurve(..)
-  , WAPoint
-  , WJCurve(..)
-  , WJPoint
-  , WPCurve(..)
-  , WPPoint
-  , _a
-  , _b
-  , _h
-  , _q
-  , _r
-  , _x
-  , _y
-  , gA
-  , gJ
-  , gP
+  ( module Curve.Weierstrass
+  , module Curve.Weierstrass.SECP112R1
   ) where
 
 import Protolude
@@ -49,19 +25,19 @@ type Fr = PrimeField 0xdb7c2abf62e35e7628dfac6561c5
 -- | SECP112R1 curve is a Weierstrass curve.
 instance Curve 'Weierstrass c SECP112R1 Fq Fr => WCurve c SECP112R1 Fq Fr where
   a_ = const _a
-  {-# INLINE a_ #-}
+  {-# INLINABLE a_ #-}
   b_ = const _b
-  {-# INLINE b_ #-}
+  {-# INLINABLE b_ #-}
   h_ = const _h
-  {-# INLINE h_ #-}
+  {-# INLINABLE h_ #-}
   q_ = const _q
-  {-# INLINE q_ #-}
+  {-# INLINABLE q_ #-}
   r_ = const _r
-  {-# INLINE r_ #-}
+  {-# INLINABLE r_ #-}
   x_ = const _x
-  {-# INLINE x_ #-}
+  {-# INLINABLE x_ #-}
   y_ = const _y
-  {-# INLINE y_ #-}
+  {-# INLINABLE y_ #-}
 
 -- | Affine SECP112R1 curve point.
 type PA = WAPoint SECP112R1 Fq Fr
@@ -69,7 +45,7 @@ type PA = WAPoint SECP112R1 Fq Fr
 -- | Affine SECP112R1 curve is a Weierstrass affine curve.
 instance WACurve SECP112R1 Fq Fr where
   gA_ = gA
-  {-# INLINE gA_ #-}
+  {-# INLINABLE gA_ #-}
 
 -- | Jacobian SECP112R1 point.
 type PJ = WJPoint SECP112R1 Fq Fr
@@ -77,7 +53,7 @@ type PJ = WJPoint SECP112R1 Fq Fr
 -- | Jacobian SECP112R1 curve is a Weierstrass Jacobian curve.
 instance WJCurve SECP112R1 Fq Fr where
   gJ_ = gJ
-  {-# INLINE gJ_ #-}
+  {-# INLINABLE gJ_ #-}
 
 -- | Projective SECP112R1 point.
 type PP = WPPoint SECP112R1 Fq Fr
@@ -85,7 +61,7 @@ type PP = WPPoint SECP112R1 Fq Fr
 -- | Projective SECP112R1 curve is a Weierstrass projective curve.
 instance WPCurve SECP112R1 Fq Fr where
   gP_ = gP
-  {-# INLINE gP_ #-}
+  {-# INLINABLE gP_ #-}
 
 -------------------------------------------------------------------------------
 -- Parameters
@@ -94,49 +70,49 @@ instance WPCurve SECP112R1 Fq Fr where
 -- | Coefficient @A@ of SECP112R1 curve.
 _a :: Fq
 _a = 0xdb7c2abf62e35e668076bead2088
-{-# INLINE _a #-}
+{-# INLINABLE _a #-}
 
 -- | Coefficient @B@ of SECP112R1 curve.
 _b :: Fq
 _b = 0x659ef8ba043916eede8911702b22
-{-# INLINE _b #-}
+{-# INLINABLE _b #-}
 
 -- | Cofactor of SECP112R1 curve.
 _h :: Integer
 _h = 0x1
-{-# INLINE _h #-}
+{-# INLINABLE _h #-}
 
 -- | Characteristic of SECP112R1 curve.
 _q :: Integer
 _q = 0xdb7c2abf62e35e668076bead208b
-{-# INLINE _q #-}
+{-# INLINABLE _q #-}
 
 -- | Order of SECP112R1 curve.
 _r :: Integer
 _r = 0xdb7c2abf62e35e7628dfac6561c5
-{-# INLINE _r #-}
+{-# INLINABLE _r #-}
 
 -- | Coordinate @X@ of SECP112R1 curve.
 _x :: Fq
 _x = 0x9487239995a5ee76b55f9c2f098
-{-# INLINE _x #-}
+{-# INLINABLE _x #-}
 
 -- | Coordinate @Y@ of SECP112R1 curve.
 _y :: Fq
 _y = 0xa89ce5af8724c0a23e0e0ff77500
-{-# INLINE _y #-}
+{-# INLINABLE _y #-}
 
 -- | Generator of affine SECP112R1 curve.
 gA :: PA
 gA = A _x _y
-{-# INLINE gA #-}
+{-# INLINABLE gA #-}
 
 -- | Generator of Jacobian SECP112R1 curve.
 gJ :: PJ
 gJ = J _x _y 1
-{-# INLINE gJ #-}
+{-# INLINABLE gJ #-}
 
 -- | Generator of projective SECP112R1 curve.
 gP :: PP
 gP = P _x _y 1
-{-# INLINE gP #-}
+{-# INLINABLE gP #-}

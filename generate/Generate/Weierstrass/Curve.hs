@@ -18,32 +18,8 @@ prettyImports :: Types -> Doc
 prettyImports Types{..}
   =    "module Curve.Weierstrass." <> pretty curve
   <$$> indent 2
-    (    "( Curve(..)"
-    <$$> "," <+> prettyField field
-    <$$> ", Fr"
-    <$$> ", Group(..)"
-    <$$> ", PA"
-    <$$> ", PJ"
-    <$$> ", PP"
-    <$$> ", Point(..)"
-    <$$> ", WCurve(..)"
-    <$$> ", WPoint"
-    <$$> ", WACurve(..)"
-    <$$> ", WAPoint"
-    <$$> ", WJCurve(..)"
-    <$$> ", WJPoint"
-    <$$> ", WPCurve(..)"
-    <$$> ", WPPoint"
-    <$$> ", _a"
-    <$$> ", _b"
-    <$$> ", _h"
-    <$$> ", _q"
-    <$$> ", _r"
-    <$$> ", _x"
-    <$$> ", _y"
-    <$$> ", gA"
-    <$$> ", gJ"
-    <$$> ", gP"
+    (    "( module Curve.Weierstrass"
+    <$$> ", module Curve.Weierstrass." <> pretty curve
     <$$> ") where"
     )
   <>   prettyBreak

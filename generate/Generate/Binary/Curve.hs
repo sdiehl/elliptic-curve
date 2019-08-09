@@ -18,28 +18,8 @@ prettyImports :: Types -> Doc
 prettyImports Types{..}
   =    "module Curve.Binary." <> pretty curve
   <$$> indent 2
-    (    "( BCurve(..)"
-    <$$> ", BPoint"
-    <$$> ", BACurve(..)"
-    <$$> ", BAPoint"
-    <$$> ", BPCurve(..)"
-    <$$> ", BPPoint"
-    <$$> ", Curve(..)"
-    <$$> "," <+> prettyField field
-    <$$> ", Fr"
-    <$$> ", Group(..)"
-    <$$> ", PA"
-    <$$> ", PP"
-    <$$> ", Point(..)"
-    <$$> ", _a"
-    <$$> ", _b"
-    <$$> ", _h"
-    <$$> ", _p"
-    <$$> ", _r"
-    <$$> ", _x"
-    <$$> ", _y"
-    <$$> ", gA"
-    <$$> ", gP"
+    (    "( module Curve.Binary"
+    <$$> ", module Curve.Binary." <> pretty curve
     <$$> ") where"
     )
   <>   prettyBreak

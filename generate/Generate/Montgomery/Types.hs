@@ -1,9 +1,6 @@
 module Generate.Montgomery.Types
-  ( Curve(..)
-  , Element(..)
-  , Field(..)
-  , Parameters(..)
-  , Types(..)
+  ( module Generate.Montgomery.Types
+  , module Generate.Types
   ) where
 
 import Protolude

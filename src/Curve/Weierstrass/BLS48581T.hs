@@ -1,30 +1,6 @@
 module Curve.Weierstrass.BLS48581T
-  ( Curve(..)
-  , Fq8
-  , Fr
-  , Group(..)
-  , PA
-  , PJ
-  , PP
-  , Point(..)
-  , WCurve(..)
-  , WPoint
-  , WACurve(..)
-  , WAPoint
-  , WJCurve(..)
-  , WJPoint
-  , WPCurve(..)
-  , WPPoint
-  , _a
-  , _b
-  , _h
-  , _q
-  , _r
-  , _x
-  , _y
-  , gA
-  , gJ
-  , gP
+  ( module Curve.Weierstrass
+  , module Curve.Weierstrass.BLS48581T
   ) where
 
 import Protolude
@@ -62,19 +38,19 @@ type Fr = PrimeField 0x2386f8a925e2885e233a9ccc1615c0d6c635387a3f0b3cbe003fad6bc
 -- | BLS48581T curve is a Weierstrass curve.
 instance Curve 'Weierstrass c BLS48581T Fq8 Fr => WCurve c BLS48581T Fq8 Fr where
   a_ = const _a
-  {-# INLINE a_ #-}
+  {-# INLINABLE a_ #-}
   b_ = const _b
-  {-# INLINE b_ #-}
+  {-# INLINABLE b_ #-}
   h_ = const _h
-  {-# INLINE h_ #-}
+  {-# INLINABLE h_ #-}
   q_ = const _q
-  {-# INLINE q_ #-}
+  {-# INLINABLE q_ #-}
   r_ = const _r
-  {-# INLINE r_ #-}
+  {-# INLINABLE r_ #-}
   x_ = const _x
-  {-# INLINE x_ #-}
+  {-# INLINABLE x_ #-}
   y_ = const _y
-  {-# INLINE y_ #-}
+  {-# INLINABLE y_ #-}
 
 -- | Affine BLS48581T curve point.
 type PA = WAPoint BLS48581T Fq8 Fr
@@ -82,7 +58,7 @@ type PA = WAPoint BLS48581T Fq8 Fr
 -- | Affine BLS48581T curve is a Weierstrass affine curve.
 instance WACurve BLS48581T Fq8 Fr where
   gA_ = gA
-  {-# INLINE gA_ #-}
+  {-# INLINABLE gA_ #-}
 
 -- | Jacobian BLS48581T point.
 type PJ = WJPoint BLS48581T Fq8 Fr
@@ -90,7 +66,7 @@ type PJ = WJPoint BLS48581T Fq8 Fr
 -- | Jacobian BLS48581T curve is a Weierstrass Jacobian curve.
 instance WJCurve BLS48581T Fq8 Fr where
   gJ_ = gJ
-  {-# INLINE gJ_ #-}
+  {-# INLINABLE gJ_ #-}
 
 -- | Projective BLS48581T point.
 type PP = WPPoint BLS48581T Fq8 Fr
@@ -98,7 +74,7 @@ type PP = WPPoint BLS48581T Fq8 Fr
 -- | Projective BLS48581T curve is a Weierstrass projective curve.
 instance WPCurve BLS48581T Fq8 Fr where
   gP_ = gP
-  {-# INLINE gP_ #-}
+  {-# INLINABLE gP_ #-}
 
 -------------------------------------------------------------------------------
 -- Parameters
@@ -108,7 +84,7 @@ instance WPCurve BLS48581T Fq8 Fr where
 _a :: Fq8
 _a = toField [
              ]
-{-# INLINE _a #-}
+{-# INLINABLE _a #-}
 
 -- | Coefficient @B@ of BLS48581T curve.
 _b :: Fq8
@@ -121,22 +97,22 @@ _b = toField [ toField [
                                  ]
                        ]
              ]
-{-# INLINE _b #-}
+{-# INLINABLE _b #-}
 
 -- | Cofactor of BLS48581T curve.
 _h :: Integer
 _h = 0x170e915cb0a6b7406b8d94042317f811d6bc3fc6e211ada42e58ccfcb3ac076a7e4499d700a0c23dc4b0c078f92def8c87b7fe63e1eea270db353a4ef4d38b5998ad8f0d042ea24c8f02be1c0c83992fe5d7725227bb27123a949e0876c0a8ce0a67326db0e955dcb791b867f31d6bfa62fbdd5f44a00504df04e186fae033f1eb43c1b1a08b6e086eff03c8fee9ebdd1e191a8a4b0466c90b389987de5637d5dd13dab33196bd2e5afa6cd19cf0fc3fc7db7ece1f3fac742626b1b02fcee04043b2ea96492f6afa51739597c54bb78aa6b0b99319fef9d09f768831018ee6564c68d054c62f2e0b4549426fec24ab26957a669dba2a2b6945ce40c9aec6afdeda16c79e15546cd7771fa544d5364236690ea06832679562a68731420ae52d0d35a90b8d10b688e31b6aee45f45b7a5083c71732105852decc888f64839a4de33b99521f0984a418d20fc7b0609530e454f0696fa2a8075ac01cc8ae3869e8d0fe1f3788ffac4c01aa2720e431da333c83d9663bfb1fb7a1a7b90528482c6be7892299030bb51a51dc7e91e9156874416bf4c26f1ea7ec578058563960ef92bbbb8632d3a1b695f954af10e9a78e40acffc13b06540aae9da5287fc4429485d44e6289d8c0d6a3eb2ece35012452751839fb48bc14b515478e2ff412d930ac20307561f3a5c998e6bcbfebd97effc6433033a2361bfcdc4fc74ad379a16c6dea49c209b1
-{-# INLINE _h #-}
+{-# INLINABLE _h #-}
 
 -- | Characteristic of BLS48581T curve.
 _q :: Integer
 _q = 0x1280f73ff3476f313824e31d47012a0056e84f8d122131bb3be6c0f1f3975444a48ae43af6e082acd9cd30394f4736daf68367a5513170ee0a578fdf721a4a48ac3edc154e6565912b
-{-# INLINE _q #-}
+{-# INLINABLE _q #-}
 
 -- | Order of BLS48581T curve.
 _r :: Integer
 _r = 0x2386f8a925e2885e233a9ccc1615c0d6c635387a3f0b3cbe003fad6bc972c2e6e741969d34c4c92016a85c7cd0562303c4ccbe599467c24da118a5fe6fcd671c01
-{-# INLINE _r #-}
+{-# INLINABLE _r #-}
 
 -- | Coordinate @X@ of BLS48581T curve.
 _x :: Fq8
@@ -155,7 +131,7 @@ _x = toField [ toField [ toField [ 0x5d615d9a7871e4a38237fa45a2775debabbefc70344
                                  ]
                        ]
              ]
-{-# INLINE _x #-}
+{-# INLINABLE _x #-}
 
 -- | Coordinate @Y@ of BLS48581T curve.
 _y :: Fq8
@@ -174,19 +150,19 @@ _y = toField [ toField [ toField [ 0xeb53356c375b5dfa497216452f3024b918b4238059a
                                  ]
                        ]
              ]
-{-# INLINE _y #-}
+{-# INLINABLE _y #-}
 
 -- | Generator of affine BLS48581T curve.
 gA :: PA
 gA = A _x _y
-{-# INLINE gA #-}
+{-# INLINABLE gA #-}
 
 -- | Generator of Jacobian BLS48581T curve.
 gJ :: PJ
 gJ = J _x _y 1
-{-# INLINE gJ #-}
+{-# INLINABLE gJ #-}
 
 -- | Generator of projective BLS48581T curve.
 gP :: PP
 gP = P _x _y 1
-{-# INLINE gP #-}
+{-# INLINABLE gP #-}

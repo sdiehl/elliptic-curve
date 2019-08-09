@@ -1,9 +1,6 @@
 module Generate.Edwards.Types
-  ( Curve(..)
-  , Element(..)
-  , Field(..)
-  , Parameters(..)
-  , Types(..)
+  ( module Generate.Edwards.Types
+  , module Generate.Types
   ) where
 
 import Protolude

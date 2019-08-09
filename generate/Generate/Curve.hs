@@ -1,8 +1,5 @@
 module Generate.Curve
-  ( prettyElement
-  , prettyField
-  , prettyImport
-  , prettyType
+  ( module Generate.Curve
   ) where
 
 import Protolude

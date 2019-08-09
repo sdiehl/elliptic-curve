@@ -1,9 +1,6 @@
 module Generate.Weierstrass.Types
-  ( Curve(..)
-  , Element(..)
-  , Field(..)
-  , Parameters(..)
-  , Types(..)
+  ( module Generate.Weierstrass.Types
+  , module Generate.Types
   ) where
 
 import Protolude

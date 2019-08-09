@@ -1,17 +1,9 @@
 {-# OPTIONS -fno-warn-orphans #-}
 
 module Curve.Edwards
-  ( Coordinates(..)
-  , Curve(..)
-  , ECurve(..)
-  , EPoint
-  , EACurve(..)
-  , EAPoint
-  , EPCurve(..)
-  , EPPoint
-  , Form(..)
-  , Group(..)
-  , Point(..)
+  ( module Curve
+  , module Curve.Edwards
+  , module Group
   ) where
 
 import Protolude
@@ -59,34 +51,34 @@ instance EACurve e q r => Curve 'Edwards 'Affine e q r where
     deriving (Eq, Generic, NFData, Read, Show)
 
   char = q_
-  {-# INLINE char #-}
+  {-# INLINABLE char #-}
 
   cof = h_
-  {-# INLINE cof #-}
+  {-# INLINABLE cof #-}
 
   disc _ = d * (1 - d)
     where
       d = d_ (witness :: EAPoint e q r)
-  {-# INLINE disc #-}
+  {-# INLINABLE disc #-}
 
   fromA = identity
-  {-# INLINE fromA #-}
+  {-# INLINABLE fromA #-}
 
   point x y = let p = A x y in if def p then Just p else Nothing
-  {-# INLINE point #-}
+  {-# INLINABLE point #-}
 
   pointX x = A x <$> yX (witness :: EAPoint e q r) x
-  {-# INLINE pointX #-}
+  {-# INLINABLE pointX #-}
 
   toA = identity
-  {-# INLINE toA #-}
+  {-# INLINABLE toA #-}
 
   yX _ x = sr ((1 - a * xx) / (1 - d * xx))
     where
       a  = a_ (witness :: EAPoint e q r)
       d  = d_ (witness :: EAPoint e q r)
       xx = x * x
-  {-# INLINE yX #-}
+  {-# INLINABLE yX #-}
 
 -- Edwards affine points are groups.
 instance EACurve e q r => Group (EAPoint e q r) where
@@ -102,10 +94,10 @@ instance EACurve e q r => Group (EAPoint e q r) where
       dxy  = d * x1x2 * y1y2
       x3   = (x1y2 + x2y1) / (1 + dxy)
       y3   = (y1y2 - a * x1x2) / (1 - dxy)
-  {-# INLINE add #-}
+  {-# INLINABLE add #-}
 
   dbl = join add
-  {-# INLINE dbl #-}
+  {-# INLINABLE dbl #-}
 
   def (A x y) = a * xx + yy == 1 + d * xx * yy
     where
@@ -113,19 +105,19 @@ instance EACurve e q r => Group (EAPoint e q r) where
       d  = d_ (witness :: EAPoint e q r)
       xx = x * x
       yy = y * y
-  {-# INLINE def #-}
+  {-# INLINABLE def #-}
 
   gen = gA_
-  {-# INLINE gen #-}
+  {-# INLINABLE gen #-}
 
   id = A 0 1
-  {-# INLINE id #-}
+  {-# INLINABLE id #-}
 
   inv (A x y) = A (-x) y
-  {-# INLINE inv #-}
+  {-# INLINABLE inv #-}
 
   order = r_
-  {-# INLINE order #-}
+  {-# INLINABLE order #-}
 
 -- Edwards affine points are pretty.
 instance EACurve e q r => Pretty (EAPoint e q r) where
@@ -151,34 +143,34 @@ instance EPCurve e q r => Curve 'Edwards 'Projective e q r where
     deriving (Generic, NFData, Read, Show)
 
   char = q_
-  {-# INLINE char #-}
+  {-# INLINABLE char #-}
 
   cof = h_
-  {-# INLINE cof #-}
+  {-# INLINABLE cof #-}
 
   disc _ = d * (1 - d)
     where
       d = d_ (witness :: EPPoint e q r)
-  {-# INLINE disc #-}
+  {-# INLINABLE disc #-}
 
   fromA (A x y) = P x y 1
-  {-# INLINE fromA #-}
+  {-# INLINABLE fromA #-}
 
   point x y = let p = P x y 1 in if def p then Just p else Nothing
-  {-# INLINE point #-}
+  {-# INLINABLE point #-}
 
   pointX x = flip (P x) 1 <$> yX (witness :: EPPoint e q r) x
-  {-# INLINE pointX #-}
+  {-# INLINABLE pointX #-}
 
   toA (P x y z) = A (x / z) (y / z)
-  {-# INLINE toA #-}
+  {-# INLINABLE toA #-}
 
   yX _ x = sr ((1 - a * xx) / (1 - d * xx))
     where
       a  = a_ (witness :: EPPoint e q r)
       d  = d_ (witness :: EPPoint e q r)
       xx = x * x
-  {-# INLINE yX #-}
+  {-# INLINABLE yX #-}
 
 -- Edwards projective points are groups.
 instance EPCurve e q r => Group (EPPoint e q r) where
@@ -198,7 +190,7 @@ instance EPCurve e q r => Group (EPPoint e q r) where
       x3 = a * f * ((x1 + y1) * (x2 + y2) - c - d)
       y3 = a * g * (d - a' * c)
       z3 = f * g
-  {-# INLINE add #-}
+  {-# INLINABLE add #-}
 
   -- Doubling formula dbl-2008-bbjlp
   dbl (P x1 y1 z1) = P x3 y3 z3
@@ -215,7 +207,7 @@ instance EPCurve e q r => Group (EPPoint e q r) where
       x3 = (b - c - d) * j
       y3 = f * (e - d)
       z3 = f * j
-  {-# INLINE dbl #-}
+  {-# INLINABLE dbl #-}
 
   def (P x y z) = (a * xx + yy - zz) * zz == d * xx * yy
     where
@@ -224,19 +216,19 @@ instance EPCurve e q r => Group (EPPoint e q r) where
       xx = x * x
       yy = y * y
       zz = z * z
-  {-# INLINE def #-}
+  {-# INLINABLE def #-}
 
   gen = gP_
-  {-# INLINE gen #-}
+  {-# INLINABLE gen #-}
 
   id = P 0 1 1
-  {-# INLINE id #-}
+  {-# INLINABLE id #-}
 
   inv (P x y z) = P (-x) y z
-  {-# INLINE inv #-}
+  {-# INLINABLE inv #-}
 
   order = r_
-  {-# INLINE order #-}
+  {-# INLINABLE order #-}
 
 -- Edwards projective points are equatable.
 instance EPCurve e q r => Eq (EPPoint e q r) where
