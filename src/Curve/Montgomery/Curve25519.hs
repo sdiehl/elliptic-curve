@@ -1,6 +1,7 @@
 module Curve.Montgomery.Curve25519
   ( module Curve.Montgomery
   , module Curve.Montgomery.Curve25519
+  , Point(..)
   ) where
 
 import Protolude

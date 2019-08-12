@@ -4,6 +4,7 @@ module Curve.Binary
   ( module Curve
   , module Curve.Binary
   , module Group
+  , Point(..)
   ) where
 
 import Protolude

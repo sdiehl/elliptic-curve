@@ -1,6 +1,7 @@
 module Curve.Weierstrass.Anomalous
   ( module Curve.Weierstrass
   , module Curve.Weierstrass.Anomalous
+  , Point(..)
   ) where
 
 import Protolude

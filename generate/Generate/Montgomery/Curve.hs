@@ -20,6 +20,7 @@ prettyImports Types{..}
   <$$> indent 2
     (    "( module Curve.Montgomery"
     <$$> ", module Curve.Montgomery." <> pretty curve
+    <$$> ", Point(..)"
     <$$> ") where"
     )
   <>   prettyBreak

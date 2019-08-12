@@ -1,6 +1,7 @@
 module Curve.Binary.SECT193R1
   ( module Curve.Binary
   , module Curve.Binary.SECT193R1
+  , Point(..)
   ) where
 
 import Protolude

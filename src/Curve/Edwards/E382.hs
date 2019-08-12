@@ -1,6 +1,7 @@
 module Curve.Edwards.E382
   ( module Curve.Edwards
   , module Curve.Edwards.E382
+  , Point(..)
   ) where
 
 import Protolude

@@ -4,6 +4,7 @@ module Curve.Montgomery
   ( module Curve
   , module Curve.Montgomery
   , module Group
+  , Point(..)
   ) where
 
 import Protolude

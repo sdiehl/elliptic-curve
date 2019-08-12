@@ -4,6 +4,7 @@ module Curve.Weierstrass
   ( module Curve
   , module Curve.Weierstrass
   , module Group
+  , Point(..)
   ) where
 
 import Protolude

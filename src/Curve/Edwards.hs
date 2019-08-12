@@ -4,6 +4,7 @@ module Curve.Edwards
   ( module Curve
   , module Curve.Edwards
   , module Group
+  , Point(..)
   ) where
 
 import Protolude
