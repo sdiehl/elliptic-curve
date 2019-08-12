@@ -1,5 +1,5 @@
 name:        elliptic-curve
-version:     0.2.0
+version:     0.2.1
 synopsis:    Elliptic curve library
 description: An extensible library of elliptic curves used in cryptography research
 maintainer:  Adjoint Inc (info@adjoint.io)
@@ -28,7 +28,7 @@ default-extensions:
 dependencies:
   - base >=4.10 && < 5
   - protolude
-  - galois-field
+  - galois-field >=0.4 && < 0.5
   - MonadRandom
   - tasty-quickcheck
   - text
