@@ -1,5 +1,5 @@
 name:        elliptic-curve
-version:     0.2.0
+version:     0.2.1
 synopsis:    Elliptic curve library
 description: An extensible library of elliptic curves used in cryptography research
 maintainer:  Adjoint Inc (info@adjoint.io)
@@ -26,9 +26,9 @@ default-extensions:
   - TypeFamilyDependencies
 
 dependencies:
-  - base
+  - base >=4.10 && < 5
   - protolude
-  - galois-field
+  - galois-field >=0.4 && < 0.5
   - MonadRandom
   - tasty-quickcheck
   - text
@@ -131,35 +131,31 @@ library:
     - Group
     - Group.Field
     - Group.Field.BN254TF
+  other-modules:
+    - Generate.Binary.Curve
+    - Generate.Binary.Generate
+    - Generate.Binary.Parameters
+    - Generate.Binary.Types
+    - Generate.Curve
+    - Generate.Edwards.Curve
+    - Generate.Edwards.Generate
+    - Generate.Edwards.Parameters
+    - Generate.Edwards.Types
+    - Generate.Generate
+    - Generate.Montgomery.Curve
+    - Generate.Montgomery.Generate
+    - Generate.Montgomery.Parameters
+    - Generate.Montgomery.Types
+    - Generate.Pretty
+    - Generate.Types
+    - Generate.Weierstrass.Curve
+    - Generate.Weierstrass.Generate
+    - Generate.Weierstrass.Parameters
+    - Generate.Weierstrass.Types
+    - Main
   source-dirs:
     - src
-
-internal-libraries:
-  elliptic-curve-generate:
-    other-modules:
-      - Generate.Binary.Curve
-      - Generate.Binary.Generate
-      - Generate.Binary.Parameters
-      - Generate.Binary.Types
-      - Generate.Curve
-      - Generate.Edwards.Curve
-      - Generate.Edwards.Generate
-      - Generate.Edwards.Parameters
-      - Generate.Edwards.Types
-      - Generate.Generate
-      - Generate.Montgomery.Curve
-      - Generate.Montgomery.Generate
-      - Generate.Montgomery.Parameters
-      - Generate.Montgomery.Types
-      - Generate.Pretty
-      - Generate.Types
-      - Generate.Weierstrass.Curve
-      - Generate.Weierstrass.Generate
-      - Generate.Weierstrass.Parameters
-      - Generate.Weierstrass.Types
-      - Main
-    source-dirs:
-      - generate
+    - generate
 
 tests:
   elliptic-curve-tests:

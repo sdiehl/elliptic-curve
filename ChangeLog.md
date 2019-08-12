@@ -1,5 +1,9 @@
 # Change log for elliptic-curve
 
+## 0.2.1
+
+* Fix dependency issue with `galois-field`.
+
 ## 0.2.0
 
 * Add `Arbitrary` instances for elliptic curves.
@@ -24,6 +28,10 @@
 * Add `pointX` function for elliptic curves.
 * Add `fromA` function for elliptic curves.
 * Add `toA` function for elliptic curves.
+
+## 0.1.1
+
+* Fix dependency issue with `galois-field`.
 
 ## 0.1.0
 
