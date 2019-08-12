@@ -23,12 +23,13 @@ default-extensions:
   - MultiParamTypeClasses
   - PatternSynonyms
   - PolyKinds
+  - QuantifiedConstraints
   - TypeFamilyDependencies
 
 dependencies:
-  - base >=4.10 && < 5
+  - base >= 4.10 && < 5
   - protolude
-  - galois-field >=0.4 && < 0.5
+  - galois-field >= 0.4 && < 0.5
   - MonadRandom
   - tasty-quickcheck
   - text

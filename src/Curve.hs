@@ -8,7 +8,7 @@ import Protolude
 import Control.Monad.Random (Random(..))
 import GaloisField (GaloisField)
 import PrimeField (PrimeField, toInt)
-import Test.Tasty.QuickCheck (Arbitrary(..), suchThatMap)
+import Test.Tasty.QuickCheck (Arbitrary(..))
 
 import Group (Group(..))
 
@@ -17,7 +17,8 @@ import Group (Group(..))
 -------------------------------------------------------------------------------
 
 -- | Elliptic curves.
-class (GaloisField q, GaloisField r, Group (Point f c e q r))
+class (forall p . (KnownNat p, r ~ PrimeField p),
+  GaloisField q, GaloisField r, Group (Point f c e q r))
   => Curve (f :: Form) (c :: Coordinates) e q r where
   {-# MINIMAL char, cof, disc, fromA, point, pointX, toA, yX #-}
 
@@ -89,15 +90,13 @@ instance Curve f c e q r => Semigroup (Point f c e q r) where
 -- Elliptic curve points are arbitrary.
 instance Curve f c e q r => Arbitrary (Point f c e q r) where
 
-  arbitrary = suchThatMap arbitrary pointX
+  arbitrary = mul gen <$> arbitrary
   {-# INLINABLE arbitrary #-}
 
 -- Elliptic curve points are random.
 instance Curve f c e q r => Random (Point f c e q r) where
 
-  random g = let (x, g') = random g in case pointX x of
-    Just p -> (p, g')
-    _      -> random g'
+  random  = first (mul gen) . random
   {-# INLINABLE random #-}
 
   randomR = panic "not implemented."
