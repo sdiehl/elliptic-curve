@@ -7,9 +7,10 @@ import Protolude
 
 import Control.Monad.Random (Random(..))
 import GaloisField (GaloisField(..))
-import Test.Tasty.QuickCheck (Arbitrary(..), suchThatMap)
+import Test.Tasty.QuickCheck (Arbitrary(..))
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
+import Curve (PrimeField')
 import Group (Group(..))
 
 -------------------------------------------------------------------------------
@@ -17,15 +18,15 @@ import Group (Group(..))
 -------------------------------------------------------------------------------
 
 -- | Field groups.
-class GaloisField k => FGroup k where
-  {-# MINIMAL g_, q_, r_, x_ #-}
-  g_ :: Element k            -- ^ Group generator.
-  q_ :: Element k -> Integer -- ^ Group characteristic.
-  r_ :: Element k -> Integer -- ^ Group order.
-  x_ :: k                    -- ^ Group element.
+class (GaloisField q, GaloisField r, PrimeField' r) => FGroup q r where
+  {-# MINIMAL g_, h_, q_, r_ #-}
+  g_ :: Element q r            -- ^ Group generator.
+  h_ :: Element q r -> Integer -- ^ Group cofactor.
+  q_ :: Element q r -> Integer -- ^ Group characteristic.
+  r_ :: Element q r -> Integer -- ^ Group order.
 
 -- | Field elements.
-newtype Element k = F k
+newtype Element q r = F q
   deriving (Eq, Functor, Generic, NFData, Read, Show)
 
 -------------------------------------------------------------------------------
@@ -33,7 +34,7 @@ newtype Element k = F k
 -------------------------------------------------------------------------------
 
 -- Field elements are groups.
-instance FGroup k => Group (Element k) where
+instance FGroup q r => Group (Element q r) where
 
   add = (<>)
   {-# INLINABLE add #-}
@@ -60,13 +61,13 @@ instance FGroup k => Group (Element k) where
   {-# INLINABLE order #-}
 
 -- Field elements are monoids.
-instance FGroup k => Monoid (Element k) where
+instance FGroup q r => Monoid (Element q r) where
 
   mempty = F 1
   {-# INLINABLE mempty #-}
 
 -- Field elements are semigroups.
-instance FGroup k => Semigroup (Element k) where
+instance FGroup q r => Semigroup (Element q r) where
 
   F x <> F y = F (x * y)
   {-# INLINABLE (<>) #-}
@@ -76,25 +77,33 @@ instance FGroup k => Semigroup (Element k) where
 -------------------------------------------------------------------------------
 
 -- Field elements are arbitrary.
-instance FGroup k => Arbitrary (Element k) where
+instance FGroup q r => Arbitrary (Element q r) where
 
+  -- Arbitrary group element.
+  arbitrary = mul' gen <$> arbitrary
+  {- Arbitrary field element.
   arbitrary = suchThatMap arbitrary defX
     where
       defX 0 = Nothing
       defX x = Just (F x)
+  -}
   {-# INLINABLE arbitrary #-}
 
 -- Field elements are pretty.
-instance FGroup k => Pretty (Element k) where
+instance FGroup q r => Pretty (Element q r) where
 
   pretty (F x) = pretty x
 
 -- Field elements are random.
-instance FGroup k => Random (Element k) where
+instance FGroup q r => Random (Element q r) where
 
+  -- Random group element.
+  random = first (mul' gen) . random
+  {- Random field element.
   random g = case random g of
     (0, g') -> random g'
     (x, g') -> (F x, g')
+  -}
   {-# INLINABLE random #-}
 
   randomR  = panic "not implemented."

@@ -7,5 +7,5 @@ import GroupTests
 
 testField :: TestTree
 testField = testGroup "Field"
-  [ test' "BN254TF" BN254TF._g BN254TF._q BN254TF._r
+  [ test' "BN254TF" BN254TF._g BN254TF._h BN254TF._q BN254TF._r
   ]

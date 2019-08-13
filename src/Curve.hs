@@ -77,9 +77,9 @@ data Coordinates = Affine
 -- Elliptic curve points are arbitrary.
 instance Curve f c e q r => Arbitrary (Point f c e q r) where
 
-  -- Arbitrary group points.
+  -- Arbitrary group element.
   arbitrary = mul gen <$> arbitrary
-  {- Arbitrary curve points.
+  {- Arbitrary curve point.
   arbitrary = suchThatMap arbitrary pointX
   -}
   {-# INLINABLE arbitrary #-}
@@ -93,9 +93,9 @@ instance Curve f c e q r => Monoid (Point f c e q r) where
 -- Elliptic curve points are random.
 instance Curve f c e q r => Random (Point f c e q r) where
 
-  -- Random group points.
+  -- Random group element.
   random  = first (mul gen) . random
-  {- Random curve points.
+  {- Random curve point.
   random g = case pointX x of
     Just p -> (p, g')
     _      -> random g'
