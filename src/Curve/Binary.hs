@@ -12,7 +12,7 @@ import Protolude
 import GaloisField (GaloisField(..))
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
-import Curve (Coordinates(..), Curve(..), Form(..))
+import Curve (Coordinates(..), Curve(..), Form(..), PrimeField')
 import Group (Group(..))
 
 -------------------------------------------------------------------------------
@@ -23,7 +23,8 @@ import Group (Group(..))
 type BPoint = Point 'Binary
 
 -- | Binary curves.
-class (GaloisField q, GaloisField r, Curve 'Binary c e q r) => BCurve c e q r where
+class (GaloisField q, GaloisField r, PrimeField' r, Curve 'Binary c e q r)
+  => BCurve c e q r where
   {-# MINIMAL a_, b_, h_, p_, r_, x_, y_ #-}
   a_ :: BPoint c e q r -> q       -- ^ Coefficient @A@.
   b_ :: BPoint c e q r -> q       -- ^ Coefficient @B@.

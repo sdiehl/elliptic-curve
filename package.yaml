@@ -23,7 +23,6 @@ default-extensions:
   - MultiParamTypeClasses
   - PatternSynonyms
   - PolyKinds
-  - QuantifiedConstraints
   - TypeFamilyDependencies
 
 dependencies:

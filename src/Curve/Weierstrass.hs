@@ -12,7 +12,7 @@ import Protolude
 import GaloisField (GaloisField(..))
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
-import Curve (Coordinates(..), Curve(..), Form(..))
+import Curve (Coordinates(..), Curve(..), Form(..), PrimeField')
 import Group (Group(..))
 
 -------------------------------------------------------------------------------
@@ -23,7 +23,8 @@ import Group (Group(..))
 type WPoint = Point 'Weierstrass
 
 -- | Weierstrass curves.
-class (GaloisField q, GaloisField r, Curve 'Weierstrass c e q r) => WCurve c e q r where
+class (GaloisField q, GaloisField r, PrimeField' r, Curve 'Weierstrass c e q r)
+  => WCurve c e q r where
   {-# MINIMAL a_, b_, h_, q_, r_, x_, y_ #-}
   a_ :: WPoint c e q r -> q       -- ^ Coefficient @A@.
   b_ :: WPoint c e q r -> q       -- ^ Coefficient @B@.
@@ -338,9 +339,10 @@ instance WPCurve e q r => Group (WPPoint e q r) where
   dbl (P  _  _  0) = P  0  1  0
   dbl (P x1 y1 z1) = P x3 y3 z3
     where
+      a   = a_ (witness :: WPPoint e q r)
       xx  = x1 * x1
       zz  = z1 * z1
-      w   = a_ (witness :: WPPoint e q r) * zz + 3 * xx
+      w   = a * zz + 3 * xx
       s   = 2 * y1 * z1
       ss  = s * s
       sss = s * ss
