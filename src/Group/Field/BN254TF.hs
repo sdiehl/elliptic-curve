@@ -17,6 +17,9 @@ import Group.Field
 -- Types
 -------------------------------------------------------------------------------
 
+-- | Field of coefficients of BN254TF group.
+type Fr = PrimeField 0x30644e72e131a029b85045b68181585d2833e84879b9709143e1f593f0000001
+
 -- | Field of elements of BN254TF group.
 data PolynomialV
 instance IrreducibleMonic Fq2 PolynomialV where
@@ -27,11 +30,8 @@ instance IrreducibleMonic Fq6 PolynomialW where
   split _ = X2 - Y X
 type Fq12 = ExtensionField Fq6 PolynomialW
 
--- | Field of coefficients of BN254TF group.
-type Fr = PrimeField 0x30644e72e131a029b85045b68181585d2833e84879b9709143e1f593f0000001
-
 -- | BN254TF group is a field group.
-instance FGroup Fq12 Fr where
+instance FGroup Fr Fq12 where
   g_ = _g
   {-# INLINABLE g_ #-}
   h_ = const _h
@@ -42,7 +42,7 @@ instance FGroup Fq12 Fr where
   {-# INLINABLE r_ #-}
 
 -- | Element of BN254TF group.
-type P = Element Fq12 Fr
+type P = Element Fr Fq12
 
 -------------------------------------------------------------------------------
 -- Parameters

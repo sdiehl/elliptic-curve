@@ -18,15 +18,15 @@ import Group (Group(..))
 -------------------------------------------------------------------------------
 
 -- | Field groups.
-class (GaloisField q, GaloisField r, PrimeField' r) => FGroup q r where
+class (GaloisField q, GaloisField r, PrimeField' r) => FGroup r q where
   {-# MINIMAL g_, h_, q_, r_ #-}
-  g_ :: Element q r            -- ^ Group generator.
-  h_ :: Element q r -> Integer -- ^ Group cofactor.
-  q_ :: Element q r -> Integer -- ^ Group characteristic.
-  r_ :: Element q r -> Integer -- ^ Group order.
+  g_ :: Element r q            -- ^ Group generator.
+  h_ :: Element r q -> Integer -- ^ Group cofactor.
+  q_ :: Element r q -> Integer -- ^ Group characteristic.
+  r_ :: Element r q -> Integer -- ^ Group order.
 
 -- | Field elements.
-newtype Element q r = F q
+newtype Element r q = F q
   deriving (Eq, Functor, Generic, NFData, Read, Show)
 
 -------------------------------------------------------------------------------
@@ -34,7 +34,7 @@ newtype Element q r = F q
 -------------------------------------------------------------------------------
 
 -- Field elements are groups.
-instance FGroup q r => Group (Element q r) where
+instance FGroup r q => Group (Element r q) where
 
   add = (<>)
   {-# INLINABLE add #-}
@@ -51,23 +51,23 @@ instance FGroup q r => Group (Element q r) where
   id = mempty
   {-# INLINABLE id #-}
 
-  inv (F x) = F (recip x)
+  inv = (<$>) recip
   {-# INLINABLE inv #-}
 
-  mul' (F x) n = F (pow x n)
+  mul' = (. flip pow) . flip (<$>)
   {-# INLINABLE mul' #-}
 
   order = r_
   {-# INLINABLE order #-}
 
 -- Field elements are monoids.
-instance FGroup q r => Monoid (Element q r) where
+instance FGroup r q => Monoid (Element r q) where
 
   mempty = F 1
   {-# INLINABLE mempty #-}
 
 -- Field elements are semigroups.
-instance FGroup q r => Semigroup (Element q r) where
+instance FGroup r q => Semigroup (Element r q) where
 
   F x <> F y = F (x * y)
   {-# INLINABLE (<>) #-}
@@ -77,7 +77,7 @@ instance FGroup q r => Semigroup (Element q r) where
 -------------------------------------------------------------------------------
 
 -- Field elements are arbitrary.
-instance FGroup q r => Arbitrary (Element q r) where
+instance FGroup r q => Arbitrary (Element r q) where
 
   -- Arbitrary group element.
   arbitrary = mul' gen <$> arbitrary
@@ -90,12 +90,12 @@ instance FGroup q r => Arbitrary (Element q r) where
   {-# INLINABLE arbitrary #-}
 
 -- Field elements are pretty.
-instance FGroup q r => Pretty (Element q r) where
+instance FGroup r q => Pretty (Element r q) where
 
   pretty (F x) = pretty x
 
 -- Field elements are random.
-instance FGroup q r => Random (Element q r) where
+instance FGroup r q => Random (Element r q) where
 
   -- Random group element.
   random = first (mul' gen) . random
