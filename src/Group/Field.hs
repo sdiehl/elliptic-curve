@@ -18,7 +18,7 @@ import Group (Group(..))
 -------------------------------------------------------------------------------
 
 -- | Field groups.
-class (GaloisField q, GaloisField r, PrimeField' r) => FGroup r q where
+class (GaloisField q, PrimeField' r) => FGroup r q where
   {-# MINIMAL g_, h_, q_, r_ #-}
   g_ :: Element r q            -- ^ Group generator.
   h_ :: Element r q -> Integer -- ^ Group cofactor.

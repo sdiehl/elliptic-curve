@@ -23,8 +23,7 @@ import Group (Group(..))
 type WPoint = Point 'Weierstrass
 
 -- | Weierstrass curves.
-class (GaloisField q, GaloisField r, PrimeField' r, Curve 'Weierstrass c e q r)
-  => WCurve c e q r where
+class (GaloisField q, PrimeField' r, Curve 'Weierstrass c e q r) => WCurve c e q r where
   {-# MINIMAL a_, b_, h_, q_, r_, x_, y_ #-}
   a_ :: WPoint c e q r -> q       -- ^ Coefficient @A@.
   b_ :: WPoint c e q r -> q       -- ^ Coefficient @B@.

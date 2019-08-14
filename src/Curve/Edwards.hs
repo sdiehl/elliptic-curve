@@ -23,8 +23,7 @@ import Group (Group(..))
 type EPoint = Point 'Edwards
 
 -- | Edwards curves.
-class (GaloisField q, GaloisField r, PrimeField' r, Curve 'Edwards c e q r)
-  => ECurve c e q r where
+class (GaloisField q, PrimeField' r, Curve 'Edwards c e q r) => ECurve c e q r where
   {-# MINIMAL a_, d_, h_, q_, r_, x_, y_ #-}
   a_ :: EPoint c e q r -> q       -- ^ Coefficient @A@.
   d_ :: EPoint c e q r -> q       -- ^ Coefficient @D@.
