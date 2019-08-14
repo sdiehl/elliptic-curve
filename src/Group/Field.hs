@@ -7,9 +7,10 @@ import Protolude
 
 import Control.Monad.Random (Random(..))
 import GaloisField (GaloisField(..))
-import Test.Tasty.QuickCheck (Arbitrary(..), suchThatMap)
+import Test.Tasty.QuickCheck (Arbitrary(..))
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
+import Curve (PrimeField')
 import Group (Group(..))
 
 -------------------------------------------------------------------------------
@@ -17,15 +18,15 @@ import Group (Group(..))
 -------------------------------------------------------------------------------
 
 -- | Field groups.
-class GaloisField k => FGroup k where
-  {-# MINIMAL g_, q_, r_, x_ #-}
-  g_ :: Element k            -- ^ Group generator.
-  q_ :: Element k -> Integer -- ^ Group characteristic.
-  r_ :: Element k -> Integer -- ^ Group order.
-  x_ :: k                    -- ^ Group element.
+class (GaloisField q, PrimeField' r) => FGroup r q where
+  {-# MINIMAL g_, h_, q_, r_ #-}
+  g_ :: Element r q            -- ^ Group generator.
+  h_ :: Element r q -> Integer -- ^ Group cofactor.
+  q_ :: Element r q -> Integer -- ^ Group characteristic.
+  r_ :: Element r q -> Integer -- ^ Group order.
 
 -- | Field elements.
-newtype Element k = F k
+newtype Element r q = F q
   deriving (Eq, Functor, Generic, NFData, Read, Show)
 
 -------------------------------------------------------------------------------
@@ -33,7 +34,7 @@ newtype Element k = F k
 -------------------------------------------------------------------------------
 
 -- Field elements are groups.
-instance FGroup k => Group (Element k) where
+instance FGroup r q => Group (Element r q) where
 
   add = (<>)
   {-# INLINABLE add #-}
@@ -50,23 +51,23 @@ instance FGroup k => Group (Element k) where
   id = mempty
   {-# INLINABLE id #-}
 
-  inv (F x) = F (recip x)
+  inv = (<$>) recip
   {-# INLINABLE inv #-}
 
-  mul' (F x) n = F (pow x n)
+  mul' = (. flip pow) . flip (<$>)
   {-# INLINABLE mul' #-}
 
   order = r_
   {-# INLINABLE order #-}
 
 -- Field elements are monoids.
-instance FGroup k => Monoid (Element k) where
+instance FGroup r q => Monoid (Element r q) where
 
   mempty = F 1
   {-# INLINABLE mempty #-}
 
 -- Field elements are semigroups.
-instance FGroup k => Semigroup (Element k) where
+instance FGroup r q => Semigroup (Element r q) where
 
   F x <> F y = F (x * y)
   {-# INLINABLE (<>) #-}
@@ -76,25 +77,33 @@ instance FGroup k => Semigroup (Element k) where
 -------------------------------------------------------------------------------
 
 -- Field elements are arbitrary.
-instance FGroup k => Arbitrary (Element k) where
+instance FGroup r q => Arbitrary (Element r q) where
 
+  -- Arbitrary group element.
+  arbitrary = mul' gen <$> arbitrary
+  {- Arbitrary field element.
   arbitrary = suchThatMap arbitrary defX
     where
       defX 0 = Nothing
       defX x = Just (F x)
+  -}
   {-# INLINABLE arbitrary #-}
 
 -- Field elements are pretty.
-instance FGroup k => Pretty (Element k) where
+instance FGroup r q => Pretty (Element r q) where
 
   pretty (F x) = pretty x
 
 -- Field elements are random.
-instance FGroup k => Random (Element k) where
+instance FGroup r q => Random (Element r q) where
 
+  -- Random group element.
+  random = first (mul' gen) . random
+  {- Random field element.
   random g = case random g of
     (0, g') -> random g'
     (x, g') -> (F x, g')
+  -}
   {-# INLINABLE random #-}
 
   randomR  = panic "not implemented."

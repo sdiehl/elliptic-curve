@@ -1,6 +1,7 @@
 module Curve.Weierstrass.BrainpoolP224R1
   ( module Curve.Weierstrass
   , module Curve.Weierstrass.BrainpoolP224R1
+  , Point(..)
   ) where
 
 import Protolude

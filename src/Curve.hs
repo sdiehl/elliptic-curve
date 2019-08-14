@@ -8,7 +8,7 @@ import Protolude
 import Control.Monad.Random (Random(..))
 import GaloisField (GaloisField)
 import PrimeField (PrimeField, toInt)
-import Test.Tasty.QuickCheck (Arbitrary(..), suchThatMap)
+import Test.Tasty.QuickCheck (Arbitrary(..))
 
 import Group (Group(..))
 
@@ -17,7 +17,7 @@ import Group (Group(..))
 -------------------------------------------------------------------------------
 
 -- | Elliptic curves.
-class (GaloisField q, GaloisField r, Group (Point f c e q r))
+class (GaloisField q, PrimeField' r, Group (Point f c e q r))
   => Curve (f :: Form) (c :: Coordinates) e q r where
   {-# MINIMAL char, cof, disc, fromA, point, pointX, toA, yX #-}
 
@@ -38,8 +38,8 @@ class (GaloisField q, GaloisField r, Group (Point f c e q r))
   data family Point f c e q r :: *
 
   -- | Curve point multiplication.
-  mul :: r ~ PrimeField p => Point f c e q r -> r -> Point f c e q r
-  mul = (. toInt) . mul'
+  mul :: Point f c e q r -> r -> Point f c e q r
+  mul = (. toInt') . mul'
   {-# INLINABLE mul #-}
 
   -- | Get point from X and Y coordinates.
@@ -74,11 +74,37 @@ data Coordinates = Affine
 -- Instances
 -------------------------------------------------------------------------------
 
+-- Elliptic curve points are arbitrary.
+instance Curve f c e q r => Arbitrary (Point f c e q r) where
+
+  -- Arbitrary group element.
+  arbitrary = mul gen <$> arbitrary
+  {- Arbitrary curve point.
+  arbitrary = suchThatMap arbitrary pointX
+  -}
+  {-# INLINABLE arbitrary #-}
+
 -- Elliptic curve points are monoids.
 instance Curve f c e q r => Monoid (Point f c e q r) where
 
   mempty = id
   {-# INLINABLE mempty #-}
+
+-- Elliptic curve points are random.
+instance Curve f c e q r => Random (Point f c e q r) where
+
+  -- Random group element.
+  random  = first (mul gen) . random
+  {- Random curve point.
+  random g = case pointX x of
+    Just p -> (p, g')
+    _      -> random g'
+    where
+      (x, g') = random g
+  -}
+  {-# INLINABLE random #-}
+
+  randomR = panic "not implemented."
 
 -- Elliptic curve points are semigroups.
 instance Curve f c e q r => Semigroup (Point f c e q r) where
@@ -86,18 +112,18 @@ instance Curve f c e q r => Semigroup (Point f c e q r) where
   p <> q = if p == q then dbl p else add p q
   {-# INLINABLE (<>) #-}
 
--- Elliptic curve points are arbitrary.
-instance Curve f c e q r => Arbitrary (Point f c e q r) where
+-------------------------------------------------------------------------------
+-- Temporary
+-------------------------------------------------------------------------------
 
-  arbitrary = suchThatMap arbitrary pointX
-  {-# INLINABLE arbitrary #-}
+-- Prime field class.
+class GaloisField k => PrimeField' k where
+  {-# MINIMAL toInt' #-}
 
--- Elliptic curve points are random.
-instance Curve f c e q r => Random (Point f c e q r) where
+  toInt' :: k -> Integer
 
-  random g = let (x, g') = random g in case pointX x of
-    Just p -> (p, g')
-    _      -> random g'
-  {-# INLINABLE random #-}
+-- Prime field instance.
+instance KnownNat p => PrimeField' (PrimeField p) where
 
-  randomR = panic "not implemented."
+  toInt' = toInt
+  {-# INLINABLE toInt' #-}

@@ -4,6 +4,7 @@ module Curve.Edwards
   ( module Curve
   , module Curve.Edwards
   , module Group
+  , Point(..)
   ) where
 
 import Protolude
@@ -11,7 +12,7 @@ import Protolude
 import GaloisField (GaloisField(..))
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
-import Curve (Coordinates(..), Curve(..), Form(..))
+import Curve (Coordinates(..), Curve(..), Form(..), PrimeField')
 import Group (Group(..))
 
 -------------------------------------------------------------------------------
@@ -22,7 +23,7 @@ import Group (Group(..))
 type EPoint = Point 'Edwards
 
 -- | Edwards curves.
-class (GaloisField q, GaloisField r, Curve 'Edwards c e q r) => ECurve c e q r where
+class (GaloisField q, PrimeField' r, Curve 'Edwards c e q r) => ECurve c e q r where
   {-# MINIMAL a_, d_, h_, q_, r_, x_, y_ #-}
   a_ :: EPoint c e q r -> q       -- ^ Coefficient @A@.
   d_ :: EPoint c e q r -> q       -- ^ Coefficient @D@.

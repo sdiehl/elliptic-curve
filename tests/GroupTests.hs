@@ -7,7 +7,6 @@ import GaloisField
 import Group
 import Group.Field
 import Math.NumberTheory.Primes.Testing
-import PrimeField
 import Test.Tasty
 import Test.Tasty.HUnit
 import Test.Tasty.QuickCheck
@@ -63,24 +62,23 @@ doubleInverses f t x = f (t x) == x && t (f (t x)) == t x
 doubleHomeomorphism :: (Eq a, Eq b) => (a -> a) -> (b -> b) -> (a -> b) -> (b -> a) -> b -> Bool
 doubleHomeomorphism op op' f t x = t (op' x) == op (t x) && f (op (t x)) == op' x
 
-curveParameters :: forall f c e q r p
-  . (r ~ PrimeField p, Curve f 'Affine e q r, Curve f c e q r)
+curveParameters :: forall f c e q r . (Curve f 'Affine e q r, Curve f c e q r)
   => Point f c e q r -> Integer -> Integer -> Integer -> TestTree
 curveParameters g h q r = testGroup "Curve parameters"
   [ testCase "generator is parametrised" $
     gen @?= g
   , testCase "cofactor is parametrised" $
-    cof (witness :: Point f c e q r) @?= h
+    cof g @?= h
   , testCase "characteristic is parametrised" $
-    Curve.char (witness :: Point f c e q r) @?= q
+    Curve.char g @?= q
   , testCase "order is parametrised" $
-    Group.order (witness :: Point f c e q r) @?= r
+    Group.order g @?= r
   , testCase "characteristic is prime" $
     isPrime q @?= True
   , testCase "discriminant is nonzero" $
-    disc (witness :: Point f c e q r) /= 0 @?= True
+    disc g /= 0 @?= True
   , testCase "generator is well-defined" $
-    def (gen :: Point f c e q r) @?= True
+    def g @?= True
   , testCase "generator is in cyclic subgroup" $
     mul' g r @?= mempty
   , testCase "cyclic subgroup has prime order" $
@@ -97,26 +95,31 @@ curveParameters g h q r = testGroup "Curve parameters"
     doubleHomeomorphism (flip mul 3) (flip mul 3) fromA (toA :: Point f c e q r -> Point f 'Affine e q r)
   ]
 
-test :: (r ~ PrimeField p, Curve f c e q r, Curve f 'Affine e q r)
+test :: (Curve f c e q r, Curve f 'Affine e q r)
   => TestName -> Point f c e q r -> Integer -> Integer -> Integer -> TestTree
 test s g h q r = testGroup s [groupAxioms g, curveParameters g h q r]
 
-fieldParameters :: forall k . FGroup k
-  => Element k -> Integer -> Integer -> TestTree
-fieldParameters g q r = testGroup "Group parameters"
+fieldParameters :: forall q r . FGroup r q
+  => Element r q -> Integer -> Integer -> Integer -> TestTree
+fieldParameters g h q r = testGroup "Group parameters"
   [ testCase "generator is parametrised" $
     gen @?= g
   , testCase "characteristic is parametrised" $
-    GaloisField.char (witness :: k) @?= q
+    GaloisField.char (witness :: q) @?= q
   , testCase "order is parametrised" $
-    Group.order (witness :: Element k) @?= r
+    Group.order g @?= r
   , testCase "characteristic is prime" $
     isPrime q @?= True
   , testCase "generator is well-defined" $
-    def (gen :: Element k) @?= True
+    def g @?= True
   , testCase "generator is in cyclic subgroup" $
     mul' g r @?= mempty
+  , testCase "cyclic subgroup has prime order" $
+    isPrime r @?= True
+  , testCase "hasse theorem holds" $
+    hasseTheorem h r (GaloisField.order (witness :: q)) @?= True
   ]
 
-test' :: FGroup k => TestName -> Element k -> Integer -> Integer -> TestTree
-test' s g q r = testGroup s [groupAxioms g, fieldParameters g q r]
+test' :: FGroup r q
+  => TestName -> Element r q -> Integer -> Integer -> Integer -> TestTree
+test' s g h q r = testGroup s [groupAxioms g, fieldParameters g h q r]

@@ -1,6 +1,7 @@
 module Curve.Weierstrass.BN254AT
   ( module Curve.Weierstrass
   , module Curve.Weierstrass.BN254AT
+  , Point(..)
   ) where
 
 import Protolude

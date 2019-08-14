@@ -1,5 +1,11 @@
 # Change log for elliptic-curve
 
+## 0.2.2
+
+* Fix `Arbitrary` instances for elliptic curves.
+* Fix `Random` instances for elliptic curves.
+* Fix `Functor` instances for groups.
+
 ## 0.2.1
 
 * Fix dependency issue with `galois-field`.

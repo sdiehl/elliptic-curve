@@ -1,6 +1,7 @@
 module Curve.Weierstrass.ANSSIFRP256V1
   ( module Curve.Weierstrass
   , module Curve.Weierstrass.ANSSIFRP256V1
+  , Point(..)
   ) where
 
 import Protolude

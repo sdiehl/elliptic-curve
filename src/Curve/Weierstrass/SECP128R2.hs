@@ -1,6 +1,7 @@
 module Curve.Weierstrass.SECP128R2
   ( module Curve.Weierstrass
   , module Curve.Weierstrass.SECP128R2
+  , Point(..)
   ) where
 
 import Protolude
