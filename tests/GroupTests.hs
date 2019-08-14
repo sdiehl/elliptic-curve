@@ -99,8 +99,8 @@ test :: (Curve f c e q r, Curve f 'Affine e q r)
   => TestName -> Point f c e q r -> Integer -> Integer -> Integer -> TestTree
 test s g h q r = testGroup s [groupAxioms g, curveParameters g h q r]
 
-fieldParameters :: forall q r . FGroup q r
-  => Element q r -> Integer -> Integer -> Integer -> TestTree
+fieldParameters :: forall q r . FGroup r q
+  => Element r q -> Integer -> Integer -> Integer -> TestTree
 fieldParameters g h q r = testGroup "Group parameters"
   [ testCase "generator is parametrised" $
     gen @?= g
@@ -120,6 +120,6 @@ fieldParameters g h q r = testGroup "Group parameters"
     hasseTheorem h r (GaloisField.order (witness :: q)) @?= True
   ]
 
-test' :: FGroup q r
-  => TestName -> Element q r -> Integer -> Integer -> Integer -> TestTree
+test' :: FGroup r q
+  => TestName -> Element r q -> Integer -> Integer -> Integer -> TestTree
 test' s g h q r = testGroup s [groupAxioms g, fieldParameters g h q r]
