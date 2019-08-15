@@ -31,7 +31,7 @@ instance IrreducibleMonic Fq6 PolynomialW where
 type Fq12 = ExtensionField Fq6 PolynomialW
 
 -- | BN254TF group is a field group.
-instance FGroup Fr Fq12 where
+instance Field Fr Fq12 where
   g_ = _g
   {-# INLINABLE g_ #-}
   h_ = const _h

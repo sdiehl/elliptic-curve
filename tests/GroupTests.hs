@@ -3,7 +3,7 @@ module GroupTests where
 import Protolude
 
 import Curve
-import GaloisField
+import GaloisField hiding (Field)
 import Group
 import Group.Field
 import Math.NumberTheory.Primes.Testing
@@ -99,7 +99,7 @@ test :: (Curve f c e q r, Curve f 'Affine e q r)
   => TestName -> Point f c e q r -> Integer -> Integer -> Integer -> TestTree
 test s g h q r = testGroup s [groupAxioms g, curveParameters g h q r]
 
-fieldParameters :: forall q r . FGroup r q
+fieldParameters :: forall q r . Field r q
   => Element r q -> Integer -> Integer -> Integer -> TestTree
 fieldParameters g h q r = testGroup "Group parameters"
   [ testCase "generator is parametrised" $
@@ -120,6 +120,6 @@ fieldParameters g h q r = testGroup "Group parameters"
     hasseTheorem h r (GaloisField.order (witness :: q)) @?= True
   ]
 
-test' :: FGroup r q
+test' :: Field r q
   => TestName -> Element r q -> Integer -> Integer -> Integer -> TestTree
 test' s g h q r = testGroup s [groupAxioms g, fieldParameters g h q r]

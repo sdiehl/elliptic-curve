@@ -18,7 +18,7 @@ import Group (Group(..))
 -------------------------------------------------------------------------------
 
 -- | Field groups.
-class (GaloisField q, PrimeField' r) => FGroup r q where
+class (GaloisField q, PrimeField' r) => Field r q where
   {-# MINIMAL g_, h_, q_, r_ #-}
   g_ :: Element r q            -- ^ Group generator.
   h_ :: Element r q -> Integer -- ^ Group cofactor.
@@ -34,7 +34,7 @@ newtype Element r q = F q
 -------------------------------------------------------------------------------
 
 -- Field elements are groups.
-instance FGroup r q => Group (Element r q) where
+instance Field r q => Group (Element r q) where
 
   add = (<>)
   {-# INLINABLE add #-}
@@ -61,13 +61,13 @@ instance FGroup r q => Group (Element r q) where
   {-# INLINABLE order #-}
 
 -- Field elements are monoids.
-instance FGroup r q => Monoid (Element r q) where
+instance Field r q => Monoid (Element r q) where
 
   mempty = F 1
   {-# INLINABLE mempty #-}
 
 -- Field elements are semigroups.
-instance FGroup r q => Semigroup (Element r q) where
+instance Field r q => Semigroup (Element r q) where
 
   F x <> F y = F (x * y)
   {-# INLINABLE (<>) #-}
@@ -77,7 +77,7 @@ instance FGroup r q => Semigroup (Element r q) where
 -------------------------------------------------------------------------------
 
 -- Field elements are arbitrary.
-instance FGroup r q => Arbitrary (Element r q) where
+instance Field r q => Arbitrary (Element r q) where
 
   -- Arbitrary group element.
   arbitrary = mul' gen <$> arbitrary
@@ -90,12 +90,12 @@ instance FGroup r q => Arbitrary (Element r q) where
   {-# INLINABLE arbitrary #-}
 
 -- Field elements are pretty.
-instance FGroup r q => Pretty (Element r q) where
+instance Field r q => Pretty (Element r q) where
 
   pretty (F x) = pretty x
 
 -- Field elements are random.
-instance FGroup r q => Random (Element r q) where
+instance Field r q => Random (Element r q) where
 
   -- Random group element.
   random = first (mul' gen) . random
