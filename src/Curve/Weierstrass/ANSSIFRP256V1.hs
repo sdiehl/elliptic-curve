@@ -6,7 +6,7 @@ module Curve.Weierstrass.ANSSIFRP256V1
 
 import Protolude
 
-import PrimeField
+import Data.Field.Galois
 
 import Curve.Weierstrass
 
@@ -18,10 +18,10 @@ import Curve.Weierstrass
 data ANSSIFRP256V1
 
 -- | Field of points of ANSSIFRP256V1 curve.
-type Fq = PrimeField 0xf1fd178c0b3ad58f10126de8ce42435b3961adbcabc8ca6de8fcf353d86e9c03
+type Fq = Prime 0xf1fd178c0b3ad58f10126de8ce42435b3961adbcabc8ca6de8fcf353d86e9c03
 
 -- | Field of coefficients of ANSSIFRP256V1 curve.
-type Fr = PrimeField 0xf1fd178c0b3ad58f10126de8ce42435b53dc67e140d2bf941ffdd459c6d655e1
+type Fr = Prime 0xf1fd178c0b3ad58f10126de8ce42435b53dc67e140d2bf941ffdd459c6d655e1
 
 -- | ANSSIFRP256V1 curve is a Weierstrass curve.
 instance Curve 'Weierstrass c ANSSIFRP256V1 Fq Fr => WCurve c ANSSIFRP256V1 Fq Fr where

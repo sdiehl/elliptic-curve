@@ -4,11 +4,11 @@ import Protolude
 
 import Test.Tasty
 
-import BinaryTests
-import EdwardsTests
-import FieldTests
-import MontgomeryTests
-import WeierstrassTests
+import Test.Binary
+import Test.Edwards
+import Test.Field
+import Test.Montgomery
+import Test.Weierstrass
 
 main :: IO ()
 main = defaultMain $

@@ -6,8 +6,7 @@ module Curve.Binary.SECT239K1
 
 import Protolude
 
-import BinaryField
-import PrimeField
+import Data.Field.Galois
 
 import Curve.Binary
 
@@ -19,10 +18,10 @@ import Curve.Binary
 data SECT239K1
 
 -- | Field of points of SECT239K1 curve.
-type F2m = BinaryField 0x800000000000000000004000000000000000000000000000000000000001
+type F2m = Binary 0x800000000000000000004000000000000000000000000000000000000001
 
 -- | Field of coefficients of SECT239K1 curve.
-type Fr = PrimeField 0x2000000000000000000000000000005a79fec67cb6e91f1c1da800e478a5
+type Fr = Prime 0x2000000000000000000000000000005a79fec67cb6e91f1c1da800e478a5
 
 -- | SECT239K1 curve is a binary curve.
 instance Curve 'Binary c SECT239K1 F2m Fr => BCurve c SECT239K1 F2m Fr where

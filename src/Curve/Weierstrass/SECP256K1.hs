@@ -6,7 +6,7 @@ module Curve.Weierstrass.SECP256K1
 
 import Protolude
 
-import PrimeField
+import Data.Field.Galois
 
 import Curve.Weierstrass
 
@@ -18,10 +18,10 @@ import Curve.Weierstrass
 data SECP256K1
 
 -- | Field of points of SECP256K1 curve.
-type Fq = PrimeField 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f
+type Fq = Prime 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f
 
 -- | Field of coefficients of SECP256K1 curve.
-type Fr = PrimeField 0xfffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141
+type Fr = Prime 0xfffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141
 
 -- | SECP256K1 curve is a Weierstrass curve.
 instance Curve 'Weierstrass c SECP256K1 Fq Fr => WCurve c SECP256K1 Fq Fr where

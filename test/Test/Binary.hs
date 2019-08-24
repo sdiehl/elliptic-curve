@@ -1,4 +1,4 @@
-module BinaryTests where
+module Test.Binary where
 
 import Protolude
 
@@ -23,7 +23,7 @@ import qualified Curve.Binary.SECT571R1 as SECT571R1
 import Test.Tasty
 import Test.Tasty.QuickCheck
 
-import GroupTests
+import Test.Group
 
 testBinary :: TestTree
 testBinary = testGroup "Binary"

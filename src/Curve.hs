@@ -6,8 +6,7 @@ module Curve
 import Protolude
 
 import Control.Monad.Random (Random(..))
-import GaloisField (GaloisField)
-import PrimeField (PrimeField, toInt)
+import Data.Field.Galois (GaloisField, PrimeField(..), fromP)
 import Test.Tasty.QuickCheck (Arbitrary(..))
 
 import Group (Group(..))
@@ -17,7 +16,7 @@ import Group (Group(..))
 -------------------------------------------------------------------------------
 
 -- | Elliptic curves.
-class (GaloisField q, PrimeField' r, Group (Point f c e q r))
+class (GaloisField q, PrimeField r, Group (Point f c e q r))
   => Curve (f :: Form) (c :: Coordinates) e q r where
   {-# MINIMAL char, cof, disc, fromA, point, pointX, toA, yX #-}
 
@@ -39,7 +38,7 @@ class (GaloisField q, PrimeField' r, Group (Point f c e q r))
 
   -- | Curve point multiplication.
   mul :: Point f c e q r -> r -> Point f c e q r
-  mul = (. toInt') . mul'
+  mul = (. fromP) . mul'
   {-# INLINABLE mul #-}
 
   -- | Get point from X and Y coordinates.
@@ -111,19 +110,3 @@ instance Curve f c e q r => Semigroup (Point f c e q r) where
 
   p <> q = if p == q then dbl p else add p q
   {-# INLINABLE (<>) #-}
-
--------------------------------------------------------------------------------
--- Temporary
--------------------------------------------------------------------------------
-
--- Prime field class.
-class GaloisField k => PrimeField' k where
-  {-# MINIMAL toInt' #-}
-
-  toInt' :: k -> Integer
-
--- Prime field instance.
-instance KnownNat p => PrimeField' (PrimeField p) where
-
-  toInt' = toInt
-  {-# INLINABLE toInt' #-}

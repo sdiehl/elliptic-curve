@@ -6,7 +6,7 @@ module Curve.Weierstrass.BN254B
 
 import Protolude
 
-import PrimeField
+import Data.Field.Galois
 
 import Curve.Weierstrass
 
@@ -18,10 +18,10 @@ import Curve.Weierstrass
 data BN254B
 
 -- | Field of points of BN254B curve.
-type Fq = PrimeField 0x2523648240000001ba344d80000000086121000000000013a700000000000013
+type Fq = Prime 0x2523648240000001ba344d80000000086121000000000013a700000000000013
 
 -- | Field of coefficients of BN254B curve.
-type Fr = PrimeField 0x2523648240000001ba344d8000000007ff9f800000000010a10000000000000d
+type Fr = Prime 0x2523648240000001ba344d8000000007ff9f800000000010a10000000000000d
 
 -- | BN254B curve is a Weierstrass curve.
 instance Curve 'Weierstrass c BN254B Fq Fr => WCurve c BN254B Fq Fr where

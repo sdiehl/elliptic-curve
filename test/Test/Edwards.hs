@@ -1,4 +1,4 @@
-module EdwardsTests where
+module Test.Edwards where
 
 import Protolude
 
@@ -14,7 +14,7 @@ import qualified Curve.Edwards.JubJub     as JubJub
 import Test.Tasty
 import Test.Tasty.QuickCheck
 
-import GroupTests
+import Test.Group
 
 testEdwards :: TestTree
 testEdwards = testGroup "Edwards"

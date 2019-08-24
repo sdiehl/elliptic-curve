@@ -1,9 +1,9 @@
-module GroupTests where
+module Test.Group where
 
 import Protolude
 
 import Curve
-import GaloisField hiding (Field)
+import qualified Data.Field.Galois as GF
 import Group
 import Group.Field
 import Math.NumberTheory.Primes.Testing
@@ -84,7 +84,7 @@ curveParameters g h q r = testGroup "Curve parameters"
   , testCase "cyclic subgroup has prime order" $
     isPrime r @?= True
   , testCase "hasse theorem holds" $
-    hasseTheorem h r (GaloisField.order (witness :: q)) @?= True
+    hasseTheorem h r (GF.order (witness :: q)) @?= True
   , testCase "affine transformation is doubly identity-preserving" $
     doubleIdentities fromA (toA :: Point f c e q r -> Point f 'Affine e q r) mempty mempty @?= True
   , testProperty "affine transformation is doubly well-defined" $
@@ -105,7 +105,7 @@ fieldParameters g h q r = testGroup "Group parameters"
   [ testCase "generator is parametrised" $
     gen @?= g
   , testCase "characteristic is parametrised" $
-    GaloisField.char (witness :: q) @?= q
+    GF.char (witness :: q) @?= q
   , testCase "order is parametrised" $
     Group.order g @?= r
   , testCase "characteristic is prime" $
@@ -117,7 +117,7 @@ fieldParameters g h q r = testGroup "Group parameters"
   , testCase "cyclic subgroup has prime order" $
     isPrime r @?= True
   , testCase "hasse theorem holds" $
-    hasseTheorem h r (GaloisField.order (witness :: q)) @?= True
+    hasseTheorem h r (GF.order (witness :: q)) @?= True
   ]
 
 test' :: Field r q

@@ -1,9 +1,9 @@
-module FieldTests where
+module Test.Field where
 
 import qualified Group.Field.BN254TF as BN254TF
 import Test.Tasty
 
-import GroupTests
+import Test.Group
 
 testField :: TestTree
 testField = testGroup "Field"

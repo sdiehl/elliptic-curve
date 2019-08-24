@@ -1,4 +1,4 @@
-module MontgomeryTests where
+module Test.Montgomery where
 
 import Protolude
 
@@ -11,7 +11,7 @@ import qualified Curve.Montgomery.M511        as M511
 import Test.Tasty
 import Test.Tasty.QuickCheck
 
-import GroupTests
+import Test.Group
 
 testMontgomery :: TestTree
 testMontgomery = testGroup "Montgomery"

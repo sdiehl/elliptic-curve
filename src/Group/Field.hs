@@ -6,11 +6,10 @@ module Group.Field
 import Protolude
 
 import Control.Monad.Random (Random(..))
-import GaloisField (GaloisField(..))
+import Data.Field.Galois (GaloisField(..), PrimeField)
 import Test.Tasty.QuickCheck (Arbitrary(..))
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
-import Curve (PrimeField')
 import Group (Group(..))
 
 -------------------------------------------------------------------------------
@@ -18,7 +17,7 @@ import Group (Group(..))
 -------------------------------------------------------------------------------
 
 -- | Field groups.
-class (GaloisField q, PrimeField' r) => Field r q where
+class (GaloisField q, PrimeField r) => Field r q where
   {-# MINIMAL g_, h_, q_, r_ #-}
   g_ :: Element r q            -- ^ Group generator.
   h_ :: Element r q -> Integer -- ^ Group cofactor.

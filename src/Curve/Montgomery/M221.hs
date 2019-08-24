@@ -6,7 +6,7 @@ module Curve.Montgomery.M221
 
 import Protolude
 
-import PrimeField
+import Data.Field.Galois
 
 import Curve.Montgomery
 
@@ -18,10 +18,10 @@ import Curve.Montgomery
 data M221
 
 -- | Field of points of M221 curve.
-type Fq = PrimeField 0x1ffffffffffffffffffffffffffffffffffffffffffffffffffffffd
+type Fq = Prime 0x1ffffffffffffffffffffffffffffffffffffffffffffffffffffffd
 
 -- | Field of coefficients of M221 curve.
-type Fr = PrimeField 0x40000000000000000000000000015a08ed730e8a2f77f005042605b
+type Fr = Prime 0x40000000000000000000000000015a08ed730e8a2f77f005042605b
 
 -- | M221 curve is a Montgomery curve.
 instance Curve 'Montgomery c M221 Fq Fr => MCurve c M221 Fq Fr where

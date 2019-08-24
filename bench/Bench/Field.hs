@@ -1,11 +1,11 @@
-module FieldBenchmarks where
+module Bench.Field where
 
 import Criterion.Main
 import qualified Group.Field.BN254TF as BN254TF
 
-import GroupBenchmarks
+import Bench.Group
 
-benchmarkField :: Benchmark
-benchmarkField = bgroup "Field"
+benchField :: Benchmark
+benchField = bgroup "Field"
   [ benchmark "BN254TF" BN254TF._g
   ]

@@ -9,10 +9,10 @@ module Curve.Montgomery
 
 import Protolude
 
-import GaloisField (GaloisField(..))
+import Data.Field.Galois (GaloisField(..), PrimeField, sr)
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
-import Curve (Coordinates(..), Curve(..), Form(..), PrimeField')
+import Curve (Coordinates(..), Curve(..), Form(..))
 import Group (Group(..))
 
 -------------------------------------------------------------------------------
@@ -23,7 +23,7 @@ import Group (Group(..))
 type MPoint = Point 'Montgomery
 
 -- | Montgomery curves.
-class (GaloisField q, PrimeField' r, Curve 'Montgomery c e q r) => MCurve c e q r where
+class (GaloisField q, PrimeField r, Curve 'Montgomery c e q r) => MCurve c e q r where
   {-# MINIMAL a_, b_, h_, q_, r_, x_, y_ #-}
   a_ :: MPoint c e q r -> q       -- ^ Coefficient @A@.
   b_ :: MPoint c e q r -> q       -- ^ Coefficient @B@.

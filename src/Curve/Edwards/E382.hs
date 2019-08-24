@@ -6,7 +6,7 @@ module Curve.Edwards.E382
 
 import Protolude
 
-import PrimeField
+import Data.Field.Galois
 
 import Curve.Edwards
 
@@ -18,10 +18,10 @@ import Curve.Edwards
 data E382
 
 -- | Field of points of E382 curve.
-type Fq = PrimeField 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff97
+type Fq = Prime 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff97
 
 -- | Field of coefficients of E382 curve.
-type Fr = PrimeField 0xfffffffffffffffffffffffffffffffffffffffffffffffd5fb21f21e95eee17c5e69281b102d2773e27e13fd3c9719
+type Fr = Prime 0xfffffffffffffffffffffffffffffffffffffffffffffffd5fb21f21e95eee17c5e69281b102d2773e27e13fd3c9719
 
 -- | E382 curve is an Edwards curve.
 instance Curve 'Edwards c E382 Fq Fr => ECurve c E382 Fq Fr where

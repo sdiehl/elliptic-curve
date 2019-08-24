@@ -6,7 +6,7 @@ module Curve.Weierstrass.SECP160R2
 
 import Protolude
 
-import PrimeField
+import Data.Field.Galois
 
 import Curve.Weierstrass
 
@@ -18,10 +18,10 @@ import Curve.Weierstrass
 data SECP160R2
 
 -- | Field of points of SECP160R2 curve.
-type Fq = PrimeField 0xfffffffffffffffffffffffffffffffeffffac73
+type Fq = Prime 0xfffffffffffffffffffffffffffffffeffffac73
 
 -- | Field of coefficients of SECP160R2 curve.
-type Fr = PrimeField 0x100000000000000000000351ee786a818f3a1a16b
+type Fr = Prime 0x100000000000000000000351ee786a818f3a1a16b
 
 -- | SECP160R2 curve is a Weierstrass curve.
 instance Curve 'Weierstrass c SECP160R2 Fq Fr => WCurve c SECP160R2 Fq Fr where

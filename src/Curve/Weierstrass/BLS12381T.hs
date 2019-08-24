@@ -6,8 +6,7 @@ module Curve.Weierstrass.BLS12381T
 
 import Protolude
 
-import ExtensionField
-import PrimeField
+import Data.Field.Galois
 
 import Curve.Weierstrass
 import Curve.Weierstrass.BLS12381 (Fq)
@@ -23,10 +22,10 @@ data BLS12381T
 data PolynomialU
 instance IrreducibleMonic Fq PolynomialU where
   split _ = X2 + 1
-type Fq2 = ExtensionField Fq PolynomialU
+type Fq2 = Extension Fq PolynomialU
 
 -- | Field of coefficients of BLS12381T curve.
-type Fr = PrimeField 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
+type Fr = Prime 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
 
 -- | BLS12381T curve is a Weierstrass curve.
 instance Curve 'Weierstrass c BLS12381T Fq2 Fr => WCurve c BLS12381T Fq2 Fr where
@@ -75,15 +74,15 @@ instance WPCurve BLS12381T Fq2 Fr where
 
 -- | Coefficient @A@ of BLS12381T curve.
 _a :: Fq2
-_a = toField [
-             ]
+_a = toE' [
+          ]
 {-# INLINABLE _a #-}
 
 -- | Coefficient @B@ of BLS12381T curve.
 _b :: Fq2
-_b = toField [ 0x4
-             , 0x4
-             ]
+_b = toE' [ 0x4
+          , 0x4
+          ]
 {-# INLINABLE _b #-}
 
 -- | Cofactor of BLS12381T curve.
@@ -103,16 +102,16 @@ _r = 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
 
 -- | Coordinate @X@ of BLS12381T curve.
 _x :: Fq2
-_x = toField [ 0x24aa2b2f08f0a91260805272dc51051c6e47ad4fa403b02b4510b647ae3d1770bac0326a805bbefd48056c8c121bdb8
-             , 0x13e02b6052719f607dacd3a088274f65596bd0d09920b61ab5da61bbdc7f5049334cf11213945d57e5ac7d055d042b7e
-             ]
+_x = toE' [ 0x24aa2b2f08f0a91260805272dc51051c6e47ad4fa403b02b4510b647ae3d1770bac0326a805bbefd48056c8c121bdb8
+          , 0x13e02b6052719f607dacd3a088274f65596bd0d09920b61ab5da61bbdc7f5049334cf11213945d57e5ac7d055d042b7e
+          ]
 {-# INLINABLE _x #-}
 
 -- | Coordinate @Y@ of BLS12381T curve.
 _y :: Fq2
-_y = toField [ 0xce5d527727d6e118cc9cdc6da2e351aadfd9baa8cbdd3a76d429a695160d12c923ac9cc3baca289e193548608b82801
-             , 0x606c4a02ea734cc32acd2b02bc28b99cb3e287e85a763af267492ab572e99ab3f370d275cec1da1aaa9075ff05f79be
-             ]
+_y = toE' [ 0xce5d527727d6e118cc9cdc6da2e351aadfd9baa8cbdd3a76d429a695160d12c923ac9cc3baca289e193548608b82801
+          , 0x606c4a02ea734cc32acd2b02bc28b99cb3e287e85a763af267492ab572e99ab3f370d275cec1da1aaa9075ff05f79be
+          ]
 {-# INLINABLE _y #-}
 
 -- | Generator of affine BLS12381T curve.

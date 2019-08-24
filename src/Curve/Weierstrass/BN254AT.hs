@@ -6,8 +6,7 @@ module Curve.Weierstrass.BN254AT
 
 import Protolude
 
-import ExtensionField
-import PrimeField
+import Data.Field.Galois
 
 import Curve.Weierstrass
 import Curve.Weierstrass.BN254A (Fq)
@@ -23,10 +22,10 @@ data BN254AT
 data PolynomialU
 instance IrreducibleMonic Fq PolynomialU where
   split _ = X2 + 5
-type Fq2 = ExtensionField Fq PolynomialU
+type Fq2 = Extension Fq PolynomialU
 
 -- | Field of coefficients of BN254AT curve.
-type Fr = PrimeField 0x2370fb049d410fbe4e761a9886e502411dc1af70120000017e80600000000001
+type Fr = Prime 0x2370fb049d410fbe4e761a9886e502411dc1af70120000017e80600000000001
 
 -- | BN254AT curve is a Weierstrass curve.
 instance Curve 'Weierstrass c BN254AT Fq2 Fr => WCurve c BN254AT Fq2 Fr where
@@ -75,15 +74,15 @@ instance WPCurve BN254AT Fq2 Fr where
 
 -- | Coefficient @A@ of BN254AT curve.
 _a :: Fq2
-_a = toField [
-             ]
+_a = toE' [
+          ]
 {-# INLINABLE _a #-}
 
 -- | Coefficient @B@ of BN254AT curve.
 _b :: Fq2
-_b = toField [ 0x0
-             , 0x2370fb049d410fbe4e761a9886e502417d023f40180000017e80600000000000
-             ]
+_b = toE' [ 0x0
+          , 0x2370fb049d410fbe4e761a9886e502417d023f40180000017e80600000000000
+          ]
 {-# INLINABLE _b #-}
 
 -- | Cofactor of BN254AT curve.
@@ -103,16 +102,16 @@ _r = 0x2370fb049d410fbe4e761a9886e502411dc1af70120000017e80600000000001
 
 -- | Coordinate @X@ of BN254AT curve.
 _x :: Fq2
-_x = toField [ 0x19b0bea4afe4c330da93cc3533da38a9f430b471c6f8a536e81962ed967909b5
-             , 0xa1cf585585a61c6e9880b1f2a5c539f7d906fff238fa6341e1de1a2e45c3f72
-             ]
+_x = toE' [ 0x19b0bea4afe4c330da93cc3533da38a9f430b471c6f8a536e81962ed967909b5
+          , 0xa1cf585585a61c6e9880b1f2a5c539f7d906fff238fa6341e1de1a2e45c3f72
+          ]
 {-# INLINABLE _x #-}
 
 -- | Coordinate @Y@ of BN254AT curve.
 _y :: Fq2
-_y = toField [ 0x17abd366ebbd65333e49c711a80a0cf6d24adf1b9b3990eedcc91731384d2627
-             , 0xee97d6de9902a27d00e952232a78700863bc9aa9be960c32f5bf9fd0a32d345
-             ]
+_y = toE' [ 0x17abd366ebbd65333e49c711a80a0cf6d24adf1b9b3990eedcc91731384d2627
+          , 0xee97d6de9902a27d00e952232a78700863bc9aa9be960c32f5bf9fd0a32d345
+          ]
 {-# INLINABLE _y #-}
 
 -- | Generator of affine BN254AT curve.

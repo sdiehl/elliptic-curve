@@ -24,7 +24,7 @@ prettyImports Types{..}
     <$$> ") where"
     )
   <>   prettyBreak
-  <$$> prettyImport field
+  <$$> prettyImport
   <>   prettyBreak
   <$$> "import Curve.Edwards"
   <$$> maybe mempty pretty imports

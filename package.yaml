@@ -165,7 +165,7 @@ tests:
       - tasty
       - tasty-hunit
     source-dirs:
-      - tests
+      - test
       - src
 
 benchmarks:
@@ -174,5 +174,5 @@ benchmarks:
     dependencies:
       - criterion
     source-dirs:
-      - benchmarks
+      - bench
       - src

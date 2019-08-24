@@ -6,7 +6,7 @@ module Curve.Weierstrass.Anomalous
 
 import Protolude
 
-import PrimeField
+import Data.Field.Galois
 
 import Curve.Weierstrass
 
@@ -18,10 +18,10 @@ import Curve.Weierstrass
 data Anomalous
 
 -- | Field of points of Anomalous curve.
-type Fq = PrimeField 0xb0000000000000000000000953000000000000000000001f9d7
+type Fq = Prime 0xb0000000000000000000000953000000000000000000001f9d7
 
 -- | Field of coefficients of Anomalous curve.
-type Fr = PrimeField 0xb0000000000000000000000953000000000000000000001f9d7
+type Fr = Prime 0xb0000000000000000000000953000000000000000000001f9d7
 
 -- | Anomalous curve is a Weierstrass curve.
 instance Curve 'Weierstrass c Anomalous Fq Fr => WCurve c Anomalous Fq Fr where

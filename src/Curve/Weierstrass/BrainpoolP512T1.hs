@@ -6,7 +6,7 @@ module Curve.Weierstrass.BrainpoolP512T1
 
 import Protolude
 
-import PrimeField
+import Data.Field.Galois
 
 import Curve.Weierstrass
 
@@ -18,10 +18,10 @@ import Curve.Weierstrass
 data BrainpoolP512T1
 
 -- | Field of points of BrainpoolP512T1 curve.
-type Fq = PrimeField 0xaadd9db8dbe9c48b3fd4e6ae33c9fc07cb308db3b3c9d20ed6639cca703308717d4d9b009bc66842aecda12ae6a380e62881ff2f2d82c68528aa6056583a48f3
+type Fq = Prime 0xaadd9db8dbe9c48b3fd4e6ae33c9fc07cb308db3b3c9d20ed6639cca703308717d4d9b009bc66842aecda12ae6a380e62881ff2f2d82c68528aa6056583a48f3
 
 -- | Field of coefficients of BrainpoolP512T1 curve.
-type Fr = PrimeField 0xaadd9db8dbe9c48b3fd4e6ae33c9fc07cb308db3b3c9d20ed6639cca70330870553e5c414ca92619418661197fac10471db1d381085ddaddb58796829ca90069
+type Fr = Prime 0xaadd9db8dbe9c48b3fd4e6ae33c9fc07cb308db3b3c9d20ed6639cca70330870553e5c414ca92619418661197fac10471db1d381085ddaddb58796829ca90069
 
 -- | BrainpoolP512T1 curve is a Weierstrass curve.
 instance Curve 'Weierstrass c BrainpoolP512T1 Fq Fr => WCurve c BrainpoolP512T1 Fq Fr where

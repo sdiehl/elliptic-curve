@@ -6,7 +6,7 @@ module Curve.Weierstrass.BrainpoolP320T1
 
 import Protolude
 
-import PrimeField
+import Data.Field.Galois
 
 import Curve.Weierstrass
 
@@ -18,10 +18,10 @@ import Curve.Weierstrass
 data BrainpoolP320T1
 
 -- | Field of points of BrainpoolP320T1 curve.
-type Fq = PrimeField 0xd35e472036bc4fb7e13c785ed201e065f98fcfa6f6f40def4f92b9ec7893ec28fcd412b1f1b32e27
+type Fq = Prime 0xd35e472036bc4fb7e13c785ed201e065f98fcfa6f6f40def4f92b9ec7893ec28fcd412b1f1b32e27
 
 -- | Field of coefficients of BrainpoolP320T1 curve.
-type Fr = PrimeField 0xd35e472036bc4fb7e13c785ed201e065f98fcfa5b68f12a32d482ec7ee8658e98691555b44c59311
+type Fr = Prime 0xd35e472036bc4fb7e13c785ed201e065f98fcfa5b68f12a32d482ec7ee8658e98691555b44c59311
 
 -- | BrainpoolP320T1 curve is a Weierstrass curve.
 instance Curve 'Weierstrass c BrainpoolP320T1 Fq Fr => WCurve c BrainpoolP320T1 Fq Fr where

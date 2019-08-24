@@ -8,13 +8,13 @@ import Protolude
 -- Types
 -------------------------------------------------------------------------------
 
-data Element = BF Integer
-             | EF [Element]
-             | PF Integer
+data Element = B Integer
+             | E [Element]
+             | P Integer
 
-data Field = BinaryField Text Integer
-           | ExtensionField Text Text Text Text (Maybe Field)
-           | PrimeField Text Integer
+data Field = Binary Text Integer
+           | Extension Text Text Text Text (Maybe Field)
+           | Prime Text Integer
 
 data Types = Types
   { curve   :: Text

@@ -6,8 +6,7 @@ module Curve.Weierstrass.BN462T
 
 import Protolude
 
-import ExtensionField
-import PrimeField
+import Data.Field.Galois
 
 import Curve.Weierstrass
 import Curve.Weierstrass.BN462 (Fq)
@@ -23,10 +22,10 @@ data BN462T
 data PolynomialU
 instance IrreducibleMonic Fq PolynomialU where
   split _ = X2 + 1
-type Fq2 = ExtensionField Fq PolynomialU
+type Fq2 = Extension Fq PolynomialU
 
 -- | Field of coefficients of BN462T curve.
-type Fr = PrimeField 0x240480360120023ffffffffff6ff0cf6b7d9bfca0000000000d812908ee1c201f7fffffffff6ff66fc7bf717f7c0000000002401b007e010800d
+type Fr = Prime 0x240480360120023ffffffffff6ff0cf6b7d9bfca0000000000d812908ee1c201f7fffffffff6ff66fc7bf717f7c0000000002401b007e010800d
 
 -- | BN462T curve is a Weierstrass curve.
 instance Curve 'Weierstrass c BN462T Fq2 Fr => WCurve c BN462T Fq2 Fr where
@@ -75,15 +74,15 @@ instance WPCurve BN462T Fq2 Fr where
 
 -- | Coefficient @A@ of BN462T curve.
 _a :: Fq2
-_a = toField [
-             ]
+_a = toE' [
+          ]
 {-# INLINABLE _a #-}
 
 -- | Coefficient @B@ of BN462T curve.
 _b :: Fq2
-_b = toField [ 0x2
-             , 0x240480360120023ffffffffff6ff0cf6b7d9bfca0000000000d812908f41c8020ffffffffff6ff66fc6ff687f640000000002401b00840138012
-             ]
+_b = toE' [ 0x2
+          , 0x240480360120023ffffffffff6ff0cf6b7d9bfca0000000000d812908f41c8020ffffffffff6ff66fc6ff687f640000000002401b00840138012
+          ]
 {-# INLINABLE _b #-}
 
 -- | Cofactor of BN462T curve.
@@ -103,16 +102,16 @@ _r = 0x240480360120023ffffffffff6ff0cf6b7d9bfca0000000000d812908ee1c201f7fffffff
 
 -- | Coordinate @X@ of BN462T curve.
 _x :: Fq2
-_x = toField [ 0x257ccc85b58dda0dfb38e3a8cbdc5482e0337e7c1cd96ed61c913820408208f9ad2699bad92e0032ae1f0aa6a8b48807695468e3d934ae1e4df
-             , 0x1d2e4343e8599102af8edca849566ba3c98e2a354730cbed9176884058b18134dd86bae555b783718f50af8b59bf7e850e9b73108ba6aa8cd283
-             ]
+_x = toE' [ 0x257ccc85b58dda0dfb38e3a8cbdc5482e0337e7c1cd96ed61c913820408208f9ad2699bad92e0032ae1f0aa6a8b48807695468e3d934ae1e4df
+          , 0x1d2e4343e8599102af8edca849566ba3c98e2a354730cbed9176884058b18134dd86bae555b783718f50af8b59bf7e850e9b73108ba6aa8cd283
+          ]
 {-# INLINABLE _x #-}
 
 -- | Coordinate @Y@ of BN462T curve.
 _y :: Fq2
-_y = toField [ 0xa0650439da22c1979517427a20809eca035634706e23c3fa7a6bb42fe810f1399a1f41c9ddae32e03695a140e7b11d7c3376e5b68df0db7154e
-             , 0x73ef0cbd438cbe0172c8ae37306324d44d5e6b0c69ac57b393f1ab370fd725cc647692444a04ef87387aa68d53743493b9eba14cc552ca2a93a
-             ]
+_y = toE' [ 0xa0650439da22c1979517427a20809eca035634706e23c3fa7a6bb42fe810f1399a1f41c9ddae32e03695a140e7b11d7c3376e5b68df0db7154e
+          , 0x73ef0cbd438cbe0172c8ae37306324d44d5e6b0c69ac57b393f1ab370fd725cc647692444a04ef87387aa68d53743493b9eba14cc552ca2a93a
+          ]
 {-# INLINABLE _y #-}
 
 -- | Generator of affine BN462T curve.

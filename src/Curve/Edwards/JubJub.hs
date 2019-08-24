@@ -6,7 +6,7 @@ module Curve.Edwards.JubJub
 
 import Protolude
 
-import PrimeField
+import Data.Field.Galois
 
 import Curve.Edwards
 
@@ -18,10 +18,10 @@ import Curve.Edwards
 data JubJub
 
 -- | Field of points of JubJub curve.
-type Fq = PrimeField 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
+type Fq = Prime 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
 
 -- | Field of coefficients of JubJub curve.
-type Fr = PrimeField 0xe7db4ea6533afa906673b0101343b00a6682093ccc81082d0970e5ed6f72cb7
+type Fr = Prime 0xe7db4ea6533afa906673b0101343b00a6682093ccc81082d0970e5ed6f72cb7
 
 -- | JubJub curve is an Edwards curve.
 instance Curve 'Edwards c JubJub Fq Fr => ECurve c JubJub Fq Fr where

@@ -1,8 +1,8 @@
-module GroupBenchmarks where
+module Bench.Group where
 
 import Criterion.Main
 import GHC.Base
 import Group
 
 benchmark :: Group g => String -> g -> Benchmark
-benchmark = (. whnf (flip mul' 3)) . bench
+benchmark = (. nf (flip mul' 3)) . bench

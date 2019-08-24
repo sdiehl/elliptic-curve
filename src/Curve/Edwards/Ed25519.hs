@@ -6,7 +6,7 @@ module Curve.Edwards.Ed25519
 
 import Protolude
 
-import PrimeField
+import Data.Field.Galois
 
 import Curve.Edwards
 
@@ -18,10 +18,10 @@ import Curve.Edwards
 data Ed25519
 
 -- | Field of points of Ed25519 curve.
-type Fq = PrimeField 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffed
+type Fq = Prime 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffed
 
 -- | Field of coefficients of Ed25519 curve.
-type Fr = PrimeField 0x1000000000000000000000000000000014def9dea2f79cd65812631a5cf5d3ed
+type Fr = Prime 0x1000000000000000000000000000000014def9dea2f79cd65812631a5cf5d3ed
 
 -- | Ed25519 curve is an Edwards curve.
 instance Curve 'Edwards c Ed25519 Fq Fr => ECurve c Ed25519 Fq Fr where

@@ -1,4 +1,4 @@
-module WeierstrassTests where
+module Test.Weierstrass where
 
 import Protolude
 
@@ -52,7 +52,7 @@ import qualified Curve.Weierstrass.SECP521R1       as SECP521R1
 import Test.Tasty
 import Test.Tasty.QuickCheck
 
-import GroupTests
+import Test.Group
 
 testWeierstrass :: TestTree
 testWeierstrass = testGroup "Weierstrass"
