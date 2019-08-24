@@ -1,24 +1,24 @@
 module Bench.Binary where
 
 import Criterion.Main
-import qualified Curve.Binary.SECT113R1 as SECT113R1
-import qualified Curve.Binary.SECT113R2 as SECT113R2
-import qualified Curve.Binary.SECT131R1 as SECT131R1
-import qualified Curve.Binary.SECT131R2 as SECT131R2
-import qualified Curve.Binary.SECT163K1 as SECT163K1
-import qualified Curve.Binary.SECT163R1 as SECT163R1
-import qualified Curve.Binary.SECT163R2 as SECT163R2
-import qualified Curve.Binary.SECT193R1 as SECT193R1
-import qualified Curve.Binary.SECT193R2 as SECT193R2
-import qualified Curve.Binary.SECT233K1 as SECT233K1
-import qualified Curve.Binary.SECT233R1 as SECT233R1
-import qualified Curve.Binary.SECT239K1 as SECT239K1
-import qualified Curve.Binary.SECT283K1 as SECT283K1
-import qualified Curve.Binary.SECT283R1 as SECT283R1
-import qualified Curve.Binary.SECT409K1 as SECT409K1
-import qualified Curve.Binary.SECT409R1 as SECT409R1
-import qualified Curve.Binary.SECT571K1 as SECT571K1
-import qualified Curve.Binary.SECT571R1 as SECT571R1
+import qualified Data.Curve.Binary.SECT113R1 as SECT113R1
+import qualified Data.Curve.Binary.SECT113R2 as SECT113R2
+import qualified Data.Curve.Binary.SECT131R1 as SECT131R1
+import qualified Data.Curve.Binary.SECT131R2 as SECT131R2
+import qualified Data.Curve.Binary.SECT163K1 as SECT163K1
+import qualified Data.Curve.Binary.SECT163R1 as SECT163R1
+import qualified Data.Curve.Binary.SECT163R2 as SECT163R2
+import qualified Data.Curve.Binary.SECT193R1 as SECT193R1
+import qualified Data.Curve.Binary.SECT193R2 as SECT193R2
+import qualified Data.Curve.Binary.SECT233K1 as SECT233K1
+import qualified Data.Curve.Binary.SECT233R1 as SECT233R1
+import qualified Data.Curve.Binary.SECT239K1 as SECT239K1
+import qualified Data.Curve.Binary.SECT283K1 as SECT283K1
+import qualified Data.Curve.Binary.SECT283R1 as SECT283R1
+import qualified Data.Curve.Binary.SECT409K1 as SECT409K1
+import qualified Data.Curve.Binary.SECT409R1 as SECT409R1
+import qualified Data.Curve.Binary.SECT571K1 as SECT571K1
+import qualified Data.Curve.Binary.SECT571R1 as SECT571R1
 
 import Bench.Group
 

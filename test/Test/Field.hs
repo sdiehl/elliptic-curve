@@ -1,6 +1,6 @@
 module Test.Field where
 
-import qualified Group.Field.BN254TF as BN254TF
+import qualified Data.Group.Field.BN254TF as BN254TF
 import Test.Tasty
 
 import Test.Group

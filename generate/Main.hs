@@ -63,7 +63,7 @@ generateWeierstrassCurve = map generateWeierstrassCurve' Weierstrass.curves
 generateCurve' :: Show doc => Text -> (types -> Text)
   -> (curve -> types) -> (curve -> doc) -> curve -> (FilePath, Text)
 generateCurve' form curve types pretty = (,)
-  <$> unpack . (<> ".hs") . (<>) ("../src/Curve/" <> form <> "/") . curve . types
+  <$> unpack . (<> ".hs") . (<>) ("../src/Data/Curve/" <> form <> "/") . curve . types
   <*> show . pretty
 
 -------------------------------------------------------------------------------

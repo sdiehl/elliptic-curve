@@ -16,17 +16,17 @@ import Generate.Pretty
 
 prettyImports :: Types -> Doc
 prettyImports Types{..}
-  =    "module Curve.Edwards." <> pretty curve
+  =    "module Data.Curve.Edwards." <> pretty curve
   <$$> indent 2
-    (    "( module Curve.Edwards"
-    <$$> ", module Curve.Edwards." <> pretty curve
+    (    "( module Data.Curve.Edwards"
+    <$$> ", module Data.Curve.Edwards." <> pretty curve
     <$$> ", Point(..)"
     <$$> ") where"
     )
   <>   prettyBreak
   <$$> prettyImport
   <>   prettyBreak
-  <$$> "import Curve.Edwards"
+  <$$> "import Data.Curve.Edwards"
   <$$> maybe mempty pretty imports
 
 prettyTypes :: Types -> Doc

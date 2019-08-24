@@ -1,15 +1,15 @@
 module Bench.Edwards where
 
 import Criterion.Main
-import qualified Curve.Edwards.Curve1174  as Curve1174
-import qualified Curve.Edwards.Curve41417 as Curve41417
-import qualified Curve.Edwards.E222       as E222
-import qualified Curve.Edwards.E382       as E382
-import qualified Curve.Edwards.E521       as E521
-import qualified Curve.Edwards.Ed448      as Ed448
-import qualified Curve.Edwards.Ed3363     as Ed3363
-import qualified Curve.Edwards.Ed25519    as Ed25519
-import qualified Curve.Edwards.JubJub     as JubJub
+import qualified Data.Curve.Edwards.Curve1174  as Curve1174
+import qualified Data.Curve.Edwards.Curve41417 as Curve41417
+import qualified Data.Curve.Edwards.E222       as E222
+import qualified Data.Curve.Edwards.E382       as E382
+import qualified Data.Curve.Edwards.E521       as E521
+import qualified Data.Curve.Edwards.Ed448      as Ed448
+import qualified Data.Curve.Edwards.Ed3363     as Ed3363
+import qualified Data.Curve.Edwards.Ed25519    as Ed25519
+import qualified Data.Curve.Edwards.JubJub     as JubJub
 
 import Bench.Group
 

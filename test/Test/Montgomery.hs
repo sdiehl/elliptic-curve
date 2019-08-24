@@ -2,12 +2,12 @@ module Test.Montgomery where
 
 import Protolude
 
-import qualified Curve.Montgomery.Curve448    as Curve448
-import qualified Curve.Montgomery.Curve25519  as Curve25519
-import qualified Curve.Montgomery.Curve383187 as Curve383187
-import qualified Curve.Montgomery.M221        as M221
-import qualified Curve.Montgomery.M383        as M383
-import qualified Curve.Montgomery.M511        as M511
+import qualified Data.Curve.Montgomery.Curve448    as Curve448
+import qualified Data.Curve.Montgomery.Curve25519  as Curve25519
+import qualified Data.Curve.Montgomery.Curve383187 as Curve383187
+import qualified Data.Curve.Montgomery.M221        as M221
+import qualified Data.Curve.Montgomery.M383        as M383
+import qualified Data.Curve.Montgomery.M511        as M511
 import Test.Tasty
 import Test.Tasty.QuickCheck
 

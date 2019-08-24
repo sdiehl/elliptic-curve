@@ -2,10 +2,9 @@ module Test.Group where
 
 import Protolude
 
-import Curve
+import Data.Curve
 import qualified Data.Field.Galois as GF
-import Group
-import Group.Field
+import Data.Group.Field
 import Math.NumberTheory.Primes.Testing
 import Test.Tasty
 import Test.Tasty.HUnit
@@ -70,9 +69,9 @@ curveParameters g h q r = testGroup "Curve parameters"
   , testCase "cofactor is parametrised" $
     cof g @?= h
   , testCase "characteristic is parametrised" $
-    Curve.char g @?= q
+    char g @?= q
   , testCase "order is parametrised" $
-    Group.order g @?= r
+    order g @?= r
   , testCase "characteristic is prime" $
     isPrime q @?= True
   , testCase "discriminant is nonzero" $
@@ -107,7 +106,7 @@ fieldParameters g h q r = testGroup "Group parameters"
   , testCase "characteristic is parametrised" $
     GF.char (witness :: q) @?= q
   , testCase "order is parametrised" $
-    Group.order g @?= r
+    order g @?= r
   , testCase "characteristic is prime" $
     isPrime q @?= True
   , testCase "generator is well-defined" $

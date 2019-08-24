@@ -1,7 +1,7 @@
 module Bench.Field where
 
 import Criterion.Main
-import qualified Group.Field.BN254TF as BN254TF
+import qualified Data.Group.Field.BN254TF as BN254TF
 
 import Bench.Group
 
