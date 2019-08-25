@@ -7,6 +7,7 @@ import Protolude
 
 import Control.Monad.Random (Random(..))
 import Data.Field.Galois (GaloisField, PrimeField(..), fromP)
+import Data.Group (Group(..))
 import Test.Tasty.QuickCheck (Arbitrary(..))
 
 import Data.Cyclic (Cyclic(..))
@@ -104,6 +105,15 @@ instance Curve f c e q r => Random (Point f c e q r) where
   {-# INLINABLE random #-}
 
   randomR = panic "not implemented."
+
+-- Elliptic curve points are groups.
+instance Curve f c e q r => Group (Point f c e q r) where
+
+  invert = inv
+  {-# INLINABLE invert #-}
+
+  pow = mul'
+  {-# INLINABLE pow #-}
 
 -- Elliptic curve points are semigroups.
 instance Curve f c e q r => Semigroup (Point f c e q r) where

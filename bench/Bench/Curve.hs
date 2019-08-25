@@ -5,4 +5,4 @@ import Data.Cyclic
 import GHC.Base
 
 benchmark :: Cyclic g => String -> g -> Benchmark
-benchmark = (. nf (flip mul' 3)) . bench
+benchmark = (. nf (flip mul' (-3 :: Int))) . bench

@@ -35,7 +35,7 @@ groupAxioms _ = testGroup "Group axioms"
   , testProperty "doubling closure" $
     def . (join (<>) :: g -> g)
   , testProperty "multiplication closure" $
-    def . (flip mul' (-3) :: g -> g)
+    def . (flip mul' (-3 :: Int) :: g -> g)
   , testProperty "identity" $
     identities ((<>) :: g -> g -> g) mempty
   , testProperty "inverses" $

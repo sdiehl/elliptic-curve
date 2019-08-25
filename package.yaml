@@ -29,6 +29,7 @@ dependencies:
   - base >= 4.10 && < 5
   - protolude
   - galois-field >= 0.4 && < 0.5
+  - groups
   - MonadRandom
   - tasty-quickcheck
   - text

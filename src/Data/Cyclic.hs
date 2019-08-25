@@ -5,6 +5,7 @@ module Data.Cyclic
 import Protolude
 
 import Control.Monad.Random (MonadRandom, Random, getRandom)
+import Data.Group (Group)
 import Test.Tasty.QuickCheck (Arbitrary)
 import Text.PrettyPrint.Leijen.Text (Pretty)
 
@@ -13,7 +14,7 @@ import Text.PrettyPrint.Leijen.Text (Pretty)
 -------------------------------------------------------------------------------
 
 -- | Cyclic groups.
-class (Arbitrary g, Eq g, Generic g, Monoid g,
+class (Arbitrary g, Eq g, Generic g, Group g,
        NFData g, Pretty g, Random g, Show g) => Cyclic g where
   {-# MINIMAL add, dbl, def, gen, id, inv, order #-}
 
@@ -36,7 +37,7 @@ class (Arbitrary g, Eq g, Generic g, Monoid g,
   inv :: g -> g
 
   -- | Element multiplication.
-  mul' :: g -> Integer -> g
+  mul' :: Integral n => g -> n -> g
   mul' p n
     | n < 0     = inv (mul' p (-n))
     | n == 0    = id
@@ -54,3 +55,10 @@ class (Arbitrary g, Eq g, Generic g, Monoid g,
   rnd :: MonadRandom m => m g
   rnd = getRandom
   {-# INLINABLE rnd #-}
+
+{-# SPECIALISE
+  mul' :: Cyclic g => g -> Int -> g
+  #-}
+{-# SPECIALISE
+  mul' :: Cyclic g => g -> Integer -> g
+  #-}

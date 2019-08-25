@@ -6,7 +6,8 @@ module Data.Cyclic.Field
 import Protolude
 
 import Control.Monad.Random (Random(..))
-import Data.Field.Galois (GaloisField(..), PrimeField)
+import Data.Field.Galois as GF (GaloisField(..), PrimeField)
+import Data.Group (Group(..))
 import Test.Tasty.QuickCheck (Arbitrary(..))
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
@@ -53,11 +54,20 @@ instance Field r q => Cyclic (Element r q) where
   inv = (<$>) recip
   {-# INLINABLE inv #-}
 
-  mul' = (. flip pow) . flip (<$>)
+  mul' = (. flip GF.pow) . flip (<$>)
   {-# INLINABLE mul' #-}
 
   order = r_
   {-# INLINABLE order #-}
+
+-- Field elements are groups.
+instance Field r q => Group (Element r q) where
+
+  invert = inv
+  {-# INLINABLE invert #-}
+
+  pow = mul'
+  {-# INLINABLE pow #-}
 
 -- Field elements are monoids.
 instance Field r q => Monoid (Element r q) where
@@ -79,7 +89,7 @@ instance Field r q => Semigroup (Element r q) where
 instance Field r q => Arbitrary (Element r q) where
 
   -- Arbitrary group element.
-  arbitrary = mul' gen <$> arbitrary
+  arbitrary = (mul' gen :: Integer -> Element r q) . fromInteger <$> arbitrary
   {- Arbitrary field element.
   arbitrary = suchThatMap arbitrary defX
     where
@@ -97,7 +107,7 @@ instance Field r q => Pretty (Element r q) where
 instance Field r q => Random (Element r q) where
 
   -- Random group element.
-  random = first (mul' gen) . random
+  random = first ((mul' gen :: Integer -> Element r q) . fromInteger) . random
   {- Random field element.
   random g = case random g of
     (0, g') -> random g'
