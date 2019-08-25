@@ -1,9 +1,9 @@
 module Bench.Field where
 
 import Criterion.Main
-import qualified Data.Group.Field.BN254TF as BN254TF
+import qualified Data.Cyclic.Field.BN254TF as BN254TF
 
-import Bench.Group
+import Bench.Curve
 
 benchField :: Benchmark
 benchField = bgroup "Field"

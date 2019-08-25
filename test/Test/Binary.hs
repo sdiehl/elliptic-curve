@@ -23,7 +23,7 @@ import qualified Data.Curve.Binary.SECT571R1 as SECT571R1
 import Test.Tasty
 import Test.Tasty.QuickCheck
 
-import Test.Group
+import Test.Curve
 
 testBinary :: TestTree
 testBinary = testGroup "Binary"

@@ -1,10 +1,10 @@
-module Test.Group where
+module Test.Curve where
 
 import Protolude
 
 import Data.Curve
+import Data.Cyclic.Field
 import qualified Data.Field.Galois as GF
-import Data.Group.Field
 import Math.NumberTheory.Primes.Testing
 import Test.Tasty
 import Test.Tasty.HUnit
@@ -22,7 +22,7 @@ commutativity op x y = op x y == op y x
 associativity :: Eq a => (a -> a -> a) -> a -> a -> a -> Bool
 associativity op x y z = op x (op y z) == op (op x y) z
 
-groupAxioms :: forall g . Group g => g -> TestTree
+groupAxioms :: forall g . Cyclic g => g -> TestTree
 groupAxioms _ = testGroup "Group axioms"
   [ testCase "identity closure" $
     def (mempty :: g) @?= True

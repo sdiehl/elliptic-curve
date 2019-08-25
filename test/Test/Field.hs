@@ -1,9 +1,9 @@
 module Test.Field where
 
-import qualified Data.Group.Field.BN254TF as BN254TF
+import qualified Data.Cyclic.Field.BN254TF as BN254TF
 import Test.Tasty
 
-import Test.Group
+import Test.Curve
 
 testField :: TestTree
 testField = testGroup "Field"

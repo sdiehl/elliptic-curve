@@ -1,7 +1,7 @@
-module Data.Group.Field.BN254TF
-  ( module Data.Group
-  , module Data.Group.Field
-  , module Data.Group.Field.BN254TF
+module Data.Cyclic.Field.BN254TF
+  ( module Data.Cyclic
+  , module Data.Cyclic.Field
+  , module Data.Cyclic.Field.BN254TF
   ) where
 
 import Protolude
@@ -9,8 +9,8 @@ import Protolude
 import Data.Field.Galois
 
 import Data.Curve.Weierstrass.BN254T (Fq2)
-import Data.Group
-import Data.Group.Field
+import Data.Cyclic
+import Data.Cyclic.Field
 
 -------------------------------------------------------------------------------
 -- Types
@@ -29,7 +29,7 @@ instance IrreducibleMonic Fq6 PolynomialW where
   split _ = X2 - Y X
 type Fq12 = Extension Fq6 PolynomialW
 
--- | BN254TF group is a field group.
+-- | BN254TF is a field cyclic group.
 instance Field Fr Fq12 where
   g_ = _g
   {-# INLINABLE g_ #-}

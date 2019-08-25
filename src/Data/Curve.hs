@@ -1,6 +1,6 @@
 module Data.Curve
   ( module Data.Curve
-  , module Data.Group
+  , module Data.Cyclic
   ) where
 
 import Protolude
@@ -9,14 +9,14 @@ import Control.Monad.Random (Random(..))
 import Data.Field.Galois (GaloisField, PrimeField(..), fromP)
 import Test.Tasty.QuickCheck (Arbitrary(..))
 
-import Data.Group (Group(..))
+import Data.Cyclic (Cyclic(..))
 
 -------------------------------------------------------------------------------
 -- Types
 -------------------------------------------------------------------------------
 
 -- | Elliptic curves.
-class (GaloisField q, PrimeField r, Group (Point f c e q r))
+class (GaloisField q, PrimeField r, Cyclic (Point f c e q r))
   => Curve (f :: Form) (c :: Coordinates) e q r where
   {-# MINIMAL char, cof, disc, fromA, point, pointX, toA, yX #-}
 

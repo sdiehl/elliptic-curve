@@ -3,7 +3,7 @@
 module Data.Curve.Montgomery
   ( module Data.Curve
   , module Data.Curve.Montgomery
-  , module Data.Group
+  , module Data.Cyclic
   , Point(..)
   ) where
 
@@ -13,7 +13,7 @@ import Data.Field.Galois (GaloisField(..), PrimeField, sr)
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
 import Data.Curve (Coordinates(..), Curve(..), Form(..))
-import Data.Group (Group(..))
+import Data.Cyclic (Cyclic(..))
 
 -------------------------------------------------------------------------------
 -- Montgomery form
@@ -82,8 +82,8 @@ instance MACurve e q r => Curve 'Montgomery 'Affine e q r where
       b = b_ (witness :: MAPoint e q r)
   {-# INLINABLE yX #-}
 
--- Montgomery affine points are groups.
-instance MACurve e q r => Group (MAPoint e q r) where
+-- Montgomery affine points are cyclic groups.
+instance MACurve e q r => Cyclic (MAPoint e q r) where
 
   add p  O      = p
   add O q       = q

@@ -3,7 +3,7 @@
 module Data.Curve.Weierstrass
   ( module Data.Curve
   , module Data.Curve.Weierstrass
-  , module Data.Group
+  , module Data.Cyclic
   , Point(..)
   ) where
 
@@ -13,7 +13,7 @@ import Data.Field.Galois (GaloisField(..), PrimeField, sr)
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
 import Data.Curve (Coordinates(..), Curve(..), Form(..))
-import Data.Group (Group(..))
+import Data.Cyclic (Cyclic(..))
 
 -------------------------------------------------------------------------------
 -- Weierstrass form
@@ -82,8 +82,8 @@ instance WACurve e q r => Curve 'Weierstrass 'Affine e q r where
       b = b_ (witness :: WAPoint e q r)
   {-# INLINABLE yX #-}
 
--- Weierstrass affine points are groups.
-instance WACurve e q r => Group (WAPoint e q r) where
+-- Weierstrass affine points are cyclic groups.
+instance WACurve e q r => Cyclic (WAPoint e q r) where
 
   add p O       = p
   add O q       = q
@@ -183,8 +183,8 @@ instance WJCurve e q r => Curve 'Weierstrass 'Jacobian e q r where
       b = b_ (witness :: WJPoint e q r)
   {-# INLINABLE yX #-}
 
--- Weierstrass Jacobian points are groups.
-instance WJCurve e q r => Group (WJPoint e q r) where
+-- Weierstrass Jacobian points are cyclic groups.
+instance WJCurve e q r => Cyclic (WJPoint e q r) where
 
   -- Addition formula add-2007-bl
   add  p           (J  _  _  0) = p
@@ -311,8 +311,8 @@ instance WPCurve e q r => Curve 'Weierstrass 'Projective e q r where
       b = b_ (witness :: WPPoint e q r)
   {-# INLINABLE yX #-}
 
--- Weierstrass projective points are groups.
-instance WPCurve e q r => Group (WPPoint e q r) where
+-- Weierstrass projective points are cyclic groups.
+instance WPCurve e q r => Cyclic (WPPoint e q r) where
 
   -- Addition formula add-1998-cmo-2
   add  p           (P  _  _  0) = p

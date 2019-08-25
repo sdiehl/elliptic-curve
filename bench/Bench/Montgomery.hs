@@ -8,7 +8,7 @@ import qualified Data.Curve.Montgomery.M221        as M221
 import qualified Data.Curve.Montgomery.M383        as M383
 import qualified Data.Curve.Montgomery.M511        as M511
 
-import Bench.Group
+import Bench.Curve
 
 benchMontgomery :: Benchmark
 benchMontgomery = bgroup "Montgomery"

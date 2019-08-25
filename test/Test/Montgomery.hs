@@ -11,7 +11,7 @@ import qualified Data.Curve.Montgomery.M511        as M511
 import Test.Tasty
 import Test.Tasty.QuickCheck
 
-import Test.Group
+import Test.Curve
 
 testMontgomery :: TestTree
 testMontgomery = testGroup "Montgomery"

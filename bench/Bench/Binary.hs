@@ -20,7 +20,7 @@ import qualified Data.Curve.Binary.SECT409R1 as SECT409R1
 import qualified Data.Curve.Binary.SECT571K1 as SECT571K1
 import qualified Data.Curve.Binary.SECT571R1 as SECT571R1
 
-import Bench.Group
+import Bench.Curve
 
 benchBinary :: Benchmark
 benchBinary = bgroup "Binary"

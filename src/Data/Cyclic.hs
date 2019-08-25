@@ -1,5 +1,5 @@
-module Data.Group
-  ( Group(..)
+module Data.Cyclic
+  ( Cyclic(..)
   ) where
 
 import Protolude
@@ -12,9 +12,9 @@ import Text.PrettyPrint.Leijen.Text (Pretty)
 -- Types
 -------------------------------------------------------------------------------
 
--- | Groups.
+-- | Cyclic groups.
 class (Arbitrary g, Eq g, Generic g, Monoid g,
-       NFData g, Pretty g, Random g, Show g) => Group g where
+       NFData g, Pretty g, Random g, Show g) => Cyclic g where
   {-# MINIMAL add, dbl, def, gen, id, inv, order #-}
 
   -- | Element addition.
@@ -26,7 +26,7 @@ class (Arbitrary g, Eq g, Generic g, Monoid g,
   -- | Check well-defined.
   def :: g -> Bool
 
-  -- | Group generator.
+  -- | Cyclic group generator.
   gen :: g
 
   -- | Identity element.

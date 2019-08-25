@@ -3,7 +3,7 @@
 module Data.Curve.Edwards
   ( module Data.Curve
   , module Data.Curve.Edwards
-  , module Data.Group
+  , module Data.Cyclic
   , Point(..)
   ) where
 
@@ -13,7 +13,7 @@ import Data.Field.Galois (GaloisField(..), PrimeField, sr)
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
 import Data.Curve (Coordinates(..), Curve(..), Form(..))
-import Data.Group (Group(..))
+import Data.Cyclic (Cyclic(..))
 
 -------------------------------------------------------------------------------
 -- Edwards form
@@ -81,8 +81,8 @@ instance EACurve e q r => Curve 'Edwards 'Affine e q r where
       xx = x * x
   {-# INLINABLE yX #-}
 
--- Edwards affine points are groups.
-instance EACurve e q r => Group (EAPoint e q r) where
+-- Edwards affine points are cyclic groups.
+instance EACurve e q r => Cyclic (EAPoint e q r) where
 
   add (A x1 y1) (A x2 y2) = A x3 y3
     where
@@ -173,8 +173,8 @@ instance EPCurve e q r => Curve 'Edwards 'Projective e q r where
       xx = x * x
   {-# INLINABLE yX #-}
 
--- Edwards projective points are groups.
-instance EPCurve e q r => Group (EPPoint e q r) where
+-- Edwards projective points are cyclic groups.
+instance EPCurve e q r => Cyclic (EPPoint e q r) where
 
   -- Addition formula add-2008-bbjlp
   add (P x1 y1 z1) (P x2 y2 z2) = P x3 y3 z3

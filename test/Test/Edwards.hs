@@ -14,7 +14,7 @@ import qualified Data.Curve.Edwards.JubJub     as JubJub
 import Test.Tasty
 import Test.Tasty.QuickCheck
 
-import Test.Group
+import Test.Curve
 
 testEdwards :: TestTree
 testEdwards = testGroup "Edwards"

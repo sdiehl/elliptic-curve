@@ -3,7 +3,7 @@
 module Data.Curve.Binary
   ( module Data.Curve
   , module Data.Curve.Binary
-  , module Data.Group
+  , module Data.Cyclic
   , Point(..)
   ) where
 
@@ -13,7 +13,7 @@ import Data.Field.Galois (GaloisField(..), PrimeField, quad)
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
 import Data.Curve (Coordinates(..), Curve(..), Form(..))
-import Data.Group (Group(..))
+import Data.Cyclic (Cyclic(..))
 
 -------------------------------------------------------------------------------
 -- Binary form
@@ -79,8 +79,8 @@ instance BACurve e q r => Curve 'Binary 'Affine e q r where
       b = b_ (witness :: BAPoint e q r)
   {-# INLINABLE yX #-}
 
--- Binary affine points are groups.
-instance BACurve e q r => Group (BAPoint e q r) where
+-- Binary affine points are cyclic groups.
+instance BACurve e q r => Cyclic (BAPoint e q r) where
 
   add p  O      = p
   add O q       = q
@@ -181,8 +181,8 @@ instance BPCurve e q r => Curve 'Binary 'Projective e q r where
       b = b_ (witness :: BPPoint e q r)
   {-# INLINABLE yX #-}
 
--- Binary projective points are groups.
-instance BPCurve e q r => Group (BPPoint e q r) where
+-- Binary projective points are cyclic groups.
+instance BPCurve e q r => Cyclic (BPPoint e q r) where
 
   -- Addition formula add-2008-bl
   add  p           (P  _  _  0) = p

@@ -128,9 +128,9 @@ library:
     - Data.Curve.Weierstrass.BrainpoolP384T1
     - Data.Curve.Weierstrass.BrainpoolP512R1
     - Data.Curve.Weierstrass.BrainpoolP512T1
-    - Data.Group
-    - Data.Group.Field
-    - Data.Group.Field.BN254TF
+    - Data.Cyclic
+    - Data.Cyclic.Field
+    - Data.Cyclic.Field.BN254TF
   other-modules:
     - Generate.Binary.Curve
     - Generate.Binary.Generate

@@ -52,7 +52,7 @@ import qualified Data.Curve.Weierstrass.SECP521R1       as SECP521R1
 import Test.Tasty
 import Test.Tasty.QuickCheck
 
-import Test.Group
+import Test.Curve
 
 testWeierstrass :: TestTree
 testWeierstrass = testGroup "Weierstrass"
