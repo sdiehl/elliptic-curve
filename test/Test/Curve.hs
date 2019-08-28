@@ -3,7 +3,7 @@ module Test.Curve where
 import Protolude
 
 import Data.Curve
-import qualified Data.Field.Galois as GF
+import qualified Data.Field.Galois as F
 import Data.Group
 import GHC.Natural
 import Math.NumberTheory.Primes.Testing
@@ -49,7 +49,7 @@ groupAxioms _ = testGroup "Group axioms"
   ]
 
 hasseTheorem :: Natural -> Natural -> Natural -> Bool
-hasseTheorem h r q = join (*) (h * r - q - 1) <= 4 * q
+hasseTheorem h r q = join (*) (naturalToInteger (h * r) - naturalToInteger q - 1) <= 4 * naturalToInteger q
 
 doubleIdentities :: (Eq a, Eq b) => (a -> b) -> (b -> a) -> a -> b -> Bool
 doubleIdentities f t e e' = f e == e' && t e' == e
@@ -85,7 +85,7 @@ curveParameters g h q r = testGroup "Curve parameters"
   , testCase "cyclic subgroup has prime order" $
     isPrime (naturalToInteger r) @?= True
   , testCase "hasse theorem holds" $
-    hasseTheorem h r (GF.order (witness :: q)) @?= True
+    hasseTheorem h r (F.order (witness :: q)) @?= True
   , testCase "affine transformation is doubly identity-preserving" $
     doubleIdentities fromA (toA :: Point f c e q r -> Point f 'Affine e q r) mempty mempty @?= True
   , testProperty "affine transformation is doubly well-defined" $
