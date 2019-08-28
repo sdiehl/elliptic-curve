@@ -3,7 +3,6 @@
 module Data.Curve.Weierstrass
   ( module Data.Curve
   , module Data.Curve.Weierstrass
-  , module Data.Cyclic
   , Point(..)
   ) where
 
@@ -13,7 +12,6 @@ import Data.Field.Galois (GaloisField(..), PrimeField, sr)
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
 import Data.Curve (Coordinates(..), Curve(..), Form(..))
-import Data.Cyclic (Cyclic(..))
 
 -------------------------------------------------------------------------------
 -- Weierstrass form
@@ -52,39 +50,6 @@ instance WACurve e q r => Curve 'Weierstrass 'Affine e q r where
                                                  | O     -- ^ Infinite point.
     deriving (Eq, Generic, NFData, Read, Show)
 
-  char = q_
-  {-# INLINABLE char #-}
-
-  cof = h_
-  {-# INLINABLE cof #-}
-
-  disc _ = 4 * a * a * a + 27 * b * b
-    where
-      a = a_ (witness :: WAPoint e q r)
-      b = b_ (witness :: WAPoint e q r)
-  {-# INLINABLE disc #-}
-
-  fromA = identity
-  {-# INLINABLE fromA #-}
-
-  point x y = let p = A x y in if def p then Just p else Nothing
-  {-# INLINABLE point #-}
-
-  pointX x = A x <$> yX (witness :: WAPoint e q r) x
-  {-# INLINABLE pointX #-}
-
-  toA = identity
-  {-# INLINABLE toA #-}
-
-  yX _ x = sr (((x * x + a) * x) + b)
-    where
-      a = a_ (witness :: WAPoint e q r)
-      b = b_ (witness :: WAPoint e q r)
-  {-# INLINABLE yX #-}
-
--- Weierstrass affine points are cyclic groups.
-instance WACurve e q r => Cyclic (WAPoint e q r) where
-
   add p O       = p
   add O q       = q
   add (A x1 y1) (A x2 y2)
@@ -95,6 +60,12 @@ instance WACurve e q r => Cyclic (WAPoint e q r) where
       x3 = l * l - x1 - x2
       y3 = l * (x1 - x3) - y1
   {-# INLINABLE add #-}
+
+  char = q_
+  {-# INLINABLE char #-}
+
+  cof = h_
+  {-# INLINABLE cof #-}
 
   dbl O         = O
   dbl (A x y)
@@ -114,6 +85,15 @@ instance WACurve e q r => Cyclic (WAPoint e q r) where
       b = b_ (witness :: WAPoint e q r)
   {-# INLINABLE def #-}
 
+  disc _ = 4 * a * a * a + 27 * b * b
+    where
+      a = a_ (witness :: WAPoint e q r)
+      b = b_ (witness :: WAPoint e q r)
+  {-# INLINABLE disc #-}
+
+  fromA = identity
+  {-# INLINABLE fromA #-}
+
   gen = gA_
   {-# INLINABLE gen #-}
 
@@ -126,6 +106,21 @@ instance WACurve e q r => Cyclic (WAPoint e q r) where
 
   order = r_
   {-# INLINABLE order #-}
+
+  point x y = let p = A x y in if def p then Just p else Nothing
+  {-# INLINABLE point #-}
+
+  pointX x = A x <$> yX (witness :: WAPoint e q r) x
+  {-# INLINABLE pointX #-}
+
+  toA = identity
+  {-# INLINABLE toA #-}
+
+  yX _ x = sr (((x * x + a) * x) + b)
+    where
+      a = a_ (witness :: WAPoint e q r)
+      b = b_ (witness :: WAPoint e q r)
+  {-# INLINABLE yX #-}
 
 -- Weierstrass affine points are pretty.
 instance WACurve e q r => Pretty (WAPoint e q r) where
@@ -151,41 +146,6 @@ instance WJCurve e q r => Curve 'Weierstrass 'Jacobian e q r where
   data instance Point 'Weierstrass 'Jacobian e q r = J q q q -- ^ Jacobian point.
     deriving (Generic, NFData, Read, Show)
 
-  char = q_
-  {-# INLINABLE char #-}
-
-  cof = h_
-  {-# INLINABLE cof #-}
-
-  disc _ = 4 * a * a * a + 27 * b * b
-    where
-      a = a_ (witness :: WJPoint e q r)
-      b = b_ (witness :: WJPoint e q r)
-  {-# INLINABLE disc #-}
-
-  fromA (A x y) = J x y 1
-  fromA _       = J 1 1 0
-  {-# INLINABLE fromA #-}
-
-  point x y = let p = J x y 1 in if def p then Just p else Nothing
-  {-# INLINABLE point #-}
-
-  pointX x = flip (J x) 1 <$> yX (witness :: WJPoint e q r) x
-  {-# INLINABLE pointX #-}
-
-  toA (J _ _ 0) = O
-  toA (J x y z) = let zz = z * z in A (x / zz) (y / (z * zz))
-  {-# INLINABLE toA #-}
-
-  yX _ x = sr (((x * x + a) * x) + b)
-    where
-      a = a_ (witness :: WJPoint e q r)
-      b = b_ (witness :: WJPoint e q r)
-  {-# INLINABLE yX #-}
-
--- Weierstrass Jacobian points are cyclic groups.
-instance WJCurve e q r => Cyclic (WJPoint e q r) where
-
   -- Addition formula add-2007-bl
   add  p           (J  _  _  0) = p
   add (J  _  _  0)  q           = q
@@ -208,6 +168,12 @@ instance WJCurve e q r => Cyclic (WJPoint e q r) where
       y3   = r * (v - x3) - 2 * s1 * j
       z3   = (z1z2 * z1z2 - z1z1 - z2z2) * h
   {-# INLINABLE add #-}
+
+  char = q_
+  {-# INLINABLE char #-}
+
+  cof = h_
+  {-# INLINABLE cof #-}
 
   -- Doubling formula dbl-2007-bl
   dbl (J  _  _  0) = J  1  1  0
@@ -235,6 +201,16 @@ instance WJCurve e q r => Cyclic (WJPoint e q r) where
       zz = z * z
   {-# INLINABLE def #-}
 
+  disc _ = 4 * a * a * a + 27 * b * b
+    where
+      a = a_ (witness :: WJPoint e q r)
+      b = b_ (witness :: WJPoint e q r)
+  {-# INLINABLE disc #-}
+
+  fromA (A x y) = J x y 1
+  fromA _       = J 1 1 0
+  {-# INLINABLE fromA #-}
+
   gen = gJ_
   {-# INLINABLE gen #-}
 
@@ -246,6 +222,22 @@ instance WJCurve e q r => Cyclic (WJPoint e q r) where
 
   order = r_
   {-# INLINABLE order #-}
+
+  point x y = let p = J x y 1 in if def p then Just p else Nothing
+  {-# INLINABLE point #-}
+
+  pointX x = flip (J x) 1 <$> yX (witness :: WJPoint e q r) x
+  {-# INLINABLE pointX #-}
+
+  toA (J _ _ 0) = O
+  toA (J x y z) = let zz = z * z in A (x / zz) (y / (z * zz))
+  {-# INLINABLE toA #-}
+
+  yX _ x = sr (((x * x + a) * x) + b)
+    where
+      a = a_ (witness :: WJPoint e q r)
+      b = b_ (witness :: WJPoint e q r)
+  {-# INLINABLE yX #-}
 
 -- Weierstrass Jacobian points are equatable.
 instance WJCurve e q r => Eq (WJPoint e q r) where
@@ -279,41 +271,6 @@ instance WPCurve e q r => Curve 'Weierstrass 'Projective e q r where
   data instance Point 'Weierstrass 'Projective e q r = P q q q -- ^ Projective point.
     deriving (Generic, NFData, Read, Show)
 
-  char = q_
-  {-# INLINABLE char #-}
-
-  cof = h_
-  {-# INLINABLE cof #-}
-
-  disc _ = 4 * a * a * a + 27 * b * b
-    where
-      a = a_ (witness :: WPPoint e q r)
-      b = b_ (witness :: WPPoint e q r)
-  {-# INLINABLE disc #-}
-
-  fromA (A x y) = P x y 1
-  fromA _       = P 0 1 0
-  {-# INLINABLE fromA #-}
-
-  point x y = let p = P x y 1 in if def p then Just p else Nothing
-  {-# INLINABLE point #-}
-
-  pointX x = flip (P x) 1 <$> yX (witness :: WPPoint e q r) x
-  {-# INLINABLE pointX #-}
-
-  toA (P _ _ 0) = O
-  toA (P x y z) = A (x / z) (y / z)
-  {-# INLINABLE toA #-}
-
-  yX _ x = sr (((x * x + a) * x) + b)
-    where
-      a = a_ (witness :: WPPoint e q r)
-      b = b_ (witness :: WPPoint e q r)
-  {-# INLINABLE yX #-}
-
--- Weierstrass projective points are cyclic groups.
-instance WPCurve e q r => Cyclic (WPPoint e q r) where
-
   -- Addition formula add-1998-cmo-2
   add  p           (P  _  _  0) = p
   add (P  _  _  0)  q           = q
@@ -333,6 +290,12 @@ instance WPCurve e q r => Cyclic (WPPoint e q r) where
       y3   = u * (r - a) - vvv * y1z2
       z3   = vvv * z1z2
   {-# INLINABLE add #-}
+
+  char = q_
+  {-# INLINABLE char #-}
+
+  cof = h_
+  {-# INLINABLE cof #-}
 
   -- Doubling formula dbl-2007-bl
   dbl (P  _  _  0) = P  0  1  0
@@ -362,6 +325,16 @@ instance WPCurve e q r => Cyclic (WPPoint e q r) where
       zz = z * z
   {-# INLINABLE def #-}
 
+  disc _ = 4 * a * a * a + 27 * b * b
+    where
+      a = a_ (witness :: WPPoint e q r)
+      b = b_ (witness :: WPPoint e q r)
+  {-# INLINABLE disc #-}
+
+  fromA (A x y) = P x y 1
+  fromA _       = P 0 1 0
+  {-# INLINABLE fromA #-}
+
   gen = gP_
   {-# INLINABLE gen #-}
 
@@ -373,6 +346,22 @@ instance WPCurve e q r => Cyclic (WPPoint e q r) where
 
   order = r_
   {-# INLINABLE order #-}
+
+  point x y = let p = P x y 1 in if def p then Just p else Nothing
+  {-# INLINABLE point #-}
+
+  pointX x = flip (P x) 1 <$> yX (witness :: WPPoint e q r) x
+  {-# INLINABLE pointX #-}
+
+  toA (P _ _ 0) = O
+  toA (P x y z) = A (x / z) (y / z)
+  {-# INLINABLE toA #-}
+
+  yX _ x = sr (((x * x + a) * x) + b)
+    where
+      a = a_ (witness :: WPPoint e q r)
+      b = b_ (witness :: WPPoint e q r)
+  {-# INLINABLE yX #-}
 
 -- Weierstrass projective points are equatable.
 instance WPCurve e q r => Eq (WPPoint e q r) where

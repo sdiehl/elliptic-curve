@@ -3,8 +3,8 @@ module Test.Curve where
 import Protolude
 
 import Data.Curve
-import Data.Cyclic.Field
 import qualified Data.Field.Galois as GF
+import Data.Group
 import Math.NumberTheory.Primes.Testing
 import Test.Tasty
 import Test.Tasty.HUnit
@@ -22,28 +22,29 @@ commutativity op x y = op x y == op y x
 associativity :: Eq a => (a -> a -> a) -> a -> a -> a -> Bool
 associativity op x y z = op x (op y z) == op (op x y) z
 
-groupAxioms :: forall g . Cyclic g => g -> TestTree
+groupAxioms :: forall f c e q r . Curve f c e q r
+  => Point f c e q r -> TestTree
 groupAxioms _ = testGroup "Group axioms"
   [ testCase "identity closure" $
-    def (mempty :: g) @?= True
+    def (mempty :: Point f c e q r) @?= True
   , testProperty "point closure" $
-    (def :: g -> Bool)
+    (def :: Point f c e q r -> Bool)
   , testProperty "inversion closure" $
-    def . (inv :: g -> g)
+    def . (inv :: Point f c e q r -> Point f c e q r)
   , testProperty "addition closure" $
-    (.) def . ((<>) :: g -> g -> g)
+    (.) def . ((<>) :: Point f c e q r -> Point f c e q r -> Point f c e q r)
   , testProperty "doubling closure" $
-    def . (join (<>) :: g -> g)
+    def . (join (<>) :: Point f c e q r -> Point f c e q r)
   , testProperty "multiplication closure" $
-    def . (flip mul' (-3 :: Int) :: g -> g)
+    def . (flip mul' (-3 :: Int) :: Point f c e q r -> Point f c e q r)
   , testProperty "identity" $
-    identities ((<>) :: g -> g -> g) mempty
+    identities ((<>) :: Point f c e q r -> Point f c e q r -> Point f c e q r) mempty
   , testProperty "inverses" $
-    inverses ((<>) :: g -> g -> g) inv mempty
+    inverses ((<>) :: Point f c e q r -> Point f c e q r -> Point f c e q r) invert mempty
   , testProperty "commutativity" $
-    commutativity ((<>) :: g -> g -> g)
+    commutativity ((<>) :: Point f c e q r -> Point f c e q r -> Point f c e q r)
   , testProperty "associativity" $
-    associativity ((<>) :: g -> g -> g)
+    associativity ((<>) :: Point f c e q r -> Point f c e q r -> Point f c e q r)
   ]
 
 hasseTheorem :: Integer -> Integer -> Integer -> Bool
@@ -83,7 +84,7 @@ curveParameters g h q r = testGroup "Curve parameters"
   , testCase "cyclic subgroup has prime order" $
     isPrime r @?= True
   , testCase "hasse theorem holds" $
-    hasseTheorem h r (GF.order (witness :: q)) @?= True
+    hasseTheorem h r (fromIntegral $ GF.order (witness :: q)) @?= True
   , testCase "affine transformation is doubly identity-preserving" $
     doubleIdentities fromA (toA :: Point f c e q r -> Point f 'Affine e q r) mempty mempty @?= True
   , testProperty "affine transformation is doubly well-defined" $
@@ -97,28 +98,3 @@ curveParameters g h q r = testGroup "Curve parameters"
 test :: (Curve f c e q r, Curve f 'Affine e q r)
   => TestName -> Point f c e q r -> Integer -> Integer -> Integer -> TestTree
 test s g h q r = testGroup s [groupAxioms g, curveParameters g h q r]
-
-fieldParameters :: forall q r . Field r q
-  => Element r q -> Integer -> Integer -> Integer -> TestTree
-fieldParameters g h q r = testGroup "Group parameters"
-  [ testCase "generator is parametrised" $
-    gen @?= g
-  , testCase "characteristic is parametrised" $
-    GF.char (witness :: q) @?= q
-  , testCase "order is parametrised" $
-    order g @?= r
-  , testCase "characteristic is prime" $
-    isPrime q @?= True
-  , testCase "generator is well-defined" $
-    def g @?= True
-  , testCase "generator is in cyclic subgroup" $
-    mul' g r @?= mempty
-  , testCase "cyclic subgroup has prime order" $
-    isPrime r @?= True
-  , testCase "hasse theorem holds" $
-    hasseTheorem h r (GF.order (witness :: q)) @?= True
-  ]
-
-test' :: Field r q
-  => TestName -> Element r q -> Integer -> Integer -> Integer -> TestTree
-test' s g h q r = testGroup s [groupAxioms g, fieldParameters g h q r]

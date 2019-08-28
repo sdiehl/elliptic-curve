@@ -3,7 +3,6 @@
 module Data.Curve.Montgomery
   ( module Data.Curve
   , module Data.Curve.Montgomery
-  , module Data.Cyclic
   , Point(..)
   ) where
 
@@ -13,7 +12,6 @@ import Data.Field.Galois (GaloisField(..), PrimeField, sr)
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
 import Data.Curve (Coordinates(..), Curve(..), Form(..))
-import Data.Cyclic (Cyclic(..))
 
 -------------------------------------------------------------------------------
 -- Montgomery form
@@ -52,39 +50,6 @@ instance MACurve e q r => Curve 'Montgomery 'Affine e q r where
                                                 | O     -- ^ Infinite point.
     deriving (Eq, Generic, NFData, Read, Show)
 
-  char = q_
-  {-# INLINABLE char #-}
-
-  cof = h_
-  {-# INLINABLE cof #-}
-
-  disc _ = b * (a * a - 4)
-    where
-      a = a_ (witness :: MAPoint e q r)
-      b = b_ (witness :: MAPoint e q r)
-  {-# INLINABLE disc #-}
-
-  fromA = identity
-  {-# INLINABLE fromA #-}
-
-  point x y = let p = A x y in if def p then Just p else Nothing
-  {-# INLINABLE point #-}
-
-  pointX x = A x <$> yX (witness :: MAPoint e q r) x
-  {-# INLINABLE pointX #-}
-
-  toA = identity
-  {-# INLINABLE toA #-}
-
-  yX _ x = sr ((((x + a) * x) + 1) * x / b)
-    where
-      a = a_ (witness :: MAPoint e q r)
-      b = b_ (witness :: MAPoint e q r)
-  {-# INLINABLE yX #-}
-
--- Montgomery affine points are cyclic groups.
-instance MACurve e q r => Cyclic (MAPoint e q r) where
-
   add p  O      = p
   add O q       = q
   add (A x1 y1) (A x2 y2)
@@ -97,6 +62,12 @@ instance MACurve e q r => Cyclic (MAPoint e q r) where
       x3 = b * l * l - a - x1 - x2
       y3 = l * (x1 - x3) - y1
   {-# INLINABLE add #-}
+
+  char = q_
+  {-# INLINABLE char #-}
+
+  cof = h_
+  {-# INLINABLE cof #-}
 
   dbl O         = O
   dbl (A x y)
@@ -117,6 +88,15 @@ instance MACurve e q r => Cyclic (MAPoint e q r) where
       b = b_ (witness :: MAPoint e q r)
   {-# INLINABLE def #-}
 
+  disc _ = b * (a * a - 4)
+    where
+      a = a_ (witness :: MAPoint e q r)
+      b = b_ (witness :: MAPoint e q r)
+  {-# INLINABLE disc #-}
+
+  fromA = identity
+  {-# INLINABLE fromA #-}
+
   gen = gA_
   {-# INLINABLE gen #-}
 
@@ -129,6 +109,21 @@ instance MACurve e q r => Cyclic (MAPoint e q r) where
 
   order = r_
   {-# INLINABLE order #-}
+
+  point x y = let p = A x y in if def p then Just p else Nothing
+  {-# INLINABLE point #-}
+
+  pointX x = A x <$> yX (witness :: MAPoint e q r) x
+  {-# INLINABLE pointX #-}
+
+  toA = identity
+  {-# INLINABLE toA #-}
+
+  yX _ x = sr ((((x + a) * x) + 1) * x / b)
+    where
+      a = a_ (witness :: MAPoint e q r)
+      b = b_ (witness :: MAPoint e q r)
+  {-# INLINABLE yX #-}
 
 -- Montgomery affine points are pretty.
 instance MACurve e q r => Pretty (MAPoint e q r) where

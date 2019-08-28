@@ -40,6 +40,7 @@ extra-source-files:
   - ChangeLog.md
 
 ghc-options:
+  - -freverse-errors
   - -Wall
 
 library:
@@ -129,9 +130,6 @@ library:
     - Data.Curve.Weierstrass.BrainpoolP384T1
     - Data.Curve.Weierstrass.BrainpoolP512R1
     - Data.Curve.Weierstrass.BrainpoolP512T1
-    - Data.Cyclic
-    - Data.Cyclic.Field
-    - Data.Cyclic.Field.BN254TF
   other-modules:
     - Generate.Binary.Curve
     - Generate.Binary.Generate
@@ -163,17 +161,17 @@ tests:
     main: Main
     dependencies:
       - arithmoi
+      - elliptic-curve
       - tasty
       - tasty-hunit
     source-dirs:
       - test
-      - src
 
 benchmarks:
   elliptic-curve-benchmarks:
     main: Main
     dependencies:
       - criterion
+      - elliptic-curve
     source-dirs:
       - bench
-      - src

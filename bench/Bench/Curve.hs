@@ -1,8 +1,8 @@
 module Bench.Curve where
 
 import Criterion.Main
-import Data.Cyclic
+import Data.Curve
 import GHC.Base
 
-benchmark :: Cyclic g => String -> g -> Benchmark
+benchmark :: Curve f c e q r => String -> Point f c e q r -> Benchmark
 benchmark = (. nf (flip mul' (-3 :: Int))) . bench

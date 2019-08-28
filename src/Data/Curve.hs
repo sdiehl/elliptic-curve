@@ -1,25 +1,29 @@
 module Data.Curve
-  ( module Data.Curve
-  , module Data.Cyclic
+  ( Coordinates(..)
+  , Curve(..)
+  , Form(..)
   ) where
 
 import Protolude
 
-import Control.Monad.Random (Random(..))
+import Control.Monad.Random (MonadRandom, Random(..), getRandom)
 import Data.Field.Galois (GaloisField, PrimeField(..), fromP)
-import Data.Group (Group(..))
+import Data.Group as G (Group(..))
+import GHC.Natural (Natural)
 import Test.Tasty.QuickCheck (Arbitrary(..))
-
-import Data.Cyclic (Cyclic(..))
+import Text.PrettyPrint.Leijen.Text (Pretty)
 
 -------------------------------------------------------------------------------
 -- Types
 -------------------------------------------------------------------------------
 
 -- | Elliptic curves.
-class (GaloisField q, PrimeField r, Cyclic (Point f c e q r))
-  => Curve (f :: Form) (c :: Coordinates) e q r where
-  {-# MINIMAL char, cof, disc, fromA, point, pointX, toA, yX #-}
+class (GaloisField q, PrimeField r, Arbitrary (Point f c e q r),
+       Eq (Point f c e q r), Generic (Point f c e q r), Group (Point f c e q r),
+       NFData (Point f c e q r), Pretty (Point f c e q r), Random (Point f c e q r),
+       Show (Point f c e q r)) => Curve (f :: Form) (c :: Coordinates) e q r where
+  {-# MINIMAL add, char, cof, dbl, def, disc, fromA, gen,
+              id, inv, order, point, pointX, toA, yX #-}
 
   -- Parameters
 
@@ -29,18 +33,22 @@ class (GaloisField q, PrimeField r, Cyclic (Point f c e q r))
   -- | Curve cofactor.
   cof :: Point f c e q r -> Integer
 
+  -- | Curve well-defined.
+  def :: Point f c e q r -> Bool
+
   -- | Curve discriminant.
   disc :: Point f c e q r -> q
+
+  -- | Curve order.
+  order :: Point f c e q r -> Integer
 
   -- Points
 
   -- | Curve point.
   data family Point f c e q r :: *
 
-  -- | Curve point multiplication.
-  mul :: Point f c e q r -> r -> Point f c e q r
-  mul = (. fromP) . mul'
-  {-# INLINABLE mul #-}
+  -- | Curve generator.
+  gen :: Point f c e q r
 
   -- | Get point from X and Y coordinates.
   point :: q -> q -> Maybe (Point f c e q r)
@@ -48,16 +56,58 @@ class (GaloisField q, PrimeField r, Cyclic (Point f c e q r))
   -- | Get point from X coordinate.
   pointX :: q -> Maybe (Point f c e q r)
 
+  -- | Random point.
+  rnd :: MonadRandom m => m (Point f c e q r)
+  rnd = getRandom
+
   -- | Get Y coordinate from X coordinate.
   yX :: Point f c e q r -> q -> Maybe q
 
-  -- Coordinates
+  -- Operations
+
+  -- | Point addition.
+  add :: Point f c e q r -> Point f c e q r -> Point f c e q r
+
+  -- | Point doubling.
+  dbl :: Point f c e q r -> Point f c e q r
+
+  -- | Point identity.
+  id :: Point f c e q r
+
+  -- | Point inversion.
+  inv :: Point f c e q r -> Point f c e q r
+
+  -- | Point multiplication by field element.
+  mul :: Point f c e q r -> r -> Point f c e q r
+  mul = (. fromP) . mul'
+  {-# INLINABLE mul #-}
+
+  -- | Point multiplication by integral element.
+  mul' :: Integral n => Point f c e q r -> n -> Point f c e q r
+  mul' p n
+    | n < 0     = inv (mul' p (-n))
+    | n == 0    = id
+    | n == 1    = p
+    | even n    = p'
+    | otherwise = add p p'
+    where
+      p' = mul' (dbl p) (div n 2)
+  {-# INLINABLE mul' #-}
+
+  -- Transformations
 
   -- | Transform from affine coordinates.
   fromA :: Point f 'Affine e q r -> Point f c e q r
 
   -- | Transform to affine coordinates.
   toA :: Point f c e q r -> Point f 'Affine e q r
+
+{-# SPECIALISE mul' ::
+  Point f c e q r => g -> Int -> g
+  Point f c e q r => g -> Integer -> g
+  Point f c e q r => g -> Natural -> g
+  Point f c e q r => g -> Word -> g
+  #-}
 
 -- | Curve forms.
 data Form = Binary
@@ -107,7 +157,7 @@ instance Curve f c e q r => Random (Point f c e q r) where
   randomR = panic "not implemented."
 
 -- Elliptic curve points are groups.
-instance Curve f c e q r => Group (Point f c e q r) where
+instance Curve f c e q r => G.Group (Point f c e q r) where
 
   invert = inv
   {-# INLINABLE invert #-}

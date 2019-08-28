@@ -3,7 +3,6 @@
 module Data.Curve.Binary
   ( module Data.Curve
   , module Data.Curve.Binary
-  , module Data.Cyclic
   , Point(..)
   ) where
 
@@ -13,7 +12,6 @@ import Data.Field.Galois (GaloisField(..), PrimeField, quad)
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
 import Data.Curve (Coordinates(..), Curve(..), Form(..))
-import Data.Cyclic (Cyclic(..))
 
 -------------------------------------------------------------------------------
 -- Binary form
@@ -52,36 +50,6 @@ instance BACurve e q r => Curve 'Binary 'Affine e q r where
                                             | O     -- ^ Infinite point.
     deriving (Eq, Generic, NFData, Read, Show)
 
-  char = const 2
-  {-# INLINABLE char #-}
-
-  cof = h_
-  {-# INLINABLE cof #-}
-
-  disc _ = b_ (witness :: BAPoint e q r)
-  {-# INLINABLE disc #-}
-
-  fromA = identity
-  {-# INLINABLE fromA #-}
-
-  point x y = let p = A x y in if def p then Just p else Nothing
-  {-# INLINABLE point #-}
-
-  pointX x = A x <$> yX (witness :: BAPoint e q r) x
-  {-# INLINABLE pointX #-}
-
-  toA = identity
-  {-# INLINABLE toA #-}
-
-  yX _ x = quad 1 x ((x + a) * x * x + b)
-    where
-      a = a_ (witness :: BAPoint e q r)
-      b = b_ (witness :: BAPoint e q r)
-  {-# INLINABLE yX #-}
-
--- Binary affine points are cyclic groups.
-instance BACurve e q r => Cyclic (BAPoint e q r) where
-
   add p  O      = p
   add O q       = q
   add (A x1 y1) (A x2 y2)
@@ -95,6 +63,12 @@ instance BACurve e q r => Cyclic (BAPoint e q r) where
       x3 = l * (l + 1) + xx + a
       y3 = l * (x1 + x3) + x3 + y1
   {-# INLINABLE add #-}
+
+  char = const 2
+  {-# INLINABLE char #-}
+
+  cof = h_
+  {-# INLINABLE cof #-}
 
   dbl O         = O
   dbl (A x y)
@@ -115,6 +89,12 @@ instance BACurve e q r => Cyclic (BAPoint e q r) where
       b = b_ (witness :: BAPoint e q r)
   {-# INLINABLE def #-}
 
+  disc _ = b_ (witness :: BAPoint e q r)
+  {-# INLINABLE disc #-}
+
+  fromA = identity
+  {-# INLINABLE fromA #-}
+
   gen = gA_
   {-# INLINABLE gen #-}
 
@@ -127,6 +107,21 @@ instance BACurve e q r => Cyclic (BAPoint e q r) where
 
   order = r_
   {-# INLINABLE order #-}
+
+  point x y = let p = A x y in if def p then Just p else Nothing
+  {-# INLINABLE point #-}
+
+  pointX x = A x <$> yX (witness :: BAPoint e q r) x
+  {-# INLINABLE pointX #-}
+
+  toA = identity
+  {-# INLINABLE toA #-}
+
+  yX _ x = quad 1 x ((x + a) * x * x + b)
+    where
+      a = a_ (witness :: BAPoint e q r)
+      b = b_ (witness :: BAPoint e q r)
+  {-# INLINABLE yX #-}
 
 -- Binary affine points are pretty.
 instance BACurve e q r => Pretty (BAPoint e q r) where
@@ -152,38 +147,6 @@ instance BPCurve e q r => Curve 'Binary 'Projective e q r where
   data instance Point 'Binary 'Projective e q r = P q q q -- ^ Projective point.
     deriving (Generic, NFData, Read, Show)
 
-  char = const 2
-  {-# INLINABLE char #-}
-
-  cof = h_
-  {-# INLINABLE cof #-}
-
-  disc _ = b_ (witness :: BPPoint e q r)
-  {-# INLINABLE disc #-}
-
-  fromA (A x y) = P x y 1
-  fromA _       = P 0 1 0
-  {-# INLINABLE fromA #-}
-
-  point x y = let p = P x y 1 in if def p then Just p else Nothing
-  {-# INLINABLE point #-}
-
-  pointX x = flip (P x) 1 <$> yX (witness :: BPPoint e q r) x
-  {-# INLINABLE pointX #-}
-
-  toA (P _ _ 0) = O
-  toA (P x y z) = A (x / z) (y / z)
-  {-# INLINABLE toA #-}
-
-  yX _ x = quad 1 x ((x + a) * x * x + b)
-    where
-      a = a_ (witness :: BPPoint e q r)
-      b = b_ (witness :: BPPoint e q r)
-  {-# INLINABLE yX #-}
-
--- Binary projective points are cyclic groups.
-instance BPCurve e q r => Cyclic (BPPoint e q r) where
-
   -- Addition formula add-2008-bl
   add  p           (P  _  _  0) = p
   add (P  _  _  0)  q           = q
@@ -203,6 +166,12 @@ instance BPCurve e q r => Cyclic (BPPoint e q r) where
       y3   = c * (a * x1z2 + b * y1z2) + ab * f
       z3   = e * d
   {-# INLINABLE add #-}
+
+  char = const 2
+  {-# INLINABLE char #-}
+
+  cof = h_
+  {-# INLINABLE cof #-}
 
   -- Doubling formula dbl-2008-bl
   dbl (P  _  _  0) = P  0  1  0
@@ -227,6 +196,13 @@ instance BPCurve e q r => Cyclic (BPPoint e q r) where
       yz = y * z
   {-# INLINABLE def #-}
 
+  disc _ = b_ (witness :: BPPoint e q r)
+  {-# INLINABLE disc #-}
+
+  fromA (A x y) = P x y 1
+  fromA _       = P 0 1 0
+  {-# INLINABLE fromA #-}
+
   gen = gP_
   {-# INLINABLE gen #-}
 
@@ -238,6 +214,22 @@ instance BPCurve e q r => Cyclic (BPPoint e q r) where
 
   order = r_
   {-# INLINABLE order #-}
+
+  point x y = let p = P x y 1 in if def p then Just p else Nothing
+  {-# INLINABLE point #-}
+
+  pointX x = flip (P x) 1 <$> yX (witness :: BPPoint e q r) x
+  {-# INLINABLE pointX #-}
+
+  toA (P _ _ 0) = O
+  toA (P x y z) = A (x / z) (y / z)
+  {-# INLINABLE toA #-}
+
+  yX _ x = quad 1 x ((x + a) * x * x + b)
+    where
+      a = a_ (witness :: BPPoint e q r)
+      b = b_ (witness :: BPPoint e q r)
+  {-# INLINABLE yX #-}
 
 -- Binary projective points are equatable.
 instance BPCurve e q r => Eq (BPPoint e q r) where
