@@ -79,17 +79,17 @@ _b = 0x3
 {-# INLINABLE _b #-}
 
 -- | Cofactor of BN512 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x1
 {-# INLINABLE _h #-}
 
 -- | Characteristic of BN512 curve.
-_q :: Integer
+_q :: Natural
 _q = 0xfffffffffffffffffffffffffff9ec7f01c60ba1d8cb5307c0bbe3c111b0ef455146cf1eacbe98b8e48c65deab236fe1916a55ce5f4c6467b4eb280922adef33
 {-# INLINABLE _q #-}
 
 -- | Order of BN512 curve.
-_r :: Integer
+_r :: Natural
 _r = 0xfffffffffffffffffffffffffff9ec7f01c60ba1d8cb5307c0bbe3c111b0ef445146cf1eacbe98b8e48c65deab2679a34a10313e04f9a2b406a64a5f519a09ed
 {-# INLINABLE _r #-}
 

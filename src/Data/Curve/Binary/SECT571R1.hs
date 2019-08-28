@@ -71,17 +71,17 @@ _b = 0x2f40e7e2221f295de297117b7f3d62f5c6a97ffcb8ceff1cd6ba8ce4a9a18ad84ffabbd8e
 {-# INLINABLE _b #-}
 
 -- | Cofactor of SECT571R1 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x2
 {-# INLINABLE _h #-}
 
 -- | Polynomial of SECT571R1 curve.
-_p :: Integer
+_p :: Natural
 _p = 0x80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000425
 {-# INLINABLE _p #-}
 
 -- | Order of SECT571R1 curve.
-_r :: Integer
+_r :: Natural
 _r = 0x3ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe661ce18ff55987308059b186823851ec7dd9ca1161de93d5174d66e8382e9bb2fe84e47
 {-# INLINABLE _r #-}
 

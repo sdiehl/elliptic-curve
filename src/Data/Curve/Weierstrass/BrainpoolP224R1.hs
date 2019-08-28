@@ -79,17 +79,17 @@ _b = 0x2580f63ccfe44138870713b1a92369e33e2135d266dbb372386c400b
 {-# INLINABLE _b #-}
 
 -- | Cofactor of BrainpoolP224R1 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x1
 {-# INLINABLE _h #-}
 
 -- | Characteristic of BrainpoolP224R1 curve.
-_q :: Integer
+_q :: Natural
 _q = 0xd7c134aa264366862a18302575d1d787b09f075797da89f57ec8c0ff
 {-# INLINABLE _q #-}
 
 -- | Order of BrainpoolP224R1 curve.
-_r :: Integer
+_r :: Natural
 _r = 0xd7c134aa264366862a18302575d0fb98d116bc4b6ddebca3a5a7939f
 {-# INLINABLE _r #-}
 

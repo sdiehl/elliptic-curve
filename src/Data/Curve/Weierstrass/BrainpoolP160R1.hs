@@ -79,17 +79,17 @@ _b = 0x1e589a8595423412134faa2dbdec95c8d8675e58
 {-# INLINABLE _b #-}
 
 -- | Cofactor of BrainpoolP160R1 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x1
 {-# INLINABLE _h #-}
 
 -- | Characteristic of BrainpoolP160R1 curve.
-_q :: Integer
+_q :: Natural
 _q = 0xe95e4a5f737059dc60dfc7ad95b3d8139515620f
 {-# INLINABLE _q #-}
 
 -- | Order of BrainpoolP160R1 curve.
-_r :: Integer
+_r :: Natural
 _r = 0xe95e4a5f737059dc60df5991d45029409e60fc09
 {-# INLINABLE _r #-}
 

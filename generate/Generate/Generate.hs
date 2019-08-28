@@ -15,7 +15,7 @@ import Generate.Types
 
 prettyElement :: Element -> Doc
 prettyElement (B n)
-  = "B" <+> prettyInteger n
+  = "B" <+> prettyNatural n
 prettyElement (E ns)
   = "E" <+> align
     (    (if null ns then "[" else "[ ")
@@ -23,11 +23,11 @@ prettyElement (E ns)
     <$$> "]"
     )
 prettyElement (P n)
-  = "P" <+> prettyInteger n
+  = "P" <+> prettyNatural n
 
 prettyField :: Field -> Doc
 prettyField (Binary fp p)
-  = "Binary" <+> prettyText fp <+> prettyInteger p
+  = "Binary" <+> prettyText fp <+> prettyNatural p
 prettyField (Extension fq fp p s k)
   = align
     (   "Extension" <+> prettyText fq <+> prettyText fp
@@ -38,4 +38,4 @@ prettyField (Extension fq fp p s k)
     prettyField' (Just f) = "(Just" <$$> "(" <+> align (prettyField f) <$$> "))"
     prettyField' _        = "Nothing"
 prettyField (Prime f2m p)
-  = "Prime" <+> prettyText f2m <+> prettyInteger p
+  = "Prime" <+> prettyText f2m <+> prettyNatural p

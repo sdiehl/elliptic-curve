@@ -98,18 +98,18 @@ prettyParameters Types{..} Parameters{..}
   <$$> prettyInline "_b"
   <>   prettyBreak
   <$$> prettyDocumentation ("Cofactor of" <+> curve')
-  <$$> "_h :: Integer"
-  <$$> "_h =" <+> prettyInteger h
+  <$$> "_h :: Natural"
+  <$$> "_h =" <+> prettyNatural h
   <$$> prettyInline "_h"
   <>   prettyBreak
   <$$> prettyDocumentation ("Polynomial of" <+> curve')
-  <$$> "_p :: Integer"
-  <$$> "_p =" <+> prettyInteger p
+  <$$> "_p :: Natural"
+  <$$> "_p =" <+> prettyNatural p
   <$$> prettyInline "_p"
   <>   prettyBreak
   <$$> prettyDocumentation ("Order of" <+> curve')
-  <$$> "_r :: Integer"
-  <$$> "_r =" <+> prettyInteger r
+  <$$> "_r :: Natural"
+  <$$> "_r =" <+> prettyNatural r
   <$$> prettyInline "_r"
   <>   prettyBreak
   <$$> prettyDocumentation ("Coordinate @X@ of" <+> curve')

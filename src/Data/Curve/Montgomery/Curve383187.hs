@@ -63,17 +63,17 @@ _b = 0x1
 {-# INLINABLE _b #-}
 
 -- | Cofactor of Curve383187 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x8
 {-# INLINABLE _h #-}
 
 -- | Characteristic of Curve383187 curve.
-_q :: Integer
+_q :: Natural
 _q = 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff45
 {-# INLINABLE _q #-}
 
 -- | Order of Curve383187 curve.
-_r :: Integer
+_r :: Natural
 _r = 0x1000000000000000000000000000000000000000000000000e85a85287a1488acd41ae84b2b7030446f72088b00a0e21
 {-# INLINABLE _r #-}
 

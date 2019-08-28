@@ -64,9 +64,9 @@ prettyParameters curves
         <$$> indent 2
           (    "{ a =" <+> prettyElement a
           <$$> ", b =" <+> prettyElement b
-          <$$> ", h =" <+> prettyInteger h
-          <$$> ", p =" <+> prettyInteger p
-          <$$> ", r =" <+> prettyInteger r
+          <$$> ", h =" <+> prettyNatural h
+          <$$> ", p =" <+> prettyNatural p
+          <$$> ", r =" <+> prettyNatural r
           <$$> ", x =" <+> prettyElement x
           <$$> ", y =" <+> prettyElement y
           <$$> "}"

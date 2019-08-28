@@ -9,6 +9,7 @@ module Data.Curve.Weierstrass
 import Protolude
 
 import Data.Field.Galois (GaloisField(..), PrimeField, sr)
+import GHC.Natural (Natural)
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
 import Data.Curve (Coordinates(..), Curve(..), Form(..))
@@ -25,9 +26,9 @@ class (GaloisField q, PrimeField r, Curve 'Weierstrass c e q r) => WCurve c e q 
   {-# MINIMAL a_, b_, h_, q_, r_, x_, y_ #-}
   a_ :: WPoint c e q r -> q       -- ^ Coefficient @A@.
   b_ :: WPoint c e q r -> q       -- ^ Coefficient @B@.
-  h_ :: WPoint c e q r -> Integer -- ^ Curve cofactor.
-  q_ :: WPoint c e q r -> Integer -- ^ Curve characteristic.
-  r_ :: WPoint c e q r -> Integer -- ^ Curve order.
+  h_ :: WPoint c e q r -> Natural -- ^ Curve cofactor.
+  q_ :: WPoint c e q r -> Natural -- ^ Curve characteristic.
+  r_ :: WPoint c e q r -> Natural -- ^ Curve order.
   x_ :: WPoint c e q r -> q       -- ^ Coordinate @X@.
   y_ :: WPoint c e q r -> q       -- ^ Coordinate @Y@.
 

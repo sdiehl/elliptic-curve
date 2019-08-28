@@ -3,7 +3,7 @@ module Generate.Edwards.Types
   , module Generate.Types
   ) where
 
-import Protolude
+import GHC.Natural (Natural)
 
 import Generate.Types
 
@@ -19,9 +19,9 @@ data Curve = Curve
 data Parameters = Parameters
   { a :: Element
   , d :: Element
-  , h :: Integer
-  , q :: Integer
-  , r :: Integer
+  , h :: Natural
+  , q :: Natural
+  , r :: Natural
   , x :: Element
   , y :: Element
   }

@@ -79,17 +79,17 @@ _b = 0x3
 {-# INLINABLE _b #-}
 
 -- | Cofactor of BN256 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x1
 {-# INLINABLE _h #-}
 
 -- | Characteristic of BN256 curve.
-_q :: Integer
+_q :: Natural
 _q = 0xfffffffffffcf0cd46e5f25eee71a49f0cdc65fb12980a82d3292ddbaed33013
 {-# INLINABLE _q #-}
 
 -- | Order of BN256 curve.
-_r :: Integer
+_r :: Natural
 _r = 0xfffffffffffcf0cd46e5f25eee71a49e0cdc65fb1299921af62d536cd10b500d
 {-# INLINABLE _r #-}
 

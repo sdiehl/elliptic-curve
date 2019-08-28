@@ -25,9 +25,9 @@ class (GaloisField q, PrimeField r, Curve 'Edwards c e q r) => ECurve c e q r wh
   {-# MINIMAL a_, d_, h_, q_, r_, x_, y_ #-}
   a_ :: EPoint c e q r -> q       -- ^ Coefficient @A@.
   d_ :: EPoint c e q r -> q       -- ^ Coefficient @D@.
-  h_ :: EPoint c e q r -> Integer -- ^ Curve cofactor.
-  q_ :: EPoint c e q r -> Integer -- ^ Curve characteristic.
-  r_ :: EPoint c e q r -> Integer -- ^ Curve order.
+  h_ :: EPoint c e q r -> Natural -- ^ Curve cofactor.
+  q_ :: EPoint c e q r -> Natural -- ^ Curve characteristic.
+  r_ :: EPoint c e q r -> Natural -- ^ Curve order.
   x_ :: EPoint c e q r -> q       -- ^ Coordinate @X@.
   y_ :: EPoint c e q r -> q       -- ^ Coordinate @Y@.
 

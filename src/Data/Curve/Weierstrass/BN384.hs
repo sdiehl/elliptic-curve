@@ -79,17 +79,17 @@ _b = 0x3
 {-# INLINABLE _b #-}
 
 -- | Cofactor of BN384 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x1
 {-# INLINABLE _h #-}
 
 -- | Characteristic of BN384 curve.
-_q :: Integer
+_q :: Natural
 _q = 0xfffffffffffffffffff2a96823d5920d2a127e3f6fbca024c8fbe29531892c79534f9d306328261550a7cabd7cccd10b
 {-# INLINABLE _q #-}
 
 -- | Order of BN384 curve.
-_r :: Integer
+_r :: Natural
 _r = 0xfffffffffffffffffff2a96823d5920d2a127e3f6fbca023c8fbe29531892c795356487d8ac63e4f4db17384341a5775
 {-# INLINABLE _r #-}
 

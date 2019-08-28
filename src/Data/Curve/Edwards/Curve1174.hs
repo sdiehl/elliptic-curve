@@ -71,17 +71,17 @@ _d = 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffb61
 {-# INLINABLE _d #-}
 
 -- | Cofactor of Curve1174 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x4
 {-# INLINABLE _h #-}
 
 -- | Characteristic of Curve1174 curve.
-_q :: Integer
+_q :: Natural
 _q = 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7
 {-# INLINABLE _q #-}
 
 -- | Order of Curve1174 curve.
-_r :: Integer
+_r :: Natural
 _r = 0x1fffffffffffffffffffffffffffffff77965c4dfd307348944d45fd166c971
 {-# INLINABLE _r #-}
 

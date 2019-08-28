@@ -79,17 +79,17 @@ _b = 0x3
 {-# INLINABLE _b #-}
 
 -- | Cofactor of SECP192K1 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x1
 {-# INLINABLE _h #-}
 
 -- | Characteristic of SECP192K1 curve.
-_q :: Integer
+_q :: Natural
 _q = 0xfffffffffffffffffffffffffffffffffffffffeffffee37
 {-# INLINABLE _q #-}
 
 -- | Order of SECP192K1 curve.
-_r :: Integer
+_r :: Natural
 _r = 0xfffffffffffffffffffffffe26f2fc170f69466a74defd8d
 {-# INLINABLE _r #-}
 

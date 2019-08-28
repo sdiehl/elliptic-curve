@@ -71,17 +71,17 @@ _d = 0x27166
 {-# INLINABLE _d #-}
 
 -- | Cofactor of E222 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x4
 {-# INLINABLE _h #-}
 
 -- | Characteristic of E222 curve.
-_q :: Integer
+_q :: Natural
 _q = 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffff8b
 {-# INLINABLE _q #-}
 
 -- | Order of E222 curve.
-_r :: Integer
+_r :: Natural
 _r = 0xffffffffffffffffffffffffffff70cbc95e932f802f31423598cbf
 {-# INLINABLE _r #-}
 

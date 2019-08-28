@@ -63,17 +63,17 @@ _b = 0x1
 {-# INLINABLE _b #-}
 
 -- | Cofactor of M383 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x8
 {-# INLINABLE _h #-}
 
 -- | Characteristic of M383 curve.
-_q :: Integer
+_q :: Natural
 _q = 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff45
 {-# INLINABLE _q #-}
 
 -- | Order of M383 curve.
-_r :: Integer
+_r :: Natural
 _r = 0x10000000000000000000000000000000000000000000000006c79673ac36ba6e7a32576f7b1b249e46bbc225be9071d7
 {-# INLINABLE _r #-}
 

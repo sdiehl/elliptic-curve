@@ -71,17 +71,17 @@ _b = 0x66647ede6c332c7f8c0923bb58213b333b20e9ce4281fe115f7d8f90ad
 {-# INLINABLE _b #-}
 
 -- | Cofactor of SECT233R1 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x2
 {-# INLINABLE _h #-}
 
 -- | Polynomial of SECT233R1 curve.
-_p :: Integer
+_p :: Natural
 _p = 0x20000000000000000000000000000000000000004000000000000000001
 {-# INLINABLE _p #-}
 
 -- | Order of SECT233R1 curve.
-_r :: Integer
+_r :: Natural
 _r = 0x1000000000000000000000000000013e974e72f8a6922031d2603cfe0d7
 {-# INLINABLE _r #-}
 

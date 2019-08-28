@@ -71,17 +71,17 @@ _b = 0x1
 {-# INLINABLE _b #-}
 
 -- | Cofactor of SECT409K1 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x4
 {-# INLINABLE _h #-}
 
 -- | Polynomial of SECT409K1 curve.
-_p :: Integer
+_p :: Natural
 _p = 0x2000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000001
 {-# INLINABLE _p #-}
 
 -- | Order of SECT409K1 curve.
-_r :: Integer
+_r :: Natural
 _r = 0x7ffffffffffffffffffffffffffffffffffffffffffffffffffe5f83b2d4ea20400ec4557d5ed3e3e7ca5b4b5c83b8e01e5fcf
 {-# INLINABLE _r #-}
 

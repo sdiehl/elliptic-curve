@@ -79,17 +79,17 @@ _b = 0x1c97befc54bd7a8b65acf89f81d4d4adc565fa45
 {-# INLINABLE _b #-}
 
 -- | Cofactor of SECP160R1 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x1
 {-# INLINABLE _h #-}
 
 -- | Characteristic of SECP160R1 curve.
-_q :: Integer
+_q :: Natural
 _q = 0xffffffffffffffffffffffffffffffff7fffffff
 {-# INLINABLE _q #-}
 
 -- | Order of SECP160R1 curve.
-_r :: Integer
+_r :: Natural
 _r = 0x100000000000000000001f4c8f927aed3ca752257
 {-# INLINABLE _r #-}
 

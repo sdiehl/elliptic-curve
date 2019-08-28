@@ -79,17 +79,17 @@ _b = 0x5ac635d8aa3a93e7b3ebbd55769886bc651d06b0cc53b0f63bce3c3e27d2604b
 {-# INLINABLE _b #-}
 
 -- | Cofactor of SECP256R1 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x1
 {-# INLINABLE _h #-}
 
 -- | Characteristic of SECP256R1 curve.
-_q :: Integer
+_q :: Natural
 _q = 0xffffffff00000001000000000000000000000000ffffffffffffffffffffffff
 {-# INLINABLE _q #-}
 
 -- | Order of SECP256R1 curve.
-_r :: Integer
+_r :: Natural
 _r = 0xffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632551
 {-# INLINABLE _r #-}
 

@@ -79,17 +79,17 @@ _b = 0xb3312fa7e23ee7e4988e056be3f82d19181d9c6efe8141120314088f5013875ac656398d8
 {-# INLINABLE _b #-}
 
 -- | Cofactor of SECP384R1 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x1
 {-# INLINABLE _h #-}
 
 -- | Characteristic of SECP384R1 curve.
-_q :: Integer
+_q :: Natural
 _q = 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffff0000000000000000ffffffff
 {-# INLINABLE _q #-}
 
 -- | Order of SECP384R1 curve.
-_r :: Integer
+_r :: Natural
 _r = 0xffffffffffffffffffffffffffffffffffffffffffffffffc7634d81f4372ddf581a0db248b0a77aecec196accc52973
 {-# INLINABLE _r #-}
 

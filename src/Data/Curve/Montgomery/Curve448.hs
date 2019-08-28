@@ -63,17 +63,17 @@ _b = 0x1
 {-# INLINABLE _b #-}
 
 -- | Cofactor of Curve448 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x4
 {-# INLINABLE _h #-}
 
 -- | Characteristic of Curve448 curve.
-_q :: Integer
+_q :: Natural
 _q = 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 {-# INLINABLE _q #-}
 
 -- | Order of Curve448 curve.
-_r :: Integer
+_r :: Natural
 _r = 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffff7cca23e9c44edb49aed63690216cc2728dc58f552378c292ab5844f3
 {-# INLINABLE _r #-}
 

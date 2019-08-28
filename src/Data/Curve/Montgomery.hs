@@ -25,9 +25,9 @@ class (GaloisField q, PrimeField r, Curve 'Montgomery c e q r) => MCurve c e q r
   {-# MINIMAL a_, b_, h_, q_, r_, x_, y_ #-}
   a_ :: MPoint c e q r -> q       -- ^ Coefficient @A@.
   b_ :: MPoint c e q r -> q       -- ^ Coefficient @B@.
-  h_ :: MPoint c e q r -> Integer -- ^ Curve cofactor.
-  q_ :: MPoint c e q r -> Integer -- ^ Curve characteristic.
-  r_ :: MPoint c e q r -> Integer -- ^ Curve order.
+  h_ :: MPoint c e q r -> Natural -- ^ Curve cofactor.
+  q_ :: MPoint c e q r -> Natural -- ^ Curve characteristic.
+  r_ :: MPoint c e q r -> Natural -- ^ Curve order.
   x_ :: MPoint c e q r -> q       -- ^ Coordinate @X@.
   y_ :: MPoint c e q r -> q       -- ^ Coordinate @Y@.
 

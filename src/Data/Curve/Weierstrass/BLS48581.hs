@@ -79,17 +79,17 @@ _b = 0x1
 {-# INLINABLE _b #-}
 
 -- | Cofactor of BLS48581 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x85555841aaaec4ac
 {-# INLINABLE _h #-}
 
 -- | Characteristic of BLS48581 curve.
-_q :: Integer
+_q :: Natural
 _q = 0x1280f73ff3476f313824e31d47012a0056e84f8d122131bb3be6c0f1f3975444a48ae43af6e082acd9cd30394f4736daf68367a5513170ee0a578fdf721a4a48ac3edc154e6565912b
 {-# INLINABLE _q #-}
 
 -- | Order of BLS48581 curve.
-_r :: Integer
+_r :: Natural
 _r = 0x2386f8a925e2885e233a9ccc1615c0d6c635387a3f0b3cbe003fad6bc972c2e6e741969d34c4c92016a85c7cd0562303c4ccbe599467c24da118a5fe6fcd671c01
 {-# INLINABLE _r #-}
 

@@ -4,17 +4,19 @@ module Generate.Types
 
 import Protolude
 
+import GHC.Natural (Natural)
+
 -------------------------------------------------------------------------------
 -- Types
 -------------------------------------------------------------------------------
 
-data Element = B Integer
+data Element = B Natural
              | E [Element]
-             | P Integer
+             | P Natural
 
-data Field = Binary Text Integer
+data Field = Binary Text Natural
            | Extension Text Text Text Text (Maybe Field)
-           | Prime Text Integer
+           | Prime Text Natural
 
 data Types = Types
   { curve   :: Text

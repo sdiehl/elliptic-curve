@@ -79,17 +79,17 @@ _b = 0x51953eb9618e1c9a1f929a21a0b68540eea2da725b99b315f3b8b489918ef109e15619395
 {-# INLINABLE _b #-}
 
 -- | Cofactor of SECP521R1 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x1
 {-# INLINABLE _h #-}
 
 -- | Characteristic of SECP521R1 curve.
-_q :: Integer
+_q :: Natural
 _q = 0x1ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 {-# INLINABLE _q #-}
 
 -- | Order of SECP521R1 curve.
-_r :: Integer
+_r :: Natural
 _r = 0x1fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffa51868783bf2f966b7fcc0148f709a5d03bb5c9b8899c47aebb6fb71e91386409
 {-# INLINABLE _r #-}
 

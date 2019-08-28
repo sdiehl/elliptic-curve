@@ -79,17 +79,17 @@ _b = 0x3
 {-# INLINABLE _b #-}
 
 -- | Cofactor of BN254 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x1
 {-# INLINABLE _h #-}
 
 -- | Characteristic of BN254 curve.
-_q :: Integer
+_q :: Natural
 _q = 0x30644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd47
 {-# INLINABLE _q #-}
 
 -- | Order of BN254 curve.
-_r :: Integer
+_r :: Natural
 _r = 0x30644e72e131a029b85045b68181585d2833e84879b9709143e1f593f0000001
 {-# INLINABLE _r #-}
 

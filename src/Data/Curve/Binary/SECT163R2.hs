@@ -71,17 +71,17 @@ _b = 0x20a601907b8c953ca1481eb10512f78744a3205fd
 {-# INLINABLE _b #-}
 
 -- | Cofactor of SECT163R2 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x2
 {-# INLINABLE _h #-}
 
 -- | Polynomial of SECT163R2 curve.
-_p :: Integer
+_p :: Natural
 _p = 0x800000000000000000000000000000000000000c9
 {-# INLINABLE _p #-}
 
 -- | Order of SECT163R2 curve.
-_r :: Integer
+_r :: Natural
 _r = 0x40000000000000000000292fe77e70c12a4234c33
 {-# INLINABLE _r #-}
 

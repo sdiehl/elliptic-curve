@@ -71,17 +71,17 @@ _d = 0x2b67
 {-# INLINABLE _d #-}
 
 -- | Cofactor of Ed3363 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x8
 {-# INLINABLE _h #-}
 
 -- | Characteristic of Ed3363 curve.
-_q :: Integer
+_q :: Natural
 _q = 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd
 {-# INLINABLE _q #-}
 
 -- | Order of Ed3363 curve.
-_r :: Integer
+_r :: Natural
 _r = 0x200000000000000000000000000000000000000000071415fa9850c0bd6b87f93baa7b2f95973e9fa805
 {-# INLINABLE _r #-}
 

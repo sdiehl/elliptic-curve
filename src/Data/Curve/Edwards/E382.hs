@@ -71,17 +71,17 @@ _d = 0x3ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 {-# INLINABLE _d #-}
 
 -- | Cofactor of E382 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x4
 {-# INLINABLE _h #-}
 
 -- | Characteristic of E382 curve.
-_q :: Integer
+_q :: Natural
 _q = 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff97
 {-# INLINABLE _q #-}
 
 -- | Order of E382 curve.
-_r :: Integer
+_r :: Natural
 _r = 0xfffffffffffffffffffffffffffffffffffffffffffffffd5fb21f21e95eee17c5e69281b102d2773e27e13fd3c9719
 {-# INLINABLE _r #-}
 

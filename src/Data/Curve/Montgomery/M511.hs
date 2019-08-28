@@ -63,17 +63,17 @@ _b = 0x1
 {-# INLINABLE _b #-}
 
 -- | Cofactor of M511 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x8
 {-# INLINABLE _h #-}
 
 -- | Characteristic of M511 curve.
-_q :: Integer
+_q :: Natural
 _q = 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff45
 {-# INLINABLE _q #-}
 
 -- | Order of M511 curve.
-_r :: Integer
+_r :: Natural
 _r = 0x100000000000000000000000000000000000000000000000000000000000000017b5feff30c7f5677ab2aeebd13779a2ac125042a6aa10bfa54c15bab76baf1b
 {-# INLINABLE _r #-}
 

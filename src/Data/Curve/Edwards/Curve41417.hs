@@ -71,17 +71,17 @@ _d = 0xe21
 {-# INLINABLE _d #-}
 
 -- | Cofactor of Curve41417 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x8
 {-# INLINABLE _h #-}
 
 -- | Characteristic of Curve41417 curve.
-_q :: Integer
+_q :: Natural
 _q = 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffef
 {-# INLINABLE _q #-}
 
 -- | Order of Curve41417 curve.
-_r :: Integer
+_r :: Natural
 _r = 0x7ffffffffffffffffffffffffffffffffffffffffffffffffffeb3cc92414cf706022b36f1c0338ad63cf181b0e71a5e106af79
 {-# INLINABLE _r #-}
 

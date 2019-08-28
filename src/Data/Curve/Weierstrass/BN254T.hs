@@ -86,17 +86,17 @@ _b = toE' [ 0x2b149d40ceb8aaae81be18991be06ac3b5b4c5e559dbefa33267e6dc24a138e5
 {-# INLINABLE _b #-}
 
 -- | Cofactor of BN254T curve.
-_h :: Integer
+_h :: Natural
 _h = 0x30644e72e131a029b85045b68181585e06ceecda572a2489345f2299c0f9fa8d
 {-# INLINABLE _h #-}
 
 -- | Characteristic of BN254T curve.
-_q :: Integer
+_q :: Natural
 _q = 0x30644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd47
 {-# INLINABLE _q #-}
 
 -- | Order of BN254T curve.
-_r :: Integer
+_r :: Natural
 _r = 0x30644e72e131a029b85045b68181585d2833e84879b9709143e1f593f0000001
 {-# INLINABLE _r #-}
 

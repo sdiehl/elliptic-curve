@@ -71,17 +71,17 @@ _d = 0x2a9318e74bfa2b48f5fd9207e6bd7fd4292d7f6d37579d2601065fd6d6343eb1
 {-# INLINABLE _d #-}
 
 -- | Cofactor of JubJub curve.
-_h :: Integer
+_h :: Natural
 _h = 0x8
 {-# INLINABLE _h #-}
 
 -- | Characteristic of JubJub curve.
-_q :: Integer
+_q :: Natural
 _q = 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
 {-# INLINABLE _q #-}
 
 -- | Order of JubJub curve.
-_r :: Integer
+_r :: Natural
 _r = 0xe7db4ea6533afa906673b0101343b00a6682093ccc81082d0970e5ed6f72cb7
 {-# INLINABLE _r #-}
 

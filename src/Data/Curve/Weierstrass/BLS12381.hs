@@ -79,17 +79,17 @@ _b = 0x4
 {-# INLINABLE _b #-}
 
 -- | Cofactor of BLS12381 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x396c8c005555e1568c00aaab0000aaab
 {-# INLINABLE _h #-}
 
 -- | Characteristic of BLS12381 curve.
-_q :: Integer
+_q :: Natural
 _q = 0x1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab
 {-# INLINABLE _q #-}
 
 -- | Order of BLS12381 curve.
-_r :: Integer
+_r :: Natural
 _r = 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
 {-# INLINABLE _r #-}
 

@@ -25,9 +25,9 @@ class (GaloisField q, PrimeField r, Curve 'Binary c e q r) => BCurve c e q r whe
   {-# MINIMAL a_, b_, h_, p_, r_, x_, y_ #-}
   a_ :: BPoint c e q r -> q       -- ^ Coefficient @A@.
   b_ :: BPoint c e q r -> q       -- ^ Coefficient @B@.
-  h_ :: BPoint c e q r -> Integer -- ^ Curve cofactor.
-  p_ :: BPoint c e q r -> Integer -- ^ Curve polynomial.
-  r_ :: BPoint c e q r -> Integer -- ^ Curve order.
+  h_ :: BPoint c e q r -> Natural -- ^ Curve cofactor.
+  p_ :: BPoint c e q r -> Natural -- ^ Curve polynomial.
+  r_ :: BPoint c e q r -> Natural -- ^ Curve order.
   x_ :: BPoint c e q r -> q       -- ^ Coordinate @X@.
   y_ :: BPoint c e q r -> q       -- ^ Coordinate @Y@.
 

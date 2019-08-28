@@ -28,10 +28,10 @@ class (GaloisField q, PrimeField r, Arbitrary (Point f c e q r),
   -- Parameters
 
   -- | Curve characteristic.
-  char :: Point f c e q r -> Integer
+  char :: Point f c e q r -> Natural
 
   -- | Curve cofactor.
-  cof :: Point f c e q r -> Integer
+  cof :: Point f c e q r -> Natural
 
   -- | Curve well-defined.
   def :: Point f c e q r -> Bool
@@ -40,7 +40,7 @@ class (GaloisField q, PrimeField r, Arbitrary (Point f c e q r),
   disc :: Point f c e q r -> q
 
   -- | Curve order.
-  order :: Point f c e q r -> Integer
+  order :: Point f c e q r -> Natural
 
   -- Points
 

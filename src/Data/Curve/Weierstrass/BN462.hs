@@ -79,17 +79,17 @@ _b = 0x5
 {-# INLINABLE _b #-}
 
 -- | Cofactor of BN462 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x1
 {-# INLINABLE _h #-}
 
 -- | Characteristic of BN462 curve.
-_q :: Integer
+_q :: Natural
 _q = 0x240480360120023ffffffffff6ff0cf6b7d9bfca0000000000d812908f41c8020ffffffffff6ff66fc6ff687f640000000002401b00840138013
 {-# INLINABLE _q #-}
 
 -- | Order of BN462 curve.
-_r :: Integer
+_r :: Natural
 _r = 0x240480360120023ffffffffff6ff0cf6b7d9bfca0000000000d812908ee1c201f7fffffffff6ff66fc7bf717f7c0000000002401b007e010800d
 {-# INLINABLE _r #-}
 

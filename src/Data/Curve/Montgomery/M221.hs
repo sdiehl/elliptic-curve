@@ -63,17 +63,17 @@ _b = 0x1
 {-# INLINABLE _b #-}
 
 -- | Cofactor of M221 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x8
 {-# INLINABLE _h #-}
 
 -- | Characteristic of M221 curve.
-_q :: Integer
+_q :: Natural
 _q = 0x1ffffffffffffffffffffffffffffffffffffffffffffffffffffffd
 {-# INLINABLE _q #-}
 
 -- | Order of M221 curve.
-_r :: Integer
+_r :: Natural
 _r = 0x40000000000000000000000000015a08ed730e8a2f77f005042605b
 {-# INLINABLE _r #-}
 

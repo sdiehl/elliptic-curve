@@ -79,17 +79,17 @@ _b = 0xe87579c11079f43dd824993c2cee5ed3
 {-# INLINABLE _b #-}
 
 -- | Cofactor of SECP128R1 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x1
 {-# INLINABLE _h #-}
 
 -- | Characteristic of SECP128R1 curve.
-_q :: Integer
+_q :: Natural
 _q = 0xfffffffdffffffffffffffffffffffff
 {-# INLINABLE _q #-}
 
 -- | Order of SECP128R1 curve.
-_r :: Integer
+_r :: Natural
 _r = 0xfffffffe0000000075a30d1b9038a115
 {-# INLINABLE _r #-}
 

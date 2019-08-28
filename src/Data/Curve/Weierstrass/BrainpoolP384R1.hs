@@ -79,17 +79,17 @@ _b = 0x4a8c7dd22ce28268b39b55416f0447c2fb77de107dcd2a62e880ea53eeb62d57cb4390295
 {-# INLINABLE _b #-}
 
 -- | Cofactor of BrainpoolP384R1 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x1
 {-# INLINABLE _h #-}
 
 -- | Characteristic of BrainpoolP384R1 curve.
-_q :: Integer
+_q :: Natural
 _q = 0x8cb91e82a3386d280f5d6f7e50e641df152f7109ed5456b412b1da197fb71123acd3a729901d1a71874700133107ec53
 {-# INLINABLE _q #-}
 
 -- | Order of BrainpoolP384R1 curve.
-_r :: Integer
+_r :: Natural
 _r = 0x8cb91e82a3386d280f5d6f7e50e641df152f7109ed5456b31f166e6cac0425a7cf3ab6af6b7fc3103b883202e9046565
 {-# INLINABLE _r #-}
 

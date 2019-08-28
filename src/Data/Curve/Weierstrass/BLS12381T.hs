@@ -86,17 +86,17 @@ _b = toE' [ 0x4
 {-# INLINABLE _b #-}
 
 -- | Cofactor of BLS12381T curve.
-_h :: Integer
+_h :: Natural
 _h = 0x5d543a95414e7f1091d50792876a202cd91de4547085abaa68a205b2e5a7ddfa628f1cb4d9e82ef21537e293a6691ae1616ec6e786f0c70cf1c38e31c7238e5
 {-# INLINABLE _h #-}
 
 -- | Characteristic of BLS12381T curve.
-_q :: Integer
+_q :: Natural
 _q = 0x1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab
 {-# INLINABLE _q #-}
 
 -- | Order of BLS12381T curve.
-_r :: Integer
+_r :: Natural
 _r = 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
 {-# INLINABLE _r #-}
 

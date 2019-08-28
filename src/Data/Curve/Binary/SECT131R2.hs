@@ -71,17 +71,17 @@ _b = 0x4b8266a46c55657ac734ce38f018f2192
 {-# INLINABLE _b #-}
 
 -- | Cofactor of SECT131R2 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x2
 {-# INLINABLE _h #-}
 
 -- | Polynomial of SECT131R2 curve.
-_p :: Integer
+_p :: Natural
 _p = 0x80000000000000000000000000000010d
 {-# INLINABLE _p #-}
 
 -- | Order of SECT131R2 curve.
-_r :: Integer
+_r :: Natural
 _r = 0x400000000000000016954a233049ba98f
 {-# INLINABLE _r #-}
 

@@ -15,7 +15,7 @@ import Generate.Types
 
 prettyElement :: Element -> Doc
 prettyElement (B n)
-  = prettyInteger n
+  = prettyNatural n
 prettyElement (E ns)
   = "toE'" <+> align
     (    (if null ns then "[" else "[ ")
@@ -23,7 +23,7 @@ prettyElement (E ns)
     <$$> "]"
     )
 prettyElement (P n)
-  = prettyInteger n
+  = prettyNatural n
 
 prettyField :: Field -> Doc
 prettyField (Binary f2m _)
@@ -41,7 +41,7 @@ prettyImport
 
 prettyType :: Field -> Doc
 prettyType (Binary f2m q)
-  = "type" <+> pretty f2m <+> "= Binary" <+> prettyInteger q
+  = "type" <+> pretty f2m <+> "= Binary" <+> prettyNatural q
 prettyType (Extension fq' fq q s k)
   =    prettyType' k
   <$$> "data" <+> pretty q
@@ -53,4 +53,4 @@ prettyType (Extension fq' fq q s k)
     prettyType' (Just f) = prettyType f
     prettyType' _        = mempty
 prettyType (Prime fq q)
-  = "type" <+> pretty fq <+> "= Prime" <+> prettyInteger q
+  = "type" <+> pretty fq <+> "= Prime" <+> prettyNatural q

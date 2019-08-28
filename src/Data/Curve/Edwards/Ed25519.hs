@@ -71,17 +71,17 @@ _d = 0x52036cee2b6ffe738cc740797779e89800700a4d4141d8ab75eb4dca135978a3
 {-# INLINABLE _d #-}
 
 -- | Cofactor of Ed25519 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x8
 {-# INLINABLE _h #-}
 
 -- | Characteristic of Ed25519 curve.
-_q :: Integer
+_q :: Natural
 _q = 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffed
 {-# INLINABLE _q #-}
 
 -- | Order of Ed25519 curve.
-_r :: Integer
+_r :: Natural
 _r = 0x1000000000000000000000000000000014def9dea2f79cd65812631a5cf5d3ed
 {-# INLINABLE _r #-}
 

@@ -63,17 +63,17 @@ _b = 0x1
 {-# INLINABLE _b #-}
 
 -- | Cofactor of Curve25519 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x8
 {-# INLINABLE _h #-}
 
 -- | Characteristic of Curve25519 curve.
-_q :: Integer
+_q :: Natural
 _q = 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffed
 {-# INLINABLE _q #-}
 
 -- | Order of Curve25519 curve.
-_r :: Integer
+_r :: Natural
 _r = 0x1000000000000000000000000000000014def9dea2f79cd65812631a5cf5d3ed
 {-# INLINABLE _r #-}
 

@@ -79,17 +79,17 @@ _b = 0xb4050a850c04b3abf54132565044b0b7d7bfd8ba270b39432355ffb4
 {-# INLINABLE _b #-}
 
 -- | Cofactor of SECP224R1 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x1
 {-# INLINABLE _h #-}
 
 -- | Characteristic of SECP224R1 curve.
-_q :: Integer
+_q :: Natural
 _q = 0xffffffffffffffffffffffffffffffff000000000000000000000001
 {-# INLINABLE _q #-}
 
 -- | Order of SECP224R1 curve.
-_r :: Integer
+_r :: Natural
 _r = 0xffffffffffffffffffffffffffff16a2e0b8f03e13dd29455c5c2a3d
 {-# INLINABLE _r #-}
 

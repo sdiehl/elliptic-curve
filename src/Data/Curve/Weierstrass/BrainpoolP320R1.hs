@@ -79,17 +79,17 @@ _b = 0x520883949dfdbc42d3ad198640688a6fe13f41349554b49acc31dccd884539816f5eb4ac8
 {-# INLINABLE _b #-}
 
 -- | Cofactor of BrainpoolP320R1 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x1
 {-# INLINABLE _h #-}
 
 -- | Characteristic of BrainpoolP320R1 curve.
-_q :: Integer
+_q :: Natural
 _q = 0xd35e472036bc4fb7e13c785ed201e065f98fcfa6f6f40def4f92b9ec7893ec28fcd412b1f1b32e27
 {-# INLINABLE _q #-}
 
 -- | Order of BrainpoolP320R1 curve.
-_r :: Integer
+_r :: Natural
 _r = 0xd35e472036bc4fb7e13c785ed201e065f98fcfa5b68f12a32d482ec7ee8658e98691555b44c59311
 {-# INLINABLE _r #-}
 

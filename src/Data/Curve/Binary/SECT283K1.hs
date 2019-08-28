@@ -71,17 +71,17 @@ _b = 0x1
 {-# INLINABLE _b #-}
 
 -- | Cofactor of SECT283K1 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x4
 {-# INLINABLE _h #-}
 
 -- | Polynomial of SECT283K1 curve.
-_p :: Integer
+_p :: Natural
 _p = 0x800000000000000000000000000000000000000000000000000000000000000000010a1
 {-# INLINABLE _p #-}
 
 -- | Order of SECT283K1 curve.
-_r :: Integer
+_r :: Natural
 _r = 0x1ffffffffffffffffffffffffffffffffffe9ae2ed07577265dff7f94451e061e163c61
 {-# INLINABLE _r #-}
 

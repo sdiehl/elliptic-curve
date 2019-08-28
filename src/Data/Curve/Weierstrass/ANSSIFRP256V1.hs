@@ -79,17 +79,17 @@ _b = 0xee353fca5428a9300d4aba754a44c00fdfec0c9ae4b1a1803075ed967b7bb73f
 {-# INLINABLE _b #-}
 
 -- | Cofactor of ANSSIFRP256V1 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x1
 {-# INLINABLE _h #-}
 
 -- | Characteristic of ANSSIFRP256V1 curve.
-_q :: Integer
+_q :: Natural
 _q = 0xf1fd178c0b3ad58f10126de8ce42435b3961adbcabc8ca6de8fcf353d86e9c03
 {-# INLINABLE _q #-}
 
 -- | Order of ANSSIFRP256V1 curve.
-_r :: Integer
+_r :: Natural
 _r = 0xf1fd178c0b3ad58f10126de8ce42435b53dc67e140d2bf941ffdd459c6d655e1
 {-# INLINABLE _r #-}
 

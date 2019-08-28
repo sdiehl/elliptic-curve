@@ -79,17 +79,17 @@ _b = 0x4a1f58d0fac687d6343eb1a5e2d6343eb1a1f58d0fac688ab3f
 {-# INLINABLE _b #-}
 
 -- | Cofactor of Anomalous curve.
-_h :: Integer
+_h :: Natural
 _h = 0x1
 {-# INLINABLE _h #-}
 
 -- | Characteristic of Anomalous curve.
-_q :: Integer
+_q :: Natural
 _q = 0xb0000000000000000000000953000000000000000000001f9d7
 {-# INLINABLE _q #-}
 
 -- | Order of Anomalous curve.
-_r :: Integer
+_r :: Natural
 _r = 0xb0000000000000000000000953000000000000000000001f9d7
 {-# INLINABLE _r #-}
 

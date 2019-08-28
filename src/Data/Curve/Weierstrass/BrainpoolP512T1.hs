@@ -79,17 +79,17 @@ _b = 0x7cbbbcf9441cfab76e1890e46884eae321f70c0bcb4981527897504bec3e36a62bcdfa230
 {-# INLINABLE _b #-}
 
 -- | Cofactor of BrainpoolP512T1 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x1
 {-# INLINABLE _h #-}
 
 -- | Characteristic of BrainpoolP512T1 curve.
-_q :: Integer
+_q :: Natural
 _q = 0xaadd9db8dbe9c48b3fd4e6ae33c9fc07cb308db3b3c9d20ed6639cca703308717d4d9b009bc66842aecda12ae6a380e62881ff2f2d82c68528aa6056583a48f3
 {-# INLINABLE _q #-}
 
 -- | Order of BrainpoolP512T1 curve.
-_r :: Integer
+_r :: Natural
 _r = 0xaadd9db8dbe9c48b3fd4e6ae33c9fc07cb308db3b3c9d20ed6639cca70330870553e5c414ca92619418661197fac10471db1d381085ddaddb58796829ca90069
 {-# INLINABLE _r #-}
 

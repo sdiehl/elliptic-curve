@@ -71,17 +71,17 @@ _d = 0x1ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 {-# INLINABLE _d #-}
 
 -- | Cofactor of E521 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x4
 {-# INLINABLE _h #-}
 
 -- | Characteristic of E521 curve.
-_q :: Integer
+_q :: Natural
 _q = 0x1ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 {-# INLINABLE _q #-}
 
 -- | Order of E521 curve.
-_r :: Integer
+_r :: Natural
 _r = 0x7ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd15b6c64746fc85f736b8af5e7ec53f04fbd8c4569a8f1f4540ea2435f5180d6b
 {-# INLINABLE _r #-}
 

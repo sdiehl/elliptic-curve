@@ -79,17 +79,17 @@ _b = 0x51def1815db5ed74fcc34c85d709
 {-# INLINABLE _b #-}
 
 -- | Cofactor of SECP112R2 curve.
-_h :: Integer
+_h :: Natural
 _h = 0x4
 {-# INLINABLE _h #-}
 
 -- | Characteristic of SECP112R2 curve.
-_q :: Integer
+_q :: Natural
 _q = 0xdb7c2abf62e35e668076bead208b
 {-# INLINABLE _q #-}
 
 -- | Order of SECP112R2 curve.
-_r :: Integer
+_r :: Natural
 _r = 0x36df0aafd8b8d7597ca10520d04b
 {-# INLINABLE _r #-}
 

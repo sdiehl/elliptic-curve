@@ -86,17 +86,17 @@ _b = toE' [ 0x1
 {-# INLINABLE _b #-}
 
 -- | Cofactor of BN254BT curve.
-_h :: Integer
+_h :: Natural
 _h = 0x2523648240000001ba344d8000000008c2a2800000000016ad00000000000019
 {-# INLINABLE _h #-}
 
 -- | Characteristic of BN254BT curve.
-_q :: Integer
+_q :: Natural
 _q = 0x2523648240000001ba344d80000000086121000000000013a700000000000013
 {-# INLINABLE _q #-}
 
 -- | Order of BN254BT curve.
-_r :: Integer
+_r :: Natural
 _r = 0x2523648240000001ba344d8000000007ff9f800000000010a10000000000000d
 {-# INLINABLE _r #-}
 
