@@ -7,6 +7,7 @@ module Data.Curve.Edwards.Ed25519
 import Protolude
 
 import Data.Field.Galois
+import GHC.Natural (Natural)
 
 import Data.Curve.Edwards
 
@@ -35,10 +36,6 @@ instance Curve 'Edwards c Ed25519 Fq Fr => ECurve c Ed25519 Fq Fr where
   {-# INLINABLE q_ #-}
   r_ = const _r
   {-# INLINABLE r_ #-}
-  x_ = const _x
-  {-# INLINABLE x_ #-}
-  y_ = const _y
-  {-# INLINABLE y_ #-}
 
 -- | Affine Ed25519 curve point.
 type PA = EAPoint Ed25519 Fq Fr

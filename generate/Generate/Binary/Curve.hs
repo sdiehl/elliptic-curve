@@ -55,10 +55,6 @@ prettyTypes Types{..}
     <$$> prettyInline "p_"
     <$$> "r_ = const _r"
     <$$> prettyInline "r_"
-    <$$> "x_ = const _x"
-    <$$> prettyInline "x_"
-    <$$> "y_ = const _y"
-    <$$> prettyInline "y_"
     )
   <>   prettyBreak
   <$$> prettyDocumentation ("Affine" <+> curve' <+> "point")

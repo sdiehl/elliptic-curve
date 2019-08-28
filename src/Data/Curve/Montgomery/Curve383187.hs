@@ -7,6 +7,7 @@ module Data.Curve.Montgomery.Curve383187
 import Protolude
 
 import Data.Field.Galois
+import GHC.Natural (Natural)
 
 import Data.Curve.Montgomery
 
@@ -35,10 +36,6 @@ instance Curve 'Montgomery c Curve383187 Fq Fr => MCurve c Curve383187 Fq Fr whe
   {-# INLINABLE q_ #-}
   r_ = const _r
   {-# INLINABLE r_ #-}
-  x_ = const _x
-  {-# INLINABLE x_ #-}
-  y_ = const _y
-  {-# INLINABLE y_ #-}
 
 -- | Affine Curve383187 curve point.
 type PA = MAPoint Curve383187 Fq Fr

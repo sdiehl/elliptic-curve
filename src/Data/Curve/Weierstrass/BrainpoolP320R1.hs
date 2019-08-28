@@ -7,6 +7,7 @@ module Data.Curve.Weierstrass.BrainpoolP320R1
 import Protolude
 
 import Data.Field.Galois
+import GHC.Natural (Natural)
 
 import Data.Curve.Weierstrass
 
@@ -35,10 +36,6 @@ instance Curve 'Weierstrass c BrainpoolP320R1 Fq Fr => WCurve c BrainpoolP320R1 
   {-# INLINABLE q_ #-}
   r_ = const _r
   {-# INLINABLE r_ #-}
-  x_ = const _x
-  {-# INLINABLE x_ #-}
-  y_ = const _y
-  {-# INLINABLE y_ #-}
 
 -- | Affine BrainpoolP320R1 curve point.
 type PA = WAPoint BrainpoolP320R1 Fq Fr

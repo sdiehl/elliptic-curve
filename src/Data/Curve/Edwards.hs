@@ -9,6 +9,7 @@ module Data.Curve.Edwards
 import Protolude
 
 import Data.Field.Galois (GaloisField(..), PrimeField, sr)
+import GHC.Natural (Natural)
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
 import Data.Curve (Coordinates(..), Curve(..), Form(..))
@@ -22,14 +23,12 @@ type EPoint = Point 'Edwards
 
 -- | Edwards curves.
 class (GaloisField q, PrimeField r, Curve 'Edwards c e q r) => ECurve c e q r where
-  {-# MINIMAL a_, d_, h_, q_, r_, x_, y_ #-}
+  {-# MINIMAL a_, d_, h_, q_, r_ #-}
   a_ :: EPoint c e q r -> q       -- ^ Coefficient @A@.
   d_ :: EPoint c e q r -> q       -- ^ Coefficient @D@.
   h_ :: EPoint c e q r -> Natural -- ^ Curve cofactor.
   q_ :: EPoint c e q r -> Natural -- ^ Curve characteristic.
   r_ :: EPoint c e q r -> Natural -- ^ Curve order.
-  x_ :: EPoint c e q r -> q       -- ^ Coordinate @X@.
-  y_ :: EPoint c e q r -> q       -- ^ Coordinate @Y@.
 
 -------------------------------------------------------------------------------
 -- Affine coordinates

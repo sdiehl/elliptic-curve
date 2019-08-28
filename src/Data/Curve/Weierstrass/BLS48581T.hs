@@ -7,6 +7,7 @@ module Data.Curve.Weierstrass.BLS48581T
 import Protolude
 
 import Data.Field.Galois
+import GHC.Natural (Natural)
 
 import Data.Curve.Weierstrass
 import Data.Curve.Weierstrass.BLS48581 (Fq)
@@ -47,10 +48,6 @@ instance Curve 'Weierstrass c BLS48581T Fq8 Fr => WCurve c BLS48581T Fq8 Fr wher
   {-# INLINABLE q_ #-}
   r_ = const _r
   {-# INLINABLE r_ #-}
-  x_ = const _x
-  {-# INLINABLE x_ #-}
-  y_ = const _y
-  {-# INLINABLE y_ #-}
 
 -- | Affine BLS48581T curve point.
 type PA = WAPoint BLS48581T Fq8 Fr

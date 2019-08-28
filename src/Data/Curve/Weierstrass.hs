@@ -23,14 +23,12 @@ type WPoint = Point 'Weierstrass
 
 -- | Weierstrass curves.
 class (GaloisField q, PrimeField r, Curve 'Weierstrass c e q r) => WCurve c e q r where
-  {-# MINIMAL a_, b_, h_, q_, r_, x_, y_ #-}
+  {-# MINIMAL a_, b_, h_, q_, r_ #-}
   a_ :: WPoint c e q r -> q       -- ^ Coefficient @A@.
   b_ :: WPoint c e q r -> q       -- ^ Coefficient @B@.
   h_ :: WPoint c e q r -> Natural -- ^ Curve cofactor.
   q_ :: WPoint c e q r -> Natural -- ^ Curve characteristic.
   r_ :: WPoint c e q r -> Natural -- ^ Curve order.
-  x_ :: WPoint c e q r -> q       -- ^ Coordinate @X@.
-  y_ :: WPoint c e q r -> q       -- ^ Coordinate @Y@.
 
 -------------------------------------------------------------------------------
 -- Affine coordinates

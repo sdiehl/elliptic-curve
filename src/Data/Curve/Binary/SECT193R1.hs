@@ -7,6 +7,7 @@ module Data.Curve.Binary.SECT193R1
 import Protolude
 
 import Data.Field.Galois
+import GHC.Natural (Natural)
 
 import Data.Curve.Binary
 
@@ -35,10 +36,6 @@ instance Curve 'Binary c SECT193R1 F2m Fr => BCurve c SECT193R1 F2m Fr where
   {-# INLINABLE p_ #-}
   r_ = const _r
   {-# INLINABLE r_ #-}
-  x_ = const _x
-  {-# INLINABLE x_ #-}
-  y_ = const _y
-  {-# INLINABLE y_ #-}
 
 -- | Affine SECT193R1 curve point.
 type PA = BAPoint SECT193R1 F2m Fr

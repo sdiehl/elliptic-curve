@@ -9,6 +9,7 @@ module Data.Curve.Binary
 import Protolude
 
 import Data.Field.Galois (GaloisField(..), PrimeField, quad)
+import GHC.Natural (Natural)
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
 import Data.Curve (Coordinates(..), Curve(..), Form(..))
@@ -22,14 +23,12 @@ type BPoint = Point 'Binary
 
 -- | Binary curves.
 class (GaloisField q, PrimeField r, Curve 'Binary c e q r) => BCurve c e q r where
-  {-# MINIMAL a_, b_, h_, p_, r_, x_, y_ #-}
+  {-# MINIMAL a_, b_, h_, p_, r_ #-}
   a_ :: BPoint c e q r -> q       -- ^ Coefficient @A@.
   b_ :: BPoint c e q r -> q       -- ^ Coefficient @B@.
   h_ :: BPoint c e q r -> Natural -- ^ Curve cofactor.
   p_ :: BPoint c e q r -> Natural -- ^ Curve polynomial.
   r_ :: BPoint c e q r -> Natural -- ^ Curve order.
-  x_ :: BPoint c e q r -> q       -- ^ Coordinate @X@.
-  y_ :: BPoint c e q r -> q       -- ^ Coordinate @Y@.
 
 -------------------------------------------------------------------------------
 -- Affine coordinates

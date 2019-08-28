@@ -9,6 +9,7 @@ module Data.Curve.Montgomery
 import Protolude
 
 import Data.Field.Galois (GaloisField(..), PrimeField, sr)
+import GHC.Natural (Natural)
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
 import Data.Curve (Coordinates(..), Curve(..), Form(..))
@@ -22,14 +23,12 @@ type MPoint = Point 'Montgomery
 
 -- | Montgomery curves.
 class (GaloisField q, PrimeField r, Curve 'Montgomery c e q r) => MCurve c e q r where
-  {-# MINIMAL a_, b_, h_, q_, r_, x_, y_ #-}
+  {-# MINIMAL a_, b_, h_, q_, r_ #-}
   a_ :: MPoint c e q r -> q       -- ^ Coefficient @A@.
   b_ :: MPoint c e q r -> q       -- ^ Coefficient @B@.
   h_ :: MPoint c e q r -> Natural -- ^ Curve cofactor.
   q_ :: MPoint c e q r -> Natural -- ^ Curve characteristic.
   r_ :: MPoint c e q r -> Natural -- ^ Curve order.
-  x_ :: MPoint c e q r -> q       -- ^ Coordinate @X@.
-  y_ :: MPoint c e q r -> q       -- ^ Coordinate @Y@.
 
 -------------------------------------------------------------------------------
 -- Affine coordinates

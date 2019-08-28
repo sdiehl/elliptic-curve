@@ -38,6 +38,7 @@ prettyImport
   =    "import Protolude"
   <>   prettyBreak
   <$$> "import Data.Field.Galois"
+  <$$> "import GHC.Natural (Natural)"
 
 prettyType :: Field -> Doc
 prettyType (Binary f2m q)

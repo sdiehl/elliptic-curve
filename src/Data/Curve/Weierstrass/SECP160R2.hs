@@ -7,6 +7,7 @@ module Data.Curve.Weierstrass.SECP160R2
 import Protolude
 
 import Data.Field.Galois
+import GHC.Natural (Natural)
 
 import Data.Curve.Weierstrass
 
@@ -35,10 +36,6 @@ instance Curve 'Weierstrass c SECP160R2 Fq Fr => WCurve c SECP160R2 Fq Fr where
   {-# INLINABLE q_ #-}
   r_ = const _r
   {-# INLINABLE r_ #-}
-  x_ = const _x
-  {-# INLINABLE x_ #-}
-  y_ = const _y
-  {-# INLINABLE y_ #-}
 
 -- | Affine SECP160R2 curve point.
 type PA = WAPoint SECP160R2 Fq Fr
