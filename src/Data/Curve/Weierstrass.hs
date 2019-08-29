@@ -246,6 +246,7 @@ instance WJCurve e q r => Eq (WJPoint e q r) where
     where
       zz1 = z1 * z1
       zz2 = z2 * z2
+  {-# INLINABLE (==) #-}
 
 -- Weierstrass Jacobian points are pretty.
 instance WJCurve e q r => Pretty (WJPoint e q r) where
@@ -367,6 +368,7 @@ instance WPCurve e q r => Eq (WPPoint e q r) where
 
   P x1 y1 z1 == P x2 y2 z2 = z1 == 0 && z2 == 0
     || x1 * z2 == x2 * z1 && y1 * z2 == y2 * z1
+  {-# INLINABLE (==) #-}
 
 -- Weierstrass projective points are pretty.
 instance WPCurve e q r => Pretty (WPPoint e q r) where

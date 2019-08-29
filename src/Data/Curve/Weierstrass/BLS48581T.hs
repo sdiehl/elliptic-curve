@@ -23,14 +23,17 @@ data BLS48581T
 data PolynomialU
 instance IrreducibleMonic Fq PolynomialU where
   split _ = X2 + 1
+  {-# INLINABLE split #-}
 type Fq2 = Extension Fq PolynomialU
 data PolynomialV
 instance IrreducibleMonic Fq2 PolynomialV where
   split _ = X2 + 1 + Y X
+  {-# INLINABLE split #-}
 type Fq4 = Extension Fq2 PolynomialV
 data PolynomialW
 instance IrreducibleMonic Fq4 PolynomialW where
   split _ = X2 + Y X
+  {-# INLINABLE split #-}
 type Fq8 = Extension Fq4 PolynomialW
 
 -- | Field of coefficients of BLS48581T curve.

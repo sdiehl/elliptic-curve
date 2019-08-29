@@ -227,6 +227,7 @@ instance EPCurve e q r => Eq (EPPoint e q r) where
 
   P x1 y1 z1 == P x2 y2 z2 = z1 == 0 && z2 == 0
     || x1 * z2 == x2 * z1 && y1 * z2 == y2 * z1
+  {-# INLINABLE (==) #-}
 
 -- Edwards projective points are pretty.
 instance EPCurve e q r => Pretty (EPPoint e q r) where

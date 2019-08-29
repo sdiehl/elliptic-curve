@@ -23,6 +23,7 @@ data BLS12381T
 data PolynomialU
 instance IrreducibleMonic Fq PolynomialU where
   split _ = X2 + 1
+  {-# INLINABLE split #-}
 type Fq2 = Extension Fq PolynomialU
 
 -- | Field of coefficients of BLS12381T curve.

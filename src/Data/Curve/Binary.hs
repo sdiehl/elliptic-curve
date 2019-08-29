@@ -235,6 +235,7 @@ instance BPCurve e q r => Eq (BPPoint e q r) where
 
   P x1 y1 z1 == P x2 y2 z2 = z1 == 0 && z2 == 0
     || x1 * z2 == x2 * z1 && y1 * z2 == y2 * z1
+  {-# INLINABLE (==) #-}
 
 -- Binary projective points are pretty.
 instance BPCurve e q r => Pretty (BPPoint e q r) where

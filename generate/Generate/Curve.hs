@@ -47,7 +47,10 @@ prettyType (Extension fq' fq q s k)
   =    prettyType' k
   <$$> "data" <+> pretty q
   <$$> "instance IrreducibleMonic" <+> pretty fq <+> pretty q <+> "where"
-  <$$> "  split _ =" <+> pretty s
+  <$$> indent 2
+    (   "split _ =" <+> pretty s
+    <$$> prettyInline "split"
+    )
   <$$> "type" <+> pretty fq' <+> "= Extension" <+> pretty fq <+> pretty q
   where
     prettyType' :: Maybe Field -> Doc

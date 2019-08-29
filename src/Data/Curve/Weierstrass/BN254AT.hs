@@ -23,6 +23,7 @@ data BN254AT
 data PolynomialU
 instance IrreducibleMonic Fq PolynomialU where
   split _ = X2 + 5
+  {-# INLINABLE split #-}
 type Fq2 = Extension Fq PolynomialU
 
 -- | Field of coefficients of BN254AT curve.
