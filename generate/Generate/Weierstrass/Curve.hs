@@ -19,14 +19,15 @@ prettyImports Types{..}
   =    "module Data.Curve.Weierstrass." <> pretty curve
   <$$> indent 2
     (    "( module Data.Curve.Weierstrass"
+    <$$> "-- *" <+> pretty curve <+> "curve"
     <$$> ", module Data.Curve.Weierstrass." <> pretty curve
-    <$$> ", Point(..)"
     <$$> ") where"
     )
   <>   prettyBreak
   <$$> prettyImport
   <>   prettyBreak
   <$$> "import Data.Curve.Weierstrass"
+  <$$> "import Data.Curve.Weierstrass.Base (WCurve(..), WACurve(..), WJCurve(..), WPCurve(..))"
   <$$> maybe mempty pretty imports
 
 prettyTypes :: Types -> Doc
@@ -41,7 +42,7 @@ prettyTypes Types{..}
   <$$> prettyDocumentation ("Field of coefficients of" <+> curve')
   <$$> prettyType field'
   <>   prettyBreak
-  <$$> prettyDocumentation (curve' <+> "is a Weierstrass curve")
+  <$$> prettyComment (curve' <+> "is a Weierstrass curve")
   <$$> "instance Curve 'Weierstrass c" <+> pretty curve <+> prettyField field
   <+>  "Fr => WCurve c" <+> pretty curve <+> prettyField field <+> "Fr where"
   <$$> indent 2
@@ -60,7 +61,7 @@ prettyTypes Types{..}
   <$$> prettyDocumentation ("Affine" <+> curve' <+> "point")
   <$$> "type PA = WAPoint" <+> pretty curve <+> prettyField field <+> "Fr"
   <>   prettyBreak
-  <$$> prettyDocumentation ("Affine" <+> curve' <+> "is a Weierstrass affine curve")
+  <$$> prettyComment ("Affine" <+> curve' <+> "is a Weierstrass affine curve")
   <$$> "instance WACurve" <+> pretty curve <+> prettyField field <+> "Fr where"
   <$$> indent 2
     (    "gA_ = gA"
@@ -70,7 +71,7 @@ prettyTypes Types{..}
   <$$> prettyDocumentation ("Jacobian" <+> pretty curve <+> "point")
   <$$> "type PJ = WJPoint" <+> pretty curve <+> prettyField field <+> "Fr"
   <>   prettyBreak
-  <$$> prettyDocumentation ("Jacobian" <+> curve' <+> "is a Weierstrass Jacobian curve")
+  <$$> prettyComment ("Jacobian" <+> curve' <+> "is a Weierstrass Jacobian curve")
   <$$> "instance WJCurve" <+> pretty curve <+> prettyField field <+> "Fr where"
   <$$> indent 2
     (    "gJ_ = gJ"
@@ -80,7 +81,7 @@ prettyTypes Types{..}
   <$$> prettyDocumentation ("Projective" <+> pretty curve <+> "point")
   <$$> "type PP = WPPoint" <+> pretty curve <+> prettyField field <+> "Fr"
   <>   prettyBreak
-  <$$> prettyDocumentation ("Projective" <+> curve' <+> "is a Weierstrass projective curve")
+  <$$> prettyComment ("Projective" <+> curve' <+> "is a Weierstrass projective curve")
   <$$> "instance WPCurve" <+> pretty curve <+> prettyField field <+> "Fr where"
   <$$> indent 2
     (    "gP_ = gP"

@@ -1,7 +1,7 @@
 module Data.Curve.Weierstrass.SECP128R1
   ( module Data.Curve.Weierstrass
+  -- * SECP128R1 curve
   , module Data.Curve.Weierstrass.SECP128R1
-  , Point(..)
   ) where
 
 import Protolude
@@ -10,6 +10,7 @@ import Data.Field.Galois
 import GHC.Natural (Natural)
 
 import Data.Curve.Weierstrass
+import Data.Curve.Weierstrass.Base (WCurve(..), WACurve(..), WJCurve(..), WPCurve(..))
 
 -------------------------------------------------------------------------------
 -- Types
@@ -24,7 +25,7 @@ type Fq = Prime 0xfffffffdffffffffffffffffffffffff
 -- | Field of coefficients of SECP128R1 curve.
 type Fr = Prime 0xfffffffe0000000075a30d1b9038a115
 
--- | SECP128R1 curve is a Weierstrass curve.
+-- SECP128R1 curve is a Weierstrass curve.
 instance Curve 'Weierstrass c SECP128R1 Fq Fr => WCurve c SECP128R1 Fq Fr where
   a_ = const _a
   {-# INLINABLE a_ #-}
@@ -40,7 +41,7 @@ instance Curve 'Weierstrass c SECP128R1 Fq Fr => WCurve c SECP128R1 Fq Fr where
 -- | Affine SECP128R1 curve point.
 type PA = WAPoint SECP128R1 Fq Fr
 
--- | Affine SECP128R1 curve is a Weierstrass affine curve.
+-- Affine SECP128R1 curve is a Weierstrass affine curve.
 instance WACurve SECP128R1 Fq Fr where
   gA_ = gA
   {-# INLINABLE gA_ #-}
@@ -48,7 +49,7 @@ instance WACurve SECP128R1 Fq Fr where
 -- | Jacobian SECP128R1 point.
 type PJ = WJPoint SECP128R1 Fq Fr
 
--- | Jacobian SECP128R1 curve is a Weierstrass Jacobian curve.
+-- Jacobian SECP128R1 curve is a Weierstrass Jacobian curve.
 instance WJCurve SECP128R1 Fq Fr where
   gJ_ = gJ
   {-# INLINABLE gJ_ #-}
@@ -56,7 +57,7 @@ instance WJCurve SECP128R1 Fq Fr where
 -- | Projective SECP128R1 point.
 type PP = WPPoint SECP128R1 Fq Fr
 
--- | Projective SECP128R1 curve is a Weierstrass projective curve.
+-- Projective SECP128R1 curve is a Weierstrass projective curve.
 instance WPCurve SECP128R1 Fq Fr where
   gP_ = gP
   {-# INLINABLE gP_ #-}

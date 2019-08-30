@@ -1,7 +1,7 @@
 module Data.Curve.Weierstrass.Anomalous
   ( module Data.Curve.Weierstrass
+  -- * Anomalous curve
   , module Data.Curve.Weierstrass.Anomalous
-  , Point(..)
   ) where
 
 import Protolude
@@ -10,6 +10,7 @@ import Data.Field.Galois
 import GHC.Natural (Natural)
 
 import Data.Curve.Weierstrass
+import Data.Curve.Weierstrass.Base (WCurve(..), WACurve(..), WJCurve(..), WPCurve(..))
 
 -------------------------------------------------------------------------------
 -- Types
@@ -24,7 +25,7 @@ type Fq = Prime 0xb0000000000000000000000953000000000000000000001f9d7
 -- | Field of coefficients of Anomalous curve.
 type Fr = Prime 0xb0000000000000000000000953000000000000000000001f9d7
 
--- | Anomalous curve is a Weierstrass curve.
+-- Anomalous curve is a Weierstrass curve.
 instance Curve 'Weierstrass c Anomalous Fq Fr => WCurve c Anomalous Fq Fr where
   a_ = const _a
   {-# INLINABLE a_ #-}
@@ -40,7 +41,7 @@ instance Curve 'Weierstrass c Anomalous Fq Fr => WCurve c Anomalous Fq Fr where
 -- | Affine Anomalous curve point.
 type PA = WAPoint Anomalous Fq Fr
 
--- | Affine Anomalous curve is a Weierstrass affine curve.
+-- Affine Anomalous curve is a Weierstrass affine curve.
 instance WACurve Anomalous Fq Fr where
   gA_ = gA
   {-# INLINABLE gA_ #-}
@@ -48,7 +49,7 @@ instance WACurve Anomalous Fq Fr where
 -- | Jacobian Anomalous point.
 type PJ = WJPoint Anomalous Fq Fr
 
--- | Jacobian Anomalous curve is a Weierstrass Jacobian curve.
+-- Jacobian Anomalous curve is a Weierstrass Jacobian curve.
 instance WJCurve Anomalous Fq Fr where
   gJ_ = gJ
   {-# INLINABLE gJ_ #-}
@@ -56,7 +57,7 @@ instance WJCurve Anomalous Fq Fr where
 -- | Projective Anomalous point.
 type PP = WPPoint Anomalous Fq Fr
 
--- | Projective Anomalous curve is a Weierstrass projective curve.
+-- Projective Anomalous curve is a Weierstrass projective curve.
 instance WPCurve Anomalous Fq Fr where
   gP_ = gP
   {-# INLINABLE gP_ #-}

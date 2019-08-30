@@ -1,7 +1,7 @@
 module Data.Curve.Weierstrass.BrainpoolP320T1
   ( module Data.Curve.Weierstrass
+  -- * BrainpoolP320T1 curve
   , module Data.Curve.Weierstrass.BrainpoolP320T1
-  , Point(..)
   ) where
 
 import Protolude
@@ -10,6 +10,7 @@ import Data.Field.Galois
 import GHC.Natural (Natural)
 
 import Data.Curve.Weierstrass
+import Data.Curve.Weierstrass.Base (WCurve(..), WACurve(..), WJCurve(..), WPCurve(..))
 
 -------------------------------------------------------------------------------
 -- Types
@@ -24,7 +25,7 @@ type Fq = Prime 0xd35e472036bc4fb7e13c785ed201e065f98fcfa6f6f40def4f92b9ec7893ec
 -- | Field of coefficients of BrainpoolP320T1 curve.
 type Fr = Prime 0xd35e472036bc4fb7e13c785ed201e065f98fcfa5b68f12a32d482ec7ee8658e98691555b44c59311
 
--- | BrainpoolP320T1 curve is a Weierstrass curve.
+-- BrainpoolP320T1 curve is a Weierstrass curve.
 instance Curve 'Weierstrass c BrainpoolP320T1 Fq Fr => WCurve c BrainpoolP320T1 Fq Fr where
   a_ = const _a
   {-# INLINABLE a_ #-}
@@ -40,7 +41,7 @@ instance Curve 'Weierstrass c BrainpoolP320T1 Fq Fr => WCurve c BrainpoolP320T1 
 -- | Affine BrainpoolP320T1 curve point.
 type PA = WAPoint BrainpoolP320T1 Fq Fr
 
--- | Affine BrainpoolP320T1 curve is a Weierstrass affine curve.
+-- Affine BrainpoolP320T1 curve is a Weierstrass affine curve.
 instance WACurve BrainpoolP320T1 Fq Fr where
   gA_ = gA
   {-# INLINABLE gA_ #-}
@@ -48,7 +49,7 @@ instance WACurve BrainpoolP320T1 Fq Fr where
 -- | Jacobian BrainpoolP320T1 point.
 type PJ = WJPoint BrainpoolP320T1 Fq Fr
 
--- | Jacobian BrainpoolP320T1 curve is a Weierstrass Jacobian curve.
+-- Jacobian BrainpoolP320T1 curve is a Weierstrass Jacobian curve.
 instance WJCurve BrainpoolP320T1 Fq Fr where
   gJ_ = gJ
   {-# INLINABLE gJ_ #-}
@@ -56,7 +57,7 @@ instance WJCurve BrainpoolP320T1 Fq Fr where
 -- | Projective BrainpoolP320T1 point.
 type PP = WPPoint BrainpoolP320T1 Fq Fr
 
--- | Projective BrainpoolP320T1 curve is a Weierstrass projective curve.
+-- Projective BrainpoolP320T1 curve is a Weierstrass projective curve.
 instance WPCurve BrainpoolP320T1 Fq Fr where
   gP_ = gP
   {-# INLINABLE gP_ #-}

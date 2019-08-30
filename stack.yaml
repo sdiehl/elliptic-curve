@@ -1,7 +1,7 @@
 resolver: lts-13.19
 extra-deps:
   - git: https://github.com/adjoint-io/galois-field.git
-    commit: d1d4b25861a21e26bbc8acb1c1f046f440c4d2de
+    commit: 7bf0440fcd5978f2f7c17bac6ca9eb612a4a7d7e
   - git: https://github.com/chessai/semirings.git
     commit: 8b6c208f3d771fae066fcb637da492e7251a8e50
   - git: https://github.com/adjoint-io/poly.git

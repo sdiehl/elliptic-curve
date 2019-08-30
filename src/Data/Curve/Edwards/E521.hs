@@ -1,7 +1,7 @@
 module Data.Curve.Edwards.E521
   ( module Data.Curve.Edwards
+  -- * E521 curve
   , module Data.Curve.Edwards.E521
-  , Point(..)
   ) where
 
 import Protolude
@@ -10,6 +10,7 @@ import Data.Field.Galois
 import GHC.Natural (Natural)
 
 import Data.Curve.Edwards
+import Data.Curve.Edwards.Base (ECurve(..), EACurve(..), EPCurve(..))
 
 -------------------------------------------------------------------------------
 -- Types
@@ -24,7 +25,7 @@ type Fq = Prime 0x1fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 -- | Field of coefficients of E521 curve.
 type Fr = Prime 0x7ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd15b6c64746fc85f736b8af5e7ec53f04fbd8c4569a8f1f4540ea2435f5180d6b
 
--- | E521 curve is an Edwards curve.
+-- E521 curve is an Edwards curve.
 instance Curve 'Edwards c E521 Fq Fr => ECurve c E521 Fq Fr where
   a_ = const _a
   {-# INLINABLE a_ #-}
@@ -40,7 +41,7 @@ instance Curve 'Edwards c E521 Fq Fr => ECurve c E521 Fq Fr where
 -- | Affine E521 curve point.
 type PA = EAPoint E521 Fq Fr
 
--- | Affine E521 curve is an Edwards affine curve.
+-- Affine E521 curve is an Edwards affine curve.
 instance EACurve E521 Fq Fr where
   gA_ = gA
   {-# INLINABLE gA_ #-}
@@ -48,7 +49,7 @@ instance EACurve E521 Fq Fr where
 -- | Projective E521 point.
 type PP = EPPoint E521 Fq Fr
 
--- | Projective E521 curve is an Edwards projective curve.
+-- Projective E521 curve is an Edwards projective curve.
 instance EPCurve E521 Fq Fr where
   gP_ = gP
   {-# INLINABLE gP_ #-}

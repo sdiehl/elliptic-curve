@@ -131,6 +131,10 @@ library:
     - Data.Curve.Weierstrass.BrainpoolP512R1
     - Data.Curve.Weierstrass.BrainpoolP512T1
   other-modules:
+    - Data.Curve.Binary.Base
+    - Data.Curve.Edwards.Base
+    - Data.Curve.Montgomery.Base
+    - Data.Curve.Weierstrass.Base
     - Generate.Binary.Curve
     - Generate.Binary.Generate
     - Generate.Binary.Parameters

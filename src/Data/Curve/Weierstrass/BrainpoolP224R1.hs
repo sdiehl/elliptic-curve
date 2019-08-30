@@ -1,7 +1,7 @@
 module Data.Curve.Weierstrass.BrainpoolP224R1
   ( module Data.Curve.Weierstrass
+  -- * BrainpoolP224R1 curve
   , module Data.Curve.Weierstrass.BrainpoolP224R1
-  , Point(..)
   ) where
 
 import Protolude
@@ -10,6 +10,7 @@ import Data.Field.Galois
 import GHC.Natural (Natural)
 
 import Data.Curve.Weierstrass
+import Data.Curve.Weierstrass.Base (WCurve(..), WACurve(..), WJCurve(..), WPCurve(..))
 
 -------------------------------------------------------------------------------
 -- Types
@@ -24,7 +25,7 @@ type Fq = Prime 0xd7c134aa264366862a18302575d1d787b09f075797da89f57ec8c0ff
 -- | Field of coefficients of BrainpoolP224R1 curve.
 type Fr = Prime 0xd7c134aa264366862a18302575d0fb98d116bc4b6ddebca3a5a7939f
 
--- | BrainpoolP224R1 curve is a Weierstrass curve.
+-- BrainpoolP224R1 curve is a Weierstrass curve.
 instance Curve 'Weierstrass c BrainpoolP224R1 Fq Fr => WCurve c BrainpoolP224R1 Fq Fr where
   a_ = const _a
   {-# INLINABLE a_ #-}
@@ -40,7 +41,7 @@ instance Curve 'Weierstrass c BrainpoolP224R1 Fq Fr => WCurve c BrainpoolP224R1 
 -- | Affine BrainpoolP224R1 curve point.
 type PA = WAPoint BrainpoolP224R1 Fq Fr
 
--- | Affine BrainpoolP224R1 curve is a Weierstrass affine curve.
+-- Affine BrainpoolP224R1 curve is a Weierstrass affine curve.
 instance WACurve BrainpoolP224R1 Fq Fr where
   gA_ = gA
   {-# INLINABLE gA_ #-}
@@ -48,7 +49,7 @@ instance WACurve BrainpoolP224R1 Fq Fr where
 -- | Jacobian BrainpoolP224R1 point.
 type PJ = WJPoint BrainpoolP224R1 Fq Fr
 
--- | Jacobian BrainpoolP224R1 curve is a Weierstrass Jacobian curve.
+-- Jacobian BrainpoolP224R1 curve is a Weierstrass Jacobian curve.
 instance WJCurve BrainpoolP224R1 Fq Fr where
   gJ_ = gJ
   {-# INLINABLE gJ_ #-}
@@ -56,7 +57,7 @@ instance WJCurve BrainpoolP224R1 Fq Fr where
 -- | Projective BrainpoolP224R1 point.
 type PP = WPPoint BrainpoolP224R1 Fq Fr
 
--- | Projective BrainpoolP224R1 curve is a Weierstrass projective curve.
+-- Projective BrainpoolP224R1 curve is a Weierstrass projective curve.
 instance WPCurve BrainpoolP224R1 Fq Fr where
   gP_ = gP
   {-# INLINABLE gP_ #-}

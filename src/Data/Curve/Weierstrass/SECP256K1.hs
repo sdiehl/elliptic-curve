@@ -1,7 +1,7 @@
 module Data.Curve.Weierstrass.SECP256K1
   ( module Data.Curve.Weierstrass
+  -- * SECP256K1 curve
   , module Data.Curve.Weierstrass.SECP256K1
-  , Point(..)
   ) where
 
 import Protolude
@@ -10,6 +10,7 @@ import Data.Field.Galois
 import GHC.Natural (Natural)
 
 import Data.Curve.Weierstrass
+import Data.Curve.Weierstrass.Base (WCurve(..), WACurve(..), WJCurve(..), WPCurve(..))
 
 -------------------------------------------------------------------------------
 -- Types
@@ -24,7 +25,7 @@ type Fq = Prime 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc
 -- | Field of coefficients of SECP256K1 curve.
 type Fr = Prime 0xfffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141
 
--- | SECP256K1 curve is a Weierstrass curve.
+-- SECP256K1 curve is a Weierstrass curve.
 instance Curve 'Weierstrass c SECP256K1 Fq Fr => WCurve c SECP256K1 Fq Fr where
   a_ = const _a
   {-# INLINABLE a_ #-}
@@ -40,7 +41,7 @@ instance Curve 'Weierstrass c SECP256K1 Fq Fr => WCurve c SECP256K1 Fq Fr where
 -- | Affine SECP256K1 curve point.
 type PA = WAPoint SECP256K1 Fq Fr
 
--- | Affine SECP256K1 curve is a Weierstrass affine curve.
+-- Affine SECP256K1 curve is a Weierstrass affine curve.
 instance WACurve SECP256K1 Fq Fr where
   gA_ = gA
   {-# INLINABLE gA_ #-}
@@ -48,7 +49,7 @@ instance WACurve SECP256K1 Fq Fr where
 -- | Jacobian SECP256K1 point.
 type PJ = WJPoint SECP256K1 Fq Fr
 
--- | Jacobian SECP256K1 curve is a Weierstrass Jacobian curve.
+-- Jacobian SECP256K1 curve is a Weierstrass Jacobian curve.
 instance WJCurve SECP256K1 Fq Fr where
   gJ_ = gJ
   {-# INLINABLE gJ_ #-}
@@ -56,7 +57,7 @@ instance WJCurve SECP256K1 Fq Fr where
 -- | Projective SECP256K1 point.
 type PP = WPPoint SECP256K1 Fq Fr
 
--- | Projective SECP256K1 curve is a Weierstrass projective curve.
+-- Projective SECP256K1 curve is a Weierstrass projective curve.
 instance WPCurve SECP256K1 Fq Fr where
   gP_ = gP
   {-# INLINABLE gP_ #-}

@@ -1,7 +1,7 @@
 module Data.Curve.Weierstrass.BrainpoolP512T1
   ( module Data.Curve.Weierstrass
+  -- * BrainpoolP512T1 curve
   , module Data.Curve.Weierstrass.BrainpoolP512T1
-  , Point(..)
   ) where
 
 import Protolude
@@ -10,6 +10,7 @@ import Data.Field.Galois
 import GHC.Natural (Natural)
 
 import Data.Curve.Weierstrass
+import Data.Curve.Weierstrass.Base (WCurve(..), WACurve(..), WJCurve(..), WPCurve(..))
 
 -------------------------------------------------------------------------------
 -- Types
@@ -24,7 +25,7 @@ type Fq = Prime 0xaadd9db8dbe9c48b3fd4e6ae33c9fc07cb308db3b3c9d20ed6639cca703308
 -- | Field of coefficients of BrainpoolP512T1 curve.
 type Fr = Prime 0xaadd9db8dbe9c48b3fd4e6ae33c9fc07cb308db3b3c9d20ed6639cca70330870553e5c414ca92619418661197fac10471db1d381085ddaddb58796829ca90069
 
--- | BrainpoolP512T1 curve is a Weierstrass curve.
+-- BrainpoolP512T1 curve is a Weierstrass curve.
 instance Curve 'Weierstrass c BrainpoolP512T1 Fq Fr => WCurve c BrainpoolP512T1 Fq Fr where
   a_ = const _a
   {-# INLINABLE a_ #-}
@@ -40,7 +41,7 @@ instance Curve 'Weierstrass c BrainpoolP512T1 Fq Fr => WCurve c BrainpoolP512T1 
 -- | Affine BrainpoolP512T1 curve point.
 type PA = WAPoint BrainpoolP512T1 Fq Fr
 
--- | Affine BrainpoolP512T1 curve is a Weierstrass affine curve.
+-- Affine BrainpoolP512T1 curve is a Weierstrass affine curve.
 instance WACurve BrainpoolP512T1 Fq Fr where
   gA_ = gA
   {-# INLINABLE gA_ #-}
@@ -48,7 +49,7 @@ instance WACurve BrainpoolP512T1 Fq Fr where
 -- | Jacobian BrainpoolP512T1 point.
 type PJ = WJPoint BrainpoolP512T1 Fq Fr
 
--- | Jacobian BrainpoolP512T1 curve is a Weierstrass Jacobian curve.
+-- Jacobian BrainpoolP512T1 curve is a Weierstrass Jacobian curve.
 instance WJCurve BrainpoolP512T1 Fq Fr where
   gJ_ = gJ
   {-# INLINABLE gJ_ #-}
@@ -56,7 +57,7 @@ instance WJCurve BrainpoolP512T1 Fq Fr where
 -- | Projective BrainpoolP512T1 point.
 type PP = WPPoint BrainpoolP512T1 Fq Fr
 
--- | Projective BrainpoolP512T1 curve is a Weierstrass projective curve.
+-- Projective BrainpoolP512T1 curve is a Weierstrass projective curve.
 instance WPCurve BrainpoolP512T1 Fq Fr where
   gP_ = gP
   {-# INLINABLE gP_ #-}

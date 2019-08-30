@@ -1,7 +1,7 @@
 module Data.Curve.Montgomery.M383
   ( module Data.Curve.Montgomery
+  -- * M383 curve
   , module Data.Curve.Montgomery.M383
-  , Point(..)
   ) where
 
 import Protolude
@@ -10,6 +10,7 @@ import Data.Field.Galois
 import GHC.Natural (Natural)
 
 import Data.Curve.Montgomery
+import Data.Curve.Montgomery.Base (MCurve(..), MACurve(..))
 
 -------------------------------------------------------------------------------
 -- Types
@@ -24,7 +25,7 @@ type Fq = Prime 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 -- | Field of coefficients of M383 curve.
 type Fr = Prime 0x10000000000000000000000000000000000000000000000006c79673ac36ba6e7a32576f7b1b249e46bbc225be9071d7
 
--- | M383 curve is a Montgomery curve.
+-- M383 curve is a Montgomery curve.
 instance Curve 'Montgomery c M383 Fq Fr => MCurve c M383 Fq Fr where
   a_ = const _a
   {-# INLINABLE a_ #-}
@@ -40,7 +41,7 @@ instance Curve 'Montgomery c M383 Fq Fr => MCurve c M383 Fq Fr where
 -- | Affine M383 curve point.
 type PA = MAPoint M383 Fq Fr
 
--- | Affine M383 curve is a Montgomery affine curve.
+-- Affine M383 curve is a Montgomery affine curve.
 instance MACurve M383 Fq Fr where
   gA_ = gA
   {-# INLINABLE gA_ #-}

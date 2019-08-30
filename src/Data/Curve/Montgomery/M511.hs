@@ -1,7 +1,7 @@
 module Data.Curve.Montgomery.M511
   ( module Data.Curve.Montgomery
+  -- * M511 curve
   , module Data.Curve.Montgomery.M511
-  , Point(..)
   ) where
 
 import Protolude
@@ -10,6 +10,7 @@ import Data.Field.Galois
 import GHC.Natural (Natural)
 
 import Data.Curve.Montgomery
+import Data.Curve.Montgomery.Base (MCurve(..), MACurve(..))
 
 -------------------------------------------------------------------------------
 -- Types
@@ -24,7 +25,7 @@ type Fq = Prime 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 -- | Field of coefficients of M511 curve.
 type Fr = Prime 0x100000000000000000000000000000000000000000000000000000000000000017b5feff30c7f5677ab2aeebd13779a2ac125042a6aa10bfa54c15bab76baf1b
 
--- | M511 curve is a Montgomery curve.
+-- M511 curve is a Montgomery curve.
 instance Curve 'Montgomery c M511 Fq Fr => MCurve c M511 Fq Fr where
   a_ = const _a
   {-# INLINABLE a_ #-}
@@ -40,7 +41,7 @@ instance Curve 'Montgomery c M511 Fq Fr => MCurve c M511 Fq Fr where
 -- | Affine M511 curve point.
 type PA = MAPoint M511 Fq Fr
 
--- | Affine M511 curve is a Montgomery affine curve.
+-- Affine M511 curve is a Montgomery affine curve.
 instance MACurve M511 Fq Fr where
   gA_ = gA
   {-# INLINABLE gA_ #-}

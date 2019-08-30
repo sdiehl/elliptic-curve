@@ -19,14 +19,15 @@ prettyImports Types{..}
   =    "module Data.Curve.Edwards." <> pretty curve
   <$$> indent 2
     (    "( module Data.Curve.Edwards"
+    <$$> "-- *" <+> pretty curve <+> "curve"
     <$$> ", module Data.Curve.Edwards." <> pretty curve
-    <$$> ", Point(..)"
     <$$> ") where"
     )
   <>   prettyBreak
   <$$> prettyImport
   <>   prettyBreak
   <$$> "import Data.Curve.Edwards"
+  <$$> "import Data.Curve.Edwards.Base (ECurve(..), EACurve(..), EPCurve(..))"
   <$$> maybe mempty pretty imports
 
 prettyTypes :: Types -> Doc
@@ -41,7 +42,7 @@ prettyTypes Types{..}
   <$$> prettyDocumentation ("Field of coefficients of" <+> curve')
   <$$> prettyType field'
   <>   prettyBreak
-  <$$> prettyDocumentation (curve' <+> "is an Edwards curve")
+  <$$> prettyComment (curve' <+> "is an Edwards curve")
   <$$> "instance Curve 'Edwards c" <+> pretty curve <+> prettyField field
   <+>  "Fr => ECurve c" <+> pretty curve <+> prettyField field <+> "Fr where"
   <$$> indent 2
@@ -60,7 +61,7 @@ prettyTypes Types{..}
   <$$> prettyDocumentation ("Affine" <+> curve' <+> "point")
   <$$> "type PA = EAPoint" <+> pretty curve <+> prettyField field <+> "Fr"
   <>   prettyBreak
-  <$$> prettyDocumentation ("Affine" <+> curve' <+> "is an Edwards affine curve")
+  <$$> prettyComment ("Affine" <+> curve' <+> "is an Edwards affine curve")
   <$$> "instance EACurve" <+> pretty curve <+> prettyField field <+> "Fr where"
   <$$> indent 2
     (    "gA_ = gA"
@@ -70,7 +71,7 @@ prettyTypes Types{..}
   <$$> prettyDocumentation ("Projective" <+> pretty curve <+> "point")
   <$$> "type PP = EPPoint" <+> pretty curve <+> prettyField field <+> "Fr"
   <>   prettyBreak
-  <$$> prettyDocumentation ("Projective" <+> curve' <+> "is an Edwards projective curve")
+  <$$> prettyComment ("Projective" <+> curve' <+> "is an Edwards projective curve")
   <$$> "instance EPCurve" <+> pretty curve <+> prettyField field <+> "Fr where"
   <$$> indent 2
     (    "gP_ = gP"

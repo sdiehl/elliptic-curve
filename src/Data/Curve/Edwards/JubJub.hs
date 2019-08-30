@@ -1,7 +1,7 @@
 module Data.Curve.Edwards.JubJub
   ( module Data.Curve.Edwards
+  -- * JubJub curve
   , module Data.Curve.Edwards.JubJub
-  , Point(..)
   ) where
 
 import Protolude
@@ -10,6 +10,7 @@ import Data.Field.Galois
 import GHC.Natural (Natural)
 
 import Data.Curve.Edwards
+import Data.Curve.Edwards.Base (ECurve(..), EACurve(..), EPCurve(..))
 
 -------------------------------------------------------------------------------
 -- Types
@@ -24,7 +25,7 @@ type Fq = Prime 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff000000
 -- | Field of coefficients of JubJub curve.
 type Fr = Prime 0xe7db4ea6533afa906673b0101343b00a6682093ccc81082d0970e5ed6f72cb7
 
--- | JubJub curve is an Edwards curve.
+-- JubJub curve is an Edwards curve.
 instance Curve 'Edwards c JubJub Fq Fr => ECurve c JubJub Fq Fr where
   a_ = const _a
   {-# INLINABLE a_ #-}
@@ -40,7 +41,7 @@ instance Curve 'Edwards c JubJub Fq Fr => ECurve c JubJub Fq Fr where
 -- | Affine JubJub curve point.
 type PA = EAPoint JubJub Fq Fr
 
--- | Affine JubJub curve is an Edwards affine curve.
+-- Affine JubJub curve is an Edwards affine curve.
 instance EACurve JubJub Fq Fr where
   gA_ = gA
   {-# INLINABLE gA_ #-}
@@ -48,7 +49,7 @@ instance EACurve JubJub Fq Fr where
 -- | Projective JubJub point.
 type PP = EPPoint JubJub Fq Fr
 
--- | Projective JubJub curve is an Edwards projective curve.
+-- Projective JubJub curve is an Edwards projective curve.
 instance EPCurve JubJub Fq Fr where
   gP_ = gP
   {-# INLINABLE gP_ #-}

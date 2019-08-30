@@ -1,7 +1,7 @@
 module Data.Curve.Edwards.Curve41417
   ( module Data.Curve.Edwards
+  -- * Curve41417 curve
   , module Data.Curve.Edwards.Curve41417
-  , Point(..)
   ) where
 
 import Protolude
@@ -10,6 +10,7 @@ import Data.Field.Galois
 import GHC.Natural (Natural)
 
 import Data.Curve.Edwards
+import Data.Curve.Edwards.Base (ECurve(..), EACurve(..), EPCurve(..))
 
 -------------------------------------------------------------------------------
 -- Types
@@ -24,7 +25,7 @@ type Fq = Prime 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 -- | Field of coefficients of Curve41417 curve.
 type Fr = Prime 0x7ffffffffffffffffffffffffffffffffffffffffffffffffffeb3cc92414cf706022b36f1c0338ad63cf181b0e71a5e106af79
 
--- | Curve41417 curve is an Edwards curve.
+-- Curve41417 curve is an Edwards curve.
 instance Curve 'Edwards c Curve41417 Fq Fr => ECurve c Curve41417 Fq Fr where
   a_ = const _a
   {-# INLINABLE a_ #-}
@@ -40,7 +41,7 @@ instance Curve 'Edwards c Curve41417 Fq Fr => ECurve c Curve41417 Fq Fr where
 -- | Affine Curve41417 curve point.
 type PA = EAPoint Curve41417 Fq Fr
 
--- | Affine Curve41417 curve is an Edwards affine curve.
+-- Affine Curve41417 curve is an Edwards affine curve.
 instance EACurve Curve41417 Fq Fr where
   gA_ = gA
   {-# INLINABLE gA_ #-}
@@ -48,7 +49,7 @@ instance EACurve Curve41417 Fq Fr where
 -- | Projective Curve41417 point.
 type PP = EPPoint Curve41417 Fq Fr
 
--- | Projective Curve41417 curve is an Edwards projective curve.
+-- Projective Curve41417 curve is an Edwards projective curve.
 instance EPCurve Curve41417 Fq Fr where
   gP_ = gP
   {-# INLINABLE gP_ #-}

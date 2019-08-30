@@ -1,7 +1,7 @@
 module Data.Curve.Montgomery.Curve448
   ( module Data.Curve.Montgomery
+  -- * Curve448 curve
   , module Data.Curve.Montgomery.Curve448
-  , Point(..)
   ) where
 
 import Protolude
@@ -10,6 +10,7 @@ import Data.Field.Galois
 import GHC.Natural (Natural)
 
 import Data.Curve.Montgomery
+import Data.Curve.Montgomery.Base (MCurve(..), MACurve(..))
 
 -------------------------------------------------------------------------------
 -- Types
@@ -24,7 +25,7 @@ type Fq = Prime 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffff
 -- | Field of coefficients of Curve448 curve.
 type Fr = Prime 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffff7cca23e9c44edb49aed63690216cc2728dc58f552378c292ab5844f3
 
--- | Curve448 curve is a Montgomery curve.
+-- Curve448 curve is a Montgomery curve.
 instance Curve 'Montgomery c Curve448 Fq Fr => MCurve c Curve448 Fq Fr where
   a_ = const _a
   {-# INLINABLE a_ #-}
@@ -40,7 +41,7 @@ instance Curve 'Montgomery c Curve448 Fq Fr => MCurve c Curve448 Fq Fr where
 -- | Affine Curve448 curve point.
 type PA = MAPoint Curve448 Fq Fr
 
--- | Affine Curve448 curve is a Montgomery affine curve.
+-- Affine Curve448 curve is a Montgomery affine curve.
 instance MACurve Curve448 Fq Fr where
   gA_ = gA
   {-# INLINABLE gA_ #-}

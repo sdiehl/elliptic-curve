@@ -1,7 +1,7 @@
 module Data.Curve.Weierstrass.BrainpoolP256T1
   ( module Data.Curve.Weierstrass
+  -- * BrainpoolP256T1 curve
   , module Data.Curve.Weierstrass.BrainpoolP256T1
-  , Point(..)
   ) where
 
 import Protolude
@@ -10,6 +10,7 @@ import Data.Field.Galois
 import GHC.Natural (Natural)
 
 import Data.Curve.Weierstrass
+import Data.Curve.Weierstrass.Base (WCurve(..), WACurve(..), WJCurve(..), WPCurve(..))
 
 -------------------------------------------------------------------------------
 -- Types
@@ -24,7 +25,7 @@ type Fq = Prime 0xa9fb57dba1eea9bc3e660a909d838d726e3bf623d52620282013481d1f6e53
 -- | Field of coefficients of BrainpoolP256T1 curve.
 type Fr = Prime 0xa9fb57dba1eea9bc3e660a909d838d718c397aa3b561a6f7901e0e82974856a7
 
--- | BrainpoolP256T1 curve is a Weierstrass curve.
+-- BrainpoolP256T1 curve is a Weierstrass curve.
 instance Curve 'Weierstrass c BrainpoolP256T1 Fq Fr => WCurve c BrainpoolP256T1 Fq Fr where
   a_ = const _a
   {-# INLINABLE a_ #-}
@@ -40,7 +41,7 @@ instance Curve 'Weierstrass c BrainpoolP256T1 Fq Fr => WCurve c BrainpoolP256T1 
 -- | Affine BrainpoolP256T1 curve point.
 type PA = WAPoint BrainpoolP256T1 Fq Fr
 
--- | Affine BrainpoolP256T1 curve is a Weierstrass affine curve.
+-- Affine BrainpoolP256T1 curve is a Weierstrass affine curve.
 instance WACurve BrainpoolP256T1 Fq Fr where
   gA_ = gA
   {-# INLINABLE gA_ #-}
@@ -48,7 +49,7 @@ instance WACurve BrainpoolP256T1 Fq Fr where
 -- | Jacobian BrainpoolP256T1 point.
 type PJ = WJPoint BrainpoolP256T1 Fq Fr
 
--- | Jacobian BrainpoolP256T1 curve is a Weierstrass Jacobian curve.
+-- Jacobian BrainpoolP256T1 curve is a Weierstrass Jacobian curve.
 instance WJCurve BrainpoolP256T1 Fq Fr where
   gJ_ = gJ
   {-# INLINABLE gJ_ #-}
@@ -56,7 +57,7 @@ instance WJCurve BrainpoolP256T1 Fq Fr where
 -- | Projective BrainpoolP256T1 point.
 type PP = WPPoint BrainpoolP256T1 Fq Fr
 
--- | Projective BrainpoolP256T1 curve is a Weierstrass projective curve.
+-- Projective BrainpoolP256T1 curve is a Weierstrass projective curve.
 instance WPCurve BrainpoolP256T1 Fq Fr where
   gP_ = gP
   {-# INLINABLE gP_ #-}

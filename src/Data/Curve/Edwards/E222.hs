@@ -1,7 +1,7 @@
 module Data.Curve.Edwards.E222
   ( module Data.Curve.Edwards
+  -- * E222 curve
   , module Data.Curve.Edwards.E222
-  , Point(..)
   ) where
 
 import Protolude
@@ -10,6 +10,7 @@ import Data.Field.Galois
 import GHC.Natural (Natural)
 
 import Data.Curve.Edwards
+import Data.Curve.Edwards.Base (ECurve(..), EACurve(..), EPCurve(..))
 
 -------------------------------------------------------------------------------
 -- Types
@@ -24,7 +25,7 @@ type Fq = Prime 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffff8b
 -- | Field of coefficients of E222 curve.
 type Fr = Prime 0xffffffffffffffffffffffffffff70cbc95e932f802f31423598cbf
 
--- | E222 curve is an Edwards curve.
+-- E222 curve is an Edwards curve.
 instance Curve 'Edwards c E222 Fq Fr => ECurve c E222 Fq Fr where
   a_ = const _a
   {-# INLINABLE a_ #-}
@@ -40,7 +41,7 @@ instance Curve 'Edwards c E222 Fq Fr => ECurve c E222 Fq Fr where
 -- | Affine E222 curve point.
 type PA = EAPoint E222 Fq Fr
 
--- | Affine E222 curve is an Edwards affine curve.
+-- Affine E222 curve is an Edwards affine curve.
 instance EACurve E222 Fq Fr where
   gA_ = gA
   {-# INLINABLE gA_ #-}
@@ -48,7 +49,7 @@ instance EACurve E222 Fq Fr where
 -- | Projective E222 point.
 type PP = EPPoint E222 Fq Fr
 
--- | Projective E222 curve is an Edwards projective curve.
+-- Projective E222 curve is an Edwards projective curve.
 instance EPCurve E222 Fq Fr where
   gP_ = gP
   {-# INLINABLE gP_ #-}

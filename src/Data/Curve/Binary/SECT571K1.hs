@@ -1,7 +1,7 @@
 module Data.Curve.Binary.SECT571K1
   ( module Data.Curve.Binary
+  -- * SECT571K1 curve
   , module Data.Curve.Binary.SECT571K1
-  , Point(..)
   ) where
 
 import Protolude
@@ -10,6 +10,7 @@ import Data.Field.Galois
 import GHC.Natural (Natural)
 
 import Data.Curve.Binary
+import Data.Curve.Binary.Base (BCurve(..), BACurve(..), BPCurve(..))
 
 -------------------------------------------------------------------------------
 -- Types
@@ -24,7 +25,7 @@ type F2m = Binary 0x800000000000000000000000000000000000000000000000000000000000
 -- | Field of coefficients of SECT571K1 curve.
 type Fr = Prime 0x20000000000000000000000000000000000000000000000000000000000000000000000131850e1f19a63e4b391a8db917f4138b630d84be5d639381e91deb45cfe778f637c1001
 
--- | SECT571K1 curve is a binary curve.
+-- SECT571K1 curve is a binary curve.
 instance Curve 'Binary c SECT571K1 F2m Fr => BCurve c SECT571K1 F2m Fr where
   a_ = const _a
   {-# INLINABLE a_ #-}
@@ -40,7 +41,7 @@ instance Curve 'Binary c SECT571K1 F2m Fr => BCurve c SECT571K1 F2m Fr where
 -- | Affine SECT571K1 curve point.
 type PA = BAPoint SECT571K1 F2m Fr
 
--- | Affine SECT571K1 curve is a binary affine curve.
+-- Affine SECT571K1 curve is a binary affine curve.
 instance BACurve SECT571K1 F2m Fr where
   gA_ = gA
   {-# INLINABLE gA_ #-}
@@ -48,7 +49,7 @@ instance BACurve SECT571K1 F2m Fr where
 -- | Projective SECT571K1 point.
 type PP = BPPoint SECT571K1 F2m Fr
 
--- | Projective SECT571K1 curve is a binary projective curve.
+-- Projective SECT571K1 curve is a binary projective curve.
 instance BPCurve SECT571K1 F2m Fr where
   gP_ = gP
   {-# INLINABLE gP_ #-}

@@ -19,14 +19,15 @@ prettyImports Types{..}
   =    "module Data.Curve.Binary." <> pretty curve
   <$$> indent 2
     (    "( module Data.Curve.Binary"
+    <$$> "-- *" <+> pretty curve <+> "curve"
     <$$> ", module Data.Curve.Binary." <> pretty curve
-    <$$> ", Point(..)"
     <$$> ") where"
     )
   <>   prettyBreak
   <$$> prettyImport
   <>   prettyBreak
   <$$> "import Data.Curve.Binary"
+  <$$> "import Data.Curve.Binary.Base (BCurve(..), BACurve(..), BPCurve(..))"
   <$$> maybe mempty pretty imports
 
 prettyTypes :: Types -> Doc
@@ -41,7 +42,7 @@ prettyTypes Types{..}
   <$$> prettyDocumentation ("Field of coefficients of" <+> curve')
   <$$> prettyType field'
   <>   prettyBreak
-  <$$> prettyDocumentation (curve' <+> "is a binary curve")
+  <$$> prettyComment (curve' <+> "is a binary curve")
   <$$> "instance Curve 'Binary c" <+> pretty curve <+> prettyField field
   <+>  "Fr => BCurve c" <+> pretty curve <+> prettyField field <+> "Fr where"
   <$$> indent 2
@@ -60,7 +61,7 @@ prettyTypes Types{..}
   <$$> prettyDocumentation ("Affine" <+> curve' <+> "point")
   <$$> "type PA = BAPoint" <+> pretty curve <+> prettyField field <+> "Fr"
   <>   prettyBreak
-  <$$> prettyDocumentation ("Affine" <+> curve' <+> "is a binary affine curve")
+  <$$> prettyComment ("Affine" <+> curve' <+> "is a binary affine curve")
   <$$> "instance BACurve" <+> pretty curve <+> prettyField field <+> "Fr where"
   <$$> indent 2
     (    "gA_ = gA"
@@ -70,7 +71,7 @@ prettyTypes Types{..}
   <$$> prettyDocumentation ("Projective" <+> pretty curve <+> "point")
   <$$> "type PP = BPPoint" <+> pretty curve <+> prettyField field <+> "Fr"
   <>   prettyBreak
-  <$$> prettyDocumentation ("Projective" <+> curve' <+> "is a binary projective curve")
+  <$$> prettyComment ("Projective" <+> curve' <+> "is a binary projective curve")
   <$$> "instance BPCurve" <+> pretty curve <+> prettyField field <+> "Fr where"
   <$$> indent 2
     (    "gP_ = gP"

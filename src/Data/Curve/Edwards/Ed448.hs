@@ -1,7 +1,7 @@
 module Data.Curve.Edwards.Ed448
   ( module Data.Curve.Edwards
+  -- * Ed448 curve
   , module Data.Curve.Edwards.Ed448
-  , Point(..)
   ) where
 
 import Protolude
@@ -10,6 +10,7 @@ import Data.Field.Galois
 import GHC.Natural (Natural)
 
 import Data.Curve.Edwards
+import Data.Curve.Edwards.Base (ECurve(..), EACurve(..), EPCurve(..))
 
 -------------------------------------------------------------------------------
 -- Types
@@ -24,7 +25,7 @@ type Fq = Prime 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffff
 -- | Field of coefficients of Ed448 curve.
 type Fr = Prime 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffff7cca23e9c44edb49aed63690216cc2728dc58f552378c292ab5844f3
 
--- | Ed448 curve is an Edwards curve.
+-- Ed448 curve is an Edwards curve.
 instance Curve 'Edwards c Ed448 Fq Fr => ECurve c Ed448 Fq Fr where
   a_ = const _a
   {-# INLINABLE a_ #-}
@@ -40,7 +41,7 @@ instance Curve 'Edwards c Ed448 Fq Fr => ECurve c Ed448 Fq Fr where
 -- | Affine Ed448 curve point.
 type PA = EAPoint Ed448 Fq Fr
 
--- | Affine Ed448 curve is an Edwards affine curve.
+-- Affine Ed448 curve is an Edwards affine curve.
 instance EACurve Ed448 Fq Fr where
   gA_ = gA
   {-# INLINABLE gA_ #-}
@@ -48,7 +49,7 @@ instance EACurve Ed448 Fq Fr where
 -- | Projective Ed448 point.
 type PP = EPPoint Ed448 Fq Fr
 
--- | Projective Ed448 curve is an Edwards projective curve.
+-- Projective Ed448 curve is an Edwards projective curve.
 instance EPCurve Ed448 Fq Fr where
   gP_ = gP
   {-# INLINABLE gP_ #-}

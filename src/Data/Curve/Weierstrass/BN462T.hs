@@ -1,7 +1,7 @@
 module Data.Curve.Weierstrass.BN462T
   ( module Data.Curve.Weierstrass
+  -- * BN462T curve
   , module Data.Curve.Weierstrass.BN462T
-  , Point(..)
   ) where
 
 import Protolude
@@ -10,6 +10,7 @@ import Data.Field.Galois
 import GHC.Natural (Natural)
 
 import Data.Curve.Weierstrass
+import Data.Curve.Weierstrass.Base (WCurve(..), WACurve(..), WJCurve(..), WPCurve(..))
 import Data.Curve.Weierstrass.BN462 (Fq)
 
 -------------------------------------------------------------------------------
@@ -29,7 +30,7 @@ type Fq2 = Extension Fq PolynomialU
 -- | Field of coefficients of BN462T curve.
 type Fr = Prime 0x240480360120023ffffffffff6ff0cf6b7d9bfca0000000000d812908ee1c201f7fffffffff6ff66fc7bf717f7c0000000002401b007e010800d
 
--- | BN462T curve is a Weierstrass curve.
+-- BN462T curve is a Weierstrass curve.
 instance Curve 'Weierstrass c BN462T Fq2 Fr => WCurve c BN462T Fq2 Fr where
   a_ = const _a
   {-# INLINABLE a_ #-}
@@ -45,7 +46,7 @@ instance Curve 'Weierstrass c BN462T Fq2 Fr => WCurve c BN462T Fq2 Fr where
 -- | Affine BN462T curve point.
 type PA = WAPoint BN462T Fq2 Fr
 
--- | Affine BN462T curve is a Weierstrass affine curve.
+-- Affine BN462T curve is a Weierstrass affine curve.
 instance WACurve BN462T Fq2 Fr where
   gA_ = gA
   {-# INLINABLE gA_ #-}
@@ -53,7 +54,7 @@ instance WACurve BN462T Fq2 Fr where
 -- | Jacobian BN462T point.
 type PJ = WJPoint BN462T Fq2 Fr
 
--- | Jacobian BN462T curve is a Weierstrass Jacobian curve.
+-- Jacobian BN462T curve is a Weierstrass Jacobian curve.
 instance WJCurve BN462T Fq2 Fr where
   gJ_ = gJ
   {-# INLINABLE gJ_ #-}
@@ -61,7 +62,7 @@ instance WJCurve BN462T Fq2 Fr where
 -- | Projective BN462T point.
 type PP = WPPoint BN462T Fq2 Fr
 
--- | Projective BN462T curve is a Weierstrass projective curve.
+-- Projective BN462T curve is a Weierstrass projective curve.
 instance WPCurve BN462T Fq2 Fr where
   gP_ = gP
   {-# INLINABLE gP_ #-}

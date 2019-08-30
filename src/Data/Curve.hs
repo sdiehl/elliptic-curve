@@ -1,7 +1,11 @@
 module Data.Curve
-  ( Coordinates(..)
-  , Curve(..)
+  (
+  -- * Elliptic curves
+    Curve(..)
+  -- ** Elliptic curve forms
   , Form(..)
+  -- ** Elliptic curve coordinates
+  , Coordinates(..)
   ) where
 
 import Protolude
@@ -25,6 +29,9 @@ class (GaloisField q, PrimeField r, Arbitrary (Point f c e q r),
   {-# MINIMAL add, char, cof, dbl, def, disc, fromA, gen,
               id, inv, order, point, pointX, toA, yX #-}
 
+  -- | Curve point.
+  data family Point f c e q r :: *
+
   -- Parameters
 
   -- | Curve characteristic.
@@ -41,27 +48,6 @@ class (GaloisField q, PrimeField r, Arbitrary (Point f c e q r),
 
   -- | Curve order.
   order :: Point f c e q r -> Natural
-
-  -- Points
-
-  -- | Curve point.
-  data family Point f c e q r :: *
-
-  -- | Curve generator.
-  gen :: Point f c e q r
-
-  -- | Get point from X and Y coordinates.
-  point :: q -> q -> Maybe (Point f c e q r)
-
-  -- | Get point from X coordinate.
-  pointX :: q -> Maybe (Point f c e q r)
-
-  -- | Random point.
-  rnd :: MonadRandom m => m (Point f c e q r)
-  rnd = getRandom
-
-  -- | Get Y coordinate from X coordinate.
-  yX :: Point f c e q r -> q -> Maybe q
 
   -- Operations
 
@@ -93,6 +79,24 @@ class (GaloisField q, PrimeField r, Arbitrary (Point f c e q r),
     where
       p' = mul' (dbl p) (div n 2)
   {-# INLINABLE mul' #-}
+
+  -- Points
+
+  -- | Curve generator.
+  gen :: Point f c e q r
+
+  -- | Get point from X and Y coordinates.
+  point :: q -> q -> Maybe (Point f c e q r)
+
+  -- | Get point from X coordinate.
+  pointX :: q -> Maybe (Point f c e q r)
+
+  -- | Random point.
+  rnd :: MonadRandom m => m (Point f c e q r)
+  rnd = getRandom
+
+  -- | Get Y coordinate from X coordinate.
+  yX :: Point f c e q r -> q -> Maybe q
 
   -- Transformations
 

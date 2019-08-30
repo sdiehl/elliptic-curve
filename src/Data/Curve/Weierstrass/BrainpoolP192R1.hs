@@ -1,7 +1,7 @@
 module Data.Curve.Weierstrass.BrainpoolP192R1
   ( module Data.Curve.Weierstrass
+  -- * BrainpoolP192R1 curve
   , module Data.Curve.Weierstrass.BrainpoolP192R1
-  , Point(..)
   ) where
 
 import Protolude
@@ -10,6 +10,7 @@ import Data.Field.Galois
 import GHC.Natural (Natural)
 
 import Data.Curve.Weierstrass
+import Data.Curve.Weierstrass.Base (WCurve(..), WACurve(..), WJCurve(..), WPCurve(..))
 
 -------------------------------------------------------------------------------
 -- Types
@@ -24,7 +25,7 @@ type Fq = Prime 0xc302f41d932a36cda7a3463093d18db78fce476de1a86297
 -- | Field of coefficients of BrainpoolP192R1 curve.
 type Fr = Prime 0xc302f41d932a36cda7a3462f9e9e916b5be8f1029ac4acc1
 
--- | BrainpoolP192R1 curve is a Weierstrass curve.
+-- BrainpoolP192R1 curve is a Weierstrass curve.
 instance Curve 'Weierstrass c BrainpoolP192R1 Fq Fr => WCurve c BrainpoolP192R1 Fq Fr where
   a_ = const _a
   {-# INLINABLE a_ #-}
@@ -40,7 +41,7 @@ instance Curve 'Weierstrass c BrainpoolP192R1 Fq Fr => WCurve c BrainpoolP192R1 
 -- | Affine BrainpoolP192R1 curve point.
 type PA = WAPoint BrainpoolP192R1 Fq Fr
 
--- | Affine BrainpoolP192R1 curve is a Weierstrass affine curve.
+-- Affine BrainpoolP192R1 curve is a Weierstrass affine curve.
 instance WACurve BrainpoolP192R1 Fq Fr where
   gA_ = gA
   {-# INLINABLE gA_ #-}
@@ -48,7 +49,7 @@ instance WACurve BrainpoolP192R1 Fq Fr where
 -- | Jacobian BrainpoolP192R1 point.
 type PJ = WJPoint BrainpoolP192R1 Fq Fr
 
--- | Jacobian BrainpoolP192R1 curve is a Weierstrass Jacobian curve.
+-- Jacobian BrainpoolP192R1 curve is a Weierstrass Jacobian curve.
 instance WJCurve BrainpoolP192R1 Fq Fr where
   gJ_ = gJ
   {-# INLINABLE gJ_ #-}
@@ -56,7 +57,7 @@ instance WJCurve BrainpoolP192R1 Fq Fr where
 -- | Projective BrainpoolP192R1 point.
 type PP = WPPoint BrainpoolP192R1 Fq Fr
 
--- | Projective BrainpoolP192R1 curve is a Weierstrass projective curve.
+-- Projective BrainpoolP192R1 curve is a Weierstrass projective curve.
 instance WPCurve BrainpoolP192R1 Fq Fr where
   gP_ = gP
   {-# INLINABLE gP_ #-}

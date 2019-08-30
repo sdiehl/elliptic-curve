@@ -1,7 +1,7 @@
 module Data.Curve.Weierstrass.BN384
   ( module Data.Curve.Weierstrass
+  -- * BN384 curve
   , module Data.Curve.Weierstrass.BN384
-  , Point(..)
   ) where
 
 import Protolude
@@ -10,6 +10,7 @@ import Data.Field.Galois
 import GHC.Natural (Natural)
 
 import Data.Curve.Weierstrass
+import Data.Curve.Weierstrass.Base (WCurve(..), WACurve(..), WJCurve(..), WPCurve(..))
 
 -------------------------------------------------------------------------------
 -- Types
@@ -24,7 +25,7 @@ type Fq = Prime 0xfffffffffffffffffff2a96823d5920d2a127e3f6fbca024c8fbe29531892c
 -- | Field of coefficients of BN384 curve.
 type Fr = Prime 0xfffffffffffffffffff2a96823d5920d2a127e3f6fbca023c8fbe29531892c795356487d8ac63e4f4db17384341a5775
 
--- | BN384 curve is a Weierstrass curve.
+-- BN384 curve is a Weierstrass curve.
 instance Curve 'Weierstrass c BN384 Fq Fr => WCurve c BN384 Fq Fr where
   a_ = const _a
   {-# INLINABLE a_ #-}
@@ -40,7 +41,7 @@ instance Curve 'Weierstrass c BN384 Fq Fr => WCurve c BN384 Fq Fr where
 -- | Affine BN384 curve point.
 type PA = WAPoint BN384 Fq Fr
 
--- | Affine BN384 curve is a Weierstrass affine curve.
+-- Affine BN384 curve is a Weierstrass affine curve.
 instance WACurve BN384 Fq Fr where
   gA_ = gA
   {-# INLINABLE gA_ #-}
@@ -48,7 +49,7 @@ instance WACurve BN384 Fq Fr where
 -- | Jacobian BN384 point.
 type PJ = WJPoint BN384 Fq Fr
 
--- | Jacobian BN384 curve is a Weierstrass Jacobian curve.
+-- Jacobian BN384 curve is a Weierstrass Jacobian curve.
 instance WJCurve BN384 Fq Fr where
   gJ_ = gJ
   {-# INLINABLE gJ_ #-}
@@ -56,7 +57,7 @@ instance WJCurve BN384 Fq Fr where
 -- | Projective BN384 point.
 type PP = WPPoint BN384 Fq Fr
 
--- | Projective BN384 curve is a Weierstrass projective curve.
+-- Projective BN384 curve is a Weierstrass projective curve.
 instance WPCurve BN384 Fq Fr where
   gP_ = gP
   {-# INLINABLE gP_ #-}

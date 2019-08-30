@@ -1,7 +1,7 @@
 module Data.Curve.Weierstrass.BrainpoolP384T1
   ( module Data.Curve.Weierstrass
+  -- * BrainpoolP384T1 curve
   , module Data.Curve.Weierstrass.BrainpoolP384T1
-  , Point(..)
   ) where
 
 import Protolude
@@ -10,6 +10,7 @@ import Data.Field.Galois
 import GHC.Natural (Natural)
 
 import Data.Curve.Weierstrass
+import Data.Curve.Weierstrass.Base (WCurve(..), WACurve(..), WJCurve(..), WPCurve(..))
 
 -------------------------------------------------------------------------------
 -- Types
@@ -24,7 +25,7 @@ type Fq = Prime 0x8cb91e82a3386d280f5d6f7e50e641df152f7109ed5456b412b1da197fb711
 -- | Field of coefficients of BrainpoolP384T1 curve.
 type Fr = Prime 0x8cb91e82a3386d280f5d6f7e50e641df152f7109ed5456b31f166e6cac0425a7cf3ab6af6b7fc3103b883202e9046565
 
--- | BrainpoolP384T1 curve is a Weierstrass curve.
+-- BrainpoolP384T1 curve is a Weierstrass curve.
 instance Curve 'Weierstrass c BrainpoolP384T1 Fq Fr => WCurve c BrainpoolP384T1 Fq Fr where
   a_ = const _a
   {-# INLINABLE a_ #-}
@@ -40,7 +41,7 @@ instance Curve 'Weierstrass c BrainpoolP384T1 Fq Fr => WCurve c BrainpoolP384T1 
 -- | Affine BrainpoolP384T1 curve point.
 type PA = WAPoint BrainpoolP384T1 Fq Fr
 
--- | Affine BrainpoolP384T1 curve is a Weierstrass affine curve.
+-- Affine BrainpoolP384T1 curve is a Weierstrass affine curve.
 instance WACurve BrainpoolP384T1 Fq Fr where
   gA_ = gA
   {-# INLINABLE gA_ #-}
@@ -48,7 +49,7 @@ instance WACurve BrainpoolP384T1 Fq Fr where
 -- | Jacobian BrainpoolP384T1 point.
 type PJ = WJPoint BrainpoolP384T1 Fq Fr
 
--- | Jacobian BrainpoolP384T1 curve is a Weierstrass Jacobian curve.
+-- Jacobian BrainpoolP384T1 curve is a Weierstrass Jacobian curve.
 instance WJCurve BrainpoolP384T1 Fq Fr where
   gJ_ = gJ
   {-# INLINABLE gJ_ #-}
@@ -56,7 +57,7 @@ instance WJCurve BrainpoolP384T1 Fq Fr where
 -- | Projective BrainpoolP384T1 point.
 type PP = WPPoint BrainpoolP384T1 Fq Fr
 
--- | Projective BrainpoolP384T1 curve is a Weierstrass projective curve.
+-- Projective BrainpoolP384T1 curve is a Weierstrass projective curve.
 instance WPCurve BrainpoolP384T1 Fq Fr where
   gP_ = gP
   {-# INLINABLE gP_ #-}
