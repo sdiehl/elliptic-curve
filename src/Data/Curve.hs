@@ -11,7 +11,7 @@ module Data.Curve
 import Protolude
 
 import Control.Monad.Random (MonadRandom, Random(..), getRandom)
-import Data.Field.Galois (GaloisField, PrimeField(..), fromP)
+import Data.Field.Galois (GaloisField, PrimeField(..), TowerOfFields(..))
 import Data.Group as G (Group(..))
 import GHC.Natural (Natural)
 import Test.Tasty.QuickCheck (Arbitrary(..))
@@ -27,7 +27,7 @@ class (GaloisField q, PrimeField r, Arbitrary (Point f c e q r),
        NFData (Point f c e q r), Pretty (Point f c e q r), Random (Point f c e q r),
        Show (Point f c e q r)) => Curve (f :: Form) (c :: Coordinates) e q r where
   {-# MINIMAL add, char, cof, dbl, def, disc, fromA, gen,
-              id, inv, order, point, pointX, toA, yX #-}
+              id, inv, line, order, point, pointX, toA, yX #-}
 
   -- | Curve point.
   data family Point f c e q r :: *
@@ -85,6 +85,10 @@ class (GaloisField q, PrimeField r, Arbitrary (Point f c e q r),
   -- | Curve generator.
   gen :: Point f c e q r
 
+  -- | Line function on subfield.
+  line :: (TowerOfFields q' q, PrimeField r', Curve f c e q' r')
+    => Point f c e q r -> Point f c e q r -> Point f c e q' r' -> q
+
   -- | Get point from X and Y coordinates.
   point :: q -> q -> Maybe (Point f c e q r)
 
@@ -101,10 +105,10 @@ class (GaloisField q, PrimeField r, Arbitrary (Point f c e q r),
   -- Transformations
 
   -- | Transform from affine coordinates.
-  fromA :: Point f 'Affine e q r -> Point f c e q r
+  fromA :: Curve f 'Affine e q r => Point f 'Affine e q r -> Point f c e q r
 
   -- | Transform to affine coordinates.
-  toA :: Point f c e q r -> Point f 'Affine e q r
+  toA :: Curve f 'Affine e q r => Point f c e q r -> Point f 'Affine e q r
 
 {-# SPECIALISE mul' ::
   Point f c e q r => g -> Int -> g
@@ -158,7 +162,7 @@ instance Curve f c e q r => Random (Point f c e q r) where
   -}
   {-# INLINABLE random #-}
 
-  randomR = panic "not implemented."
+  randomR = panic "Curve.randomR: not implemented."
 
 -- Elliptic curve points are groups.
 instance Curve f c e q r => G.Group (Point f c e q r) where

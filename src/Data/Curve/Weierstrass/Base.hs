@@ -6,7 +6,7 @@ module Data.Curve.Weierstrass.Base
 
 import Protolude
 
-import Data.Field.Galois (GaloisField(..), PrimeField, sr)
+import Data.Field.Galois (GaloisField(..), PrimeField, TowerOfFields(..), sr)
 import GHC.Natural (Natural)
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
@@ -100,6 +100,17 @@ instance WACurve e q r => Curve 'Weierstrass 'Affine e q r where
   inv O       = O
   inv (A x y) = A x (-y)
   {-# INLINABLE inv #-}
+
+  line (A x1 y1) (A x2 y2) (A x y)
+    | x1 /= x2     = (embed y - y1) - l * (embed x - x1)
+    | y1 + y2 == 0 = embed x - x1
+    | otherwise    = (embed y - y1) - t * (embed x - x1)
+    where
+      a = a_ (witness :: WAPoint e q r)
+      l = (y2 - y1) / (x1 - x2)
+      t = (embed (3 * x * x) + a) / embed (2 * y)
+  line _ _ _       = panic "Weierstrass.line: point at infinity."
+  {-# INLINABLE line #-}
 
   order = r_
   {-# INLINABLE order #-}
