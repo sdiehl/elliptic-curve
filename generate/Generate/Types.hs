@@ -19,7 +19,8 @@ data Field = Binary Text Natural
            | Prime Text Natural
 
 data Types = Types
-  { curve   :: Text
+  { base    :: Text
+  , curve   :: Text
   , field   :: Field
   , field'  :: Field
   , imports :: Maybe Text

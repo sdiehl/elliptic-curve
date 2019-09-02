@@ -33,9 +33,15 @@ prettyImports Types{..}
 prettyTypes :: Types -> Doc
 prettyTypes Types{..}
   =    prettySection "Types"
-  <$$> prettyDocumentation curve'
-  <$$> "data" <+> pretty curve
-  <>   prettyBreak
+  <$$>
+    ( if base == curve
+      then
+        (    prettyDocumentation curve'
+        <$$> "data" <+> pretty base
+        <>   prettyBreak
+        )
+      else mempty
+    )
   <$$> prettyDocumentation ("Field of points of" <+> curve')
   <$$> prettyType field
   <>   prettyBreak
@@ -43,8 +49,8 @@ prettyTypes Types{..}
   <$$> prettyType field'
   <>   prettyBreak
   <$$> prettyComment (curve' <+> "is a binary curve")
-  <$$> "instance Curve 'Binary c" <+> pretty curve <+> prettyField field
-  <+>  "Fr => BCurve c" <+> pretty curve <+> prettyField field <+> "Fr where"
+  <$$> "instance Curve 'Binary c" <+> pretty base <+> prettyField field
+  <+>  "Fr => BCurve c" <+> pretty base <+> prettyField field <+> "Fr where"
   <$$> indent 2
     (    "a_ = const _a"
     <$$> prettyInline "a_"
@@ -59,20 +65,20 @@ prettyTypes Types{..}
     )
   <>   prettyBreak
   <$$> prettyDocumentation ("Affine" <+> curve' <+> "point")
-  <$$> "type PA = BAPoint" <+> pretty curve <+> prettyField field <+> "Fr"
+  <$$> "type PA = BAPoint" <+> pretty base <+> prettyField field <+> "Fr"
   <>   prettyBreak
   <$$> prettyComment ("Affine" <+> curve' <+> "is a binary affine curve")
-  <$$> "instance BACurve" <+> pretty curve <+> prettyField field <+> "Fr where"
+  <$$> "instance BACurve" <+> pretty base <+> prettyField field <+> "Fr where"
   <$$> indent 2
     (    "gA_ = gA"
     <$$> prettyInline "gA_"
     )
   <>   prettyBreak
   <$$> prettyDocumentation ("Projective" <+> pretty curve <+> "point")
-  <$$> "type PP = BPPoint" <+> pretty curve <+> prettyField field <+> "Fr"
+  <$$> "type PP = BPPoint" <+> pretty base <+> prettyField field <+> "Fr"
   <>   prettyBreak
   <$$> prettyComment ("Projective" <+> curve' <+> "is a binary projective curve")
-  <$$> "instance BPCurve" <+> pretty curve <+> prettyField field <+> "Fr where"
+  <$$> "instance BPCurve" <+> pretty base <+> prettyField field <+> "Fr where"
   <$$> indent 2
     (    "gP_ = gP"
     <$$> prettyInline "gP_"

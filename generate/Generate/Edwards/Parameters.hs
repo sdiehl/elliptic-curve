@@ -30,7 +30,8 @@ curves =
 curve1174 :: Curve
 curve1174 = Curve
   { types = Types
-    { curve   = "Curve1174"
+    { base    = "Curve1174"
+    , curve   = "Curve1174"
     , field   = Prime "Fq" 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7
     , field'  = Prime "Fr" 0x1fffffffffffffffffffffffffffffff77965c4dfd307348944d45fd166c971
     , imports = Nothing
@@ -49,7 +50,8 @@ curve1174 = Curve
 curve41417 :: Curve
 curve41417 = Curve
   { types = Types
-    { curve   = "Curve41417"
+    { base    = "Curve41417"
+    , curve   = "Curve41417"
     , field   = Prime "Fq" 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffef
     , field'  = Prime "Fr" 0x7ffffffffffffffffffffffffffffffffffffffffffffffffffeb3cc92414cf706022b36f1c0338ad63cf181b0e71a5e106af79
     , imports = Nothing
@@ -68,7 +70,8 @@ curve41417 = Curve
 e222 :: Curve
 e222 = Curve
   { types = Types
-    { curve   = "E222"
+    { base    = "E222"
+    , curve   = "E222"
     , field   = Prime "Fq" 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffff8b
     , field'  = Prime "Fr" 0xffffffffffffffffffffffffffff70cbc95e932f802f31423598cbf
     , imports = Nothing
@@ -87,7 +90,8 @@ e222 = Curve
 e382 :: Curve
 e382 = Curve
   { types = Types
-    { curve   = "E382"
+    { base    = "E382"
+    , curve   = "E382"
     , field   = Prime "Fq" 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff97
     , field'  = Prime "Fr" 0xfffffffffffffffffffffffffffffffffffffffffffffffd5fb21f21e95eee17c5e69281b102d2773e27e13fd3c9719
     , imports = Nothing
@@ -106,7 +110,8 @@ e382 = Curve
 e521 :: Curve
 e521 = Curve
   { types = Types
-    { curve   = "E521"
+    { base    = "E521"
+    , curve   = "E521"
     , field   = Prime "Fq" 0x1ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
     , field'  = Prime "Fr" 0x7ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd15b6c64746fc85f736b8af5e7ec53f04fbd8c4569a8f1f4540ea2435f5180d6b
     , imports = Nothing
@@ -125,7 +130,8 @@ e521 = Curve
 ed448 :: Curve
 ed448 = Curve
   { types = Types
-    { curve   = "Ed448"
+    { base    = "Ed448"
+    , curve   = "Ed448"
     , field   = Prime "Fq" 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffff
     , field'  = Prime "Fr" 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffff7cca23e9c44edb49aed63690216cc2728dc58f552378c292ab5844f3
     , imports = Nothing
@@ -144,7 +150,8 @@ ed448 = Curve
 ed3363 :: Curve
 ed3363 = Curve
   { types = Types
-    { curve   = "Ed3363"
+    { base    = "Ed3363"
+    , curve   = "Ed3363"
     , field   = Prime "Fq" 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd
     , field'  = Prime "Fr" 0x200000000000000000000000000000000000000000071415fa9850c0bd6b87f93baa7b2f95973e9fa805
     , imports = Nothing
@@ -163,7 +170,8 @@ ed3363 = Curve
 ed25519 :: Curve
 ed25519 = Curve
   { types = Types
-    { curve   = "Ed25519"
+    { base    = "Ed25519"
+    , curve   = "Ed25519"
     , field   = Prime "Fq" 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffed
     , field'  = Prime "Fr" 0x1000000000000000000000000000000014def9dea2f79cd65812631a5cf5d3ed
     , imports = Nothing
@@ -182,7 +190,8 @@ ed25519 = Curve
 jubjub :: Curve
 jubjub = Curve
   { types = Types
-    { curve   = "JubJub"
+    { base    = "JubJub"
+    , curve   = "JubJub"
     , field   = Prime "Fq" 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
     , field'  = Prime "Fr" 0xe7db4ea6533afa906673b0101343b00a6682093ccc81082d0970e5ed6f72cb7
     , imports = Nothing

@@ -68,7 +68,8 @@ curves =
 anomalous :: Curve
 anomalous = Curve
   { types = Types
-    { curve   = "Anomalous"
+    { base    = "Anomalous"
+    , curve   = "Anomalous"
     , field   = Prime "Fq" 0xb0000000000000000000000953000000000000000000001f9d7
     , field'  = Prime "Fr" 0xb0000000000000000000000953000000000000000000001f9d7
     , imports = Nothing
@@ -87,7 +88,8 @@ anomalous = Curve
 anssifrp256v1 :: Curve
 anssifrp256v1 = Curve
   { types = Types
-    { curve   = "ANSSIFRP256V1"
+    { base    = "ANSSIFRP256V1"
+    , curve   = "ANSSIFRP256V1"
     , field   = Prime "Fq" 0xf1fd178c0b3ad58f10126de8ce42435b3961adbcabc8ca6de8fcf353d86e9c03
     , field'  = Prime "Fr" 0xf1fd178c0b3ad58f10126de8ce42435b53dc67e140d2bf941ffdd459c6d655e1
     , imports = Nothing
@@ -106,7 +108,8 @@ anssifrp256v1 = Curve
 bls12381 :: Curve
 bls12381 = Curve
   { types = Types
-    { curve   = "BLS12381"
+    { base    = "BLS12381"
+    , curve   = "BLS12381"
     , field   = Prime "Fq" 0x1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab
     , field'  = Prime "Fr" 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
     , imports = Nothing
@@ -125,10 +128,11 @@ bls12381 = Curve
 bls12381t :: Curve
 bls12381t = Curve
   { types = Types
-    { curve   = "BLS12381T"
+    { base    = "BLS12381"
+    , curve   = "BLS12381T"
     , field   = Extension "Fq2" "Fq" "PolynomialU" "X2 + 1" Nothing
     , field'  = Prime "Fr" 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
-    , imports = Just "import Data.Curve.Weierstrass.BLS12381 (Fq)"
+    , imports = Just "import Data.Curve.Weierstrass.BLS12381 (BLS12381, Fq)"
     }
   , parameters = Parameters
     { a = E [
@@ -151,7 +155,8 @@ bls12381t = Curve
 bls48581 :: Curve
 bls48581 = Curve
   { types = Types
-    { curve   = "BLS48581"
+    { base    = "BLS48581"
+    , curve   = "BLS48581"
     , field   = Prime "Fq" 0x1280f73ff3476f313824e31d47012a0056e84f8d122131bb3be6c0f1f3975444a48ae43af6e082acd9cd30394f4736daf68367a5513170ee0a578fdf721a4a48ac3edc154e6565912b
     , field'  = Prime "Fr" 0x2386f8a925e2885e233a9ccc1615c0d6c635387a3f0b3cbe003fad6bc972c2e6e741969d34c4c92016a85c7cd0562303c4ccbe599467c24da118a5fe6fcd671c01
     , imports = Nothing
@@ -170,14 +175,15 @@ bls48581 = Curve
 bls48581t :: Curve
 bls48581t = Curve
   { types = Types
-    { curve   = "BLS48581T"
+    { base    = "BLS48581"
+    , curve   = "BLS48581T"
     , field   = Extension "Fq8" "Fq4" "PolynomialW" "X2 + Y X" (Just
                 ( Extension "Fq4" "Fq2" "PolynomialV" "X2 + 1 + Y X" (Just
                   ( Extension "Fq2" "Fq" "PolynomialU" "X2 + 1" Nothing
                   ))
                 ))
     , field'  = Prime "Fr" 0x2386f8a925e2885e233a9ccc1615c0d6c635387a3f0b3cbe003fad6bc972c2e6e741969d34c4c92016a85c7cd0562303c4ccbe599467c24da118a5fe6fcd671c01
-    , imports = Just "import Data.Curve.Weierstrass.BLS48581 (Fq)"
+    , imports = Just "import Data.Curve.Weierstrass.BLS48581 (BLS48581, Fq)"
     }
   , parameters = Parameters
     { a = E [
@@ -230,7 +236,8 @@ bls48581t = Curve
 bn224 :: Curve
 bn224 = Curve
   { types = Types
-    { curve   = "BN224"
+    { base    = "BN224"
+    , curve   = "BN224"
     , field   = Prime "Fq" 0xfffffffffff107288ec29e602c4520db42180823bb907d1287127833
     , field'  = Prime "Fr" 0xfffffffffff107288ec29e602c4420db4218082b36c2accff76c58ed
     , imports = Nothing
@@ -249,7 +256,8 @@ bn224 = Curve
 bn254 :: Curve
 bn254 = Curve
   { types = Types
-    { curve   = "BN254"
+    { base    = "BN254"
+    , curve   = "BN254"
     , field   = Prime "Fq" 0x30644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd47
     , field'  = Prime "Fr" 0x30644e72e131a029b85045b68181585d2833e84879b9709143e1f593f0000001
     , imports = Nothing
@@ -268,10 +276,11 @@ bn254 = Curve
 bn254t :: Curve
 bn254t = Curve
   { types = Types
-    { curve   = "BN254T"
+    { base    = "BN254"
+    , curve   = "BN254T"
     , field   = Extension "Fq2" "Fq" "PolynomialU" "X2 + 1" Nothing
     , field'  = Prime "Fr" 0x30644e72e131a029b85045b68181585d2833e84879b9709143e1f593f0000001
-    , imports = Just "import Data.Curve.Weierstrass.BN254 (Fq)"
+    , imports = Just "import Data.Curve.Weierstrass.BN254 (BN254, Fq)"
     }
   , parameters = Parameters
     { a = E [
@@ -294,7 +303,8 @@ bn254t = Curve
 bn254a :: Curve
 bn254a = Curve
   { types = Types
-    { curve   = "BN254A"
+    { base    = "BN254A"
+    , curve   = "BN254A"
     , field   = Prime "Fq" 0x2370fb049d410fbe4e761a9886e502417d023f40180000017e80600000000001
     , field'  = Prime "Fr" 0x2370fb049d410fbe4e761a9886e502411dc1af70120000017e80600000000001
     , imports = Nothing
@@ -313,10 +323,11 @@ bn254a = Curve
 bn254at :: Curve
 bn254at = Curve
   { types = Types
-    { curve   = "BN254AT"
+    { base    = "BN254A"
+    , curve   = "BN254AT"
     , field   = Extension "Fq2" "Fq" "PolynomialU" "X2 + 5" Nothing
     , field'  = Prime "Fr" 0x2370fb049d410fbe4e761a9886e502411dc1af70120000017e80600000000001
-    , imports = Just "import Data.Curve.Weierstrass.BN254A (Fq)"
+    , imports = Just "import Data.Curve.Weierstrass.BN254A (BN254A, Fq)"
     }
   , parameters = Parameters
     { a = E [
@@ -339,7 +350,8 @@ bn254at = Curve
 bn254b :: Curve
 bn254b = Curve
   { types = Types
-    { curve   = "BN254B"
+    { base    = "BN254B"
+    , curve   = "BN254B"
     , field   = Prime "Fq" 0x2523648240000001ba344d80000000086121000000000013a700000000000013
     , field'  = Prime "Fr" 0x2523648240000001ba344d8000000007ff9f800000000010a10000000000000d
     , imports = Nothing
@@ -358,10 +370,11 @@ bn254b = Curve
 bn254bt :: Curve
 bn254bt = Curve
   { types = Types
-    { curve   = "BN254BT"
+    { base    = "BN254B"
+    , curve   = "BN254BT"
     , field   = Extension "Fq2" "Fq" "PolynomialU" "X2 + 1" Nothing
     , field'  = Prime "Fr" 0x2523648240000001ba344d8000000007ff9f800000000010a10000000000000d
-    , imports = Just "import Data.Curve.Weierstrass.BN254B (Fq)"
+    , imports = Just "import Data.Curve.Weierstrass.BN254B (BN254B, Fq)"
     }
   , parameters = Parameters
     { a = E [
@@ -384,7 +397,8 @@ bn254bt = Curve
 bn256 :: Curve
 bn256 = Curve
   { types = Types
-    { curve   = "BN256"
+    { base    = "BN256"
+    , curve   = "BN256"
     , field   = Prime "Fq" 0xfffffffffffcf0cd46e5f25eee71a49f0cdc65fb12980a82d3292ddbaed33013
     , field'  = Prime "Fr" 0xfffffffffffcf0cd46e5f25eee71a49e0cdc65fb1299921af62d536cd10b500d
     , imports = Nothing
@@ -403,7 +417,8 @@ bn256 = Curve
 bn384 :: Curve
 bn384 = Curve
   { types = Types
-    { curve   = "BN384"
+    { base    = "BN384"
+    , curve   = "BN384"
     , field   = Prime "Fq" 0xfffffffffffffffffff2a96823d5920d2a127e3f6fbca024c8fbe29531892c79534f9d306328261550a7cabd7cccd10b
     , field'  = Prime "Fr" 0xfffffffffffffffffff2a96823d5920d2a127e3f6fbca023c8fbe29531892c795356487d8ac63e4f4db17384341a5775
     , imports = Nothing
@@ -422,7 +437,8 @@ bn384 = Curve
 bn462 :: Curve
 bn462 = Curve
   { types = Types
-    { curve   = "BN462"
+    { base    = "BN462"
+    , curve   = "BN462"
     , field   = Prime "Fq" 0x240480360120023ffffffffff6ff0cf6b7d9bfca0000000000d812908f41c8020ffffffffff6ff66fc6ff687f640000000002401b00840138013
     , field'  = Prime "Fr" 0x240480360120023ffffffffff6ff0cf6b7d9bfca0000000000d812908ee1c201f7fffffffff6ff66fc7bf717f7c0000000002401b007e010800d
     , imports = Nothing
@@ -441,10 +457,11 @@ bn462 = Curve
 bn462t :: Curve
 bn462t = Curve
   { types = Types
-    { curve   = "BN462T"
+    { base    = "BN462"
+    , curve   = "BN462T"
     , field   = Extension "Fq2" "Fq" "PolynomialU" "X2 + 1" Nothing
     , field'  = Prime "Fr" 0x240480360120023ffffffffff6ff0cf6b7d9bfca0000000000d812908ee1c201f7fffffffff6ff66fc7bf717f7c0000000002401b007e010800d
-    , imports = Just "import Data.Curve.Weierstrass.BN462 (Fq)"
+    , imports = Just "import Data.Curve.Weierstrass.BN462 (BN462, Fq)"
     }
   , parameters = Parameters
     { a = E [
@@ -467,7 +484,8 @@ bn462t = Curve
 bn512 :: Curve
 bn512 = Curve
   { types = Types
-    { curve   = "BN512"
+    { base    = "BN512"
+    , curve   = "BN512"
     , field   = Prime "Fq" 0xfffffffffffffffffffffffffff9ec7f01c60ba1d8cb5307c0bbe3c111b0ef455146cf1eacbe98b8e48c65deab236fe1916a55ce5f4c6467b4eb280922adef33
     , field'  = Prime "Fr" 0xfffffffffffffffffffffffffff9ec7f01c60ba1d8cb5307c0bbe3c111b0ef445146cf1eacbe98b8e48c65deab2679a34a10313e04f9a2b406a64a5f519a09ed
     , imports = Nothing
@@ -486,7 +504,8 @@ bn512 = Curve
 brainpoolp160r1 :: Curve
 brainpoolp160r1 = Curve
   { types = Types
-    { curve   = "BrainpoolP160R1"
+    { base    = "BrainpoolP160R1"
+    , curve   = "BrainpoolP160R1"
     , field   = Prime "Fq" 0xe95e4a5f737059dc60dfc7ad95b3d8139515620f
     , field'  = Prime "Fr" 0xe95e4a5f737059dc60df5991d45029409e60fc09
     , imports = Nothing
@@ -505,7 +524,8 @@ brainpoolp160r1 = Curve
 brainpoolp160t1 :: Curve
 brainpoolp160t1 = Curve
   { types = Types
-    { curve   = "BrainpoolP160T1"
+    { base    = "BrainpoolP160T1"
+    , curve   = "BrainpoolP160T1"
     , field   = Prime "Fq" 0xe95e4a5f737059dc60dfc7ad95b3d8139515620f
     , field'  = Prime "Fr" 0xe95e4a5f737059dc60df5991d45029409e60fc09
     , imports = Nothing
@@ -524,7 +544,8 @@ brainpoolp160t1 = Curve
 brainpoolp192r1 :: Curve
 brainpoolp192r1 = Curve
   { types = Types
-    { curve   = "BrainpoolP192R1"
+    { base    = "BrainpoolP192R1"
+    , curve   = "BrainpoolP192R1"
     , field   = Prime "Fq" 0xc302f41d932a36cda7a3463093d18db78fce476de1a86297
     , field'  = Prime "Fr" 0xc302f41d932a36cda7a3462f9e9e916b5be8f1029ac4acc1
     , imports = Nothing
@@ -543,7 +564,8 @@ brainpoolp192r1 = Curve
 brainpoolp192t1 :: Curve
 brainpoolp192t1 = Curve
   { types = Types
-    { curve   = "BrainpoolP192T1"
+    { base    = "BrainpoolP192T1"
+    , curve   = "BrainpoolP192T1"
     , field   = Prime "Fq" 0xc302f41d932a36cda7a3463093d18db78fce476de1a86297
     , field'  = Prime "Fr" 0xc302f41d932a36cda7a3462f9e9e916b5be8f1029ac4acc1
     , imports = Nothing
@@ -562,7 +584,8 @@ brainpoolp192t1 = Curve
 brainpoolp224r1 :: Curve
 brainpoolp224r1 = Curve
   { types = Types
-    { curve   = "BrainpoolP224R1"
+    { base    = "BrainpoolP224R1"
+    , curve   = "BrainpoolP224R1"
     , field   = Prime "Fq" 0xd7c134aa264366862a18302575d1d787b09f075797da89f57ec8c0ff
     , field'  = Prime "Fr" 0xd7c134aa264366862a18302575d0fb98d116bc4b6ddebca3a5a7939f
     , imports = Nothing
@@ -581,7 +604,8 @@ brainpoolp224r1 = Curve
 brainpoolp224t1 :: Curve
 brainpoolp224t1 = Curve
   { types = Types
-    { curve   = "BrainpoolP224T1"
+    { base    = "BrainpoolP224T1"
+    , curve   = "BrainpoolP224T1"
     , field   = Prime "Fq" 0xd7c134aa264366862a18302575d1d787b09f075797da89f57ec8c0ff
     , field'  = Prime "Fr" 0xd7c134aa264366862a18302575d0fb98d116bc4b6ddebca3a5a7939f
     , imports = Nothing
@@ -600,7 +624,8 @@ brainpoolp224t1 = Curve
 brainpoolp256r1 :: Curve
 brainpoolp256r1 = Curve
   { types = Types
-    { curve   = "BrainpoolP256R1"
+    { base    = "BrainpoolP256R1"
+    , curve   = "BrainpoolP256R1"
     , field   = Prime "Fq" 0xa9fb57dba1eea9bc3e660a909d838d726e3bf623d52620282013481d1f6e5377
     , field'  = Prime "Fr" 0xa9fb57dba1eea9bc3e660a909d838d718c397aa3b561a6f7901e0e82974856a7
     , imports = Nothing
@@ -619,7 +644,8 @@ brainpoolp256r1 = Curve
 brainpoolp256t1 :: Curve
 brainpoolp256t1 = Curve
   { types = Types
-    { curve   = "BrainpoolP256T1"
+    { base    = "BrainpoolP256T1"
+    , curve   = "BrainpoolP256T1"
     , field   = Prime "Fq" 0xa9fb57dba1eea9bc3e660a909d838d726e3bf623d52620282013481d1f6e5377
     , field'  = Prime "Fr" 0xa9fb57dba1eea9bc3e660a909d838d718c397aa3b561a6f7901e0e82974856a7
     , imports = Nothing
@@ -638,7 +664,8 @@ brainpoolp256t1 = Curve
 brainpoolp320r1 :: Curve
 brainpoolp320r1 = Curve
   { types = Types
-    { curve   = "BrainpoolP320R1"
+    { base    = "BrainpoolP320R1"
+    , curve   = "BrainpoolP320R1"
     , field   = Prime "Fq" 0xd35e472036bc4fb7e13c785ed201e065f98fcfa6f6f40def4f92b9ec7893ec28fcd412b1f1b32e27
     , field'  = Prime "Fr" 0xd35e472036bc4fb7e13c785ed201e065f98fcfa5b68f12a32d482ec7ee8658e98691555b44c59311
     , imports = Nothing
@@ -657,7 +684,8 @@ brainpoolp320r1 = Curve
 brainpoolp320t1 :: Curve
 brainpoolp320t1 = Curve
   { types = Types
-    { curve   = "BrainpoolP320T1"
+    { base    = "BrainpoolP320T1"
+    , curve   = "BrainpoolP320T1"
     , field   = Prime "Fq" 0xd35e472036bc4fb7e13c785ed201e065f98fcfa6f6f40def4f92b9ec7893ec28fcd412b1f1b32e27
     , field'  = Prime "Fr" 0xd35e472036bc4fb7e13c785ed201e065f98fcfa5b68f12a32d482ec7ee8658e98691555b44c59311
     , imports = Nothing
@@ -676,7 +704,8 @@ brainpoolp320t1 = Curve
 brainpoolp384r1 :: Curve
 brainpoolp384r1 = Curve
   { types = Types
-    { curve   = "BrainpoolP384R1"
+    { base    = "BrainpoolP384R1"
+    , curve   = "BrainpoolP384R1"
     , field   = Prime "Fq" 0x8cb91e82a3386d280f5d6f7e50e641df152f7109ed5456b412b1da197fb71123acd3a729901d1a71874700133107ec53
     , field'  = Prime "Fr" 0x8cb91e82a3386d280f5d6f7e50e641df152f7109ed5456b31f166e6cac0425a7cf3ab6af6b7fc3103b883202e9046565
     , imports = Nothing
@@ -695,7 +724,8 @@ brainpoolp384r1 = Curve
 brainpoolp384t1 :: Curve
 brainpoolp384t1 = Curve
   { types = Types
-    { curve   = "BrainpoolP384T1"
+    { base    = "BrainpoolP384T1"
+    , curve   = "BrainpoolP384T1"
     , field   = Prime "Fq" 0x8cb91e82a3386d280f5d6f7e50e641df152f7109ed5456b412b1da197fb71123acd3a729901d1a71874700133107ec53
     , field'  = Prime "Fr" 0x8cb91e82a3386d280f5d6f7e50e641df152f7109ed5456b31f166e6cac0425a7cf3ab6af6b7fc3103b883202e9046565
     , imports = Nothing
@@ -714,7 +744,8 @@ brainpoolp384t1 = Curve
 brainpoolp512r1 :: Curve
 brainpoolp512r1 = Curve
   { types = Types
-    { curve   = "BrainpoolP512R1"
+    { base    = "BrainpoolP512R1"
+    , curve   = "BrainpoolP512R1"
     , field   = Prime "Fq" 0xaadd9db8dbe9c48b3fd4e6ae33c9fc07cb308db3b3c9d20ed6639cca703308717d4d9b009bc66842aecda12ae6a380e62881ff2f2d82c68528aa6056583a48f3
     , field'  = Prime "Fr" 0xaadd9db8dbe9c48b3fd4e6ae33c9fc07cb308db3b3c9d20ed6639cca70330870553e5c414ca92619418661197fac10471db1d381085ddaddb58796829ca90069
     , imports = Nothing
@@ -733,7 +764,8 @@ brainpoolp512r1 = Curve
 brainpoolp512t1 :: Curve
 brainpoolp512t1 = Curve
   { types = Types
-    { curve   = "BrainpoolP512T1"
+    { base    = "BrainpoolP512T1"
+    , curve   = "BrainpoolP512T1"
     , field   = Prime "Fq" 0xaadd9db8dbe9c48b3fd4e6ae33c9fc07cb308db3b3c9d20ed6639cca703308717d4d9b009bc66842aecda12ae6a380e62881ff2f2d82c68528aa6056583a48f3
     , field'  = Prime "Fr" 0xaadd9db8dbe9c48b3fd4e6ae33c9fc07cb308db3b3c9d20ed6639cca70330870553e5c414ca92619418661197fac10471db1d381085ddaddb58796829ca90069
     , imports = Nothing
@@ -752,7 +784,8 @@ brainpoolp512t1 = Curve
 secp112r1 :: Curve
 secp112r1 = Curve
   { types = Types
-    { curve   = "SECP112R1"
+    { base    = "SECP112R1"
+    , curve   = "SECP112R1"
     , field   = Prime "Fq" 0xdb7c2abf62e35e668076bead208b
     , field'  = Prime "Fr" 0xdb7c2abf62e35e7628dfac6561c5
     , imports = Nothing
@@ -771,7 +804,8 @@ secp112r1 = Curve
 secp112r2 :: Curve
 secp112r2 = Curve
   { types = Types
-    { curve   = "SECP112R2"
+    { base    = "SECP112R2"
+    , curve   = "SECP112R2"
     , field   = Prime "Fq" 0xdb7c2abf62e35e668076bead208b
     , field'  = Prime "Fr" 0x36df0aafd8b8d7597ca10520d04b
     , imports = Nothing
@@ -790,7 +824,8 @@ secp112r2 = Curve
 secp128r1 :: Curve
 secp128r1 = Curve
   { types = Types
-    { curve   = "SECP128R1"
+    { base    = "SECP128R1"
+    , curve   = "SECP128R1"
     , field   = Prime "Fq" 0xfffffffdffffffffffffffffffffffff
     , field'  = Prime "Fr" 0xfffffffe0000000075a30d1b9038a115
     , imports = Nothing
@@ -809,7 +844,8 @@ secp128r1 = Curve
 secp128r2 :: Curve
 secp128r2 = Curve
   { types = Types
-    { curve   = "SECP128R2"
+    { base    = "SECP128R2"
+    , curve   = "SECP128R2"
     , field   = Prime "Fq" 0xfffffffdffffffffffffffffffffffff
     , field'  = Prime "Fr" 0x3fffffff7fffffffbe0024720613b5a3
     , imports = Nothing
@@ -828,7 +864,8 @@ secp128r2 = Curve
 secp160k1 :: Curve
 secp160k1 = Curve
   { types = Types
-    { curve   = "SECP160K1"
+    { base    = "SECP160K1"
+    , curve   = "SECP160K1"
     , field   = Prime "Fq" 0xfffffffffffffffffffffffffffffffeffffac73
     , field'  = Prime "Fr" 0x100000000000000000001b8fa16dfab9aca16b6b3
     , imports = Nothing
@@ -847,7 +884,8 @@ secp160k1 = Curve
 secp160r1 :: Curve
 secp160r1 = Curve
   { types = Types
-    { curve   = "SECP160R1"
+    { base    = "SECP160R1"
+    , curve   = "SECP160R1"
     , field   = Prime "Fq" 0xffffffffffffffffffffffffffffffff7fffffff
     , field'  = Prime "Fr" 0x100000000000000000001f4c8f927aed3ca752257
     , imports = Nothing
@@ -866,7 +904,8 @@ secp160r1 = Curve
 secp160r2 :: Curve
 secp160r2 = Curve
   { types = Types
-    { curve   = "SECP160R2"
+    { base    = "SECP160R2"
+    , curve   = "SECP160R2"
     , field   = Prime "Fq" 0xfffffffffffffffffffffffffffffffeffffac73
     , field'  = Prime "Fr" 0x100000000000000000000351ee786a818f3a1a16b
     , imports = Nothing
@@ -885,7 +924,8 @@ secp160r2 = Curve
 secp192k1 :: Curve
 secp192k1 = Curve
   { types = Types
-    { curve   = "SECP192K1"
+    { base    = "SECP192K1"
+    , curve   = "SECP192K1"
     , field   = Prime "Fq" 0xfffffffffffffffffffffffffffffffffffffffeffffee37
     , field'  = Prime "Fr" 0xfffffffffffffffffffffffe26f2fc170f69466a74defd8d
     , imports = Nothing
@@ -904,7 +944,8 @@ secp192k1 = Curve
 secp192r1 :: Curve
 secp192r1 = Curve
   { types = Types
-    { curve   = "SECP192R1"
+    { base    = "SECP192R1"
+    , curve   = "SECP192R1"
     , field   = Prime "Fq" 0xfffffffffffffffffffffffffffffffeffffffffffffffff
     , field'  = Prime "Fr" 0xffffffffffffffffffffffff99def836146bc9b1b4d22831
     , imports = Nothing
@@ -923,7 +964,8 @@ secp192r1 = Curve
 secp224k1 :: Curve
 secp224k1 = Curve
   { types = Types
-    { curve   = "SECP224K1"
+    { base    = "SECP224K1"
+    , curve   = "SECP224K1"
     , field   = Prime "Fq" 0xfffffffffffffffffffffffffffffffffffffffffffffffeffffe56d
     , field'  = Prime "Fr" 0x10000000000000000000000000001dce8d2ec6184caf0a971769fb1f7
     , imports = Nothing
@@ -942,7 +984,8 @@ secp224k1 = Curve
 secp224r1 :: Curve
 secp224r1 = Curve
   { types = Types
-    { curve   = "SECP224R1"
+    { base    = "SECP224R1"
+    , curve   = "SECP224R1"
     , field   = Prime "Fq" 0xffffffffffffffffffffffffffffffff000000000000000000000001
     , field'  = Prime "Fr" 0xffffffffffffffffffffffffffff16a2e0b8f03e13dd29455c5c2a3d
     , imports = Nothing
@@ -961,7 +1004,8 @@ secp224r1 = Curve
 secp256k1 :: Curve
 secp256k1 = Curve
   { types = Types
-    { curve   = "SECP256K1"
+    { base    = "SECP256K1"
+    , curve   = "SECP256K1"
     , field   = Prime "Fq" 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f
     , field'  = Prime "Fr" 0xfffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141
     , imports = Nothing
@@ -980,7 +1024,8 @@ secp256k1 = Curve
 secp256r1 :: Curve
 secp256r1 = Curve
   { types = Types
-    { curve   = "SECP256R1"
+    { base    = "SECP256R1"
+    , curve   = "SECP256R1"
     , field   = Prime "Fq" 0xffffffff00000001000000000000000000000000ffffffffffffffffffffffff
     , field'  = Prime "Fr" 0xffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632551
     , imports = Nothing
@@ -999,7 +1044,8 @@ secp256r1 = Curve
 secp384r1 :: Curve
 secp384r1 = Curve
   { types = Types
-    { curve   = "SECP384R1"
+    { base    = "SECP384R1"
+    , curve   = "SECP384R1"
     , field   = Prime "Fq" 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffff0000000000000000ffffffff
     , field'  = Prime "Fr" 0xffffffffffffffffffffffffffffffffffffffffffffffffc7634d81f4372ddf581a0db248b0a77aecec196accc52973
     , imports = Nothing
@@ -1018,7 +1064,8 @@ secp384r1 = Curve
 secp521r1 :: Curve
 secp521r1 = Curve
   { types = Types
-    { curve   = "SECP521R1"
+    { base    = "SECP521R1"
+    , curve   = "SECP521R1"
     , field   = Prime "Fq" 0x1ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
     , field'  = Prime "Fr" 0x1fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffa51868783bf2f966b7fcc0148f709a5d03bb5c9b8899c47aebb6fb71e91386409
     , imports = Nothing

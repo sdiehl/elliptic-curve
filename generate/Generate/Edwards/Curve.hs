@@ -33,9 +33,15 @@ prettyImports Types{..}
 prettyTypes :: Types -> Doc
 prettyTypes Types{..}
   =    prettySection "Types"
-  <$$> prettyDocumentation curve'
-  <$$> "data" <+> pretty curve
-  <>   prettyBreak
+  <$$>
+    ( if base == curve
+      then
+        (    prettyDocumentation curve'
+        <$$> "data" <+> pretty base
+        <>   prettyBreak
+        )
+      else mempty
+    )
   <$$> prettyDocumentation ("Field of points of" <+> curve')
   <$$> prettyType field
   <>   prettyBreak
@@ -43,8 +49,8 @@ prettyTypes Types{..}
   <$$> prettyType field'
   <>   prettyBreak
   <$$> prettyComment (curve' <+> "is an Edwards curve")
-  <$$> "instance Curve 'Edwards c" <+> pretty curve <+> prettyField field
-  <+>  "Fr => ECurve c" <+> pretty curve <+> prettyField field <+> "Fr where"
+  <$$> "instance Curve 'Edwards c" <+> pretty base <+> prettyField field
+  <+>  "Fr => ECurve c" <+> pretty base <+> prettyField field <+> "Fr where"
   <$$> indent 2
     (    "a_ = const _a"
     <$$> prettyInline "a_"
@@ -59,20 +65,20 @@ prettyTypes Types{..}
     )
   <>   prettyBreak
   <$$> prettyDocumentation ("Affine" <+> curve' <+> "point")
-  <$$> "type PA = EAPoint" <+> pretty curve <+> prettyField field <+> "Fr"
+  <$$> "type PA = EAPoint" <+> pretty base <+> prettyField field <+> "Fr"
   <>   prettyBreak
   <$$> prettyComment ("Affine" <+> curve' <+> "is an Edwards affine curve")
-  <$$> "instance EACurve" <+> pretty curve <+> prettyField field <+> "Fr where"
+  <$$> "instance EACurve" <+> pretty base <+> prettyField field <+> "Fr where"
   <$$> indent 2
     (    "gA_ = gA"
     <$$> prettyInline "gA_"
     )
   <>   prettyBreak
   <$$> prettyDocumentation ("Projective" <+> pretty curve <+> "point")
-  <$$> "type PP = EPPoint" <+> pretty curve <+> prettyField field <+> "Fr"
+  <$$> "type PP = EPPoint" <+> pretty base <+> prettyField field <+> "Fr"
   <>   prettyBreak
   <$$> prettyComment ("Projective" <+> curve' <+> "is an Edwards projective curve")
-  <$$> "instance EPCurve" <+> pretty curve <+> prettyField field <+> "Fr where"
+  <$$> "instance EPCurve" <+> pretty base <+> prettyField field <+> "Fr where"
   <$$> indent 2
     (    "gP_ = gP"
     <$$> prettyInline "gP_"

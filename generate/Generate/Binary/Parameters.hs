@@ -39,7 +39,8 @@ curves =
 sect113r1 :: Curve
 sect113r1 = Curve
   { types = Types
-    { curve   = "SECT113R1"
+    { base    = "SECT113R1"
+    , curve   = "SECT113R1"
     , field   = Binary "F2m" 0x20000000000000000000000000201
     , field'  = Prime "Fr" 0x100000000000000d9ccec8a39e56f
     , imports = Nothing
@@ -58,7 +59,8 @@ sect113r1 = Curve
 sect113r2 :: Curve
 sect113r2 = Curve
   { types = Types
-    { curve   = "SECT113R2"
+    { base    = "SECT113R2"
+    , curve   = "SECT113R2"
     , field   = Binary "F2m" 0x20000000000000000000000000201
     , field'  = Prime "Fr" 0x10000000000000108789b2496af93
     , imports = Nothing
@@ -77,7 +79,8 @@ sect113r2 = Curve
 sect131r1 :: Curve
 sect131r1 = Curve
   { types = Types
-    { curve   = "SECT131R1"
+    { base    = "SECT131R1"
+    , curve   = "SECT131R1"
     , field   = Binary "F2m" 0x80000000000000000000000000000010d
     , field'  = Prime "Fr" 0x400000000000000023123953a9464b54d
     , imports = Nothing
@@ -96,7 +99,8 @@ sect131r1 = Curve
 sect131r2 :: Curve
 sect131r2 = Curve
   { types = Types
-    { curve   = "SECT131R2"
+    { base    = "SECT131R2"
+    , curve   = "SECT131R2"
     , field   = Binary "F2m" 0x80000000000000000000000000000010d
     , field'  = Prime "Fr" 0x400000000000000016954a233049ba98f
     , imports = Nothing
@@ -115,7 +119,8 @@ sect131r2 = Curve
 sect163k1 :: Curve
 sect163k1 = Curve
   { types = Types
-    { curve   = "SECT163K1"
+    { base    = "SECT163K1"
+    , curve   = "SECT163K1"
     , field   = Binary "F2m" 0x800000000000000000000000000000000000000c9
     , field'  = Prime "Fr" 0x4000000000000000000020108a2e0cc0d99f8a5ef
     , imports = Nothing
@@ -134,7 +139,8 @@ sect163k1 = Curve
 sect163r1 :: Curve
 sect163r1 = Curve
   { types = Types
-    { curve   = "SECT163R1"
+    { base    = "SECT163R1"
+    , curve   = "SECT163R1"
     , field   = Binary "F2m" 0x800000000000000000000000000000000000000c9
     , field'  = Prime "Fr" 0x3ffffffffffffffffffff48aab689c29ca710279b
     , imports = Nothing
@@ -153,7 +159,8 @@ sect163r1 = Curve
 sect163r2 :: Curve
 sect163r2 = Curve
   { types = Types
-    { curve   = "SECT163R2"
+    { base    = "SECT163R2"
+    , curve   = "SECT163R2"
     , field   = Binary "F2m" 0x800000000000000000000000000000000000000c9
     , field'  = Prime "Fr" 0x40000000000000000000292fe77e70c12a4234c33
     , imports = Nothing
@@ -172,7 +179,8 @@ sect163r2 = Curve
 sect193r1 :: Curve
 sect193r1 = Curve
   { types = Types
-    { curve   = "SECT193R1"
+    { base    = "SECT193R1"
+    , curve   = "SECT193R1"
     , field   = Binary "F2m" 0x2000000000000000000000000000000000000000000008001
     , field'  = Prime "Fr" 0x1000000000000000000000000c7f34a778f443acc920eba49
     , imports = Nothing
@@ -191,7 +199,8 @@ sect193r1 = Curve
 sect193r2 :: Curve
 sect193r2 = Curve
   { types = Types
-    { curve   = "SECT193R2"
+    { base    = "SECT193R2"
+    , curve   = "SECT193R2"
     , field   = Binary "F2m" 0x2000000000000000000000000000000000000000000008001
     , field'  = Prime "Fr" 0x10000000000000000000000015aab561b005413ccd4ee99d5
     , imports = Nothing
@@ -210,7 +219,8 @@ sect193r2 = Curve
 sect233k1 :: Curve
 sect233k1 = Curve
   { types = Types
-    { curve   = "SECT233K1"
+    { base    = "SECT233K1"
+    , curve   = "SECT233K1"
     , field   = Binary "F2m" 0x20000000000000000000000000000000000000004000000000000000001
     , field'  = Prime "Fr" 0x8000000000000000000000000000069d5bb915bcd46efb1ad5f173abdf
     , imports = Nothing
@@ -229,7 +239,8 @@ sect233k1 = Curve
 sect233r1 :: Curve
 sect233r1 = Curve
   { types = Types
-    { curve   = "SECT233R1"
+    { base    = "SECT233R1"
+    , curve   = "SECT233R1"
     , field   = Binary "F2m" 0x20000000000000000000000000000000000000004000000000000000001
     , field'  = Prime "Fr" 0x1000000000000000000000000000013e974e72f8a6922031d2603cfe0d7
     , imports = Nothing
@@ -248,7 +259,8 @@ sect233r1 = Curve
 sect239k1 :: Curve
 sect239k1 = Curve
   { types = Types
-    { curve   = "SECT239K1"
+    { base    = "SECT239K1"
+    , curve   = "SECT239K1"
     , field   = Binary "F2m" 0x800000000000000000004000000000000000000000000000000000000001
     , field'  = Prime "Fr" 0x2000000000000000000000000000005a79fec67cb6e91f1c1da800e478a5
     , imports = Nothing
@@ -267,7 +279,8 @@ sect239k1 = Curve
 sect283k1 :: Curve
 sect283k1 = Curve
   { types = Types
-    { curve   = "SECT283K1"
+    { base    = "SECT283K1"
+    , curve   = "SECT283K1"
     , field   = Binary "F2m" 0x800000000000000000000000000000000000000000000000000000000000000000010a1
     , field'  = Prime "Fr" 0x1ffffffffffffffffffffffffffffffffffe9ae2ed07577265dff7f94451e061e163c61
     , imports = Nothing
@@ -286,7 +299,8 @@ sect283k1 = Curve
 sect283r1 :: Curve
 sect283r1 = Curve
   { types = Types
-    { curve   = "SECT283R1"
+    { base    = "SECT283R1"
+    , curve   = "SECT283R1"
     , field   = Binary "F2m" 0x800000000000000000000000000000000000000000000000000000000000000000010a1
     , field'  = Prime "Fr" 0x3ffffffffffffffffffffffffffffffffffef90399660fc938a90165b042a7cefadb307
     , imports = Nothing
@@ -305,7 +319,8 @@ sect283r1 = Curve
 sect409k1 :: Curve
 sect409k1 = Curve
   { types = Types
-    { curve   = "SECT409K1"
+    { base    = "SECT409K1"
+    , curve   = "SECT409K1"
     , field   = Binary "F2m" 0x2000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000001
     , field'  = Prime "Fr" 0x7ffffffffffffffffffffffffffffffffffffffffffffffffffe5f83b2d4ea20400ec4557d5ed3e3e7ca5b4b5c83b8e01e5fcf
     , imports = Nothing
@@ -324,7 +339,8 @@ sect409k1 = Curve
 sect409r1 :: Curve
 sect409r1 = Curve
   { types = Types
-    { curve   = "SECT409R1"
+    { base    = "SECT409R1"
+    , curve   = "SECT409R1"
     , field   = Binary "F2m" 0x2000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000001
     , field'  = Prime "Fr" 0x10000000000000000000000000000000000000000000000000001e2aad6a612f33307be5fa47c3c9e052f838164cd37d9a21173
     , imports = Nothing
@@ -343,7 +359,8 @@ sect409r1 = Curve
 sect571k1 :: Curve
 sect571k1 = Curve
   { types = Types
-    { curve   = "SECT571K1"
+    { base    = "SECT571K1"
+    , curve   = "SECT571K1"
     , field   = Binary "F2m" 0x80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000425
     , field'  = Prime "Fr" 0x20000000000000000000000000000000000000000000000000000000000000000000000131850e1f19a63e4b391a8db917f4138b630d84be5d639381e91deb45cfe778f637c1001
     , imports = Nothing
@@ -362,7 +379,8 @@ sect571k1 = Curve
 sect571r1 :: Curve
 sect571r1 = Curve
   { types = Types
-    { curve   = "SECT571R1"
+    { base    = "SECT571R1"
+    , curve   = "SECT571R1"
     , field   = Binary "F2m" 0x80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000425
     , field'  = Prime "Fr" 0x3ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe661ce18ff55987308059b186823851ec7dd9ca1161de93d5174d66e8382e9bb2fe84e47
     , imports = Nothing

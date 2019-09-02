@@ -53,7 +53,8 @@ prettyParameters curves
       <$$> indent 2
         (    "{ types = Types"
         <$$> indent 2
-          (    "{ curve   =" <+> prettyText curve
+          (    "{ base    =" <+> prettyText base
+          <$$> ", curve   =" <+> prettyText curve
           <$$> ", field   =" <+> prettyField field
           <$$> ", field'  =" <+> prettyField field'
           <$$> ", imports = "
