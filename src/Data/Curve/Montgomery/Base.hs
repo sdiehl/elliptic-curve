@@ -6,7 +6,7 @@ module Data.Curve.Montgomery.Base
 
 import Protolude
 
-import Data.Field.Galois (GaloisField(..), PrimeField, sr)
+import Data.Field.Galois as F (GaloisField, PrimeField, frob, sr)
 import GHC.Natural (Natural)
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
@@ -90,6 +90,10 @@ instance MACurve e q r => Curve 'Montgomery 'Affine e q r where
       a = a_ (witness :: MAPoint e q r)
       b = b_ (witness :: MAPoint e q r)
   {-# INLINABLE disc #-}
+
+  frob O       = O
+  frob (A x y) = A (F.frob x) (F.frob y)
+  {-# INLINABLE frob #-}
 
   fromA = identity
   {-# INLINABLE fromA #-}

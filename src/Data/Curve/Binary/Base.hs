@@ -6,7 +6,7 @@ module Data.Curve.Binary.Base
 
 import Protolude
 
-import Data.Field.Galois (GaloisField(..), PrimeField, quad)
+import Data.Field.Galois as F (GaloisField, PrimeField, frob, quad)
 import GHC.Natural (Natural)
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
@@ -88,6 +88,10 @@ instance BACurve e q r => Curve 'Binary 'Affine e q r where
 
   disc _ = b_ (witness :: BAPoint e q r)
   {-# INLINABLE disc #-}
+
+  frob O       = O
+  frob (A x y) = A (F.frob x) (F.frob y)
+  {-# INLINABLE frob #-}
 
   fromA = identity
   {-# INLINABLE fromA #-}
@@ -195,6 +199,9 @@ instance BPCurve e q r => Curve 'Binary 'Projective e q r where
 
   disc _ = b_ (witness :: BPPoint e q r)
   {-# INLINABLE disc #-}
+
+  frob (P x y z) = P (F.frob x) (F.frob y) (F.frob z)
+  {-# INLINABLE frob #-}
 
   fromA (A x y) = P x y 1
   fromA _       = P 0 1 0

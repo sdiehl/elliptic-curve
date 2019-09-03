@@ -6,7 +6,7 @@ module Data.Curve.Edwards.Base
 
 import Protolude
 
-import Data.Field.Galois (GaloisField(..), PrimeField, sr)
+import Data.Field.Galois as F (GaloisField, PrimeField, frob, sr)
 import GHC.Natural (Natural)
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
@@ -80,6 +80,9 @@ instance EACurve e q r => Curve 'Edwards 'Affine e q r where
     where
       d = d_ (witness :: EAPoint e q r)
   {-# INLINABLE disc #-}
+
+  frob (A x y) = A (F.frob x) (F.frob y)
+  {-# INLINABLE frob #-}
 
   fromA = identity
   {-# INLINABLE fromA #-}
@@ -188,6 +191,9 @@ instance EPCurve e q r => Curve 'Edwards 'Projective e q r where
     where
       d = d_ (witness :: EPPoint e q r)
   {-# INLINABLE disc #-}
+
+  frob (P x y z) = P (F.frob x) (F.frob y) (F.frob z)
+  {-# INLINABLE frob #-}
 
   fromA (A x y) = P x y 1
   {-# INLINABLE fromA #-}

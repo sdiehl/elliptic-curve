@@ -6,7 +6,7 @@ module Data.Curve.Weierstrass.Base
 
 import Protolude
 
-import Data.Field.Galois (GaloisField(..), PrimeField, TowerOfFields(..), sr)
+import Data.Field.Galois as F (GaloisField, PrimeField, TowerOfFields(..), frob, sr)
 import GHC.Natural (Natural)
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
@@ -87,6 +87,10 @@ instance WACurve e q r => Curve 'Weierstrass 'Affine e q r where
       a = a_ (witness :: WAPoint e q r)
       b = b_ (witness :: WAPoint e q r)
   {-# INLINABLE disc #-}
+
+  frob O       = O
+  frob (A x y) = A (F.frob x) (F.frob y)
+  {-# INLINABLE frob #-}
 
   fromA = identity
   {-# INLINABLE fromA #-}
@@ -217,6 +221,9 @@ instance WJCurve e q r => Curve 'Weierstrass 'Jacobian e q r where
       b = b_ (witness :: WJPoint e q r)
   {-# INLINABLE disc #-}
 
+  frob (J x y z) = J (F.frob x) (F.frob y) (F.frob z)
+  {-# INLINABLE frob #-}
+
   fromA (A x y) = J x y 1
   fromA _       = J 1 1 0
   {-# INLINABLE fromA #-}
@@ -341,6 +348,9 @@ instance WPCurve e q r => Curve 'Weierstrass 'Projective e q r where
       a = a_ (witness :: WPPoint e q r)
       b = b_ (witness :: WPPoint e q r)
   {-# INLINABLE disc #-}
+
+  frob (P x y z) = P (F.frob x) (F.frob y) (F.frob z)
+  {-# INLINABLE frob #-}
 
   fromA (A x y) = P x y 1
   fromA _       = P 0 1 0

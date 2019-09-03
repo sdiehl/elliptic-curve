@@ -26,7 +26,7 @@ class (GaloisField q, PrimeField r, Arbitrary (Point f c e q r),
        Eq (Point f c e q r), Generic (Point f c e q r), Group (Point f c e q r),
        NFData (Point f c e q r), Pretty (Point f c e q r), Random (Point f c e q r),
        Show (Point f c e q r)) => Curve (f :: Form) (c :: Coordinates) e q r where
-  {-# MINIMAL add, char, cof, dbl, def, disc, fromA, gen,
+  {-# MINIMAL add, char, cof, dbl, def, disc, frob, fromA, gen,
               id, inv, line, order, point, pointX, toA, yX #-}
 
   -- | Curve point.
@@ -80,7 +80,13 @@ class (GaloisField q, PrimeField r, Arbitrary (Point f c e q r),
       p' = mul' (dbl p) (div n 2)
   {-# INLINABLE mul' #-}
 
-  -- Points
+  -- Functions
+
+  -- | Frobenius endomorphism.
+  frob :: Point f c e q r -> Point f c e q r
+
+  -- | Transform from affine coordinates.
+  fromA :: Curve f 'Affine e q r => Point f 'Affine e q r -> Point f c e q r
 
   -- | Curve generator.
   gen :: Point f c e q r
@@ -99,16 +105,11 @@ class (GaloisField q, PrimeField r, Arbitrary (Point f c e q r),
   rnd :: MonadRandom m => m (Point f c e q r)
   rnd = getRandom
 
-  -- | Get Y coordinate from X coordinate.
-  yX :: Point f c e q r -> q -> Maybe q
-
-  -- Transformations
-
-  -- | Transform from affine coordinates.
-  fromA :: Curve f 'Affine e q r => Point f 'Affine e q r -> Point f c e q r
-
   -- | Transform to affine coordinates.
   toA :: Curve f 'Affine e q r => Point f c e q r -> Point f 'Affine e q r
+
+  -- | Get Y coordinate from X coordinate.
+  yX :: Point f c e q r -> q -> Maybe q
 
 {-# SPECIALISE mul' ::
   Point f c e q r => g -> Int -> g
