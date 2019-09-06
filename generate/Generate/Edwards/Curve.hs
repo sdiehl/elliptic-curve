@@ -43,10 +43,10 @@ prettyTypes Types{..}
       else mempty
     )
   <$$> prettyDocumentation ("Field of points of" <+> curve')
-  <$$> prettyType field
+  <$$> prettyType field "Q"
   <>   prettyBreak
   <$$> prettyDocumentation ("Field of coefficients of" <+> curve')
-  <$$> prettyType field'
+  <$$> prettyType field' "R"
   <>   prettyBreak
   <$$> prettyComment (curve' <+> "is an Edwards curve")
   <$$> "instance Curve 'Edwards c" <+> pretty base <+> prettyField field

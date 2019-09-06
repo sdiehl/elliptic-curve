@@ -18,14 +18,15 @@ import Data.Curve.Weierstrass.BN254A (BN254A, Fq)
 -------------------------------------------------------------------------------
 
 -- | Field of points of BN254AT curve.
-type Fq2 = Extension Fq PolynomialU
-data PolynomialU
-instance IrreducibleMonic Fq PolynomialU where
+type Fq2 = Extension Fq U
+data U
+instance IrreducibleMonic Fq U where
   poly _ = X2 + 5
   {-# INLINABLE poly #-}
 
 -- | Field of coefficients of BN254AT curve.
-type Fr = Prime 0x2370fb049d410fbe4e761a9886e502411dc1af70120000017e80600000000001
+type Fr = Prime R
+type R = 0x2370fb049d410fbe4e761a9886e502411dc1af70120000017e80600000000001
 
 -- BN254AT curve is a Weierstrass curve.
 instance Curve 'Weierstrass c BN254A Fq2 Fr => WCurve c BN254A Fq2 Fr where

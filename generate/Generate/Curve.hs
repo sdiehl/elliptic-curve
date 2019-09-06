@@ -4,7 +4,7 @@ module Generate.Curve
 
 import Protolude
 
-import Text.PrettyPrint.Leijen.Text
+import Text.PrettyPrint.Leijen.Text hiding (char)
 
 import Generate.Pretty
 import Generate.Types
@@ -40,10 +40,11 @@ prettyImport
   <$$> "import Data.Field.Galois"
   <$$> "import GHC.Natural (Natural)"
 
-prettyType :: Field -> Doc
-prettyType (Binary f2m q)
-  = "type" <+> pretty f2m <+> "= Binary" <+> prettyNatural q
-prettyType (Extension fq' fq q s k)
+prettyType :: Field -> Doc -> Doc
+prettyType (Binary f2m m) char
+  =    "type" <+> pretty f2m <+> "= Binary" <+> char
+  <$$> "type" <+> char <+> "=" <+> prettyNatural m
+prettyType (Extension fq' fq q s k) char
   =    "type" <+> pretty fq' <+> "= Extension" <+> pretty fq <+> pretty q
   <$$> "data" <+> pretty q
   <$$> "instance IrreducibleMonic" <+> pretty fq <+> pretty q <+> "where"
@@ -54,7 +55,8 @@ prettyType (Extension fq' fq q s k)
   <$$> prettyType' k
   where
     prettyType' :: Maybe Field -> Doc
-    prettyType' (Just f) = prettyType f
+    prettyType' (Just f) = prettyType f char
     prettyType' _        = mempty
-prettyType (Prime fq q)
-  = "type" <+> pretty fq <+> "= Prime" <+> prettyNatural q
+prettyType (Prime fq q) char
+  =    "type" <+> pretty fq <+> "= Prime" <+> char
+  <$$> "type" <+> char <+> "=" <+> prettyNatural q

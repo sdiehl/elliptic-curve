@@ -18,14 +18,15 @@ import Data.Curve.Weierstrass.BLS12381 (BLS12381, Fq)
 -------------------------------------------------------------------------------
 
 -- | Field of points of BLS12381T curve.
-type Fq2 = Extension Fq PolynomialU
-data PolynomialU
-instance IrreducibleMonic Fq PolynomialU where
+type Fq2 = Extension Fq U
+data U
+instance IrreducibleMonic Fq U where
   poly _ = X2 + 1
   {-# INLINABLE poly #-}
 
 -- | Field of coefficients of BLS12381T curve.
-type Fr = Prime 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
+type Fr = Prime R
+type R = 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
 
 -- BLS12381T curve is a Weierstrass curve.
 instance Curve 'Weierstrass c BLS12381 Fq2 Fr => WCurve c BLS12381 Fq2 Fr where

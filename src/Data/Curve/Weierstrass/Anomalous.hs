@@ -20,10 +20,12 @@ import Data.Curve.Weierstrass.Base (WCurve(..), WACurve(..), WJCurve(..), WPCurv
 data Anomalous
 
 -- | Field of points of Anomalous curve.
-type Fq = Prime 0xb0000000000000000000000953000000000000000000001f9d7
+type Fq = Prime Q
+type Q = 0xb0000000000000000000000953000000000000000000001f9d7
 
 -- | Field of coefficients of Anomalous curve.
-type Fr = Prime 0xb0000000000000000000000953000000000000000000001f9d7
+type Fr = Prime R
+type R = 0xb0000000000000000000000953000000000000000000001f9d7
 
 -- Anomalous curve is a Weierstrass curve.
 instance Curve 'Weierstrass c Anomalous Fq Fr => WCurve c Anomalous Fq Fr where

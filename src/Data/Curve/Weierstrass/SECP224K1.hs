@@ -20,10 +20,12 @@ import Data.Curve.Weierstrass.Base (WCurve(..), WACurve(..), WJCurve(..), WPCurv
 data SECP224K1
 
 -- | Field of points of SECP224K1 curve.
-type Fq = Prime 0xfffffffffffffffffffffffffffffffffffffffffffffffeffffe56d
+type Fq = Prime Q
+type Q = 0xfffffffffffffffffffffffffffffffffffffffffffffffeffffe56d
 
 -- | Field of coefficients of SECP224K1 curve.
-type Fr = Prime 0x10000000000000000000000000001dce8d2ec6184caf0a971769fb1f7
+type Fr = Prime R
+type R = 0x10000000000000000000000000001dce8d2ec6184caf0a971769fb1f7
 
 -- SECP224K1 curve is a Weierstrass curve.
 instance Curve 'Weierstrass c SECP224K1 Fq Fr => WCurve c SECP224K1 Fq Fr where

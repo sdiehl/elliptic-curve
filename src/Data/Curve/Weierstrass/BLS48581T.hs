@@ -18,24 +18,25 @@ import Data.Curve.Weierstrass.BLS48581 (BLS48581, Fq)
 -------------------------------------------------------------------------------
 
 -- | Field of points of BLS48581T curve.
-type Fq8 = Extension Fq4 PolynomialW
-data PolynomialW
-instance IrreducibleMonic Fq4 PolynomialW where
+type Fq8 = Extension Fq4 W
+data W
+instance IrreducibleMonic Fq4 W where
   poly _ = X2 + Y X
   {-# INLINABLE poly #-}
-type Fq4 = Extension Fq2 PolynomialV
-data PolynomialV
-instance IrreducibleMonic Fq2 PolynomialV where
+type Fq4 = Extension Fq2 V
+data V
+instance IrreducibleMonic Fq2 V where
   poly _ = X2 + 1 + Y X
   {-# INLINABLE poly #-}
-type Fq2 = Extension Fq PolynomialU
-data PolynomialU
-instance IrreducibleMonic Fq PolynomialU where
+type Fq2 = Extension Fq U
+data U
+instance IrreducibleMonic Fq U where
   poly _ = X2 + 1
   {-# INLINABLE poly #-}
 
 -- | Field of coefficients of BLS48581T curve.
-type Fr = Prime 0x2386f8a925e2885e233a9ccc1615c0d6c635387a3f0b3cbe003fad6bc972c2e6e741969d34c4c92016a85c7cd0562303c4ccbe599467c24da118a5fe6fcd671c01
+type Fr = Prime R
+type R = 0x2386f8a925e2885e233a9ccc1615c0d6c635387a3f0b3cbe003fad6bc972c2e6e741969d34c4c92016a85c7cd0562303c4ccbe599467c24da118a5fe6fcd671c01
 
 -- BLS48581T curve is a Weierstrass curve.
 instance Curve 'Weierstrass c BLS48581 Fq8 Fr => WCurve c BLS48581 Fq8 Fr where

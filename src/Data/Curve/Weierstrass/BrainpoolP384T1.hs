@@ -20,10 +20,12 @@ import Data.Curve.Weierstrass.Base (WCurve(..), WACurve(..), WJCurve(..), WPCurv
 data BrainpoolP384T1
 
 -- | Field of points of BrainpoolP384T1 curve.
-type Fq = Prime 0x8cb91e82a3386d280f5d6f7e50e641df152f7109ed5456b412b1da197fb71123acd3a729901d1a71874700133107ec53
+type Fq = Prime Q
+type Q = 0x8cb91e82a3386d280f5d6f7e50e641df152f7109ed5456b412b1da197fb71123acd3a729901d1a71874700133107ec53
 
 -- | Field of coefficients of BrainpoolP384T1 curve.
-type Fr = Prime 0x8cb91e82a3386d280f5d6f7e50e641df152f7109ed5456b31f166e6cac0425a7cf3ab6af6b7fc3103b883202e9046565
+type Fr = Prime R
+type R = 0x8cb91e82a3386d280f5d6f7e50e641df152f7109ed5456b31f166e6cac0425a7cf3ab6af6b7fc3103b883202e9046565
 
 -- BrainpoolP384T1 curve is a Weierstrass curve.
 instance Curve 'Weierstrass c BrainpoolP384T1 Fq Fr => WCurve c BrainpoolP384T1 Fq Fr where

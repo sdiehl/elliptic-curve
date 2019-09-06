@@ -20,10 +20,12 @@ import Data.Curve.Montgomery.Base (MCurve(..), MACurve(..))
 data Curve25519
 
 -- | Field of points of Curve25519 curve.
-type Fq = Prime 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffed
+type Fq = Prime Q
+type Q = 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffed
 
 -- | Field of coefficients of Curve25519 curve.
-type Fr = Prime 0x1000000000000000000000000000000014def9dea2f79cd65812631a5cf5d3ed
+type Fr = Prime R
+type R = 0x1000000000000000000000000000000014def9dea2f79cd65812631a5cf5d3ed
 
 -- Curve25519 curve is a Montgomery curve.
 instance Curve 'Montgomery c Curve25519 Fq Fr => MCurve c Curve25519 Fq Fr where

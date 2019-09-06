@@ -20,10 +20,12 @@ import Data.Curve.Edwards.Base (ECurve(..), EACurve(..), EPCurve(..))
 data Curve41417
 
 -- | Field of points of Curve41417 curve.
-type Fq = Prime 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffef
+type Fq = Prime Q
+type Q = 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffef
 
 -- | Field of coefficients of Curve41417 curve.
-type Fr = Prime 0x7ffffffffffffffffffffffffffffffffffffffffffffffffffeb3cc92414cf706022b36f1c0338ad63cf181b0e71a5e106af79
+type Fr = Prime R
+type R = 0x7ffffffffffffffffffffffffffffffffffffffffffffffffffeb3cc92414cf706022b36f1c0338ad63cf181b0e71a5e106af79
 
 -- Curve41417 curve is an Edwards curve.
 instance Curve 'Edwards c Curve41417 Fq Fr => ECurve c Curve41417 Fq Fr where

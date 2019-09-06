@@ -20,10 +20,12 @@ import Data.Curve.Weierstrass.Base (WCurve(..), WACurve(..), WJCurve(..), WPCurv
 data BLS12381
 
 -- | Field of points of BLS12381 curve.
-type Fq = Prime 0x1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab
+type Fq = Prime Q
+type Q = 0x1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab
 
 -- | Field of coefficients of BLS12381 curve.
-type Fr = Prime 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
+type Fr = Prime R
+type R = 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
 
 -- BLS12381 curve is a Weierstrass curve.
 instance Curve 'Weierstrass c BLS12381 Fq Fr => WCurve c BLS12381 Fq Fr where

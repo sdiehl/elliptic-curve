@@ -20,10 +20,12 @@ import Data.Curve.Binary.Base (BCurve(..), BACurve(..), BPCurve(..))
 data SECT163K1
 
 -- | Field of points of SECT163K1 curve.
-type F2m = Binary 0x800000000000000000000000000000000000000c9
+type F2m = Binary M
+type M = 0x800000000000000000000000000000000000000c9
 
 -- | Field of coefficients of SECT163K1 curve.
-type Fr = Prime 0x4000000000000000000020108a2e0cc0d99f8a5ef
+type Fr = Prime R
+type R = 0x4000000000000000000020108a2e0cc0d99f8a5ef
 
 -- SECT163K1 curve is a binary curve.
 instance Curve 'Binary c SECT163K1 F2m Fr => BCurve c SECT163K1 F2m Fr where

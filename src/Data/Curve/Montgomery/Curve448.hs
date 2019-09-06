@@ -20,10 +20,12 @@ import Data.Curve.Montgomery.Base (MCurve(..), MACurve(..))
 data Curve448
 
 -- | Field of points of Curve448 curve.
-type Fq = Prime 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+type Fq = Prime Q
+type Q = 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 
 -- | Field of coefficients of Curve448 curve.
-type Fr = Prime 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffff7cca23e9c44edb49aed63690216cc2728dc58f552378c292ab5844f3
+type Fr = Prime R
+type R = 0x3fffffffffffffffffffffffffffffffffffffffffffffffffffffff7cca23e9c44edb49aed63690216cc2728dc58f552378c292ab5844f3
 
 -- Curve448 curve is a Montgomery curve.
 instance Curve 'Montgomery c Curve448 Fq Fr => MCurve c Curve448 Fq Fr where
