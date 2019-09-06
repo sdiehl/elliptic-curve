@@ -27,7 +27,7 @@ default-extensions:
 
 dependencies:
   - base >= 4.10 && < 5
-  - protolude
+  - protolude >= 0.2 && < 0.3
   - galois-field >= 0.4 && < 0.5
   - groups
   - MonadRandom

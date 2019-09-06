@@ -11,7 +11,7 @@ module Data.Curve
 import Protolude
 
 import Control.Monad.Random (MonadRandom, Random(..), getRandom)
-import Data.Field.Galois (GaloisField, PrimeField(..))
+import Data.Field.Galois (GaloisField, PrimeField, fromP)
 import Data.Group as G (Group(..))
 import GHC.Natural (Natural)
 import Test.Tasty.QuickCheck (Arbitrary(..))

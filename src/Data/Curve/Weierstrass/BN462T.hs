@@ -18,11 +18,11 @@ import Data.Curve.Weierstrass.BN462 (BN462, Fq)
 -------------------------------------------------------------------------------
 
 -- | Field of points of BN462T curve.
+type Fq2 = Extension Fq PolynomialU
 data PolynomialU
 instance IrreducibleMonic Fq PolynomialU where
-  split _ = X2 + 1
-  {-# INLINABLE split #-}
-type Fq2 = Extension Fq PolynomialU
+  poly _ = X2 + 1
+  {-# INLINABLE poly #-}
 
 -- | Field of coefficients of BN462T curve.
 type Fr = Prime 0x240480360120023ffffffffff6ff0cf6b7d9bfca0000000000d812908ee1c201f7fffffffff6ff66fc7bf717f7c0000000002401b007e010800d

@@ -44,14 +44,14 @@ prettyType :: Field -> Doc
 prettyType (Binary f2m q)
   = "type" <+> pretty f2m <+> "= Binary" <+> prettyNatural q
 prettyType (Extension fq' fq q s k)
-  =    prettyType' k
+  =    "type" <+> pretty fq' <+> "= Extension" <+> pretty fq <+> pretty q
   <$$> "data" <+> pretty q
   <$$> "instance IrreducibleMonic" <+> pretty fq <+> pretty q <+> "where"
   <$$> indent 2
-    (   "split _ =" <+> pretty s
-    <$$> prettyInline "split"
+    (   "poly _ =" <+> pretty s
+    <$$> prettyInline "poly"
     )
-  <$$> "type" <+> pretty fq' <+> "= Extension" <+> pretty fq <+> pretty q
+  <$$> prettyType' k
   where
     prettyType' :: Maybe Field -> Doc
     prettyType' (Just f) = prettyType f
