@@ -10,7 +10,6 @@ import Data.Field.Galois
 import GHC.Natural (Natural)
 
 import Data.Curve.Weierstrass
-import Data.Curve.Weierstrass.Base (WCurve(..), WACurve(..), WJCurve(..), WPCurve(..))
 import Data.Curve.Weierstrass.BLS12381 (BLS12381, Fq)
 
 -------------------------------------------------------------------------------

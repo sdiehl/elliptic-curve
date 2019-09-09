@@ -27,7 +27,6 @@ prettyImports Types{..}
   <$$> prettyImport
   <>   prettyBreak
   <$$> "import Data.Curve.Edwards"
-  <$$> "import Data.Curve.Edwards.Base (ECurve(..), EACurve(..), EPCurve(..))"
   <$$> maybe mempty pretty imports
 
 prettyTypes :: Types -> Doc

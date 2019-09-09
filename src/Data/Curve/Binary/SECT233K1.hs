@@ -10,7 +10,6 @@ import Data.Field.Galois
 import GHC.Natural (Natural)
 
 import Data.Curve.Binary
-import Data.Curve.Binary.Base (BCurve(..), BACurve(..), BPCurve(..))
 
 -------------------------------------------------------------------------------
 -- Types

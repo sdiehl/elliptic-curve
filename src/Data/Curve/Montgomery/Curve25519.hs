@@ -10,7 +10,6 @@ import Data.Field.Galois
 import GHC.Natural (Natural)
 
 import Data.Curve.Montgomery
-import Data.Curve.Montgomery.Base (MCurve(..), MACurve(..))
 
 -------------------------------------------------------------------------------
 -- Types

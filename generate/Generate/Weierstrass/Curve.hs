@@ -27,7 +27,6 @@ prettyImports Types{..}
   <$$> prettyImport
   <>   prettyBreak
   <$$> "import Data.Curve.Weierstrass"
-  <$$> "import Data.Curve.Weierstrass.Base (WCurve(..), WACurve(..), WJCurve(..), WPCurve(..))"
   <$$> maybe mempty pretty imports
 
 prettyTypes :: Types -> Doc

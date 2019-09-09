@@ -10,7 +10,6 @@ import Data.Field.Galois
 import GHC.Natural (Natural)
 
 import Data.Curve.Edwards
-import Data.Curve.Edwards.Base (ECurve(..), EACurve(..), EPCurve(..))
 
 -------------------------------------------------------------------------------
 -- Types
