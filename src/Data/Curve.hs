@@ -139,6 +139,15 @@ instance Curve f c e q r => Arbitrary (Point f c e q r) where
   -}
   {-# INLINABLE arbitrary #-}
 
+-- Elliptic curve points are groups.
+instance Curve f c e q r => G.Group (Point f c e q r) where
+
+  invert = inv
+  {-# INLINABLE invert #-}
+
+  pow = mul'
+  {-# INLINABLE pow #-}
+
 -- Elliptic curve points are monoids.
 instance Curve f c e q r => Monoid (Point f c e q r) where
 
@@ -160,15 +169,6 @@ instance Curve f c e q r => Random (Point f c e q r) where
   {-# INLINABLE random #-}
 
   randomR = panic "Curve.randomR: not implemented."
-
--- Elliptic curve points are groups.
-instance Curve f c e q r => G.Group (Point f c e q r) where
-
-  invert = inv
-  {-# INLINABLE invert #-}
-
-  pow = mul'
-  {-# INLINABLE pow #-}
 
 -- Elliptic curve points are semigroups.
 instance Curve f c e q r => Semigroup (Point f c e q r) where
