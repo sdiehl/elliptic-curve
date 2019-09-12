@@ -17,19 +17,19 @@ import Data.Curve.Weierstrass.BLS48581 (BLS48581, Fq)
 -------------------------------------------------------------------------------
 
 -- | Field of points of BLS48581T curve.
-type Fq8 = Extension Fq4 W
+type Fq8 = Extension W Fq4
 data W
-instance IrreducibleMonic Fq4 W where
+instance IrreducibleMonic W Fq4 where
   poly _ = X2 + Y X
   {-# INLINABLE poly #-}
-type Fq4 = Extension Fq2 V
+type Fq4 = Extension V Fq2
 data V
-instance IrreducibleMonic Fq2 V where
+instance IrreducibleMonic V Fq2 where
   poly _ = X2 + 1 + Y X
   {-# INLINABLE poly #-}
-type Fq2 = Extension Fq U
+type Fq2 = Extension U Fq
 data U
-instance IrreducibleMonic Fq U where
+instance IrreducibleMonic U Fq where
   poly _ = X2 + 1
   {-# INLINABLE poly #-}
 

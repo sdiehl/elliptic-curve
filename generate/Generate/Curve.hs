@@ -45,9 +45,9 @@ prettyType (Binary f2m m) char
   =    "type" <+> pretty f2m <+> "= Binary" <+> char
   <$$> "type" <+> char <+> "=" <+> prettyNatural m
 prettyType (Extension fq' fq q s k) char
-  =    "type" <+> pretty fq' <+> "= Extension" <+> pretty fq <+> pretty q
+  =    "type" <+> pretty fq' <+> "= Extension" <+> pretty q <+> pretty fq
   <$$> "data" <+> pretty q
-  <$$> "instance IrreducibleMonic" <+> pretty fq <+> pretty q <+> "where"
+  <$$> "instance IrreducibleMonic" <+> pretty q <+> pretty fq <+> "where"
   <$$> indent 2
     (   "poly _ =" <+> pretty s
     <$$> prettyInline "poly"

@@ -17,9 +17,9 @@ import Data.Curve.Weierstrass.BN254A (BN254A, Fq)
 -------------------------------------------------------------------------------
 
 -- | Field of points of BN254AT curve.
-type Fq2 = Extension Fq U
+type Fq2 = Extension U Fq
 data U
-instance IrreducibleMonic Fq U where
+instance IrreducibleMonic U Fq where
   poly _ = X2 + 5
   {-# INLINABLE poly #-}
 
