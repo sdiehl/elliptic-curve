@@ -80,8 +80,9 @@ instance MACurve e q r => Curve 'Montgomery 'Affine e q r where
     where
       a  = a_ (witness :: MAPoint e q r)
       b  = b_ (witness :: MAPoint e q r)
-      l  = (x * (3 * x + 2 * a) + 1) / (2 * b * y)
-      x' = b * l * l - a - 2 * x
+      by = b * y
+      l  = (x * (x + x + x + a + a) + 1) / (by + by)
+      x' = b * l * l - a - x - x
       y' = l * (x - x') - y
   {-# INLINABLE dbl #-}
 

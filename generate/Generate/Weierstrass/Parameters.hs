@@ -25,6 +25,10 @@ curves =
   , bn254at
   , bn254b
   , bn254bt
+  , bn254c
+  , bn254ct
+  , bn254d
+  , bn254dt
   , bn256
   , bn384
   , bn462
@@ -390,6 +394,100 @@ bn254bt = Curve
             ]
     , y = E [ P 0x21897a06baf93439a90e096698c822329bd0ae6bdbe09bd19f0e07891cd2b9a
             , P 0xebb2b0e7c8b15268f6d4456f5f38d37b09006ffd739c9578a2d1aec6b3ace9b
+            ]
+    }
+  }
+
+bn254c :: Curve
+bn254c = Curve
+  { types = Types
+    { base    = "BN254C"
+    , curve   = "BN254C"
+    , field   = Prime "Fq" 0x240120db6517014efa0bab3696f8d5f06e8a555614f464babe9dbbfeeeb4a713
+    , field'  = Prime "Fr" 0x240120db6517014efa0bab3696f8d5f00e88d43492b2cb363a75777e8d30210d
+    , imports = Nothing
+    }
+  , parameters = Parameters
+    { a = P 0x0
+    , b = P 0x2
+    , h = 0x1
+    , q = 0x240120db6517014efa0bab3696f8d5f06e8a555614f464babe9dbbfeeeb4a713
+    , r = 0x240120db6517014efa0bab3696f8d5f00e88d43492b2cb363a75777e8d30210d
+    , x = P 0x240120db6517014efa0bab3696f8d5f06e8a555614f464babe9dbbfeeeb4a712
+    , y = P 0x1
+    }
+  }
+
+bn254ct :: Curve
+bn254ct = Curve
+  { types = Types
+    { base    = "BN254C"
+    , curve   = "BN254CT"
+    , field   = Extension "Fq2" "Fq" "U" "X2 + 1" Nothing
+    , field'  = Prime "Fr" 0x240120db6517014efa0bab3696f8d5f00e88d43492b2cb363a75777e8d30210d
+    , imports = Just "import Data.Curve.Weierstrass.BN254C (BN254C, Fq)"
+    }
+  , parameters = Parameters
+    { a = E [
+            ]
+    , b = E [ P 0x1
+            , P 0x240120db6517014efa0bab3696f8d5f06e8a555614f464babe9dbbfeeeb4a712
+            ]
+    , h = 0x240120db6517014efa0bab3696f8d5f0ce8bd6779735fe3f42c6007f50392d19
+    , q = 0x240120db6517014efa0bab3696f8d5f06e8a555614f464babe9dbbfeeeb4a713
+    , r = 0x240120db6517014efa0bab3696f8d5f00e88d43492b2cb363a75777e8d30210d
+    , x = E [ P 0x571af2ea9666eb2a53f3fb837172bdd809c03a95c5870f34a8cb340220bf9c0
+            , P 0xf71abb712a9e6e12c07b58bc01f2f994c3b5a1531cf96609b838e5ccf05bc71
+            ]
+    , y = E [ P 0xb88822fe134c1695b21419bb1ab9732f707701046a2e6ff3ad10f3c70284b93
+            , P 0x1659b723676b5af5231fb045b3d822c0de6fcaab171bad9c8951afc800a26775
+            ]
+    }
+  }
+
+bn254d :: Curve
+bn254d = Curve
+  { types = Types
+    { base    = "BN254D"
+    , curve   = "BN254D"
+    , field   = Prime "Fq" 0x24000482410f5aadb74e200f3b89d00081cf93e428f0d651e8b2dc2bb460a48b
+    , field'  = Prime "Fr" 0x24000482410f5aadb74e200f3b89d00021cf8de127b73833d7fb71a511aa2bf5
+    , imports = Nothing
+    }
+  , parameters = Parameters
+    { a = P 0x0
+    , b = P 0x2
+    , h = 0x1
+    , q = 0x24000482410f5aadb74e200f3b89d00081cf93e428f0d651e8b2dc2bb460a48b
+    , r = 0x24000482410f5aadb74e200f3b89d00021cf8de127b73833d7fb71a511aa2bf5
+    , x = P 0x24000482410f5aadb74e200f3b89d00081cf93e428f0d651e8b2dc2bb460a48a
+    , y = P 0x1
+    }
+  }
+
+bn254dt :: Curve
+bn254dt = Curve
+  { types = Types
+    { base    = "BN254D"
+    , curve   = "BN254DT"
+    , field   = Extension "Fq2" "Fq" "U" "X2 + 1" Nothing
+    , field'  = Prime "Fr" 0x24000482410f5aadb74e200f3b89d00021cf8de127b73833d7fb71a511aa2bf5
+    , imports = Just "import Data.Curve.Weierstrass.BN254D (BN254D, Fq)"
+    }
+  , parameters = Parameters
+    { a = E [
+            ]
+    , b = E [ P 0x1
+            , P 0x24000482410f5aadb74e200f3b89d00081cf93e428f0d651e8b2dc2bb460a48a
+            ]
+    , h = 0x24000482410f5aadb74e200f3b89d000e1cf99e72a2a746ff96a46b257171d21
+    , q = 0x24000482410f5aadb74e200f3b89d00081cf93e428f0d651e8b2dc2bb460a48b
+    , r = 0x24000482410f5aadb74e200f3b89d00021cf8de127b73833d7fb71a511aa2bf5
+    , x = E [ P 0x20cfe8b965fc444008a21b12cd2a55f843c1dd68ba12a8bb1f1dde3533b91a32
+            , P 0x176f822a5ee7ada449f8f876ee001508dd43b5413e03c8f4ad3e3b38dadaf51
+            ]
+    , y = E [ P 0x2b27f22c2920fee3b4af218b6d92421780a9bdc66155142fecef3af7f58e872
+            , P 0x14e9c62a36ebce710810576b5401fdf0b28126ad2d563bf5043be3347646dfb4
             ]
     }
   }

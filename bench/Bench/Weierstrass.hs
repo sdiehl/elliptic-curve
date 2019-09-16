@@ -14,6 +14,10 @@ import qualified Data.Curve.Weierstrass.BN254A          as BN254A
 import qualified Data.Curve.Weierstrass.BN254AT         as BN254AT
 import qualified Data.Curve.Weierstrass.BN254B          as BN254B
 import qualified Data.Curve.Weierstrass.BN254BT         as BN254BT
+import qualified Data.Curve.Weierstrass.BN254C          as BN254C
+import qualified Data.Curve.Weierstrass.BN254CT         as BN254CT
+import qualified Data.Curve.Weierstrass.BN254D          as BN254D
+import qualified Data.Curve.Weierstrass.BN254DT         as BN254DT
 import qualified Data.Curve.Weierstrass.BN256           as BN256
 import qualified Data.Curve.Weierstrass.BN384           as BN384
 import qualified Data.Curve.Weierstrass.BN462           as BN462
@@ -66,6 +70,10 @@ benchWeierstrass = bgroup "Weierstrass"
   , benchWeierstrass'         "BN254AT"         BN254AT.gA         BN254AT.gJ         BN254AT.gP
   , benchWeierstrass'          "BN254B"          BN254B.gA          BN254B.gJ          BN254B.gP
   , benchWeierstrass'         "BN254BT"         BN254BT.gA         BN254BT.gJ         BN254BT.gP
+  , benchWeierstrass'          "BN254C"          BN254C.gA          BN254C.gJ          BN254C.gP
+  , benchWeierstrass'         "BN254CT"         BN254CT.gA         BN254CT.gJ         BN254CT.gP
+  , benchWeierstrass'          "BN254D"          BN254D.gA          BN254D.gJ          BN254D.gP
+  , benchWeierstrass'         "BN254DT"         BN254DT.gA         BN254DT.gJ         BN254DT.gP
   , benchWeierstrass'           "BN256"           BN256.gA           BN256.gJ           BN256.gP
   , benchWeierstrass'           "BN384"           BN384.gA           BN384.gJ           BN384.gP
   , benchWeierstrass'           "BN462"           BN462.gA           BN462.gJ           BN462.gP

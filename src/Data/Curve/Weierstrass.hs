@@ -83,8 +83,9 @@ instance WACurve e q r => Curve 'Weierstrass 'Affine e q r where
     | otherwise = A x' y'
     where
       a  = a_ (witness :: WAPoint e q r)
-      l  = (3 * x * x + a) / (2 * y)
-      x' = l * l - 2 * x
+      xx = x * x
+      l  = (xx + xx + xx + a) / (y + y)
+      x' = l * l - x - x
       y' = l * (x - x') - y
   {-# INLINABLE dbl #-}
 

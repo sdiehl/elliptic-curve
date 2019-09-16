@@ -96,6 +96,10 @@ library:
     - Data.Curve.Weierstrass.BN254AT
     - Data.Curve.Weierstrass.BN254B
     - Data.Curve.Weierstrass.BN254BT
+    - Data.Curve.Weierstrass.BN254C
+    - Data.Curve.Weierstrass.BN254CT
+    - Data.Curve.Weierstrass.BN254D
+    - Data.Curve.Weierstrass.BN254DT
     - Data.Curve.Weierstrass.BN256
     - Data.Curve.Weierstrass.BN384
     - Data.Curve.Weierstrass.BN462

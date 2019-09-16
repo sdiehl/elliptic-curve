@@ -15,6 +15,10 @@ import qualified Data.Curve.Weierstrass.BN254A          as BN254A
 import qualified Data.Curve.Weierstrass.BN254AT         as BN254AT
 import qualified Data.Curve.Weierstrass.BN254B          as BN254B
 import qualified Data.Curve.Weierstrass.BN254BT         as BN254BT
+import qualified Data.Curve.Weierstrass.BN254C          as BN254C
+import qualified Data.Curve.Weierstrass.BN254CT         as BN254CT
+import qualified Data.Curve.Weierstrass.BN254D          as BN254D
+import qualified Data.Curve.Weierstrass.BN254DT         as BN254DT
 import qualified Data.Curve.Weierstrass.BN256           as BN256
 import qualified Data.Curve.Weierstrass.BN384           as BN384
 import qualified Data.Curve.Weierstrass.BN462           as BN462
@@ -69,6 +73,10 @@ testWeierstrass = testGroup "Weierstrass"
   , testWeierstrass'  10         "BN254AT"         BN254AT._h         BN254AT._q         BN254AT._r         BN254AT.gA         BN254AT.gJ         BN254AT.gP
   , testWeierstrass' 100          "BN254B"          BN254B._h          BN254B._q          BN254B._r          BN254B.gA          BN254B.gJ          BN254B.gP
   , testWeierstrass'  10         "BN254BT"         BN254BT._h         BN254BT._q         BN254BT._r         BN254BT.gA         BN254BT.gJ         BN254BT.gP
+  , testWeierstrass' 100          "BN254C"          BN254C._h          BN254C._q          BN254C._r          BN254C.gA          BN254C.gJ          BN254C.gP
+  , testWeierstrass'  10         "BN254CT"         BN254CT._h         BN254CT._q         BN254CT._r         BN254CT.gA         BN254CT.gJ         BN254CT.gP
+  , testWeierstrass' 100          "BN254D"          BN254D._h          BN254D._q          BN254D._r          BN254D.gA          BN254D.gJ          BN254D.gP
+  , testWeierstrass'  10         "BN254DT"         BN254DT._h         BN254DT._q         BN254DT._r         BN254DT.gA         BN254DT.gJ         BN254DT.gP
   , testWeierstrass' 100           "BN256"           BN256._h           BN256._q           BN256._r           BN256.gA           BN256.gJ           BN256.gP
   , testWeierstrass' 100           "BN384"           BN384._h           BN384._q           BN384._r           BN384.gA           BN384.gJ           BN384.gP
   , testWeierstrass' 100           "BN462"           BN462._h           BN462._q           BN462._r           BN462.gA           BN462.gJ           BN462.gP
