@@ -37,33 +37,33 @@ generateBinaryCurve = map generateBinaryCurve' Binary.curves
   where
     generateBinaryCurve' :: Binary.Curve -> (FilePath, Text)
     generateBinaryCurve' = generateCurve'
-      "Binary" Binary.curve Binary.types Binary.prettyCurve
+      "Binary" Binary.name Binary.prettyCurve
 
 generateEdwardsCurve :: [(FilePath, Text)]
 generateEdwardsCurve = map generateEdwardsCurve' Edwards.curves
   where
     generateEdwardsCurve' :: Edwards.Curve -> (FilePath, Text)
     generateEdwardsCurve' = generateCurve'
-      "Edwards" Edwards.curve Edwards.types Edwards.prettyCurve
+      "Edwards" Edwards.name Edwards.prettyCurve
 
 generateMontgomeryCurve :: [(FilePath, Text)]
 generateMontgomeryCurve = map generateMontgomeryCurve' Montgomery.curves
   where
     generateMontgomeryCurve' :: Montgomery.Curve -> (FilePath, Text)
     generateMontgomeryCurve' = generateCurve'
-      "Montgomery" Montgomery.curve Montgomery.types Montgomery.prettyCurve
+      "Montgomery" Montgomery.name Montgomery.prettyCurve
 
 generateWeierstrassCurve :: [(FilePath, Text)]
 generateWeierstrassCurve = map generateWeierstrassCurve' Weierstrass.curves
   where
     generateWeierstrassCurve' :: Weierstrass.Curve -> (FilePath, Text)
     generateWeierstrassCurve' = generateCurve'
-      "Weierstrass" Weierstrass.curve Weierstrass.types Weierstrass.prettyCurve
+      "Weierstrass" Weierstrass.name Weierstrass.prettyCurve
 
-generateCurve' :: Show doc => Text -> (types -> Text)
-  -> (curve -> types) -> (curve -> doc) -> curve -> (FilePath, Text)
-generateCurve' form curve types pretty = (,)
-  <$> unpack . (<> ".hs") . (<>) ("../src/Data/Curve/" <> form <> "/") . curve . types
+generateCurve' :: Show doc => Text -> (curve -> Text)
+  -> (curve -> doc) -> curve -> (FilePath, Text)
+generateCurve' form curve pretty = (,)
+  <$> unpack . (<> ".hs") . (<>) ("../src/Data/Curve/" <> form <> "/") . curve
   <*> show . pretty
 
 -------------------------------------------------------------------------------

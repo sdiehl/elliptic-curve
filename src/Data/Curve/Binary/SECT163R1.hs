@@ -19,8 +19,8 @@ import Data.Curve.Binary
 data SECT163R1
 
 -- | Field of points of SECT163R1 curve.
-type F2m = Binary M
-type M = 0x800000000000000000000000000000000000000c9
+type F2m = Binary P
+type P = 0x800000000000000000000000000000000000000c9
 
 -- | Field of coefficients of SECT163R1 curve.
 type Fr = Prime R

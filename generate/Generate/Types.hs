@@ -14,14 +14,11 @@ data Element = B Natural
              | E [Element]
              | P Natural
 
-data Field = Binary Text Natural
-           | Extension Text Text Text Text (Maybe Field)
-           | Prime Text Natural
+data Field = Binary Text
+           | Extension Text Text Text Field
+           | Prime Text
 
 data Types = Types
-  { base    :: Text
-  , curve   :: Text
-  , field   :: Field
-  , field'  :: Field
-  , imports :: Maybe Text
+  { curve :: Text
+  , field :: Field
   }

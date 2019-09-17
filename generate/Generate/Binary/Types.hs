@@ -3,6 +3,8 @@ module Generate.Binary.Types
   , module Generate.Types
   ) where
 
+import Protolude
+
 import GHC.Natural (Natural)
 
 import Generate.Types
@@ -12,7 +14,8 @@ import Generate.Types
 -------------------------------------------------------------------------------
 
 data Curve = Curve
-  { types      :: Types
+  { name       :: Text
+  , types      :: Types
   , parameters :: Parameters
   }
 

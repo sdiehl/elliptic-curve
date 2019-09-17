@@ -26,16 +26,13 @@ prettyElement (P n)
   = "P" <+> prettyNatural n
 
 prettyField :: Field -> Doc
-prettyField (Binary fp p)
-  = "Binary" <+> prettyText fp <+> prettyNatural p
-prettyField (Extension fq fp p s k)
+prettyField (Binary f2m)
+  = "Binary" <+> prettyText f2m
+prettyField (Extension fq p x k)
   = align
-    (   "Extension" <+> prettyText fq <+> prettyText fp
-    <+> prettyText p <+> prettyText s <+> prettyField' k
+    (    "Extension" <+> prettyText fq <+> prettyText p <+> prettyText x <+> "("
+    <$$> indent 2 (prettyField k)
+    <$$> ")"
     )
-  where
-    prettyField' :: Maybe Field -> Doc
-    prettyField' (Just f) = "(Just" <$$> "(" <+> align (prettyField f) <$$> "))"
-    prettyField' _        = "Nothing"
-prettyField (Prime f2m p)
-  = "Prime" <+> prettyText f2m <+> prettyNatural p
+prettyField (Prime fq)
+  = "Prime" <+> prettyText fq
