@@ -20,19 +20,19 @@ import Data.Curve.Weierstrass.BLS48581 (BLS48581, Fq, Fr)
 type Fq2 = Extension U Fq
 data U
 instance IrreducibleMonic U Fq where
-  poly _ = X2 + 1
+  poly _ = [1, 0, 1]
   {-# INLINABLE poly #-}
 -- | Field of points of BLS48581 curve over @Fq4@.
 type Fq4 = Extension V Fq2
 data V
 instance IrreducibleMonic V Fq2 where
-  poly _ = X2 + 1 + Y X
+  poly _ = [[1, 1], 0, 1]
   {-# INLINABLE poly #-}
 -- | Field of points of BLS48581 curve over @Fq8@.
 type Fq8 = Extension W Fq4
 data W
 instance IrreducibleMonic W Fq4 where
-  poly _ = X2 + Y X
+  poly _ = [[0, 1], 0, 1]
   {-# INLINABLE poly #-}
 
 -- BLS48581 curve is a Weierstrass curve.

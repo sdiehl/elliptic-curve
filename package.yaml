@@ -21,6 +21,7 @@ default-extensions:
   - DeriveFunctor
   - DeriveGeneric
   - MultiParamTypeClasses
+  - OverloadedLists
   - PatternSynonyms
   - PolyKinds
   - TypeFamilyDependencies

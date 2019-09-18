@@ -126,7 +126,7 @@ bls12381t = Curve
   { name = "BLS12381T"
   , types = Types
     { curve = "BLS12381"
-    , field = Extension "Fq2" "U" "X2 + 1" (
+    , field = Extension "Fq2" "U" "[1, 0, 1]" (
                 Prime "Fq"
               )
     }
@@ -171,9 +171,9 @@ bls48581t = Curve
   { name = "BLS48581T"
   , types = Types
     { curve = "BLS48581"
-    , field = Extension "Fq8" "W" "X2 + Y X" (
-                Extension "Fq4" "V" "X2 + 1 + Y X" (
-                  Extension "Fq2" "U" "X2 + 1" (
+    , field = Extension "Fq8" "W" "[U, 0, 1]" (
+                Extension "Fq4" "V" "[U + 1, 0, 1]" (
+                  Extension "Fq2" "U" "[1, 0, 1]" (
                     Prime "Fq"
                   )
                 )
@@ -268,7 +268,7 @@ bn254t = Curve
   { name = "BN254T"
   , types = Types
     { curve = "BN254"
-    , field = Extension "Fq2" "U" "X2 + 1" (
+    , field = Extension "Fq2" "U" "[1, 0, 1]" (
                 Prime "Fq"
               )
     }
@@ -313,7 +313,7 @@ bn254at = Curve
   { name = "BN254AT"
   , types = Types
     { curve = "BN254A"
-    , field = Extension "Fq2" "U" "X2 + 5" (
+    , field = Extension "Fq2" "U" "[5, 0, 1]" (
                 Prime "Fq"
               )
     }
@@ -358,7 +358,7 @@ bn254bt = Curve
   { name = "BN254BT"
   , types = Types
     { curve = "BN254B"
-    , field = Extension "Fq2" "U" "X2 + 1" (
+    , field = Extension "Fq2" "U" "[1, 0, 1]" (
                 Prime "Fq"
               )
     }
@@ -403,7 +403,7 @@ bn254ct = Curve
   { name = "BN254CT"
   , types = Types
     { curve = "BN254C"
-    , field = Extension "Fq2" "U" "X2 + 1" (
+    , field = Extension "Fq2" "U" "[1, 0, 1]" (
                 Prime "Fq"
               )
     }
@@ -448,7 +448,7 @@ bn254dt = Curve
   { name = "BN254DT"
   , types = Types
     { curve = "BN254D"
-    , field = Extension "Fq2" "U" "X2 + 1" (
+    , field = Extension "Fq2" "U" "[1, 0, 1]" (
                 Prime "Fq"
               )
     }
@@ -529,7 +529,7 @@ bn462t = Curve
   { name = "BN462T"
   , types = Types
     { curve = "BN462"
-    , field = Extension "Fq2" "U" "X2 + 1" (
+    , field = Extension "Fq2" "U" "[1, 0, 1]" (
                 Prime "Fq"
               )
     }

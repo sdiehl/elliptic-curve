@@ -57,7 +57,7 @@ instance BACurve e q r => Curve 'Binary 'Affine e q r where
                                             | O     -- ^ Infinite point.
     deriving (Eq, Generic, NFData, Read, Show)
 
-  add p  O      = p
+  add p O       = p
   add O q       = q
   add (A x1 y1) (A x2 y2)
     | xx == 0   = O

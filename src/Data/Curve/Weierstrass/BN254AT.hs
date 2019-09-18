@@ -20,7 +20,7 @@ import Data.Curve.Weierstrass.BN254A (BN254A, Fq, Fr)
 type Fq2 = Extension U Fq
 data U
 instance IrreducibleMonic U Fq where
-  poly _ = X2 + 5
+  poly _ = [5, 0, 1]
   {-# INLINABLE poly #-}
 
 -- BN254A curve is a Weierstrass curve.
