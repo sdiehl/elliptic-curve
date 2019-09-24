@@ -12,7 +12,7 @@ import Protolude
 
 import Control.Monad.Random (MonadRandom, Random(..), getRandom)
 import Data.Field.Galois (GaloisField, PrimeField, fromP)
-import Data.Group as G (Group(..))
+import Data.Group (Group(..))
 import GHC.Natural (Natural)
 import Test.Tasty.QuickCheck (Arbitrary(..))
 import Text.PrettyPrint.Leijen.Text (Pretty)
@@ -63,23 +63,6 @@ class (GaloisField q, PrimeField r, Arbitrary (Point f c e q r),
   -- | Point inversion.
   inv :: Point f c e q r -> Point f c e q r
 
-  -- | Point multiplication by field element.
-  mul :: Point f c e q r -> r -> Point f c e q r
-  mul = (. fromP) . mul'
-  {-# INLINABLE mul #-}
-
-  -- | Point multiplication by integral element.
-  mul' :: Integral n => Point f c e q r -> n -> Point f c e q r
-  mul' p n
-    | n < 0     = inv (mul' p (-n))
-    | n == 0    = id
-    | n == 1    = p
-    | even n    = p'
-    | otherwise = add p p'
-    where
-      p' = mul' (dbl p) (div n 2)
-  {-# INLINABLE mul' #-}
-
   -- Functions
 
   -- | Frobenius endomorphism.
@@ -107,11 +90,28 @@ class (GaloisField q, PrimeField r, Arbitrary (Point f c e q r),
   -- | Get Y coordinate from X coordinate.
   yX :: Point f c e q r -> q -> Maybe q
 
+-- | Point multiplication by field element.
+mul :: Curve f c e q r => Point f c e q r -> r -> Point f c e q r
+mul = (. fromP) . mul'
+{-# INLINABLE mul #-}
+
+-- | Point multiplication by integral element.
+mul' :: (Curve f c e q r, Integral n) => Point f c e q r -> n -> Point f c e q r
+mul' p n
+  | n < 0     = inv $ mul' p (-n)
+  | n == 0    = id
+  | n == 1    = p
+  | even n    = p'
+  | otherwise = add p p'
+  where
+    p' = mul' (dbl p) (div n 2)
+{-# INLINABLE mul' #-}
+
 {-# SPECIALISE mul' ::
-  Point f c e q r => g -> Int -> g
-  Point f c e q r => g -> Integer -> g
-  Point f c e q r => g -> Natural -> g
-  Point f c e q r => g -> Word -> g
+  Curve f c e q r => Point f c e q r -> Int -> Point f c e q r,
+  Curve f c e q r => Point f c e q r -> Integer -> Point f c e q r,
+  Curve f c e q r => Point f c e q r -> Natural -> Point f c e q r,
+  Curve f c e q r => Point f c e q r -> Word -> Point f c e q r
   #-}
 
 -- | Curve forms.
@@ -140,7 +140,7 @@ instance Curve f c e q r => Arbitrary (Point f c e q r) where
   {-# INLINABLE arbitrary #-}
 
 -- Elliptic curve points are groups.
-instance Curve f c e q r => G.Group (Point f c e q r) where
+instance Curve f c e q r => Group (Point f c e q r) where
 
   invert = inv
   {-# INLINABLE invert #-}
