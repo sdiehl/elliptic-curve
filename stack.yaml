@@ -1,7 +1,6 @@
 resolver: lts-13.19
 extra-deps:
-  - semirings-0.5
+  - poly-0.3.2.0
+  - semirings-0.5.1
   - git: https://github.com/adjoint-io/galois-field.git
-    commit: 84cccaaae8e30de2d29a8d5c2fdc208ced80391c
-  - git: https://github.com/adjoint-io/poly.git
-    commit: 1eb5b7a820a685de7c07576e028dee332e3382f8
+    commit: 9d12a14d7841c50ea64d22ad9a525bb2ddea13f7
