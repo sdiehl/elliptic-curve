@@ -11,42 +11,7 @@ import Test.Tasty
 import Test.Tasty.HUnit
 import Test.Tasty.QuickCheck
 
-identities :: Eq a => (a -> a -> a) -> a -> a -> Bool
-identities op e x = op x e == x && op e x == x
-
-inverses :: Eq a => (a -> a -> a) -> (a -> a) -> a -> a -> Bool
-inverses op neg e x = op x (neg x) == e && op (neg x) x == e
-
-commutativity :: Eq a => (a -> a -> a) -> a -> a -> Bool
-commutativity op x y = op x y == op y x
-
-associativity :: Eq a => (a -> a -> a) -> a -> a -> a -> Bool
-associativity op x y z = op x (op y z) == op (op x y) z
-
-groupAxioms :: forall f c e q r . Curve f c e q r
-  => Point f c e q r -> TestTree
-groupAxioms _ = testGroup "Group axioms"
-  [ testCase "identity closure" $
-    def (mempty :: Point f c e q r) @?= True
-  , testProperty "point closure" $
-    (def :: Point f c e q r -> Bool)
-  , testProperty "inversion closure" $
-    def . (inv :: Point f c e q r -> Point f c e q r)
-  , testProperty "addition closure" $
-    (.) def . ((<>) :: Point f c e q r -> Point f c e q r -> Point f c e q r)
-  , testProperty "doubling closure" $
-    def . (join (<>) :: Point f c e q r -> Point f c e q r)
-  , testProperty "multiplication closure" $
-    def . (flip mul' (-3 :: Int) :: Point f c e q r -> Point f c e q r)
-  , testProperty "identity" $
-    identities ((<>) :: Point f c e q r -> Point f c e q r -> Point f c e q r) mempty
-  , testProperty "inverses" $
-    inverses ((<>) :: Point f c e q r -> Point f c e q r -> Point f c e q r) invert mempty
-  , testProperty "commutativity" $
-    commutativity ((<>) :: Point f c e q r -> Point f c e q r -> Point f c e q r)
-  , testProperty "associativity" $
-    associativity ((<>) :: Point f c e q r -> Point f c e q r -> Point f c e q r)
-  ]
+import Test.Field
 
 hasseTheorem :: Natural -> Natural -> Natural -> Bool
 hasseTheorem h r q = join (*) (naturalToInteger (h * r) - naturalToInteger q - 1) <= 4 * naturalToInteger q
@@ -63,10 +28,22 @@ doubleInverses f t x = f (t x) == x && t (f (t x)) == t x
 doubleHomeomorphism :: (Eq a, Eq b) => (a -> a) -> (b -> b) -> (a -> b) -> (b -> a) -> b -> Bool
 doubleHomeomorphism op op' f t x = t (op' x) == op (t x) && f (op (t x)) == op' x
 
-curveParameters :: forall f c e q r . (Curve f 'Affine e q r, Curve f c e q r)
+curveAxioms :: forall f c e q r . (Curve f 'Affine e q r, Curve f c e q r)
   => Point f c e q r -> Natural -> Natural -> Natural -> TestTree
-curveParameters g h q r = testGroup "Curve parameters"
-  [ testCase "generator is parametrised" $
+curveAxioms g h q r = testGroup "Curve parameters"
+  [ testCase "identity closure" $
+    def (mempty :: Point f c e q r) @?= True
+  , testProperty "point closure" $
+    (def :: Point f c e q r -> Bool)
+  , testProperty "inversion closure" $
+    def . (inv :: Point f c e q r -> Point f c e q r)
+  , testProperty "addition closure" $
+    (.) def . ((<>) :: Point f c e q r -> Point f c e q r -> Point f c e q r)
+  , testProperty "doubling closure" $
+    def . (join (<>) :: Point f c e q r -> Point f c e q r)
+  , testProperty "multiplication closure" $
+    def . (flip mul' (-3 :: Int) :: Point f c e q r -> Point f c e q r)
+  , testCase "generator is parametrised" $
     gen @?= g
   , testCase "cofactor is parametrised" $
     cof g @?= h
@@ -96,6 +73,11 @@ curveParameters g h q r = testGroup "Curve parameters"
     doubleHomeomorphism (flip mul 3) (flip mul 3) fromA (toA :: Point f c e q r -> Point f 'Affine e q r)
   ]
 
-test :: (Curve f c e q r, Curve f 'Affine e q r)
+test :: forall f c e q r . (Curve f c e q r, Curve f 'Affine e q r)
   => TestName -> Point f c e q r -> Natural -> Natural -> Natural -> TestTree
-test s g h q r = testGroup s [groupAxioms g, curveParameters g h q r]
+test s g h q r = testGroup s
+  [ fieldAxioms (witness :: q), fieldAxioms (witness :: r)
+  , testGroup "Group axioms" $
+    groupAxioms (<>) invert (mempty :: Point f c e q r) (const True)
+  , curveAxioms g h q r
+  ]
