@@ -1,5 +1,13 @@
 # Change log for elliptic-curve
 
+## 0.3.0
+
+* Refactor library structure from `Curve` to `Data.Curve`.
+* Remove `Group` class and `BN254TF` field group.
+* Fix dependency issue with `galois-field`.
+* Add `BN254C` and `BN254D` elliptic curves.
+* Add `frob` function for elliptic curves.
+
 ## 0.2.2
 
 * Fix `Arbitrary` instances for elliptic curves.
