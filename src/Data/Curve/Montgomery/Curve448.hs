@@ -1,5 +1,6 @@
 module Data.Curve.Montgomery.Curve448
   ( module Data.Curve.Montgomery
+  , Point(..)
   -- * Curve448 curve
   , module Data.Curve.Montgomery.Curve448
   ) where

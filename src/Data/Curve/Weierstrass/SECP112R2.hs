@@ -1,5 +1,6 @@
 module Data.Curve.Weierstrass.SECP112R2
   ( module Data.Curve.Weierstrass
+  , Point(..)
   -- * SECP112R2 curve
   , module Data.Curve.Weierstrass.SECP112R2
   ) where

@@ -1,5 +1,6 @@
 module Data.Curve.Weierstrass.BLS48581T
   ( module Data.Curve.Weierstrass
+  , Point(..)
   -- * BLS48581 curve
   , module Data.Curve.Weierstrass.BLS48581T
   ) where
@@ -26,13 +27,13 @@ instance IrreducibleMonic U Fq where
 type Fq4 = Extension V Fq2
 data V
 instance IrreducibleMonic V Fq2 where
-  poly _ = [[1, 1], 0, 1]
+  poly _ = [U + 1, 0, 1]
   {-# INLINABLE poly #-}
 -- | Field of points of BLS48581 curve over @Fq8@.
 type Fq8 = Extension W Fq4
 data W
 instance IrreducibleMonic W Fq4 where
-  poly _ = [[0, 1], 0, 1]
+  poly _ = [U, 0, 1]
   {-# INLINABLE poly #-}
 
 -- BLS48581 curve is a Weierstrass curve.

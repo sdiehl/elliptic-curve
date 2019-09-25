@@ -19,6 +19,7 @@ prettyImports name Types{..}
   =    "module Data.Curve.Edwards." <> pretty name
   <$$> indent 2
     (    "( module Data.Curve.Edwards"
+    <$$> ", Point(..)"
     <$$> "-- *" <+> pretty curve <+> "curve"
     <$$> ", module Data.Curve.Edwards." <> pretty name
     <$$> ") where"

@@ -20,7 +20,7 @@ import Data.Field.Galois as F (GaloisField, PrimeField, frob, sr)
 import GHC.Natural (Natural)
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
-import Data.Curve (Coordinates(..), Curve(..), Form(..))
+import Data.Curve
 
 -------------------------------------------------------------------------------
 -- Edwards form

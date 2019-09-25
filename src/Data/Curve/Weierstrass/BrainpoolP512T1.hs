@@ -1,5 +1,6 @@
 module Data.Curve.Weierstrass.BrainpoolP512T1
   ( module Data.Curve.Weierstrass
+  , Point(..)
   -- * BrainpoolP512T1 curve
   , module Data.Curve.Weierstrass.BrainpoolP512T1
   ) where

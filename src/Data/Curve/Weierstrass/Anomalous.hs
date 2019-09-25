@@ -1,5 +1,6 @@
 module Data.Curve.Weierstrass.Anomalous
   ( module Data.Curve.Weierstrass
+  , Point(..)
   -- * Anomalous curve
   , module Data.Curve.Weierstrass.Anomalous
   ) where

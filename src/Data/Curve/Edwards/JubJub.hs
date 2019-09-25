@@ -1,5 +1,6 @@
 module Data.Curve.Edwards.JubJub
   ( module Data.Curve.Edwards
+  , Point(..)
   -- * JubJub curve
   , module Data.Curve.Edwards.JubJub
   ) where

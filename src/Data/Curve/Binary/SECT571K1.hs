@@ -1,5 +1,6 @@
 module Data.Curve.Binary.SECT571K1
   ( module Data.Curve.Binary
+  , Point(..)
   -- * SECT571K1 curve
   , module Data.Curve.Binary.SECT571K1
   ) where

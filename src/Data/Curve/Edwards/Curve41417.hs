@@ -1,5 +1,6 @@
 module Data.Curve.Edwards.Curve41417
   ( module Data.Curve.Edwards
+  , Point(..)
   -- * Curve41417 curve
   , module Data.Curve.Edwards.Curve41417
   ) where

@@ -1,5 +1,6 @@
 module Data.Curve.Weierstrass.ANSSIFRP256V1
   ( module Data.Curve.Weierstrass
+  , Point(..)
   -- * ANSSIFRP256V1 curve
   , module Data.Curve.Weierstrass.ANSSIFRP256V1
   ) where

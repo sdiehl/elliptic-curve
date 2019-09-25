@@ -1,5 +1,6 @@
 module Data.Curve.Weierstrass.BN254D
   ( module Data.Curve.Weierstrass
+  , Point(..)
   -- * BN254D curve
   , module Data.Curve.Weierstrass.BN254D
   ) where

@@ -1,5 +1,6 @@
 module Data.Curve.Montgomery.M511
   ( module Data.Curve.Montgomery
+  , Point(..)
   -- * M511 curve
   , module Data.Curve.Montgomery.M511
   ) where

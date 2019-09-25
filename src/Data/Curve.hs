@@ -2,6 +2,8 @@ module Data.Curve
   (
   -- * Elliptic curves
     Curve(..)
+  , mul
+  , mul'
   -- ** Elliptic curve forms
   , Form(..)
   -- ** Elliptic curve coordinates

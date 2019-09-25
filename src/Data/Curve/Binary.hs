@@ -20,7 +20,7 @@ import Data.Field.Galois as F (GaloisField, PrimeField, frob, quad)
 import GHC.Natural (Natural)
 import Text.PrettyPrint.Leijen.Text (Pretty(..))
 
-import Data.Curve (Coordinates(..), Curve(..), Form(..))
+import Data.Curve
 
 -------------------------------------------------------------------------------
 -- Binary form

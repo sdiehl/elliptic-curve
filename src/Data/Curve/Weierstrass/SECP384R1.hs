@@ -1,5 +1,6 @@
 module Data.Curve.Weierstrass.SECP384R1
   ( module Data.Curve.Weierstrass
+  , Point(..)
   -- * SECP384R1 curve
   , module Data.Curve.Weierstrass.SECP384R1
   ) where
