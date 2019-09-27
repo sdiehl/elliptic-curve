@@ -4,21 +4,21 @@ module Generate.Types
 
 import Protolude
 
+import GHC.Natural (Natural)
+
 -------------------------------------------------------------------------------
 -- Types
 -------------------------------------------------------------------------------
 
-data Element = BF Integer
-             | EF [Element]
-             | PF Integer
+data Element = B Natural
+             | E [Element]
+             | P Natural
 
-data Field = BinaryField Text Integer
-           | ExtensionField Text Text Text Text (Maybe Field)
-           | PrimeField Text Integer
+data Field = Binary Text
+           | Extension Text Text Text Field
+           | Prime Text
 
 data Types = Types
-  { curve   :: Text
-  , field   :: Field
-  , field'  :: Field
-  , imports :: Maybe Text
+  { curve :: Text
+  , field :: Field
   }

@@ -14,34 +14,29 @@ import Generate.Pretty
 -- Curve
 -------------------------------------------------------------------------------
 
-prettyImports :: Types -> Doc
-prettyImports Types{..}
-  =    "module Curve.Edwards." <> pretty curve
+prettyImports :: Text -> Types -> Doc
+prettyImports name Types{..}
+  =    "module Data.Curve.Edwards." <> pretty name
   <$$> indent 2
-    (    "( module Curve.Edwards"
-    <$$> ", module Curve.Edwards." <> pretty curve
+    (    "( module Data.Curve.Edwards"
     <$$> ", Point(..)"
+    <$$> "-- *" <+> pretty curve <+> "curve"
+    <$$> ", module Data.Curve.Edwards." <> pretty name
     <$$> ") where"
     )
   <>   prettyBreak
-  <$$> prettyImport field
+  <$$> prettyImport
   <>   prettyBreak
-  <$$> "import Curve.Edwards"
-  <$$> maybe mempty pretty imports
+  <$$> "import Data.Curve.Edwards"
+  <$$> if curve == name then mempty else "import Data.Curve.Edwards."
+  <>   pretty curve <+> "(" <> pretty curve <> ", Fq, Fr)"
 
-prettyTypes :: Types -> Doc
-prettyTypes Types{..}
+prettyTypes :: Types -> Parameters -> Doc
+prettyTypes Types{..} Parameters{..}
   =    prettySection "Types"
-  <$$> prettyDocumentation curve'
-  <$$> "data" <+> pretty curve
+  <$$> prettyType curve field q r
   <>   prettyBreak
-  <$$> prettyDocumentation ("Field of points of" <+> curve')
-  <$$> prettyType field
-  <>   prettyBreak
-  <$$> prettyDocumentation ("Field of coefficients of" <+> curve')
-  <$$> prettyType field'
-  <>   prettyBreak
-  <$$> prettyDocumentation (curve' <+> "is an Edwards curve")
+  <$$> prettyComment (curve' <+> "is an Edwards curve")
   <$$> "instance Curve 'Edwards c" <+> pretty curve <+> prettyField field
   <+>  "Fr => ECurve c" <+> pretty curve <+> prettyField field <+> "Fr where"
   <$$> indent 2
@@ -55,16 +50,12 @@ prettyTypes Types{..}
     <$$> prettyInline "q_"
     <$$> "r_ = const _r"
     <$$> prettyInline "r_"
-    <$$> "x_ = const _x"
-    <$$> prettyInline "x_"
-    <$$> "y_ = const _y"
-    <$$> prettyInline "y_"
     )
   <>   prettyBreak
   <$$> prettyDocumentation ("Affine" <+> curve' <+> "point")
   <$$> "type PA = EAPoint" <+> pretty curve <+> prettyField field <+> "Fr"
   <>   prettyBreak
-  <$$> prettyDocumentation ("Affine" <+> curve' <+> "is an Edwards affine curve")
+  <$$> prettyComment ("Affine" <+> curve' <+> "is an Edwards affine curve")
   <$$> "instance EACurve" <+> pretty curve <+> prettyField field <+> "Fr where"
   <$$> indent 2
     (    "gA_ = gA"
@@ -74,7 +65,7 @@ prettyTypes Types{..}
   <$$> prettyDocumentation ("Projective" <+> pretty curve <+> "point")
   <$$> "type PP = EPPoint" <+> pretty curve <+> prettyField field <+> "Fr"
   <>   prettyBreak
-  <$$> prettyDocumentation ("Projective" <+> curve' <+> "is an Edwards projective curve")
+  <$$> prettyComment ("Projective" <+> curve' <+> "is an Edwards projective curve")
   <$$> "instance EPCurve" <+> pretty curve <+> prettyField field <+> "Fr where"
   <$$> indent 2
     (    "gP_ = gP"
@@ -98,18 +89,18 @@ prettyParameters Types{..} Parameters{..}
   <$$> prettyInline "_d"
   <>   prettyBreak
   <$$> prettyDocumentation ("Cofactor of" <+> curve')
-  <$$> "_h :: Integer"
-  <$$> "_h =" <+> prettyInteger h
+  <$$> "_h :: Natural"
+  <$$> "_h =" <+> prettyNatural h
   <$$> prettyInline "_h"
   <>   prettyBreak
   <$$> prettyDocumentation ("Characteristic of" <+> curve')
-  <$$> "_q :: Integer"
-  <$$> "_q =" <+> prettyInteger q
+  <$$> "_q :: Natural"
+  <$$> "_q =" <+> prettyNatural q
   <$$> prettyInline "_q"
   <>   prettyBreak
   <$$> prettyDocumentation ("Order of" <+> curve')
-  <$$> "_r :: Integer"
-  <$$> "_r =" <+> prettyInteger r
+  <$$> "_r :: Natural"
+  <$$> "_r =" <+> prettyNatural r
   <$$> prettyInline "_r"
   <>   prettyBreak
   <$$> prettyDocumentation ("Coordinate @X@ of" <+> curve')
@@ -136,10 +127,10 @@ prettyParameters Types{..} Parameters{..}
     curve' = pretty curve <+> "curve"
 
 prettyCurve :: Curve -> Doc
-prettyCurve (Curve types parameters)
-  =    prettyImports types
+prettyCurve (Curve name types parameters)
+  =    prettyImports name types
   <>   prettyBreak
-  <$$> prettyTypes types
+  <$$> prettyTypes types parameters
   <>   prettyBreak
   <$$> prettyParameters types parameters
   <>   prettyBreak

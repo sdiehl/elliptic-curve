@@ -4,6 +4,7 @@ module Generate.Pretty
 
 import Protolude
 
+import GHC.Natural (Natural)
 import Numeric (showHex)
 import Text.PrettyPrint.Leijen.Text
 
@@ -15,6 +16,10 @@ prettyBreak :: Doc
 prettyBreak
   = linebreak
 
+prettyComment :: Doc -> Doc
+prettyComment
+  = enclose "-- " dot
+
 prettyDocumentation :: Doc -> Doc
 prettyDocumentation
   = enclose "-- | " dot
@@ -23,13 +28,13 @@ prettyInline :: Doc -> Doc
 prettyInline
   = braces . enclose "-# INLINABLE " " #-"
 
-prettyInteger :: Integer -> Doc
-prettyInteger
-  = (<>) "0x" . pretty . flip showHex ""
-
 prettyLine :: Doc
 prettyLine
   = pretty (replicate 79 '-')
+
+prettyNatural :: Natural -> Doc
+prettyNatural
+  = (<>) "0x" . pretty . flip showHex ""
 
 prettySection :: Doc -> Doc
 prettySection

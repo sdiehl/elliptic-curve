@@ -14,28 +14,25 @@ import Generate.Types
 -------------------------------------------------------------------------------
 
 prettyElement :: Element -> Doc
-prettyElement (BF n)
-  = "BF" <+> prettyInteger n
-prettyElement (EF ns)
-  = "EF" <+> align
+prettyElement (B n)
+  = "B" <+> prettyNatural n
+prettyElement (E ns)
+  = "E" <+> align
     (    (if null ns then "[" else "[ ")
     <>   hcat (punctuate "\n, " (map prettyElement ns))
     <$$> "]"
     )
-prettyElement (PF n)
-  = "PF" <+> prettyInteger n
+prettyElement (P n)
+  = "P" <+> prettyNatural n
 
 prettyField :: Field -> Doc
-prettyField (BinaryField fp p)
-  = "BinaryField" <+> prettyText fp <+> prettyInteger p
-prettyField (ExtensionField fq fp p s k)
+prettyField (Binary f2m)
+  = "Binary" <+> prettyText f2m
+prettyField (Extension fq p x k)
   = align
-    (   "ExtensionField" <+> prettyText fq <+> prettyText fp
-    <+> prettyText p <+> prettyText s <+> prettyField' k
+    (    "Extension" <+> prettyText fq <+> prettyText p <+> prettyText x <+> "("
+    <$$> indent 2 (prettyField k)
+    <$$> ")"
     )
-  where
-    prettyField' :: Maybe Field -> Doc
-    prettyField' (Just f) = "(Just" <$$> "(" <+> align (prettyField f) <$$> "))"
-    prettyField' _        = "Nothing"
-prettyField (PrimeField f2m p)
-  = "PrimeField" <+> prettyText f2m <+> prettyInteger p
+prettyField (Prime fq)
+  = "Prime" <+> prettyText fq

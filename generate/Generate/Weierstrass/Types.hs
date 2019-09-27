@@ -5,6 +5,8 @@ module Generate.Weierstrass.Types
 
 import Protolude
 
+import GHC.Natural (Natural)
+
 import Generate.Types
 
 -------------------------------------------------------------------------------
@@ -12,16 +14,17 @@ import Generate.Types
 -------------------------------------------------------------------------------
 
 data Curve = Curve
-  { types      :: Types
+  { name       :: Text
+  , types      :: Types
   , parameters :: Parameters
   }
 
 data Parameters = Parameters
   { a :: Element
   , b :: Element
-  , h :: Integer
-  , q :: Integer
-  , r :: Integer
+  , h :: Natural
+  , q :: Natural
+  , r :: Natural
   , x :: Element
   , y :: Element
   }

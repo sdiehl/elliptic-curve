@@ -23,8 +23,6 @@ prettyImports
     <$$> ") where"
     )
   <>   prettyBreak
-  <$$> "import Protolude"
-  <>   prettyBreak
   <$$> "import Generate.Montgomery.Types"
 
 prettyCurves :: [Curve] -> Doc
@@ -39,7 +37,7 @@ prettyCurves curves
     )
   where
     prettyCurves' :: Curve -> Doc
-    prettyCurves' = pretty . toLower . curve . types
+    prettyCurves' = pretty . toLower . name
 
 prettyParameters :: [Curve] -> Doc
 prettyParameters curves
@@ -47,26 +45,24 @@ prettyParameters curves
   <$$> vcat (punctuate prettyBreak (map prettyParameters' curves))
   where
     prettyParameters' :: Curve -> Doc
-    prettyParameters' (Curve Types{..} Parameters{..})
-      =    pretty (toLower curve) <+> ":: Curve"
-      <$$> pretty (toLower curve) <+> "= Curve"
+    prettyParameters' (Curve name Types{..} Parameters{..})
+      =    pretty (toLower name) <+> ":: Curve"
+      <$$> pretty (toLower name) <+> "= Curve"
       <$$> indent 2
-        (    "{ types = Types"
+        (    "{ name =" <+> prettyText name
+        <$$> ", types = Types"
         <$$> indent 2
-          (    "{ curve   =" <+> prettyText curve
-          <$$> ", field   =" <+> prettyField field
-          <$$> ", field'  =" <+> prettyField field'
-          <$$> ", imports = "
-          <>   maybe "Nothing" ((<>) "Just " . prettyText) imports
+          (    "{ curve =" <+> prettyText curve
+          <$$> ", field =" <+> prettyField field
           <$$> "}"
           )
         <$$> ", parameters = Parameters"
         <$$> indent 2
           (    "{ a =" <+> prettyElement a
           <$$> ", b =" <+> prettyElement b
-          <$$> ", h =" <+> prettyInteger h
-          <$$> ", q =" <+> prettyInteger q
-          <$$> ", r =" <+> prettyInteger r
+          <$$> ", h =" <+> prettyNatural h
+          <$$> ", q =" <+> prettyNatural q
+          <$$> ", r =" <+> prettyNatural r
           <$$> ", x =" <+> prettyElement x
           <$$> ", y =" <+> prettyElement y
           <$$> "}"

@@ -4,7 +4,8 @@ module Generate.Curve
 
 import Protolude
 
-import Text.PrettyPrint.Leijen.Text
+import GHC.Natural (Natural)
+import Text.PrettyPrint.Leijen.Text hiding (char)
 
 import Generate.Pretty
 import Generate.Types
@@ -14,49 +15,75 @@ import Generate.Types
 -------------------------------------------------------------------------------
 
 prettyElement :: Element -> Doc
-prettyElement (BF n)
-  = prettyInteger n
-prettyElement (EF ns)
-  = "toField" <+> align
+prettyElement (B n)
+  = prettyNatural n
+prettyElement (E ns)
+  = "toE'" <+> align
     (    (if null ns then "[" else "[ ")
     <>   hcat (punctuate "\n, " (map prettyElement ns))
     <$$> "]"
     )
-prettyElement (PF n)
-  = prettyInteger n
+prettyElement (P n)
+  = prettyNatural n
 
 prettyField :: Field -> Doc
-prettyField (BinaryField f2m _)
+prettyField (Binary f2m)
   = pretty f2m
-prettyField (ExtensionField fq' _ _ _ _)
+prettyField (Extension fq' _ _ _)
   = pretty fq'
-prettyField (PrimeField fq _)
+prettyField (Prime fq)
   = pretty fq
 
-prettyImport :: Field -> Doc
-prettyImport k
+prettyImport :: Doc
+prettyImport
   =    "import Protolude"
   <>   prettyBreak
-  <$$> k'
-  <$$> "import PrimeField"
-  where
-    k' = case k of
-      BinaryField _ _          -> "import BinaryField"
-      ExtensionField _ _ _ _ _ -> "import ExtensionField"
-      _                        -> mempty
+  <$$> "import Data.Field.Galois"
+  <$$> "import GHC.Natural (Natural)"
 
-prettyType :: Field -> Doc
-prettyType (BinaryField f2m q)
-  = "type" <+> pretty f2m <+> "= BinaryField" <+> prettyInteger q
-prettyType (ExtensionField fq' fq q s k)
-  =    prettyType' k
-  <$$> "data" <+> pretty q
-  <$$> "instance IrreducibleMonic" <+> pretty fq <+> pretty q <+> "where"
-  <$$> "  split _ =" <+> pretty s
-  <$$> "type" <+> pretty fq' <+> "= ExtensionField" <+> pretty fq <+> pretty q
+prettyType :: Text -> Field -> Natural -> Natural -> Doc
+prettyType curve (Binary f2m) p r
+  =    prettyDocumentation prettyCurve
+  <$$> "data" <+> pretty curve
+  <>   prettyBreak
+  <$$> prettyDocumentation ("Field of points of" <+> prettyCurve)
+  <$$> "type" <+> pretty f2m <+> "= Binary P"
+  <$$> "type P =" <+> prettyNatural p
+  <>   prettyBreak
+  <$$> prettyDocumentation ("Field of coefficients of" <+> prettyCurve)
+  <$$> "type Fr = Prime R"
+  <$$> "type R =" <+> prettyNatural r
   where
-    prettyType' :: Maybe Field -> Doc
-    prettyType' (Just f) = prettyType f
-    prettyType' _        = mempty
-prettyType (PrimeField fq q)
-  = "type" <+> pretty fq <+> "= PrimeField" <+> prettyInteger q
+    prettyCurve :: Doc
+    prettyCurve = pretty curve <+> "curve"
+prettyType curve extension@(Extension _ _ _ _) _ _
+  =    prettyType' extension
+  where
+    prettyType' :: Field -> Doc
+    prettyType' (Extension fq' p x k)
+      =    prettyType' k
+      <$$> prettyDocumentation ("Field of points of"
+      <+>  pretty curve <+> "curve over" <+> enclose "@" "@" (pretty fq'))
+      <$$> "type" <+> pretty fq' <+> "= Extension" <+> pretty p <+> prettyField k
+      <$$> "data" <+> pretty p
+      <$$> "instance IrreducibleMonic" <+> pretty p <+> prettyField k <+> "where"
+      <$$> indent 2
+        (    "poly _ =" <+> pretty x
+        <$$> prettyInline "poly"
+        )
+    prettyType' _
+      = mempty
+prettyType curve (Prime fq) q r
+  =    prettyDocumentation prettyCurve
+  <$$> "data" <+> pretty curve
+  <>   prettyBreak
+  <$$> prettyDocumentation ("Field of points of" <+> prettyCurve)
+  <$$> "type" <+> pretty fq <+> "= Prime Q"
+  <$$> "type Q =" <+> prettyNatural q
+  <>   prettyBreak
+  <$$> prettyDocumentation ("Field of coefficients of" <+> prettyCurve)
+  <$$> "type Fr = Prime R"
+  <$$> "type R =" <+> prettyNatural r
+  where
+    prettyCurve :: Doc
+    prettyCurve = pretty curve <+> "curve"
