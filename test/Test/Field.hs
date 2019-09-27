@@ -49,3 +49,24 @@ fieldAxioms _ = testGroup "Field axioms"
   , testProperty "multiplicative annihilation" $
     annihilation ((*) :: k -> k -> k) 0
   ]
+
+frobeniusEndomorphisms :: forall k . GaloisField k => k -> TestTree
+frobeniusEndomorphisms _ = testGroup "Frobenius endomorphisms"
+  [ testProperty "frobenius endomorphisms are characteristic powers" $
+    \(x :: k) -> frob x == pow x (char (witness :: k))
+  , testProperty "frobenius endomorphisms are ring homomorphisms" $
+    \(x :: k) (y :: k) (z :: k) -> frob (x * y + z) == frob x * frob y + frob z
+  ]
+
+squareRoots :: forall k . GaloisField k => k -> TestTree
+squareRoots _ = localOption (QuickCheckMaxRatio 100) $ testGroup "Square roots"
+  [ testProperty "squares of square roots" $
+    \(x :: k) -> qr x
+    ==> ((join (*) <$> sr x) == Just x)
+  , testProperty "solutions of quadratic equations" $
+    \(a :: k) (b :: k) (c :: k) -> a /= 0 && isJust (quad a b c)
+    ==> (((\x -> (a * x + b) * x + c) <$> quad a b c) == Just 0)
+  ]
+
+testField :: forall k . GaloisField k => TestName -> k -> TestTree
+testField s x = testGroup s [fieldAxioms x, frobeniusEndomorphisms x, squareRoots x]

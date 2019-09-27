@@ -6,7 +6,6 @@ import Data.Curve
 import qualified Data.Field.Galois as F
 import Data.Group
 import GHC.Natural
-import Math.NumberTheory.Primes.Testing
 import Test.Tasty
 import Test.Tasty.HUnit
 import Test.Tasty.QuickCheck
@@ -30,7 +29,7 @@ doubleHomeomorphism op op' f t x = t (op' x) == op (t x) && f (op (t x)) == op' 
 
 curveAxioms :: forall f c e q r . (Curve f 'Affine e q r, Curve f c e q r)
   => Point f c e q r -> Natural -> Natural -> Natural -> TestTree
-curveAxioms g h q r = testGroup "Curve parameters"
+curveAxioms g h q r = testGroup "Curve axioms"
   [ testCase "identity closure" $
     def (mempty :: Point f c e q r) @?= True
   , testProperty "point closure" $
@@ -51,16 +50,12 @@ curveAxioms g h q r = testGroup "Curve parameters"
     char g @?= q
   , testCase "order is parametrised" $
     order g @?= r
-  , testCase "characteristic is prime" $
-    isPrime (naturalToInteger q) @?= True
   , testCase "discriminant is nonzero" $
     disc g /= 0 @?= True
   , testCase "generator is well-defined" $
     def g @?= True
   , testCase "generator is in cyclic subgroup" $
     mul' g r @?= mempty
-  , testCase "cyclic subgroup has prime order" $
-    isPrime (naturalToInteger r) @?= True
   , testCase "hasse theorem holds" $
     hasseTheorem h r (F.order (witness :: q)) @?= True
   , testCase "affine transformation is doubly identity-preserving" $
@@ -76,7 +71,8 @@ curveAxioms g h q r = testGroup "Curve parameters"
 test :: forall f c e q r . (Curve f c e q r, Curve f 'Affine e q r)
   => TestName -> Point f c e q r -> Natural -> Natural -> Natural -> TestTree
 test s g h q r = testGroup s
-  [ fieldAxioms (witness :: q), fieldAxioms (witness :: r)
+  [ testField "Field of points" (witness :: q)
+  , testField "Field of coefficients" (witness :: r)
   , testGroup "Group axioms" $
     groupAxioms (<>) invert (mempty :: Point f c e q r) (const True)
   , curveAxioms g h q r

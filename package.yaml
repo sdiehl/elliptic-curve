@@ -165,7 +165,6 @@ tests:
   elliptic-curve-tests:
     main: Main
     dependencies:
-      - arithmoi
       - elliptic-curve
       - tasty
       - tasty-hunit
