@@ -73,7 +73,6 @@ test :: forall f c e q r . (Curve f c e q r, Curve f 'Affine e q r)
 test s g h q r = testGroup s
   [ testField "Field of points" (witness :: q)
   , testField "Field of coefficients" (witness :: r)
-  , testGroup "Group axioms" $
-    groupAxioms (<>) invert (mempty :: Point f c e q r) (const True)
+  , testGroup "Group axioms" $ groupAxioms (<>) invert (mempty :: Point f c e q r) (const True)
   , curveAxioms g h q r
   ]
