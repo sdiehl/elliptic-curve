@@ -43,6 +43,7 @@ extra-source-files:
 ghc-options:
   - -freverse-errors
   - -Wall
+  - -pgmL markdown-unlit
 
 library:
   exposed-modules:
@@ -170,6 +171,15 @@ tests:
       - tasty-hunit
     source-dirs:
       - test
+
+  readme-test:
+    dependencies:
+      - base
+      - protolude
+      - elliptic-curve
+      - markdown-unlit
+    main: README.lhs
+    ghc-options: -pgmL markdown-unlit
 
 benchmarks:
   elliptic-curve-benchmarks:
