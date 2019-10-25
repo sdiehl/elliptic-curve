@@ -1,5 +1,9 @@
 # Change log for elliptic-curve
 
+## 0.3.1
+
+* Improve performance of binary fields.
+
 ## 0.3.0
 
 * Refactor library structure from `Curve` to `Data.Curve`.

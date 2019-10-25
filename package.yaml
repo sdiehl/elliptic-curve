@@ -1,5 +1,5 @@
 name:        elliptic-curve
-version:     0.3.0
+version:     0.3.1
 synopsis:    Elliptic curve library
 description: An extensible library of elliptic curves used in cryptography research
 maintainer:  Adjoint Inc (info@adjoint.io)
