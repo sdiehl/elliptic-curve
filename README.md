@@ -187,3 +187,8 @@ The following curves have already been implemented.
   * [SECP256R1](src/Data/Curve/Weierstrass/SECP256R1.hs)
   * [SECP384R1](src/Data/Curve/Weierstrass/SECP384R1.hs)
   * [SECP521R1](src/Data/Curve/Weierstrass/SECP521R1.hs)
+
+## Disclaimer
+
+This is experimental code meant for research-grade projects only. Please do not
+use this code in production until it has matured significantly.
