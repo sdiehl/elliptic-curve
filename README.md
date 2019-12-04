@@ -28,7 +28,7 @@ where `A` and `B` are K-rational coefficients such that <img src="/tex/e5f279727
 
 A (short Weierstrass) [**binary curve**](src/Data/Curve/Binary.hs) is an elliptic curve over <img src="/tex/f4687471921caacf38fd0e0667005c1f.svg?invert_in_darkmode&sanitize=true" align=middle width=57.12159419999999pt height=24.65753399999998pt/> for some positive <img src="/tex/0e51a2dede42189d77627c4d742822c3.svg?invert_in_darkmode&sanitize=true" align=middle width=14.433101099999991pt height=14.15524440000002pt/>, and is of the form
 
-<p align="center"><img src="/tex/af5ab63ba18b8b4cecf5e4a59c7d92b0.svg?invert_in_darkmode&sanitize=true" align=middle width=343.80422669999996pt height=18.312383099999998pt/></p>
+<p align="center"><img src="/tex/b1771b4a57a60a91d6f0ee77fdd140d0.svg?invert_in_darkmode&sanitize=true" align=middle width=341.6558475pt height=18.312383099999998pt/></p>
 
 where `A` and `B` are K-rational coefficients such that `B` is non-zero. Binary curves have field elements represented by binary integers for efficient arithmetic, and are special cases of *long Weierstrass curves* over a field of characteristic 2.
 
@@ -36,7 +36,7 @@ where `A` and `B` are K-rational coefficients such that `B` is non-zero. Binary 
 
 A [**Montgomery curve**](src/Data/Curve/Montgomery.hs) is an elliptic curve over <img src="/tex/cdeab355fe7188f5cb733d1a3e5b73d1.svg?invert_in_darkmode&sanitize=true" align=middle width=44.686187699999984pt height=24.65753399999998pt/> for some prime <img src="/tex/2ec6e630f199f589a2402fdf3e0289d5.svg?invert_in_darkmode&sanitize=true" align=middle width=8.270567249999992pt height=14.15524440000002pt/>, and is of the form
 
-<p align="center"><img src="/tex/36270a6afa6a11c65e5e49e27d462d93.svg?invert_in_darkmode&sanitize=true" align=middle width=331.69969469999995pt height=18.312383099999998pt/></p>
+<p align="center"><img src="/tex/411d1a91b2998b19b1797a8c48655a1f.svg?invert_in_darkmode&sanitize=true" align=middle width=329.55131715pt height=18.312383099999998pt/></p>
 
 where `A` and `B` are K-rational coefficients such that <img src="/tex/dcfbb15abd46e172d6ade9ec5402a60f.svg?invert_in_darkmode&sanitize=true" align=middle width=74.09249594999999pt height=26.76175259999998pt/> is non-zero. Montgomery curves only use the first affine coordinate for computations, and can utilise the Montgomery ladder for efficient multiplication.
 
@@ -44,7 +44,7 @@ where `A` and `B` are K-rational coefficients such that <img src="/tex/dcfbb15ab
 
 A (twisted) [**Edwards curve**](src/Data/Curve/Edwards.hs) is an elliptic curve over <img src="/tex/cdeab355fe7188f5cb733d1a3e5b73d1.svg?invert_in_darkmode&sanitize=true" align=middle width=44.686187699999984pt height=24.65753399999998pt/> for some prime <img src="/tex/2ec6e630f199f589a2402fdf3e0289d5.svg?invert_in_darkmode&sanitize=true" align=middle width=8.270567249999992pt height=14.15524440000002pt/>, and is of the form
 
-<p align="center"><img src="/tex/e06e49fb9dbbde2565227edd0feb07e1.svg?invert_in_darkmode&sanitize=true" align=middle width=298.80010874999994pt height=18.312383099999998pt/></p>
+<p align="center"><img src="/tex/9f0965c23101451fdcef241119b2c1ca.svg?invert_in_darkmode&sanitize=true" align=middle width=296.65172954999997pt height=18.312383099999998pt/></p>
 
 where `A` and `D` are K-rational coefficients such that <img src="/tex/a99b826773674a6f62e90ce098504e47.svg?invert_in_darkmode&sanitize=true" align=middle width=69.22829594999999pt height=24.65753399999998pt/> is non-zero. Edwards curves have no point at infinity, and their addition and doubling formulae converge.
 
@@ -90,11 +90,13 @@ A curve class is constructed out of four type paramaters which are instantiated
 in the associated data type Point on the Curve typeclass.
 
 ```text
-Curve (f :: Form) (c :: Coordinates) e q r
-                                     | | |
-                        Curve Type o-+ | |
-                   Field of Points o---+ |
-             Field of Coefficients o-----+
+class Curve (f :: Form) (c :: Coordinates) e q r
+                                           | | |
+                              Curve Type o-+ | |
+                         Field of Points o---+ |
+                   Field of Coefficients o-----+
+
+data Point f c e q r :: *
 ```
 
 For example:
@@ -109,6 +111,7 @@ type Fr = Prime R
 type R = 0xb0000000000000000000000953000000000000000000001f9d7
 
 instance Curve 'Weierstrass c Anomalous Fq Fr => WCurve c Anomalous Fq Fr where
+-- data instance Point 'Weierstrass c Anomalous Fq Fr
 ```
 
 **Arithmetic**
