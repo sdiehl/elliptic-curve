@@ -13,10 +13,10 @@ An extensible library of elliptic curves used in cryptography research.
 An [**elliptic curve**](src/Data/Curve.hs) E(K) over a field K is a *smooth projective plane algebraic cubic curve* with a specified base point `O`, and the *points* on E(K) form an *algebraic group* with identity point `O`. By the *Riemann-Roch theorem*, any elliptic curve is isomorphic to a cubic curve of the form
 
 $$
-E(K) = \{ (x, y) | y^2 + a1xy + a3y = x^3 + a2x^2 + a4x + a6 \} \cup \{O\}
+E(K) = \{ (x, y) | y^2 + a_1 xy + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6 \} \cup \{O\}
 $$
 
-where `O` is the *point at infinity*, and `a1, a2, a3, a4, a6` are *K-rational coefficients* that satisfy a *non-zero discriminant* condition. For cryptographic computational purposes, elliptic curves are represented in several different forms.
+where $O$ is the *point at infinity*, and $a_1, a_2, a_3, a_4, a_6$ are *K-rational coefficients* that satisfy a *non-zero discriminant* condition. For cryptographic computational purposes, elliptic curves are represented in several different forms.
 
 ### Weierstrass curves
 
