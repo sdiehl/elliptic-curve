@@ -198,7 +198,7 @@ main = do
 
 ### Point Arithmetic
 
-See [**Example.lhs**](Example.lhs).
+See [**Example.hs**](Example.hs).
 
 ## Curve implementations
 
