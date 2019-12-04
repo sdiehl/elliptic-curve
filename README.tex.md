@@ -186,7 +186,7 @@ E.g. See [**Anomalous**](src/Data/Curve/Weierstrass/Anomalous.hs).
 
 Import a curve implementation.
 
-```haskell ignore
+```haskell
 import qualified Data.Curve.Weierstrass.Anomalous as Anomalous
 ```
 
