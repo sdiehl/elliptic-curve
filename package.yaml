@@ -181,6 +181,13 @@ tests:
     main: README.lhs
     ghc-options: -pgmL markdown-unlit
 
+  example-test:
+    dependencies:
+      - base
+      - protolude
+      - elliptic-curve
+    main: Example.hs
+
 benchmarks:
   elliptic-curve-benchmarks:
     main: Main

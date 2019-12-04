@@ -12,41 +12,51 @@ An extensible library of elliptic curves used in cryptography research.
 
 An [**elliptic curve**](src/Data/Curve.hs) E(K) over a field K is a *smooth projective plane algebraic cubic curve* with a specified base point `O`, and the *points* on E(K) form an *algebraic group* with identity point `O`. By the *Riemann-Roch theorem*, any elliptic curve is isomorphic to a cubic curve of the form
 
-<p align="center"><img src="/tex/7c1ba96d0dc75a92a1e33ca2fcfde4ac.svg?invert_in_darkmode&sanitize=true" align=middle width=458.10354314999995pt height=18.312383099999998pt/></p>
+$$
+E(K) = \{ (x, y) | y^2 + a_1 xy + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6 \} \cup \{O\}
+$$
 
-where <img src="/tex/9afe6a256a9817c76b579e6f5db9a578.svg?invert_in_darkmode&sanitize=true" align=middle width=12.99542474999999pt height=22.465723500000017pt/> is the *point at infinity*, and <img src="/tex/cec3de417413798b6c3d739decc1abce.svg?invert_in_darkmode&sanitize=true" align=middle width=108.71968964999999pt height=14.15524440000002pt/> are *K-rational coefficients* that satisfy a *non-zero discriminant* condition. For cryptographic computational purposes, elliptic curves are represented in several different forms.
+where $O$ is the *point at infinity*, and $a_1, a_2, a_3, a_4, a_6$ are *K-rational coefficients* that satisfy a *non-zero discriminant* condition. For cryptographic computational purposes, elliptic curves are represented in several different forms.
 
 ### Weierstrass curves
 
-A (short) [**Weierstrass curve**](src/Data/Curve/Weierstrass.hs) is an elliptic curve over <img src="/tex/cdeab355fe7188f5cb733d1a3e5b73d1.svg?invert_in_darkmode&sanitize=true" align=middle width=44.686187699999984pt height=24.65753399999998pt/> for some prime <img src="/tex/2ec6e630f199f589a2402fdf3e0289d5.svg?invert_in_darkmode&sanitize=true" align=middle width=8.270567249999992pt height=14.15524440000002pt/>, and is of the form
+A (short) [**Weierstrass curve**](src/Data/Curve/Weierstrass.hs) is an elliptic curve over $\text{GF}(p)$ for some prime $p$, and is of the form
 
-<p align="center"><img src="/tex/7f4099e4c9e1b8bc7227bb1c3947e3f3.svg?invert_in_darkmode&sanitize=true" align=middle width=338.74327905pt height=18.312383099999998pt/></p>
+$$
+E(GF(p)) = \{ (x, y) | y^2 = x^3 + Ax^2 + B \} \cup \{O\}
+$$
 
-where `A` and `B` are K-rational coefficients such that <img src="/tex/e5f279727fb95b805306e70125f30018.svg?invert_in_darkmode&sanitize=true" align=middle width=84.29802809999998pt height=26.76175259999998pt/> is non-zero. Weierstrass curves are the most common representations of elliptic curves, as any elliptic curve over a field of characteristic greater than 3 is isomorphic to a Weierstrass curve.
+where `A` and `B` are K-rational coefficients such that $4A^3 + 27B^2$ is non-zero. Weierstrass curves are the most common representations of elliptic curves, as any elliptic curve over a field of characteristic greater than 3 is isomorphic to a Weierstrass curve.
 
 ### Binary curves
 
-A (short Weierstrass) [**binary curve**](src/Data/Curve/Binary.hs) is an elliptic curve over <img src="/tex/f4687471921caacf38fd0e0667005c1f.svg?invert_in_darkmode&sanitize=true" align=middle width=57.12159419999999pt height=24.65753399999998pt/> for some positive <img src="/tex/0e51a2dede42189d77627c4d742822c3.svg?invert_in_darkmode&sanitize=true" align=middle width=14.433101099999991pt height=14.15524440000002pt/>, and is of the form
+A (short Weierstrass) [**binary curve**](src/Data/Curve/Binary.hs) is an elliptic curve over $\text{GF}(2^m)$ for some positive $m$, and is of the form
 
-<p align="center"><img src="/tex/b1771b4a57a60a91d6f0ee77fdd140d0.svg?invert_in_darkmode&sanitize=true" align=middle width=341.6558475pt height=18.312383099999998pt/></p>
+$$
+E(\text{GF}(2^m)) = \{ (x, y) | y^2 = x^3 + Ax + B \} \cup \{O\}
+$$
 
 where `A` and `B` are K-rational coefficients such that `B` is non-zero. Binary curves have field elements represented by binary integers for efficient arithmetic, and are special cases of *long Weierstrass curves* over a field of characteristic 2.
 
 ### Montgomery curves
 
-A [**Montgomery curve**](src/Data/Curve/Montgomery.hs) is an elliptic curve over <img src="/tex/cdeab355fe7188f5cb733d1a3e5b73d1.svg?invert_in_darkmode&sanitize=true" align=middle width=44.686187699999984pt height=24.65753399999998pt/> for some prime <img src="/tex/2ec6e630f199f589a2402fdf3e0289d5.svg?invert_in_darkmode&sanitize=true" align=middle width=8.270567249999992pt height=14.15524440000002pt/>, and is of the form
+A [**Montgomery curve**](src/Data/Curve/Montgomery.hs) is an elliptic curve over $\text{GF}(p)$ for some prime $p$, and is of the form
 
-<p align="center"><img src="/tex/411d1a91b2998b19b1797a8c48655a1f.svg?invert_in_darkmode&sanitize=true" align=middle width=329.55131715pt height=18.312383099999998pt/></p>
+$$
+E(\text{GF}(p)) = {(x, y) | By^2 = x^3 + Ax^2 + x} \cup \{O\}
+$$
 
-where `A` and `B` are K-rational coefficients such that <img src="/tex/dcfbb15abd46e172d6ade9ec5402a60f.svg?invert_in_darkmode&sanitize=true" align=middle width=74.09249594999999pt height=26.76175259999998pt/> is non-zero. Montgomery curves only use the first affine coordinate for computations, and can utilise the Montgomery ladder for efficient multiplication.
+where `A` and `B` are K-rational coefficients such that $B(A^2 - 4)$ is non-zero. Montgomery curves only use the first affine coordinate for computations, and can utilise the Montgomery ladder for efficient multiplication.
 
 ### Edwards curves
 
-A (twisted) [**Edwards curve**](src/Data/Curve/Edwards.hs) is an elliptic curve over <img src="/tex/cdeab355fe7188f5cb733d1a3e5b73d1.svg?invert_in_darkmode&sanitize=true" align=middle width=44.686187699999984pt height=24.65753399999998pt/> for some prime <img src="/tex/2ec6e630f199f589a2402fdf3e0289d5.svg?invert_in_darkmode&sanitize=true" align=middle width=8.270567249999992pt height=14.15524440000002pt/>, and is of the form
+A (twisted) [**Edwards curve**](src/Data/Curve/Edwards.hs) is an elliptic curve over $\text{GF}(p)$ for some prime $p$, and is of the form
 
-<p align="center"><img src="/tex/9f0965c23101451fdcef241119b2c1ca.svg?invert_in_darkmode&sanitize=true" align=middle width=296.65172954999997pt height=18.312383099999998pt/></p>
+$$
+E(\text{GF}(p)) = {(x, y) | Ax^2 + y^2 = 1 + Dx^2y^2}
+$$
 
-where `A` and `D` are K-rational coefficients such that <img src="/tex/a99b826773674a6f62e90ce098504e47.svg?invert_in_darkmode&sanitize=true" align=middle width=69.22829594999999pt height=24.65753399999998pt/> is non-zero. Edwards curves have no point at infinity, and their addition and doubling formulae converge.
+where `A` and `D` are K-rational coefficients such that $D(1 - D)$ is non-zero. Edwards curves have no point at infinity, and their addition and doubling formulae converge.
 
 ## Curve usage
 
