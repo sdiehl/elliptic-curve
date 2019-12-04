@@ -12,9 +12,9 @@ An extensible library of elliptic curves used in cryptography research.
 
 An [**elliptic curve**](src/Data/Curve.hs) E(K) over a field K is a *smooth projective plane algebraic cubic curve* with a specified base point `O`, and the *points* on E(K) form an *algebraic group* with identity point `O`. By the *Riemann-Roch theorem*, any elliptic curve is isomorphic to a cubic curve of the form
 
-<p align="center"><img src="/tex/225c388b3f6e1e2c07db2224c900e391.svg?invert_in_darkmode&sanitize=true" align=middle width=462.32729069999993pt height=18.312383099999998pt/></p>
+<p align="center"><img src="/tex/7c1ba96d0dc75a92a1e33ca2fcfde4ac.svg?invert_in_darkmode&sanitize=true" align=middle width=458.10354314999995pt height=18.312383099999998pt/></p>
 
-where `O` is the *point at infinity*, and `a1, a2, a3, a4, a6` are *K-rational coefficients* that satisfy a *non-zero discriminant* condition. For cryptographic computational purposes, elliptic curves are represented in several different forms.
+where <img src="/tex/9afe6a256a9817c76b579e6f5db9a578.svg?invert_in_darkmode&sanitize=true" align=middle width=12.99542474999999pt height=22.465723500000017pt/> is the *point at infinity*, and <img src="/tex/cec3de417413798b6c3d739decc1abce.svg?invert_in_darkmode&sanitize=true" align=middle width=108.71968964999999pt height=14.15524440000002pt/> are *K-rational coefficients* that satisfy a *non-zero discriminant* condition. For cryptographic computational purposes, elliptic curves are represented in several different forms.
 
 ### Weierstrass curves
 
