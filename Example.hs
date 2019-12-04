@@ -42,3 +42,6 @@ p9 = fromA p8
 -- get y coordinate from coordinate
 p10 :: Maybe Ed25519.Fq
 p10 = yX p8 (2 :: Fq)
+
+main :: IO ()
+main = print p1
