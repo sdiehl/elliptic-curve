@@ -11,46 +11,165 @@ An extensible library of elliptic curves used in cryptography research.
 ## Curve representations
 
 An [**elliptic curve**](src/Data/Curve.hs) E(K) over a field K is a *smooth projective plane algebraic cubic curve* with a specified base point `O`, and the *points* on E(K) form an *algebraic group* with identity point `O`. By the *Riemann-Roch theorem*, any elliptic curve is isomorphic to a cubic curve of the form
-```
-E(K) = {(x, y) | y^2 + a1xy + a3y = x^3 + a2x^2 + a4x + a6} U {O}
-```
+
+$$
+E(K) = \{ (x, y) | y^2 + a1xy + a3y = x^3 + a2x^2 + a4x + a6 \} \cup \{O\}
+$$
+
 where `O` is the *point at infinity*, and `a1, a2, a3, a4, a6` are *K-rational coefficients* that satisfy a *non-zero discriminant* condition. For cryptographic computational purposes, elliptic curves are represented in several different forms.
 
 ### Weierstrass curves
 
-A (short) [**Weierstrass curve**](src/Data/Curve/Weierstrass.hs) is an elliptic curve over GF(p) for some prime p, and is of the form
-```
-E(GF(p)) = {(x, y) | y^2 = x^3 + Ax^2 + B} U {O}
-```
-where `A` and `B` are K-rational coefficients such that `4A^3 + 27B^2` is non-zero. Weierstrass curves are the most common representations of elliptic curves, as any elliptic curve over a field of characteristic greater than 3 is isomorphic to a Weierstrass curve.
+A (short) [**Weierstrass curve**](src/Data/Curve/Weierstrass.hs) is an elliptic curve over $\text{GF}(p)$ for some prime $p$, and is of the form
+
+$$
+E(GF(p)) = \{ (x, y) | y^2 = x^3 + Ax^2 + B \} \cup \{O\}
+$$
+
+where `A` and `B` are K-rational coefficients such that $4A^3 + 27B^2$ is non-zero. Weierstrass curves are the most common representations of elliptic curves, as any elliptic curve over a field of characteristic greater than 3 is isomorphic to a Weierstrass curve.
 
 ### Binary curves
 
-A (short Weierstrass) [**binary curve**](src/Data/Curve/Binary.hs) is an elliptic curve over GF(2^m) for some positive m, and is of the form
-```
-E(GF(2^m)) = {(x, y) | y^2 = x^3 + Ax + B} U {O}
-```
+A (short Weierstrass) [**binary curve**](src/Data/Curve/Binary.hs) is an elliptic curve over $\text{GF}(2^m)$ for some positive $m$, and is of the form
+
+$$
+E(GF(2^m)) = \{ (x, y) | y^2 = x^3 + Ax + B \} \cup \{O\}
+$$
+
 where `A` and `B` are K-rational coefficients such that `B` is non-zero. Binary curves have field elements represented by binary integers for efficient arithmetic, and are special cases of *long Weierstrass curves* over a field of characteristic 2.
 
 ### Montgomery curves
 
-A [**Montgomery curve**](src/Data/Curve/Montgomery.hs) is an elliptic curve over GF(p) for some prime p, and is of the form
-```
-E(GF(p)) = {(x, y) | By^2 = x^3 + Ax^2 + x} U {O}
-```
-where `A` and `B` are K-rational coefficients such that `B(A^2 - 4)` is non-zero. Montgomery curves only use the first affine coordinate for computations, and can utilise the Montgomery ladder for efficient multiplication.
+A [**Montgomery curve**](src/Data/Curve/Montgomery.hs) is an elliptic curve over $\text{GF}(p)$ for some prime $p$, and is of the form
+
+$$
+E(GF(p)) = {(x, y) | By^2 = x^3 + Ax^2 + x} \cup \{O\}
+$$
+
+where `A` and `B` are K-rational coefficients such that $B(A^2 - 4)$ is non-zero. Montgomery curves only use the first affine coordinate for computations, and can utilise the Montgomery ladder for efficient multiplication.
 
 ### Edwards curves
 
-A (twisted) [**Edwards curve**](src/Data/Curve/Edwards.hs) is an elliptic curve over GF(p) for some prime p, and is of the form
-```
+A (twisted) [**Edwards curve**](src/Data/Curve/Edwards.hs) is an elliptic curve over $\text{GF}(p)$ for some prime $p$, and is of the form
+
+$$
 E(GF(p)) = {(x, y) | Ax^2 + y^2 = 1 + Dx^2y^2}
-```
-where `A` and `D` are K-rational coefficients such that `D(1 - D)` is non-zero. Edwards curves have no point at infinity, and their addition and doubling formulae converge.
+$$
+
+where `A` and `D` are K-rational coefficients such that $D(1 - D)$ is non-zero. Edwards curves have no point at infinity, and their addition and doubling formulae converge.
 
 ## Curve usage
 
 This library is open for new curve representations and curve implementations through pull requests. These should ideally be executed by replicating and modifying existing curve files, for ease, quickcheck testing, and formatting consistency, but a short description of the file organisation is provided here for clarity. Note that it also has a dependency on the [Galois field library](https://github.com/adjoint-io/galois-field) and its required language extensions.
+
+The library exposes four promoted data kinds which are used to define a
+type-safe interface for working with curves.
+
+**Forms**
+
+* Binary
+* Edwards
+* Montgomery
+* Weierstrass
+
+**Coordinates**
+
+* Affine
+* Jacobian
+* Projective
+
+These are then specialised down into type classes for the different forms.
+
+* BCurve
+* ECurve
+* MCurve
+* WCurve
+
+And then by coordinate system.
+
+* BACurve
+* BPCurve
+* EACurve
+* EPCurve
+* MACurve
+* WACurve
+* WJCurve
+* WPCurve
+
+A curve class is constructed out of four type paramaters which are instantiated
+in the associated data type Point on the Curve typeclass.
+
+```text
+Curve (f :: Form) (c :: Coordinates) e q r
+                                     | | |
+                        Curve Type o-+ | |
+                   Field of Points o---+ |
+             Field of Coefficients o-----+
+```
+
+For example:
+
+```haskell
+data Anomalous
+
+type Fq = Prime Q
+type Q = 0xb0000000000000000000000953000000000000000000001f9d7
+
+type Fr = Prime R
+type R = 0xb0000000000000000000000953000000000000000000001f9d7
+
+instance Curve 'Weierstrass c Anomalous Fq Fr => WCurve c Anomalous Fq Fr where
+```
+
+**Arithmetic**
+
+```haskell
+-- Point addition
+add :: Point f c e q r -> Point f c e q r -> Point f c e q r
+
+-- Point doubling
+dbl :: Point f c e q r -> Point f c e q r
+
+-- Point multiplication by field element
+mul :: Curve f c e q r => Point f c e q r -> r -> Point f c e q r
+
+-- Point multiplication by Integral
+mul' :: (Curve f c e q r, Integral n) => Point f c e q r -> n -> Point f c e q r
+
+-- Point identity
+id :: Point f c e q r
+
+-- Point inversion
+inv :: Point f c e q r -> Point f c e q r
+
+-- Frobenius endomorphism
+frob :: Point f c e q r -> Point f c e q r
+
+-- Random point
+rnd :: MonadRandom m => m (Point f c e q r)
+```
+
+**Other Functions**
+
+```haskell
+-- Curve characteristic 
+char :: Point f c e q r -> Natural
+
+-- Curve cofactor
+cof :: Point f c e q r -> Natural
+
+-- Check if a point is well-defined
+def :: Point f c e q r -> Bool
+
+-- Discriminant
+disc :: Point f c e q r -> q
+
+-- Curve order
+order :: Point f c e q r -> Natural
+
+-- Curve generator point
+gen :: Point f c e q r
+```
 
 ### Representing a new curve using the curve class
 
@@ -80,6 +199,10 @@ main = do
   where
     hasseTheorem h r q = join (*) (naturalToInteger (h * r) - naturalToInteger q - 1) <= 4 * naturalToInteger q
 ```
+
+### Point Arithmetic
+
+XXX
 
 ## Curve implementations
 
