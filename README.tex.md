@@ -43,7 +43,7 @@ where `A` and `B` are K-rational coefficients such that `B` is non-zero. Binary 
 A [**Montgomery curve**](src/Data/Curve/Montgomery.hs) is an elliptic curve over $\text{GF}(p)$ for some prime $p$, and is of the form
 
 $$
-E(\text{GF}(p)) = {(x, y) | By^2 = x^3 + Ax^2 + x} \cup \{O\}
+E(\text{GF}(p)) = \{ (x, y) | By^2 = x^3 + Ax^2 + x \} \cup \{O\}
 $$
 
 where `A` and `B` are K-rational coefficients such that $B(A^2 - 4)$ is non-zero. Montgomery curves only use the first affine coordinate for computations, and can utilise the Montgomery ladder for efficient multiplication.
@@ -53,7 +53,7 @@ where `A` and `B` are K-rational coefficients such that $B(A^2 - 4)$ is non-zero
 A (twisted) [**Edwards curve**](src/Data/Curve/Edwards.hs) is an elliptic curve over $\text{GF}(p)$ for some prime $p$, and is of the form
 
 $$
-E(\text{GF}(p)) = {(x, y) | Ax^2 + y^2 = 1 + Dx^2y^2}
+E(\text{GF}(p)) = \{ (x, y) | Ax^2 + y^2 = 1 + Dx^2y^2 \}
 $$
 
 where `A` and `D` are K-rational coefficients such that $D(1 - D)$ is non-zero. Edwards curves have no point at infinity, and their addition and doubling formulae converge.
