@@ -33,7 +33,7 @@ where `A` and `B` are K-rational coefficients such that $4A^3 + 27B^2$ is non-ze
 A (short Weierstrass) [**binary curve**](src/Data/Curve/Binary.hs) is an elliptic curve over $\text{GF}(2^m)$ for some positive $m$, and is of the form
 
 $$
-E(GF(2^m)) = \{ (x, y) | y^2 = x^3 + Ax + B \} \cup \{O\}
+E(\text{GF}(2^m)) = \{ (x, y) | y^2 = x^3 + Ax + B \} \cup \{O\}
 $$
 
 where `A` and `B` are K-rational coefficients such that `B` is non-zero. Binary curves have field elements represented by binary integers for efficient arithmetic, and are special cases of *long Weierstrass curves* over a field of characteristic 2.
@@ -43,7 +43,7 @@ where `A` and `B` are K-rational coefficients such that `B` is non-zero. Binary 
 A [**Montgomery curve**](src/Data/Curve/Montgomery.hs) is an elliptic curve over $\text{GF}(p)$ for some prime $p$, and is of the form
 
 $$
-E(GF(p)) = {(x, y) | By^2 = x^3 + Ax^2 + x} \cup \{O\}
+E(\text{GF}(p)) = {(x, y) | By^2 = x^3 + Ax^2 + x} \cup \{O\}
 $$
 
 where `A` and `B` are K-rational coefficients such that $B(A^2 - 4)$ is non-zero. Montgomery curves only use the first affine coordinate for computations, and can utilise the Montgomery ladder for efficient multiplication.
@@ -53,7 +53,7 @@ where `A` and `B` are K-rational coefficients such that $B(A^2 - 4)$ is non-zero
 A (twisted) [**Edwards curve**](src/Data/Curve/Edwards.hs) is an elliptic curve over $\text{GF}(p)$ for some prime $p$, and is of the form
 
 $$
-E(GF(p)) = {(x, y) | Ax^2 + y^2 = 1 + Dx^2y^2}
+E(\text{GF}(p)) = {(x, y) | Ax^2 + y^2 = 1 + Dx^2y^2}
 $$
 
 where `A` and `D` are K-rational coefficients such that $D(1 - D)$ is non-zero. Edwards curves have no point at infinity, and their addition and doubling formulae converge.
@@ -100,11 +100,13 @@ A curve class is constructed out of four type paramaters which are instantiated
 in the associated data type Point on the Curve typeclass.
 
 ```text
-Curve (f :: Form) (c :: Coordinates) e q r
-                                     | | |
-                        Curve Type o-+ | |
-                   Field of Points o---+ |
-             Field of Coefficients o-----+
+class Curve (f :: Form) (c :: Coordinates) e q r
+                                           | | |
+                              Curve Type o-+ | |
+                         Field of Points o---+ |
+                   Field of Coefficients o-----+
+
+data Point f c e q r :: *
 ```
 
 For example:
@@ -119,6 +121,7 @@ type Fr = Prime R
 type R = 0xb0000000000000000000000953000000000000000000001f9d7
 
 instance Curve 'Weierstrass c Anomalous Fq Fr => WCurve c Anomalous Fq Fr where
+-- data instance Point 'Weierstrass c Anomalous Fq Fr
 ```
 
 **Arithmetic**
