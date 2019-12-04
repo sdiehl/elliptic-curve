@@ -101,7 +101,7 @@ data Point f c e q r :: *
 
 For example:
 
-```haskell
+```haskell ignore
 data Anomalous
 
 type Fq = Prime Q
@@ -116,7 +116,7 @@ instance Curve 'Weierstrass c Anomalous Fq Fr => WCurve c Anomalous Fq Fr where
 
 **Arithmetic**
 
-```haskell
+```haskell ignore
 -- Point addition
 add :: Point f c e q r -> Point f c e q r -> Point f c e q r
 
@@ -144,7 +144,7 @@ rnd :: MonadRandom m => m (Point f c e q r)
 
 **Other Functions**
 
-```haskell
+```haskell ignore
 -- Curve characteristic 
 char :: Point f c e q r -> Natural
 
@@ -175,12 +175,15 @@ E.g. See [**Anomalous**](src/Data/Curve/Weierstrass/Anomalous.hs).
 ### Using an implemented curve
 
 Import a curve implementation.
-```haskell
+
+```haskell ignore
 import qualified Data.Curve.Weierstrass.Anomalous as Anomalous
 ```
+
 The data types and constants can then be accessed readily as `Anomalous.PA` and `Anomalous._g`.
 
 We'll test that the Hasse Theorem is successful with an implemented curve as a usage example:
+
 ```haskell
 import Protolude
 import GHC.Natural
@@ -195,52 +198,7 @@ main = do
 
 ### Point Arithmetic
 
-```haskell
-import Data.Curve.Edwards.Ed25519 as Ed25519
-import Protolude
-
--- generate random affine ponit
-p1 :: Ed25519.PA
-p1 = Ed25519.gen
-
--- generate affine point by multiply by scalar
-p2 :: Ed25519.PA
-p2 = Ed25519.mul p1 (3 :: Ed25519.Fr)
-
--- ** --
-
--- point addition
-p3 :: Ed25519.PA
-p3 = Ed25519.add p1 p2
-
--- point identity
-p4 :: Ed25519.PA
-p4 = Ed25519.id
-
--- point doubling
-p5 :: Ed25519.PA
-p5 = Ed25519.dbl p1
-
--- point inversion
-p6 :: Ed25519.PA
-p6 = Ed25519.inv p1
-
--- Frobenius endomorphism
-p7 :: Ed25519.PA
-p7 = Ed25519.frob p1
-
--- base point
-p8 :: Ed25519.PA
-p8 = Ed25519.gA
-
--- convert affine to projective
-p9 :: Ed25519.PP
-p9 = fromA p8
-
--- get y coordinate from coordinate
-p10 :: Maybe Ed25519.Fq
-p10 = yX p8 (2 :: Fq)
-```
+See [**Example.lhs**](Example.lhs).
 
 ## Curve implementations
 
