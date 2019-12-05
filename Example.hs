@@ -10,7 +10,7 @@ import Protolude
 p1 :: Ed25519.PA
 p1 = Ed25519.gen
 
--- generate affine point by multiply by scalar
+-- generate affine point by multiply by field coefficient
 p2 :: Ed25519.PA
 p2 = Ed25519.mul p1 (3 :: Ed25519.Fr)
 
@@ -44,9 +44,9 @@ p8 = Ed25519.gA
 p9 :: Ed25519.PP
 p9 = fromA p8
 
--- get y coordinate from coordinate
+-- get y coordinate (point from Fq) from coordinate
 p10 :: Maybe Ed25519.Fq
-p10 = yX p8 (2 :: Fq)
+p10 = yX p1 (2 :: Fq)
 
 main :: IO ()
 main = print p1

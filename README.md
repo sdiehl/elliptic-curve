@@ -36,7 +36,7 @@ where `A` and `B` are K-rational coefficients such that `B` is non-zero. Binary 
 
 A [**Montgomery curve**](src/Data/Curve/Montgomery.hs) is an elliptic curve over <img src="/tex/cdeab355fe7188f5cb733d1a3e5b73d1.svg?invert_in_darkmode&sanitize=true" align=middle width=44.686187699999984pt height=24.65753399999998pt/> for some prime <img src="/tex/2ec6e630f199f589a2402fdf3e0289d5.svg?invert_in_darkmode&sanitize=true" align=middle width=8.270567249999992pt height=14.15524440000002pt/>, and is of the form
 
-<p align="center"><img src="/tex/411d1a91b2998b19b1797a8c48655a1f.svg?invert_in_darkmode&sanitize=true" align=middle width=329.55131715pt height=18.312383099999998pt/></p>
+<p align="center"><img src="/tex/38280aa5f1b9686a31981c2d9051d8ad.svg?invert_in_darkmode&sanitize=true" align=middle width=345.98988929999996pt height=18.312383099999998pt/></p>
 
 where `A` and `B` are K-rational coefficients such that <img src="/tex/dcfbb15abd46e172d6ade9ec5402a60f.svg?invert_in_darkmode&sanitize=true" align=middle width=74.09249594999999pt height=26.76175259999998pt/> is non-zero. Montgomery curves only use the first affine coordinate for computations, and can utilise the Montgomery ladder for efficient multiplication.
 
@@ -44,7 +44,7 @@ where `A` and `B` are K-rational coefficients such that <img src="/tex/dcfbb15ab
 
 A (twisted) [**Edwards curve**](src/Data/Curve/Edwards.hs) is an elliptic curve over <img src="/tex/cdeab355fe7188f5cb733d1a3e5b73d1.svg?invert_in_darkmode&sanitize=true" align=middle width=44.686187699999984pt height=24.65753399999998pt/> for some prime <img src="/tex/2ec6e630f199f589a2402fdf3e0289d5.svg?invert_in_darkmode&sanitize=true" align=middle width=8.270567249999992pt height=14.15524440000002pt/>, and is of the form
 
-<p align="center"><img src="/tex/9f0965c23101451fdcef241119b2c1ca.svg?invert_in_darkmode&sanitize=true" align=middle width=296.65172954999997pt height=18.312383099999998pt/></p>
+<p align="center"><img src="/tex/00fedebf8d0cf2c5debe8e88cda3d707.svg?invert_in_darkmode&sanitize=true" align=middle width=313.91206274999996pt height=18.312383099999998pt/></p>
 
 where `A` and `D` are K-rational coefficients such that <img src="/tex/a99b826773674a6f62e90ce098504e47.svg?invert_in_darkmode&sanitize=true" align=middle width=69.22829594999999pt height=24.65753399999998pt/> is non-zero. Edwards curves have no point at infinity, and their addition and doubling formulae converge.
 
@@ -86,7 +86,7 @@ And then by coordinate system.
 * WJCurve
 * WPCurve
 
-A curve class is constructed out of four type paramaters which are instantiated
+A curve class is constructed out of four type parameters which are instantiated
 in the associated data type Point on the Curve typeclass.
 
 ```text
@@ -164,13 +164,17 @@ order :: Point f c e q r -> Natural
 gen :: Point f c e q r
 ```
 
+### Point Arithmetic
+
+See [**Example.hs**](Example.hs).
+
 ### Representing a new curve using the curve class
 
-E.g. See [**Weierstrass**](src/Data/Curve/Weierstrass.hs).
+See [**Weierstrass**](src/Data/Curve/Weierstrass.hs).
 
 ### Implementing a new curve using a curve representation
 
-E.g. See [**Anomalous**](src/Data/Curve/Weierstrass/Anomalous.hs).
+See [**Anomalous**](src/Data/Curve/Weierstrass/Anomalous.hs).
 
 ### Using an implemented curve
 
@@ -195,10 +199,6 @@ main = do
   where
     hasseTheorem h r q = join (*) (naturalToInteger (h * r) - naturalToInteger q - 1) <= 4 * naturalToInteger q
 ```
-
-### Point Arithmetic
-
-See [**Example.hs**](Example.hs).
 
 ## Curve implementations
 
