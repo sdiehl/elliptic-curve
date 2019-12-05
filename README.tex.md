@@ -96,7 +96,7 @@ And then by coordinate system.
 * WJCurve
 * WPCurve
 
-A curve class is constructed out of four type paramaters which are instantiated
+A curve class is constructed out of four type parameters which are instantiated
 in the associated data type Point on the Curve typeclass.
 
 ```text
