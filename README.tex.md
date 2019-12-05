@@ -174,13 +174,17 @@ order :: Point f c e q r -> Natural
 gen :: Point f c e q r
 ```
 
+### Point Arithmetic
+
+See [**Example.hs**](Example.hs).
+
 ### Representing a new curve using the curve class
 
-E.g. See [**Weierstrass**](src/Data/Curve/Weierstrass.hs).
+See [**Weierstrass**](src/Data/Curve/Weierstrass.hs).
 
 ### Implementing a new curve using a curve representation
 
-E.g. See [**Anomalous**](src/Data/Curve/Weierstrass/Anomalous.hs).
+See [**Anomalous**](src/Data/Curve/Weierstrass/Anomalous.hs).
 
 ### Using an implemented curve
 
@@ -205,10 +209,6 @@ main = do
   where
     hasseTheorem h r q = join (*) (naturalToInteger (h * r) - naturalToInteger q - 1) <= 4 * naturalToInteger q
 ```
-
-### Point Arithmetic
-
-See [**Example.hs**](Example.hs).
 
 ## Curve implementations
 
