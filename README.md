@@ -57,37 +57,36 @@ type-safe interface for working with curves.
 
 **Forms**
 
-* Binary
-* Edwards
-* Montgomery
-* Weierstrass
+* [Binary](https://github.com/adjoint-io/elliptic-curve/blob/master/src/Data/Curve.hs#L120)
+* [Edwards](https://github.com/adjoint-io/elliptic-curve/blob/master/src/Data/Curve.hs#L121)
+* [Montgomery](https://github.com/adjoint-io/elliptic-curve/blob/master/src/Data/Curve.hs#L122)
+* [Weierstrass](https://github.com/adjoint-io/elliptic-curve/blob/master/src/Data/Curve.hs#L123)
 
 **Coordinates**
 
-* Affine
-* Jacobian
-* Projective
+* [Affine](https://github.com/adjoint-io/elliptic-curve/blob/master/src/Data/Curve.hs#L126)
+* [Jacobian](https://github.com/adjoint-io/elliptic-curve/blob/master/src/Data/Curve.hs#L127)
+* [Projective](https://github.com/adjoint-io/elliptic-curve/blob/master/src/Data/Curve.hs#L128)
 
 These are then specialised down into type classes for the different forms.
 
-* BCurve
-* ECurve
-* MCurve
-* WCurve
+* [BCurve](https://github.com/adjoint-io/elliptic-curve/blob/master/src/Data/Curve/Binary.hs#L33)
+* [ECurve](https://github.com/adjoint-io/elliptic-curve/blob/master/src/Data/Curve/Edwards.hs#L33)
+* [MCurve](https://github.com/adjoint-io/elliptic-curve/blob/master/src/Data/Curve/Montgomery.hs#L30)
+* [WCurve](https://github.com/adjoint-io/elliptic-curve/blob/master/src/Data/Curve/Weierstrass.hs#L36)
 
 And then by coordinate system.
 
-* BACurve
-* BPCurve
-* EACurve
-* EPCurve
-* MACurve
-* WACurve
-* WJCurve
-* WPCurve
+* [BACurve](https://github.com/adjoint-io/elliptic-curve/blob/master/src/Data/Curve/Binary.hs#L54)
+* [BPCurve](https://github.com/adjoint-io/elliptic-curve/blob/master/src/Data/Curve/Binary.hs#L151)
+* [EACurve](https://github.com/adjoint-io/elliptic-curve/blob/master/src/Data/Curve/Edwards.hs#L54)
+* [EPCurve](https://github.com/adjoint-io/elliptic-curve/blob/master/src/Data/Curve/Edwards.hs#L141)
+* [MACurve](https://github.com/adjoint-io/elliptic-curve/blob/master/src/Data/Curve/Montgomery.hs#L46)
+* [WACurve](https://github.com/adjoint-io/elliptic-curve/blob/master/src/Data/Curve/Weierstrass.hs#L52)
+* [WJCurve](https://github.com/adjoint-io/elliptic-curve/blob/master/src/Data/Curve/Weierstrass.hs#L159)
+* [WPCurve](https://github.com/adjoint-io/elliptic-curve/blob/master/src/Data/Curve/Weierstrass.hs#L283)
 
-A curve class is constructed out of four type parameters which are instantiated
-in the associated data type Point on the Curve typeclass.
+A [curve class](https://github.com/adjoint-io/elliptic-curve/blob/master/src/Data/Curve.hs#L27) is constructed out of four type parameters which are instantiated in the associated data type Point on the Curve typeclass.
 
 ```text
 class Curve (f :: Form) (c :: Coordinates) e q r
