@@ -42,11 +42,11 @@ p8 = Ed25519.gA
 
 -- convert affine to projective
 p9 :: Ed25519.PP
-p9 = fromA p8
+p9 = Ed25519.fromA p8
 
 -- get y coordinate (point from Fq) from coordinate
 p10 :: Maybe Ed25519.Fq
-p10 = yX p1 (2 :: Fq)
+p10 = Ed25519.yX p1 (2 :: Fq)
 
 main :: IO ()
 main = print p1
