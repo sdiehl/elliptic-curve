@@ -1,0 +1,250 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 82d2e3030fb7b2e36c9da7a481cdb4fde81af1dc36b0cc9e60a43ae70a1602ea
+
+name:           elliptic-curve
+version:        0.3.1
+synopsis:       Elliptic curve library
+description:    An extensible library of elliptic curves used in cryptography research
+category:       Cryptography
+homepage:       https://github.com/adjoint-io/elliptic-curve#readme
+bug-reports:    https://github.com/adjoint-io/elliptic-curve/issues
+maintainer:     Adjoint Inc (info@adjoint.io)
+license:        MIT
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/adjoint-io/elliptic-curve
+
+library
+  exposed-modules:
+      Data.Curve
+      Data.Curve.Binary
+      Data.Curve.Binary.SECT113R1
+      Data.Curve.Binary.SECT113R2
+      Data.Curve.Binary.SECT131R1
+      Data.Curve.Binary.SECT131R2
+      Data.Curve.Binary.SECT163K1
+      Data.Curve.Binary.SECT163R1
+      Data.Curve.Binary.SECT163R2
+      Data.Curve.Binary.SECT193R1
+      Data.Curve.Binary.SECT193R2
+      Data.Curve.Binary.SECT233K1
+      Data.Curve.Binary.SECT233R1
+      Data.Curve.Binary.SECT239K1
+      Data.Curve.Binary.SECT283K1
+      Data.Curve.Binary.SECT283R1
+      Data.Curve.Binary.SECT409K1
+      Data.Curve.Binary.SECT409R1
+      Data.Curve.Binary.SECT571K1
+      Data.Curve.Binary.SECT571R1
+      Data.Curve.Edwards
+      Data.Curve.Edwards.Curve1174
+      Data.Curve.Edwards.Curve41417
+      Data.Curve.Edwards.E222
+      Data.Curve.Edwards.E382
+      Data.Curve.Edwards.E521
+      Data.Curve.Edwards.Ed448
+      Data.Curve.Edwards.Ed3363
+      Data.Curve.Edwards.Ed25519
+      Data.Curve.Edwards.JubJub
+      Data.Curve.Montgomery
+      Data.Curve.Montgomery.Curve448
+      Data.Curve.Montgomery.Curve25519
+      Data.Curve.Montgomery.Curve383187
+      Data.Curve.Montgomery.M221
+      Data.Curve.Montgomery.M383
+      Data.Curve.Montgomery.M511
+      Data.Curve.Weierstrass
+      Data.Curve.Weierstrass.Anomalous
+      Data.Curve.Weierstrass.ANSSIFRP256V1
+      Data.Curve.Weierstrass.BLS12381
+      Data.Curve.Weierstrass.BLS12381T
+      Data.Curve.Weierstrass.BLS48581
+      Data.Curve.Weierstrass.BLS48581T
+      Data.Curve.Weierstrass.BN224
+      Data.Curve.Weierstrass.BN254
+      Data.Curve.Weierstrass.BN254T
+      Data.Curve.Weierstrass.BN254A
+      Data.Curve.Weierstrass.BN254AT
+      Data.Curve.Weierstrass.BN254B
+      Data.Curve.Weierstrass.BN254BT
+      Data.Curve.Weierstrass.BN254C
+      Data.Curve.Weierstrass.BN254CT
+      Data.Curve.Weierstrass.BN254D
+      Data.Curve.Weierstrass.BN254DT
+      Data.Curve.Weierstrass.BN256
+      Data.Curve.Weierstrass.BN384
+      Data.Curve.Weierstrass.BN462
+      Data.Curve.Weierstrass.BN462T
+      Data.Curve.Weierstrass.BN512
+      Data.Curve.Weierstrass.SECP112R1
+      Data.Curve.Weierstrass.SECP112R2
+      Data.Curve.Weierstrass.SECP128R1
+      Data.Curve.Weierstrass.SECP128R2
+      Data.Curve.Weierstrass.SECP160K1
+      Data.Curve.Weierstrass.SECP160R1
+      Data.Curve.Weierstrass.SECP160R2
+      Data.Curve.Weierstrass.SECP192K1
+      Data.Curve.Weierstrass.SECP192R1
+      Data.Curve.Weierstrass.SECP224K1
+      Data.Curve.Weierstrass.SECP224R1
+      Data.Curve.Weierstrass.SECP256K1
+      Data.Curve.Weierstrass.SECP256R1
+      Data.Curve.Weierstrass.SECP384R1
+      Data.Curve.Weierstrass.SECP521R1
+      Data.Curve.Weierstrass.BrainpoolP160R1
+      Data.Curve.Weierstrass.BrainpoolP160T1
+      Data.Curve.Weierstrass.BrainpoolP192R1
+      Data.Curve.Weierstrass.BrainpoolP192T1
+      Data.Curve.Weierstrass.BrainpoolP224R1
+      Data.Curve.Weierstrass.BrainpoolP224T1
+      Data.Curve.Weierstrass.BrainpoolP256R1
+      Data.Curve.Weierstrass.BrainpoolP256T1
+      Data.Curve.Weierstrass.BrainpoolP320R1
+      Data.Curve.Weierstrass.BrainpoolP320T1
+      Data.Curve.Weierstrass.BrainpoolP384R1
+      Data.Curve.Weierstrass.BrainpoolP384T1
+      Data.Curve.Weierstrass.BrainpoolP512R1
+      Data.Curve.Weierstrass.BrainpoolP512T1
+  other-modules:
+      Generate.Binary.Curve
+      Generate.Binary.Generate
+      Generate.Binary.Parameters
+      Generate.Binary.Types
+      Generate.Curve
+      Generate.Edwards.Curve
+      Generate.Edwards.Generate
+      Generate.Edwards.Parameters
+      Generate.Edwards.Types
+      Generate.Generate
+      Generate.Montgomery.Curve
+      Generate.Montgomery.Generate
+      Generate.Montgomery.Parameters
+      Generate.Montgomery.Types
+      Generate.Pretty
+      Generate.Types
+      Generate.Weierstrass.Curve
+      Generate.Weierstrass.Generate
+      Generate.Weierstrass.Parameters
+      Generate.Weierstrass.Types
+      Main
+  hs-source-dirs:
+      src
+      generate
+  default-extensions: LambdaCase RecordWildCards OverloadedStrings NoImplicitPrelude FlexibleInstances FlexibleContexts ScopedTypeVariables RankNTypes DataKinds DeriveAnyClass DeriveFunctor DeriveGeneric MultiParamTypeClasses OverloadedLists PatternSynonyms PolyKinds TypeFamilyDependencies
+  ghc-options: -freverse-errors -Wall -pgmL markdown-unlit
+  build-depends:
+      MonadRandom
+    , base >=4.10 && <5
+    , galois-field >=1 && <2
+    , groups
+    , protolude >=0.2 && <0.3
+    , tasty-quickcheck
+    , text
+    , wl-pprint-text
+  default-language: Haskell2010
+
+test-suite elliptic-curve-tests
+  type: exitcode-stdio-1.0
+  main-is: Main.hs
+  other-modules:
+      Test.Binary
+      Test.Curve
+      Test.Edwards
+      Test.Field
+      Test.Montgomery
+      Test.Weierstrass
+      Paths_elliptic_curve
+  hs-source-dirs:
+      test
+  default-extensions: LambdaCase RecordWildCards OverloadedStrings NoImplicitPrelude FlexibleInstances FlexibleContexts ScopedTypeVariables RankNTypes DataKinds DeriveAnyClass DeriveFunctor DeriveGeneric MultiParamTypeClasses OverloadedLists PatternSynonyms PolyKinds TypeFamilyDependencies
+  ghc-options: -freverse-errors -Wall -pgmL markdown-unlit -main-is Main
+  build-depends:
+      MonadRandom
+    , base >=4.10 && <5
+    , elliptic-curve
+    , galois-field >=1 && <2
+    , groups
+    , protolude >=0.2 && <0.3
+    , tasty
+    , tasty-hunit
+    , tasty-quickcheck
+    , text
+    , wl-pprint-text
+  default-language: Haskell2010
+
+test-suite example-test
+  type: exitcode-stdio-1.0
+  main-is: Example.hs
+  other-modules:
+      Paths_elliptic_curve
+  default-extensions: LambdaCase RecordWildCards OverloadedStrings NoImplicitPrelude FlexibleInstances FlexibleContexts ScopedTypeVariables RankNTypes DataKinds DeriveAnyClass DeriveFunctor DeriveGeneric MultiParamTypeClasses OverloadedLists PatternSynonyms PolyKinds TypeFamilyDependencies
+  ghc-options: -freverse-errors -Wall -pgmL markdown-unlit
+  build-depends:
+      MonadRandom
+    , base
+    , elliptic-curve
+    , galois-field >=1 && <2
+    , groups
+    , protolude
+    , tasty-quickcheck
+    , text
+    , wl-pprint-text
+  default-language: Haskell2010
+
+test-suite readme-test
+  type: exitcode-stdio-1.0
+  main-is: README.lhs
+  other-modules:
+      Paths_elliptic_curve
+  default-extensions: LambdaCase RecordWildCards OverloadedStrings NoImplicitPrelude FlexibleInstances FlexibleContexts ScopedTypeVariables RankNTypes DataKinds DeriveAnyClass DeriveFunctor DeriveGeneric MultiParamTypeClasses OverloadedLists PatternSynonyms PolyKinds TypeFamilyDependencies
+  ghc-options: -freverse-errors -Wall -pgmL markdown-unlit -pgmL markdown-unlit
+  build-depends:
+      MonadRandom
+    , base
+    , elliptic-curve
+    , galois-field >=1 && <2
+    , groups
+    , markdown-unlit
+    , protolude
+    , tasty-quickcheck
+    , text
+    , wl-pprint-text
+  default-language: Haskell2010
+
+benchmark elliptic-curve-benchmarks
+  type: exitcode-stdio-1.0
+  main-is: Main.hs
+  other-modules:
+      Bench.Binary
+      Bench.Curve
+      Bench.Edwards
+      Bench.Montgomery
+      Bench.Weierstrass
+      Paths_elliptic_curve
+  hs-source-dirs:
+      bench
+  default-extensions: LambdaCase RecordWildCards OverloadedStrings NoImplicitPrelude FlexibleInstances FlexibleContexts ScopedTypeVariables RankNTypes DataKinds DeriveAnyClass DeriveFunctor DeriveGeneric MultiParamTypeClasses OverloadedLists PatternSynonyms PolyKinds TypeFamilyDependencies
+  ghc-options: -freverse-errors -Wall -pgmL markdown-unlit -main-is Main
+  build-depends:
+      MonadRandom
+    , base >=4.10 && <5
+    , criterion
+    , elliptic-curve
+    , galois-field >=1 && <2
+    , groups
+    , protolude >=0.2 && <0.3
+    , tasty-quickcheck
+    , text
+    , wl-pprint-text
+  default-language: Haskell2010
