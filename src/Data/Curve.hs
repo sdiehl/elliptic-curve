@@ -16,7 +16,7 @@ import Control.Monad.Random (MonadRandom, Random(..), getRandom)
 import Data.Field.Galois (GaloisField, PrimeField, fromP)
 import Data.Group (Group(..))
 import GHC.Natural (Natural)
-import Test.Tasty.QuickCheck (Arbitrary(..))
+import Test.QuickCheck (Arbitrary(..))
 import Text.PrettyPrint.Leijen.Text (Pretty)
 
 -------------------------------------------------------------------------------
