@@ -1,3 +1,5 @@
+module Example where
+
 import Data.Curve.Edwards.Ed25519 as Ed25519
 import Protolude
 
@@ -47,6 +49,3 @@ p9 = Ed25519.fromA p8
 -- get y coordinate (point from Fq) from coordinate
 p10 :: Maybe Ed25519.Fq
 p10 = Ed25519.yX p1 (2 :: Fq)
-
-main :: IO ()
-main = print p1

@@ -165,7 +165,11 @@ gen :: Point f c e q r
 
 ### Point Arithmetic
 
-See [**Example.hs**](Example.hs).
+See [**Example.hs**](examples/Example.hs).
+
+### Elliptic Curve Diffie-Hellman (ECDH)
+
+See [**DiffieHellman.hs**](examples/DiffieHellman.hs).
 
 ### Representing a new curve using the curve class
 

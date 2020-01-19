@@ -4,7 +4,7 @@ cabal-version:      1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 1685b0e4e19d59c9fb65b33582c33c80521962a9dad4be789a5cd9c1401824cb
+-- hash: cd153de32e11244f897a72cbcfc0169c7ca4b88664a71ac709422e44e887d92d
 
 name:               elliptic-curve
 version:            0.3.1
@@ -228,8 +228,13 @@ test-suite elliptic-curve-tests
 
 test-suite example-test
   type:               exitcode-stdio-1.0
-  main-is:            Example.hs
-  other-modules:      Paths_elliptic_curve
+  main-is:            Main.hs
+  other-modules:
+    DiffieHellman
+    Example
+    Paths_elliptic_curve
+
+  hs-source-dirs:     examples
   default-extensions:
     NoImplicitPrelude
     DataKinds
