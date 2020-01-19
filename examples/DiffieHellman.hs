@@ -1,12 +1,12 @@
 module DiffieHellman where
 
 import Data.Curve.Montgomery.Curve25519 as Curve25519
-import qualified Data.Field.Galois as Fq
+import qualified Data.Field.Galois as Fr
 import Protolude
 
 -- Generate random private point on Curve25519
 generate :: IO Curve25519.Fr
-generate = Fq.rnd
+generate = Fr.rnd
 
 main :: IO ()
 main = do
