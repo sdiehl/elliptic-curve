@@ -187,7 +187,8 @@ tests:
       - elliptic-curve
       - base              >= 4.10 && < 5
       - protolude         >= 0.2  && < 0.3
-    main: Example.hs
+    source-dirs: examples
+    main: Main.hs
 
 benchmarks:
   elliptic-curve-benchmarks:
