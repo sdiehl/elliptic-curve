@@ -1,11 +1,4 @@
-cabal-version:      1.12
-
--- This file has been generated from package.yaml by hpack version 0.31.2.
---
--- see: https://github.com/sol/hpack
---
--- hash: cd153de32e11244f897a72cbcfc0169c7ca4b88664a71ac709422e44e887d92d
-
+cabal-version:      3.0
 name:               elliptic-curve
 version:            0.3.1
 synopsis:           Elliptic curve library
@@ -168,8 +161,8 @@ library
     , galois-field    >=1    && <2
     , groups          >=0.4  && <0.5
     , MonadRandom     >=0.5  && <0.6
-    , protolude       >=0.2  && <0.3
-    , QuickCheck      >=2.13 && <2.14
+    , protolude       >=0.3  && <0.4
+    , QuickCheck      >=2.13 && <2.15
     , text            >=1.2  && <1.3
     , wl-pprint-text  >=1.2  && <1.3
 
@@ -179,7 +172,6 @@ test-suite elliptic-curve-tests
   type:               exitcode-stdio-1.0
   main-is:            Main.hs
   other-modules:
-    Paths_elliptic_curve
     Test.Binary
     Test.Curve
     Test.Edwards
@@ -208,16 +200,16 @@ test-suite elliptic-curve-tests
     TypeFamilyDependencies
 
   ghc-options:
-    -freverse-errors -Wall -pgmL markdown-unlit -main-is Main
+    -freverse-errors -Wall -pgmL markdown-unlit
 
   build-depends:
       base              >=4.10 && <5
     , elliptic-curve
-    , galois-field      >=1    && <2
+    , galois-field      >=1.0  && <2
     , groups            >=0.4  && <0.5
     , MonadRandom       >=0.5  && <0.6
-    , protolude         >=0.2  && <0.3
-    , QuickCheck        >=2.13 && <2.14
+    , protolude         >=0.3  && <0.4
+    , QuickCheck        >=2.13 && <2.15
     , tasty             >=1.2  && <1.3
     , tasty-hunit       >=0.10 && <0.11
     , tasty-quickcheck  >=0.10 && <0.11
@@ -232,7 +224,6 @@ test-suite example-test
   other-modules:
     DiffieHellman
     Example
-    Paths_elliptic_curve
 
   hs-source-dirs:     examples
   default-extensions:
@@ -258,11 +249,11 @@ test-suite example-test
   build-depends:
       base            >=4.10 && <5
     , elliptic-curve
-    , galois-field    >=1    && <2
+    , galois-field    >=1.0  && <2
     , groups          >=0.4  && <0.5
     , MonadRandom     >=0.5  && <0.6
-    , protolude       >=0.2  && <0.3
-    , QuickCheck      >=2.13 && <2.14
+    , protolude       >=0.3  && <0.4
+    , QuickCheck      >=2.13 && <2.15
     , text            >=1.2  && <1.3
     , wl-pprint-text  >=1.2  && <1.3
 
@@ -271,7 +262,6 @@ test-suite example-test
 test-suite readme-test
   type:               exitcode-stdio-1.0
   main-is:            README.lhs
-  other-modules:      Paths_elliptic_curve
   default-extensions:
     NoImplicitPrelude
     DataKinds
@@ -297,12 +287,12 @@ test-suite readme-test
   build-depends:
       base            >=4.10 && <5
     , elliptic-curve
-    , galois-field    >=1    && <2
+    , galois-field    >=1.0  && <2
     , groups          >=0.4  && <0.5
     , markdown-unlit  >=0.5  && <0.6
     , MonadRandom     >=0.5  && <0.6
-    , protolude       >=0.2  && <0.3
-    , QuickCheck      >=2.13 && <2.14
+    , protolude       >=0.3  && <0.4
+    , QuickCheck      >=2.13 && <2.15
     , text            >=1.2  && <1.3
     , wl-pprint-text  >=1.2  && <1.3
 
@@ -317,7 +307,6 @@ benchmark elliptic-curve-benchmarks
     Bench.Edwards
     Bench.Montgomery
     Bench.Weierstrass
-    Paths_elliptic_curve
 
   hs-source-dirs:     bench
   default-extensions:
@@ -340,17 +329,17 @@ benchmark elliptic-curve-benchmarks
     TypeFamilyDependencies
 
   ghc-options:
-    -freverse-errors -Wall -pgmL markdown-unlit -main-is Main
+    -freverse-errors -Wall -pgmL markdown-unlit
 
   build-depends:
       base            >=4.10 && <5
     , criterion       >=1.5  && <1.6
     , elliptic-curve
-    , galois-field    >=1    && <2
+    , galois-field    >=1.0  && <2
     , groups          >=0.4  && <0.5
     , MonadRandom     >=0.5  && <0.6
-    , protolude       >=0.2  && <0.3
-    , QuickCheck      >=2.13 && <2.14
+    , protolude       >=0.3  && <0.4
+    , QuickCheck      >=2.13 && <2.15
     , text            >=1.2  && <1.3
     , wl-pprint-text  >=1.2  && <1.3
 

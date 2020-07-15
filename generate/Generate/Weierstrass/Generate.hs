@@ -2,7 +2,7 @@ module Generate.Weierstrass.Generate
   ( prettyGenerate
   ) where
 
-import Protolude
+import Protolude hiding (toLower)
 
 import Data.Text (toLower)
 import Text.PrettyPrint.Leijen.Text
