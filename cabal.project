@@ -3,4 +3,4 @@ packages: .
 source-repository-package
   type: git
   location: https://github.com/adjoint-io/galois-field.git
-  tag: 4932bfa472f2756427e0cf75c5cbebae26405f40
+  tag: 82bf20e099c660f4543100f3917544dac008e42f
