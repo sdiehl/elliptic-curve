@@ -4,6 +4,10 @@
   </a>
 </p>
 
+![Stack CI](https://github.com/adjoint-io/elliptic-curve/workflows/Stack%20CI/badge.svg)
+![Cabal CI](https://github.com/adjoint-io/elliptic-curve/workflows/Cabal%20CI/badge.svg)
+[![Hackage](https://img.shields.io/hackage/v/elliptic-curve.svg)](https://hackage.haskell.org/package/elliptic-curve)
+
 # Elliptic Curve
 
 An extensible library of elliptic curves used in cryptography research.
