@@ -3,6 +3,7 @@
 ## 0.3.1
 
 * Improve performance of binary fields.
+* Bump upper bound for groups.
 
 ## 0.3.0
 
