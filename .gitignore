@@ -6,3 +6,4 @@
 *.hi
 *.o
 dist-newstyle
+generate/Main
