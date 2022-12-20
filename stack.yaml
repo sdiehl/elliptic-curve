@@ -1,9 +1,4 @@
-resolver: lts-17.3
+resolver: lts-20.4
 extra-deps:
-  - bitvec-1.0.2.0
-  - poly-0.4.0.0
-  - semirings-0.5.3
-  - mod-0.1.0.0
-  - protolude-0.3.0
   - git: https://github.com/serokell/galois-field.git
-    commit: 25e564bcd39530dc3139b6ced0dacd81992a0a87
+    commit: abfeaf538a619108f3ffdd0277e6a43da17a0be5
