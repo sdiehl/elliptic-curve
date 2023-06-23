@@ -5,54 +5,37 @@
 
 packages:
 - completed:
-    hackage: bitvec-1.0.2.0@sha256:492256514c4c7297d6b09f1dfdcb0fe579f1896b8ace89cb33842f797ac91544,4232
-    pantry-tree:
-      size: 2371
-      sha256: 9b2b82291d9a5480183e81c121801cc8401fa65b54edd027087e298c9b3b1880
-  original:
-    hackage: bitvec-1.0.2.0
-- completed:
-    hackage: poly-0.4.0.0@sha256:75c243113712745dab5d2f4a52643705e146473770af212f9e0ce3d87a83f2ed,2123
-    pantry-tree:
-      size: 1896
-      sha256: 06f435980848905d2bcf23b85782863b1608f7a78dbdaea42e33a2e865adf476
-  original:
-    hackage: poly-0.4.0.0
-- completed:
-    hackage: semirings-0.5.3@sha256:4b0d243f88bb07c0673978a37b6b9fd16da44f15e8d552fb08795d9a88a3dc76,3791
-    pantry-tree:
-      size: 610
-      sha256: 0bc3f63a3b92be1c6be2e36c7db8df62e61b2860eba7f083b84e2b16dbaa2d69
-  original:
-    hackage: semirings-0.5.3
-- completed:
-    hackage: mod-0.1.0.0@sha256:63cd4e996b9453ffbe11dc515f57d762ba50276f05507b2372c6d9e733254768,1597
-    pantry-tree:
-      size: 352
-      sha256: c88ce4f9c35e18140f75d94d14a0c52fafc2944a2611a955af4757f555bd0884
-  original:
-    hackage: mod-0.1.0.0
-- completed:
-    hackage: protolude-0.3.0@sha256:8361b811b420585b122a7ba715aa5923834db6e8c36309bf267df2dbf66b95ef,2693
-    pantry-tree:
-      size: 1644
-      sha256: babf32b414f25f790b7a4ce6bae5c960bc51a11a289e7c47335b222e6762560c
-  original:
-    hackage: protolude-0.3.0
-- completed:
+    commit: 65afd2bb09a42bf76dc22ec973ad35f2d4b8904c
+    git: https://github.com/serokell/galois-field.git
     name: galois-field
-    version: 1.0.4
-    git: https://github.com/serokell/galois-field.git
     pantry-tree:
-      size: 4657
-      sha256: ee7850a3e63571b1114ab5a96aff110cf3a7710eb11f6ee854632cb517dff0b2
-    commit: 25e564bcd39530dc3139b6ced0dacd81992a0a87
+      sha256: 54b7121a65694c5ababd3e9a83c55cc5138fb0b5c0f2eac0caa3d4c26fc5ae56
+      size: 4773
+    version: 1.0.4
   original:
+    commit: 65afd2bb09a42bf76dc22ec973ad35f2d4b8904c
     git: https://github.com/serokell/galois-field.git
-    commit: 25e564bcd39530dc3139b6ced0dacd81992a0a87
+- completed:
+    hackage: poly-0.5.1.0@sha256:08b05c1f80313d759aef546c3999e371c7b7d63a0733dd49e84b8c454f78c56b,3268
+    pantry-tree:
+      sha256: 3850c139e25c10579ff24608c82f00864a19bd4eac71f543b3fcd43b38a284c5
+      size: 2531
+  original:
+    hackage: poly-0.5.1.0
+- completed:
+    commit: aeda224524466648342225373326eed63d31d1bf
+    git: https://github.com/expipiplus1/vector-sized.git
+    name: vector-sized
+    pantry-tree:
+      sha256: 3c22b906f0ab35a7d9a08c623b0601ec0bf3ed3df492b667d7bbc492d95ef6db
+      size: 1731
+    version: 1.6.0
+  original:
+    commit: aeda224524466648342225373326eed63d31d1bf
+    git: https://github.com/expipiplus1/vector-sized.git
 snapshots:
 - completed:
-    size: 563099
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/17/3.yaml
-    sha256: 1e9f31ec160a144f796bc49b91dfc2bab5eca88b1dcc93da569108febaf5b382
-  original: lts-17.3
+    sha256: 1867d84255dff8c87373f5dd03e5a5cb1c10a99587e26c8793e750c54e83ffdc
+    size: 639139
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/21/0.yaml
+  original: lts-21.0

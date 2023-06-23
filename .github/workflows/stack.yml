@@ -13,8 +13,9 @@ jobs:
       matrix:
         os: [ubuntu-latest, macOS-latest]
         plan:
-        - { build: stack, resolver: "lts-15"  }
-        - { build: stack, resolver: "lts-16"  }
+        - { build: stack, resolver: "lts-19"  }
+        - { build: stack, resolver: "lts-20"  }
+        - { build: stack, resolver: "lts-21"  }
         #- { build: stack, resolver: "nightly" }
 
     runs-on: ${{ matrix.os }}

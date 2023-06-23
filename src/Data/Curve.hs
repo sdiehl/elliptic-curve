@@ -32,7 +32,7 @@ class (GaloisField q, PrimeField r, Arbitrary (Point f c e q r),
               id, inv, order, point, pointX, toA, yX #-}
 
   -- | Curve point.
-  data family Point f c e q r :: *
+  data family Point f c e q r :: Type
 
   -- Parameters
 

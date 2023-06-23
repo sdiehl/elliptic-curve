@@ -1,4 +1,8 @@
-resolver: lts-20.4
+resolver: lts-21.0
 extra-deps:
-  - git: https://github.com/serokell/galois-field.git
-    commit: abfeaf538a619108f3ffdd0277e6a43da17a0be5
+- git: https://github.com/serokell/galois-field.git
+  commit: 65afd2bb09a42bf76dc22ec973ad35f2d4b8904c
+- poly-0.5.1.0
+- git: https://github.com/expipiplus1/vector-sized.git
+  commit: aeda224524466648342225373326eed63d31d1bf
+  # vector-sized-1.5.0

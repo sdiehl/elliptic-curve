@@ -12,31 +12,31 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macOS-latest]
-        ghc: ["8.10.1", "8.8.1", "8.6.5", "8.6.4", "8.6.3", "8.6.2"]
-        cabal: ["3.0", "3.2"]
+        ghc: [ "9.0.2" "9.2.8" "9.4.5" ]
+        cabal: ["3.8", "3.10"]
 
     runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-haskell@v1
-      name: Setup Haskell
+    - uses: actions/checkout@v3
+    - name: Setup stack
+      uses: haskell/actions/setup@v2
       with:
-        ghc-version: ${{ matrix.ghc }}
-        cabal-version: ${{ matrix.cabal }}
+        enable-stack: true
+        stack-version: 'latest'
 
-    - uses: actions/cache@v1
+    - uses: actions/cache@v3
       name: Cache ~/.cabal/packages
       with:
         path: ~/.cabal/packages
         key: cabal-packages-${{ matrix.ghc }}
 
-    - uses: actions/cache@v1
+    - uses: actions/cache@v3
       name: Cache ~/.cabal/store
       with:
         path: ~/.cabal/store
         key: cabal-store-${{ matrix.ghc }}
 
-    - uses: actions/cache@v1
+    - uses: actions/cache@v3
       name: Cache dist-newstyle
       with:
         path: dist-newstyle
